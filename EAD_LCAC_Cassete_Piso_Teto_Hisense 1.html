@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAD LCAC Hisense | Cassete e Piso-Teto</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    :root{
+      --azul:#003B71; --azul2:#005B9F; --ciano:#00A9CE; --verde:#78BE20;
+      --bg:#F4F8FC; --card:#FFFFFF; --texto:#1E293B; --muted:#64748B; --line:#D9E2EC;
+      --warn:#FFF7E6; --warnline:#F2B84B; --ok:#EAF8F1; --okline:#30A46C; --bad:#FEF2F2; --badline:#EF4444;
+      --shadow:0 18px 45px rgba(15,23,42,.10); --radius:22px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--texto);line-height:1.58}
+    body.focus .sidebar, body.focus .module-map{display:none} body.focus #mainWrapper{grid-template-columns:1fr;max-width:1100px}
+    #mainWrapper{width:min(1480px,100%);margin:0 auto;padding:24px;display:grid;grid-template-columns:310px 1fr;gap:26px}
+    .sidebar{position:sticky;top:24px;height:calc(100vh - 48px);overflow:auto;border-radius:28px;background:linear-gradient(180deg,var(--azul),#00284D);color:#fff;padding:22px;box-shadow:var(--shadow)}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--ciano),var(--verde));display:grid;place-items:center;font-weight:800}.brand strong{display:block}.brand span{font-size:.78rem;opacity:.82}
+    .progress-wrap{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:14px;margin:16px 0}.progress-info{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:8px}.bar{height:9px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.2)}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--ciano),var(--verde));transition:.25s}
+    .nav-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;opacity:.7;margin:18px 0 8px}.nav{list-style:none;padding:0;margin:0;display:grid;gap:8px}.nav a{display:block;text-decoration:none;color:#fff;padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.86rem}.nav a:hover,.nav a.active{background:rgba(0,169,206,.28);transform:translateX(2px)}
+    .main{min-width:0}.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;gap:10px;padding:8px 0;background:linear-gradient(180deg,rgba(244,248,252,.96),rgba(244,248,252,.72));backdrop-filter:blur(8px)} body.focus .topbar{position:fixed;right:24px;top:18px;background:transparent;padding:0} body.focus .topbar .btn.ghost{display:none}
+    .btn{border:0;border-radius:999px;background:var(--azul);color:#fff;padding:10px 16px;font-family:inherit;font-weight:700;cursor:pointer;box-shadow:0 10px 20px rgba(0,59,113,.18);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.btn.secondary{background:#fff;color:var(--azul);border:1px solid var(--line);box-shadow:none}.btn.ghost{background:transparent;color:var(--azul);border:1px solid var(--line);box-shadow:none}
+    .hero{border-radius:32px;background:radial-gradient(circle at 88% 8%,rgba(120,190,32,.35),transparent 24%),linear-gradient(135deg,var(--azul),var(--azul2) 58%,var(--ciano));color:#fff;padding:clamp(30px,5vw,58px);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:440px;height:440px;border-radius:50%;right:-170px;bottom:-220px;background:rgba(255,255,255,.10)}.eyebrow{display:inline-flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 12px;font-weight:800;font-size:.8rem;margin-bottom:16px}.hero h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin:0 0 12px;letter-spacing:-.04em;max-width:850px}.hero p{max-width:760px;font-size:1.04rem;opacity:.92;margin:0 0 22px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    section{scroll-margin-top:80px}.section,.module{background:var(--card);border:1px solid rgba(217,226,236,.9);border-radius:28px;padding:clamp(22px,3vw,36px);margin-top:24px;box-shadow:var(--shadow)}
+    .module-head{display:grid;grid-template-columns:78px 1fr;gap:18px;align-items:center;margin-bottom:18px}.num{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,var(--azul),var(--ciano));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.35rem}h2{margin:0 0 8px;color:var(--azul);font-size:clamp(1.45rem,2.4vw,2.15rem);line-height:1.2}h3{color:#123B61;margin:22px 0 10px;line-height:1.25}h4{color:var(--azul);margin:0 0 7px}.lead{margin:0;color:var(--muted)}
+    .module-map,.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}.map-card,.card{background:#F8FBFF;border:1px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:var(--texto)}.map-card:hover{border-color:var(--ciano);transform:translateY(-2px)}.map-card strong,.card strong{display:block;color:var(--azul);margin-bottom:5px}.map-card span,.card p{color:var(--muted);font-size:.9rem;margin:0}
+    .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.tag{display:inline-flex;border-radius:999px;background:rgba(0,169,206,.12);color:var(--azul);font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;margin-bottom:9px}.callout{border-radius:18px;border:1px solid var(--line);padding:16px 18px;margin:18px 0;background:#F8FBFF}.callout strong{color:var(--azul)}.callout.warn{background:var(--warn);border-color:var(--warnline)}.callout.ok{background:var(--ok);border-color:var(--okline)}.callout.bad{background:var(--bad);border-color:var(--badline)}
+    .placeholder{border:2px dashed #A8B7C8;background:#F8FBFF;border-radius:22px;padding:22px;text-align:center;color:#475569;margin:18px 0}.placeholder strong{color:var(--azul);display:block;margin-bottom:6px}.placeholder small{display:block;color:var(--muted)}
+    .accordion{display:grid;gap:12px;margin-top:16px}details{background:#FBFDFF;border:1px solid var(--line);border-radius:18px;overflow:hidden}summary{padding:16px 18px;cursor:pointer;font-weight:800;color:var(--azul);list-style:none;display:flex;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--ciano);font-size:1.3rem}details[open] summary:after{content:"-"}.details-body{padding:0 18px 18px;color:#344054}
+    .card details{margin-top:14px}.card details summary{padding:11px 14px;font-size:.86rem}.card details .details-body{padding:0 14px 14px;font-size:.9rem}
+    table{width:100%;border-collapse:collapse;margin:18px 0;border-radius:16px;overflow:hidden}th,td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}th{background:var(--azul);color:#fff}td{background:#fff}.codigo-filtro{display:inline-flex;min-width:38px;justify-content:center;border-radius:999px;background:rgba(0,59,113,.08);color:var(--azul);font-weight:800;padding:4px 9px;font-size:.82rem}
+    .quiz{margin-top:24px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,#F7FBFF,#fff);padding:20px}.quiz-q{font-weight:800;margin-bottom:12px}.opts{display:grid;gap:10px}.opt{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;cursor:pointer;font-family:inherit;text-align:left}.opt:hover{border-color:var(--ciano);background:#F5FCFF}.opt.ok{background:var(--ok);border-color:var(--okline)}.opt.no{background:var(--bad);border-color:var(--badline)}.feedback{display:none;margin-top:12px;font-weight:800}.feedback.show{display:block}.feedback.ok{color:#12783D}.feedback.no{color:#A12D2D}
+
+    .visual-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}.visual-pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);border-radius:18px;padding:14px;color:#fff}.visual-pill strong{display:block;font-size:1.15rem}.visual-pill span{font-size:.82rem;opacity:.88}.product-hero{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.product-panel{border-radius:24px;padding:20px;background:linear-gradient(135deg,#F8FBFF,#EEF8FC);border:1px solid var(--line);position:relative;overflow:hidden}.product-panel:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-56px;top:-58px;background:rgba(0,169,206,.14)}.product-panel .big{font-size:1.65rem;font-weight:800;color:var(--azul);margin-bottom:8px}.icon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.icon-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}.icon-card .ico{font-size:1.55rem;display:block;margin-bottom:4px}.official-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.official-links a{border-radius:999px;padding:9px 14px;text-decoration:none;background:var(--azul);color:#fff;font-weight:700;font-size:.86rem}.official-links a.secondary{background:#fff;color:var(--azul);border:1px solid var(--line)}
+    .searchbox{display:flex;gap:10px;margin:14px 0}.searchbox input{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font-family:inherit}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);padding:30px 0 8px;font-size:.86rem}.source-note{font-size:.82rem;color:var(--muted);margin-top:16px}
+    .to-top{position:fixed;right:22px;bottom:22px;z-index:30;width:46px;height:46px;border-radius:50%;background:var(--azul);color:#fff;border:0;box-shadow:0 10px 24px rgba(0,59,113,.28);cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center;display:none}
+    .to-top.show{display:flex}
+    body.focus .to-top{display:none}
+    .group-hint{font-size:.72rem;color:rgba(255,255,255,.55);margin:-2px 0 4px;line-height:1.4}
+    @media(max-width:1050px){#mainWrapper{grid-template-columns:1fr;padding:16px}.sidebar{position:relative;height:auto;top:0}.module-map,.grid,.visual-strip,.icon-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-hero{grid-template-columns:1fr}}
+    @media(max-width:720px){.module-head,.two,.module-map,.grid,.visual-strip,.icon-grid{grid-template-columns:1fr}.hero-actions,.topbar{flex-direction:column}.btn{width:100%}table{display:block;overflow-x:auto}.num{width:58px;height:58px;border-radius:18px}}
+  </style>
+</head>
+<body>
+<div id="mainWrapper">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">H</div><div><strong>Hisense</strong><span>EAD de consulta rápida</span></div></div>
+    <div class="progress-wrap"><div class="progress-info"><span>Quizzes concluídos</span><span id="progTxt">0%</span></div><div class="bar"><div class="fill" id="progFill"></div></div></div>
+
+    <div class="nav-title">Treinamento</div>
+    <ul class="nav">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#lcac">O que é LCAC</a></li>
+      <li><a href="#visao">Visão geral</a></li>
+      <li><a href="#cassete">Cassete</a></li>
+      <li><a href="#pisoteto">Piso-Teto</a></li>
+      <li><a href="#atendimento">Atendimento</a></li>
+      <li><a href="#quizfinal">Quiz final</a></li>
+    </ul>
+
+    <div class="nav-title">Consulta rápida (uso diário)</div>
+    <div class="group-hint">Direto ao ponto, sem passar pelo conteúdo de formação.</div>
+    <ul class="nav">
+      <li><a href="#comparativo">Comparativo Cassete x Piso-Teto</a></li>
+      <li><a href="#fichas">Consulta técnica / fichas</a></li>
+    </ul>
+  </aside>
+  <main class="main">
+    <div class="topbar"><button class="btn secondary" id="focusBtn" type="button">Modo foco</button><button class="btn ghost" id="resetBtn" type="button">Reiniciar quizzes</button></div>
+
+    <section class="hero" id="inicio">
+      <div class="eyebrow">Linha Comercial Leve • Cassete e Piso-Teto Inverter</div>
+      <h1>Catalogo e Produto e Consulta Rápida</h1>
+      <p>Conheça as soluções Hisense Cassete e Piso-Teto, suas aplicações, principais recursos, especificações essenciais e formas seguras de explicar durante o atendimento. Use a formação completa uma vez e volte à seção de <strong>consulta rápida</strong> sempre que precisar checar um dado no dia a dia.</p>
+      <div class="visual-strip"><div class="visual-pill"><strong>Cassete</strong><span>Distribuição pelo teto</span></div><div class="visual-pill"><strong>Piso-Teto</strong><span>Instalação flexível</span></div><div class="visual-pill"><strong>Wi-Fi</strong><span>ConnectLife</span></div><div class="visual-pill"><strong>R-32</strong><span>Fluido refrigerante</span></div></div><div class="hero-actions"><a class="btn" href="#lcac">Iniciar EAD</a><a class="btn secondary" href="#fichas">Ir para consulta técnica</a></div>
+    </section>
+
+    <section class="section">
+      <h2>Como usar este conteúdo</h2>
+      <p>Este EAD foi pensado para dois momentos: <strong>formação inicial</strong>, quando você está aprendendo o produto, e <strong>consulta no dia a dia</strong>, quando precisa localizar rapidamente uma característica durante o atendimento.</p>
+      <div class="callout warn"><strong>Antes de começar:</strong> este material ajuda a explicar produto, aplicação e recursos. Ele não substitui manual técnico, avaliação de instalação, dimensionamento ou regra oficial de garantia.</div><div class="official-links"><a href="https://www.hisense.com.br/categorias-ar-condicionado/cassete/" target="_blank" rel="noopener">Página oficial Cassete</a><a class="secondary" href="https://www.hisense.com.br/categorias-ar-condicionado/piso-teto/" target="_blank" rel="noopener">Página oficial Piso-Teto</a></div>
+      <div class="module-map">
+        <a class="map-card" href="#cassete"><strong>Cassete</strong><span>Distribuição pelo teto, fluxo 360°, LED oculto e limpeza prática.</span></a>
+        <a class="map-card" href="#pisoteto"><strong>Piso-Teto</strong><span>Instalação flexível, fluxo 4D e alcance de até 15 metros.</span></a>
+        <a class="map-card" href="#atendimento"><strong>Atendimento</strong><span>Como explicar sem prometer, diagnosticar ou confundir recursos.</span></a>
+      </div>
+    </section>
+
+    <section class="module" id="lcac" data-module>
+      <div class="module-head"><div class="num">1</div><div><h2>O que é LCAC</h2><p class="lead">Entenda a categoria antes de comparar Cassete e Piso-Teto.</p></div></div>
+      <p><strong>LCAC</strong> é uma forma de organizar soluções de climatização comercial leve. Diferente de um equipamento residencial, esse grupo atende ambientes que podem ter maior área, maior circulação de pessoas, pé-direito diferente, layout irregular ou necessidade de melhor distribuição do ar.</p>
+      <p>Na linha oficial Hisense, a linha comercial leve aparece com duas soluções principais: <strong>Cassete</strong> e <strong>Piso-Teto</strong>. Ambas são Inverter, possuem Wi-Fi integrado, usam o aplicativo ConnectLife e aparecem com fluido refrigerante R-32 e classificação INMETRO A nas tabelas técnicas do material.</p>
+      <div class="icon-grid"><div class="icon-card"><span class="ico">🏢</span><strong>Comercial leve</strong></div><div class="icon-card"><span class="ico">↔️</span><strong>Distribuição</strong></div><div class="icon-card"><span class="ico">📲</span><strong>ConnectLife</strong></div><div class="icon-card"><span class="ico">⚙️</span><strong>Inverter</strong></div></div><div class="callout ok"><strong>Ideia-chave:</strong> LCAC não é apenas “um ar-condicionado maior”. É uma solução escolhida considerando ambiente, aplicação, instalação e distribuição do ar.</div>
+      <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">Qual frase resume melhor a categoria LCAC?</div><div class="opts"><button class="opt" data-correct="false">A) Produto residencial com nome diferente.</button><button class="opt" data-correct="true">B) Solução comercial leve para ambientes com necessidades específicas.</button><button class="opt" data-correct="false">C) Apenas um controle remoto com Wi-Fi.</button><button class="opt" data-correct="false">D) Produto que dispensa instalação técnica.</button></div><div class="feedback"></div></div>
+    </section>
+
+    <section class="module" id="visao" data-module>
+      <div class="module-head"><div class="num">2</div><div><h2>Visão geral da linha</h2><p class="lead">O que Cassete e Piso-Teto têm em comum e onde começam as diferenças.</p></div></div>
+      <div class="two">
+        <div class="card"><span class="tag">Cassete</span><strong>Distribuição pelo teto</strong><p>Indicado quando a distribuição ampla do ar é um ponto central. A página oficial destaca fluxo circular 360°, display de LED oculto, fácil limpeza e amplo direcionamento de ar.</p></div>
+        <div class="card"><span class="tag">Piso-Teto</span><strong>Flexibilidade e alcance</strong><p>Indicado quando o ambiente exige instalação em parede ou teto, fluxo de ar 4D e maior alcance. A página oficial informa fornecimento de ar a longa distância de até 15 m.</p></div>
+      </div>
+      <div class="product-hero"><div class="product-panel"><div class="big">Cassete</div><p>Melhor associado à distribuição por teto, fluxo circular 360°, display discreto e facilidade de limpeza.</p></div><div class="product-panel"><div class="big">Piso-Teto</div><p>Melhor associado à instalação flexível, fluxo 4D e alcance do ar em ambientes médios e grandes.</p></div></div><h3>Recursos comuns que aparecem na linha</h3>
+      <div class="grid">
+        <div class="card"><strong>Tecnologia Inverter</strong><p>Ajuda o equipamento a trabalhar de forma mais estável e eficiente.</p></div>
+        <div class="card"><strong>Wi-Fi integrado</strong><p>Permite controle pelo App ConnectLife em modelos compatíveis.</p></div>
+        <div class="card"><strong>R-32</strong><p>Fluido refrigerante indicado nas fichas técnicas do material técnico.</p></div>
+        <div class="card"><strong>INMETRO A</strong><p>Classificação apresentada para os modelos listados nas tabelas.</p></div>
+        <div class="card"><strong>Tubulação longa</strong><p>A página oficial informa comprimento máximo de instalação de até 50 m.</p></div>
+        <div class="card"><strong>Desnível máximo</strong><p>A página oficial informa desnível máximo entre unidades de até 30 m.</p></div>
+      </div>
+    </section>
+
+    <section class="module" id="cassete" data-module>
+      <div class="module-head"><div class="num">3</div><div><h2>Cassete Hisense</h2><p class="lead">Solução instalada no teto, com foco em distribuição ampla e conforto térmico em ambientes comerciais.</p></div></div>
+      <div class="placeholder"><strong>INSERIR IMAGEM DO CASSETE</strong><small>Sugestão: vista do equipamento no teto ou imagem do fluxo circular 360°.</small></div>
+      <p>O Cassete é pensado para ambientes em que a posição no teto favorece uma distribuição mais ampla do ar. Ele é útil em lojas, salas comerciais, recepções, escritórios e ambientes onde várias pessoas podem ocupar pontos diferentes do espaço.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Fluxo</span><strong>Fluxo circular 360°</strong><p>Distribui o ar em múltiplas direções, ajudando a alcançar cantos da sala ou áreas específicas do ambiente.</p></div>
+        <div class="card"><span class="tag">Wi-Fi</span><strong>ConnectLife</strong><p>Permite controlar o ar-condicionado pelo aplicativo, selecionando modo, temperatura e fluxo de ar em modelos conectados.</p></div>
+        <div class="card"><span class="tag">Painel</span><strong>LED oculto</strong><p>O display facilita a visualização da temperatura ambiente e permanece discreto em modo de espera.</p></div>
+        <div class="card"><span class="tag">Aletas</span><strong>Abertura de até 88°</strong><p>A oscilação da aleta favorece um fluxo de ar mais amplo e confortável.</p></div>
+        <div class="card"><span class="tag">Cuidado</span><strong>Filtro lavável</strong><p>O filtro pode ser limpo com água, facilitando a rotina de conservação.</p></div>
+        <div class="card"><span class="tag">Instalação</span><strong>Grade versátil</strong><p>A grade com padrão de hexágonos pode ser posicionada em qualquer direção, segundo o material técnico.</p></div>
+        <div class="card"><span class="tag">Ar interno</span><strong>Captação de ar fresco</strong><p>Na linha Cassete Hisense, a captação de ar fresco contribui para renovar o ar interno quando aplicada corretamente.</p></div>
+        <div class="card"><span class="tag">Proteção</span><strong>Serpentina de cobre com anticorrosão</strong><p>Recurso citado pela Hisense na linha Cassete, associado à durabilidade do sistema.</p></div>
+        <div class="card"><span class="tag">Garantia</span><strong>10 anos no compressor</strong><p>A página oficial Hisense cita 10 anos de garantia no compressor para a linha Cassete. Verifique sempre condições oficiais.</p></div>
+      </div>
+      <div class="callout warn"><strong>Como explicar em atendimento:</strong> “O Cassete é indicado quando a distribuição do ar pelo teto é importante. Ele possui fluxo circular, painel discreto, Wi-Fi e recursos que facilitam limpeza e manutenção.”</div>
+      <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">Qual é o principal diferencial do Cassete?</div><div class="opts"><button class="opt" data-correct="true">A) Distribuição ampla do ar pelo teto.</button><button class="opt" data-correct="false">B) Instalação apenas no piso.</button><button class="opt" data-correct="false">C) Função exclusiva de apagar display.</button><button class="opt" data-correct="false">D) Substituição da unidade externa.</button></div><div class="feedback"></div></div>
+    </section>
+
+    <section class="module" id="pisoteto" data-module>
+      <div class="module-head"><div class="num">4</div><div><h2>Piso-Teto Hisense</h2><p class="lead">Solução versátil para ambientes médios e grandes, com instalação em parede ou teto e longo alcance de ar.</p></div></div>
+      <div class="placeholder"><strong>INSERIR IMAGEM DO PISO-TETO</strong><small>Sugestão: equipamento instalado no teto/parede ou imagem do alcance de ar até 15 m.</small></div>
+      <p>O Piso-Teto se destaca pela flexibilidade. Ele pode atender projetos em que a instalação no teto, na parede ou próxima ao piso faça mais sentido para o ambiente. Essa característica o torna útil em salas amplas, lojas, espaços comerciais e ambientes em que o alcance do ar é importante.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Instalação</span><strong>Parede ou teto</strong><p>A unidade pode ser aplicada em diferentes modos de instalação, conforme projeto e condição do local.</p></div>
+        <div class="card"><span class="tag">Tubulação</span><strong>4 direções</strong><p>A tubulação de refrigerante pode ser disposta em quatro direções: esquerda, direita, superior e inferior.</p></div>
+        <div class="card"><span class="tag">Design</span><strong>Fixações ocultas</strong><p>O painel branco e brilhante tem estética simplificada, com parafusos e porcas ocultos.</p></div>
+        <div class="card"><span class="tag">Fluxo</span><strong>Fluxo de Ar 4D</strong><p>Oscilação automática horizontal e vertical para distribuição mais uniforme.</p></div>
+        <div class="card"><span class="tag">Alcance</span><strong>Até 15 metros</strong><p>A página oficial apresenta fornecimento de ar a longa distância, indicado para ambientes médios e grandes.</p></div>
+        <div class="card"><span class="tag">Wi-Fi</span><strong>ConnectLife</strong><p>Permite controlar o aparelho pelo aplicativo, selecionando modo, temperatura e fluxo de ar.</p></div>
+        <div class="card"><span class="tag">Acesso</span><strong>Painéis laterais</strong><p>Facilitam ajustes de altura do gabinete e acesso para manutenção.</p></div>
+        <div class="card"><span class="tag">Limpeza</span><strong>Filtro fácil de limpar</strong><p>A página oficial destaca fácil instalação e limpeza, com acesso simplificado.</p></div>
+        <div class="card"><span class="tag">Conforto</span><strong>Baixo ruído em linha oficial</strong><p>A página oficial Hisense cita evaporadora com 18 dB(A) em conteúdo de Piso-Teto. Verifique modelo e condição de medição.</p></div>
+      </div>
+      <div class="callout warn"><strong>Como explicar em atendimento:</strong> “O Piso-Teto é uma solução flexível, usada quando o ambiente precisa de alcance maior do ar e a instalação pode ser feita em parede ou teto, conforme o projeto.”</div>
+      <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">Qual recurso está mais associado ao Piso-Teto?</div><div class="opts"><button class="opt" data-correct="false">A) Fluxo circular 360° como proposta central.</button><button class="opt" data-correct="true">B) Instalação flexível e alcance de ar de até 15 metros.</button><button class="opt" data-correct="false">C) Uso apenas em teto modular.</button><button class="opt" data-correct="false">D) Filtro Ag+ como principal característica.</button></div><div class="feedback"></div></div>
+    </section>
+
+    <section class="module" id="comparativo" data-module>
+      <div class="module-head"><div class="num">5</div><div><h2>Comparativo rápido</h2><p class="lead">Use esta visão para não confundir Cassete e Piso-Teto durante o atendimento.</p></div></div>
+      <table>
+        <thead><tr><th>Critério</th><th>Cassete</th><th>Piso-Teto</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Proposta</strong></td><td>Distribuir o ar pelo teto de forma ampla.</td><td>Oferecer instalação flexível e longo alcance do ar.</td></tr>
+          <tr><td><strong>Aplicação típica</strong></td><td>Lojas, escritórios, recepções e ambientes com necessidade de distribuição centralizada.</td><td>Salas amplas, lojas, salões e locais em que o ar precisa alcançar distâncias maiores.</td></tr>
+          <tr><td><strong>Recurso de fluxo</strong></td><td>Fluxo circular 360° e aletas com abertura de até 88°.</td><td>Fluxo de ar 4D e alcance de até 15 m.</td></tr>
+          <tr><td><strong>Design</strong></td><td>Instalação no teto, com display oculto.</td><td>Painel branco, fixações ocultas, aplicação em parede ou teto.</td></tr>
+          <tr><td><strong>Conectividade</strong></td><td>Wi-Fi integrado e ConnectLife conforme modelo.</td><td>Wi-Fi integrado e ConnectLife conforme modelo.</td></tr>
+          <tr><td><strong>Cuidado de orientação</strong></td><td>Não prometer distribuição perfeita em qualquer ambiente.</td><td>Não prometer alcance adequado sem considerar dimensionamento e instalação.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout ok"><strong>Regra simples:</strong> Cassete = distribuição pelo teto. Piso-Teto = flexibilidade de instalação + longo alcance.</div>
+    </section>
+
+    <section class="module" id="fichas" data-module>
+      <div class="module-head"><div class="num">6</div><div><h2>Consulta técnica essencial</h2><p class="lead">Informações úteis para consulta rápida sem reproduzir a tabela completa do material técnico.</p></div></div>
+      <div class="searchbox"><input id="filterInput" type="search" placeholder="Buscar: modelo, capacidade, R-32, 50 m, ruído, Wi-Fi..." /></div>
+      <div class="accordion" id="filterArea">
+        <details open data-filter="cassete capacidades modelos auc auw 36 60 56 frio quente wifi inmetro r32">
+          <summary>Cassete — modelos e capacidades</summary>
+          <div class="details-body">
+            <p>A página oficial apresenta modelos de unidade interna como <span class="codigo-filtro">AUC-36TR4RKKAE</span>, <span class="codigo-filtro">AUC-60TR6RNKAE</span>, <span class="codigo-filtro">AUC-60UR2RNKAE</span> e <span class="codigo-filtro">AUC-60TR2RNKAE</span>, com capacidades informadas de 36.000, 60.000 e 56.000 BTU/h, conforme versão.</p>
+            <p>As informações técnicas indicam Wi-Fi integrado, classificação INMETRO A, IDRS 5,5, fluido R-32, temperatura de operação de 16 a 30 °C, comprimento máximo de instalação de 50 m e desnível máximo entre unidades de 30 m.</p>
+          </div>
+        </details>
+        <details data-filter="piso teto capacidades modelos auv auw 36 55 frio quente wifi inmetro r32">
+          <summary>Piso-Teto — modelos e capacidades</summary>
+          <div class="details-body">
+            <p>A página oficial apresenta modelos de unidade interna como <span class="codigo-filtro">AUV-36TR4RKCAE</span>, <span class="codigo-filtro">AUV-60TR6RNCAE</span>, <span class="codigo-filtro">AUV-60UR2RNCAE</span> e <span class="codigo-filtro">AUV-60TR2RNCAE</span>, com capacidades informadas de 36.000 e 55.000 BTU/h, conforme versão.</p>
+            <p>As informações técnicas indicam Wi-Fi integrado, classificação INMETRO A, IDRS 5,5, fluido R-32, temperatura de operação de 16 a 30 °C, comprimento máximo de instalação de 50 m e desnível máximo entre unidades de 30 m.</p>
+          </div>
+        </details>
+        <details data-filter="alimentacao eletrica monofasico trifasico 220 230 380">
+          <summary>Alimentação elétrica</summary>
+          <div class="details-body">
+            <p>A página oficial apresenta unidade interna em 220/1/60. Nas unidades externas, aparecem configurações como 220/1/60, 230/1/60 e 380/3/60 conforme modelo. Em atendimento, confirme sempre o modelo antes de repassar informação elétrica.</p>
+          </div>
+        </details>
+        <details data-filter="ruido db cassete piso teto unidade interna externa">
+          <summary>Nível de ruído</summary>
+          <div class="details-body">
+            <p>Nas tabelas do material técnico, os níveis de ruído internos variam por modelo e velocidade. A página oficial Hisense também cita baixo ruído para Piso-Teto em conteúdo comercial, mas a orientação segura é sempre verificar modelo e condição de medição.</p>
+          </div>
+        </details>
+        <details data-filter="tubulacao refrigerante comprimento maximo 50 desnivel 30 r32 liquido gas">
+          <summary>Tubulação e fluido refrigerante</summary>
+          <div class="details-body">
+            <p>A página oficial informa fluido refrigerante R-32, comprimento máximo de instalação de 50 m e desnível máximo entre unidades de 30 m para os modelos listados. Esses dados apoiam a consulta, mas não substituem avaliação técnica de projeto.</p>
+          </div>
+        </details>
+      </div>
+      <div class="callout warn"><strong>Uso no dia a dia:</strong> ficha técnica serve para confirmar informação. Se o cliente pede orientação de instalação, dimensionamento ou adequação elétrica, não finalize apenas com base nesta tela.</div>
+    </section>
+
+    <section class="module" id="atendimento" data-module>
+      <div class="module-head"><div class="num">7</div><div><h2>Aplicação no atendimento</h2><p class="lead">Como transformar características do produto em explicações úteis.</p></div></div>
+      <h3>Perguntas que ajudam a entender o contexto</h3>
+      <div class="grid">
+        <div class="card"><strong>Qual é o ambiente?</strong><p>Loja, escritório, sala comercial, restaurante, recepção ou outro espaço?</p></div>
+        <div class="card"><strong>Qual é a necessidade?</strong><p>Distribuição ampla, longo alcance, instalação flexível, conectividade ou consulta técnica?</p></div>
+        <div class="card"><strong>Qual modelo foi citado?</strong><p>Modelo interno, externo, capacidade, tensão e ciclo fazem diferença na orientação.</p></div>
+        <div class="card"><strong>É dúvida de produto ou instalação?</strong><p>Se depender de aplicação, infraestrutura ou projeto, evite diagnóstico.</p></div>
+      </div>
+      <h3>Respostas prontas de apoio</h3>
+      <div class="accordion">
+        <details><summary>Cliente pergunta: “Qual a diferença entre Cassete e Piso-Teto?”</summary><div class="details-body">O Cassete costuma ser instalado no teto e tem foco em distribuição ampla do ar. O Piso-Teto tem instalação mais flexível, podendo ser aplicado em parede ou teto, e se destaca pelo longo alcance do fluxo de ar.</div></details>
+        <details><summary>Cliente pergunta: “Posso controlar pelo celular?”</summary><div class="details-body">Os modelos apresentados no material técnico possuem Wi-Fi integrado e usam o aplicativo ConnectLife, conforme modelo e configuração correta.</div></details>
+        <details><summary>Cliente pergunta: “Serve para minha loja?”</summary><div class="details-body">Esses produtos são voltados a ambientes comerciais leves, mas a escolha correta depende do tamanho, layout, circulação de pessoas, instalação e infraestrutura do local.</div></details>
+        <details><summary>Cliente pergunta: “O alcance de 15 m sempre resolve?”</summary><div class="details-body">O alcance de até 15 m é um diferencial do Piso-Teto, mas o resultado depende do ambiente, instalação, capacidade e condições de uso.</div></details>
+      </div>
+      <div class="callout bad"><strong>Evite dizer:</strong> “Serve para qualquer ambiente”, “não precisa avaliar instalação”, “não vai precisar de manutenção” ou “a economia é garantida em valor fixo”.</div>
+    </section>
+
+    <section class="module" id="quizfinal" data-module>
+      <div class="module-head"><div class="num">8</div><div><h2>Quiz final</h2><p class="lead">Verifique se os principais pontos ficaram claros.</p></div></div>
+      <div class="quiz" data-quiz><h4>Questão 1</h4><div class="quiz-q">Qual produto tem como grande destaque o fluxo circular 360°?</div><div class="opts"><button class="opt" data-correct="true">A) Cassete</button><button class="opt" data-correct="false">B) Piso-Teto</button><button class="opt" data-correct="false">C) Controle remoto</button><button class="opt" data-correct="false">D) Filtro HEPA</button></div><div class="feedback"></div></div>
+      <div class="quiz" data-quiz><h4>Questão 2</h4><div class="quiz-q">Qual produto se destaca pela instalação flexível em parede ou teto?</div><div class="opts"><button class="opt" data-correct="false">A) Cassete</button><button class="opt" data-correct="true">B) Piso-Teto</button><button class="opt" data-correct="false">C) Display oculto</button><button class="opt" data-correct="false">D) R-32</button></div><div class="feedback"></div></div>
+      <div class="quiz" data-quiz><h4>Questão 3</h4><div class="quiz-q">Qual aplicativo é citado para controle Wi-Fi?</div><div class="opts"><button class="opt" data-correct="false">A) I Feel</button><button class="opt" data-correct="true">B) ConnectLife</button><button class="opt" data-correct="false">C) Golden Fin</button><button class="opt" data-correct="false">D) EEV</button></div><div class="feedback"></div></div>
+      <div class="quiz" data-quiz><h4>Questão 4</h4><div class="quiz-q">Qual dado de instalação aparece de forma recorrente nas tabelas?</div><div class="opts"><button class="opt" data-correct="false">A) Tubulação máxima de 5 m.</button><button class="opt" data-correct="true">B) Comprimento máximo de instalação de até 50 m e desnível de até 30 m.</button><button class="opt" data-correct="false">C) Uso sem unidade externa.</button><button class="opt" data-correct="false">D) Instalação sem profissional.</button></div><div class="feedback"></div></div>
+      <div class="quiz" data-quiz><h4>Questão 5</h4><div class="quiz-q">Qual é a forma mais segura de explicar aplicação em ambiente comercial?</div><div class="opts"><button class="opt" data-correct="false">A) Garantir que qualquer modelo serve.</button><button class="opt" data-correct="true">B) Explicar recursos e reforçar que a escolha depende do ambiente e avaliação adequada.</button><button class="opt" data-correct="false">C) Ignorar capacidade e tensão.</button><button class="opt" data-correct="false">D) Dizer que manutenção nunca será necessária.</button></div><div class="feedback"></div></div>
+    </section>
+
+    <section class="section">
+      <h2>Resumo executivo</h2>
+      <ul>
+        <li><strong>Cassete:</strong> melhor associado à distribuição ampla pelo teto, fluxo circular 360°, LED oculto e facilidade de limpeza.</li>
+        <li><strong>Piso-Teto:</strong> melhor associado à instalação flexível, fluxo de ar 4D e longo alcance de até 15 m.</li>
+        <li><strong>Ambos:</strong> possuem versões Inverter, Wi-Fi integrado/ConnectLife, R-32, classificação INMETRO A e dados de instalação que devem ser conferidos por modelo.</li>
+        <li><strong>No atendimento:</strong> explique características e benefícios, mas não faça dimensionamento, diagnóstico ou promessa de desempenho sem considerar o ambiente.</li>
+      </ul>
+      <p class="source-note">Conteúdo baseado nas páginas oficiais Hisense de Cassete e Piso-Teto e em material técnico interno. Em caso de dúvida sobre um modelo específico, confirme sempre a informação na fonte oficial ou com a equipe técnica antes de repassar ao cliente.</p>
+    </section>
+
+    <footer class="footer">EAD LCAC • Cassete e Piso-Teto Inverter • Hisense/Gorenje</footer>
+  </main>
+</div>
+<button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+<script>
+  const quizzes=document.querySelectorAll('[data-quiz]');const fill=document.getElementById('progFill');const txt=document.getElementById('progTxt');
+  function upd(){const a=document.querySelectorAll('[data-quiz].answered').length;const p=Math.round((a/quizzes.length)*100);fill.style.width=p+'%';txt.textContent=p+'%'}
+  quizzes.forEach(q=>{const opts=q.querySelectorAll('.opt'),fb=q.querySelector('.feedback');opts.forEach(o=>o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const ok=o.dataset.correct==='true';opts.forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('ok')});if(!ok)o.classList.add('no');fb.classList.add('show',ok?'ok':'no');fb.textContent=ok?'Correto!':'Quase! Veja a alternativa destacada em verde.';upd()}))});
+  document.getElementById('focusBtn').addEventListener('click',e=>{document.body.classList.toggle('focus');e.target.textContent=document.body.classList.contains('focus')?'Sair do modo foco':'Modo foco'});
+  document.getElementById('resetBtn').addEventListener('click',()=>{quizzes.forEach(q=>{q.classList.remove('answered');const fb=q.querySelector('.feedback');fb.className='feedback';fb.textContent='';q.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('ok','no')})});upd()});
+  const input=document.getElementById('filterInput'); if(input){input.addEventListener('input',()=>{const term=input.value.toLowerCase().trim();document.querySelectorAll('#filterArea details').forEach(d=>{const hay=(d.textContent+' '+(d.dataset.filter||'')).toLowerCase();d.classList.toggle('hidden',term && !hay.includes(term));if(term && hay.includes(term))d.open=true;})})}
+  const links=document.querySelectorAll('.nav a');const secs=[...document.querySelectorAll('section[id]')];const obs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>obs.observe(s));upd();
+  const toTop=document.getElementById('toTop');window.addEventListener('scroll',()=>{toTop.classList.toggle('show',window.scrollY>500)});toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
