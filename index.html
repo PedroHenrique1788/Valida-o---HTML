@@ -1,1191 +1,541 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conhecendo os Recursos dos Ar-Condicionados Hisense</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Treinamentos Interativos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
     :root {
-      --hisense-blue: #003B71;
-      --hisense-cyan: #00A9CE;
-      --hisense-teal: #00B5AD;
-      --hisense-green: #79C000;
+      --primary: #003B71;
+      --primary-light: #00528F;
+      --accent: #00A9CE;
+      --accent-green: #79C000;
       --bg: #F4F7FB;
-      --card: #FFFFFF;
+      --card-bg: #FFFFFF;
       --text: #1F2A37;
-      --muted: #667085;
-      --line: #D9E2EC;
-      --warning: #FFF7E6;
-      --warning-border: #F5B041;
-      --success: #EAF8F1;
-      --success-border: #2EAD6B;
-      --danger: #FDECEC;
-      --danger-border: #D64545;
-      --shadow: 0 18px 45px rgba(16, 24, 40, .10);
-      --radius: 20px;
+      --text-muted: #667085;
+      --border: #D9E2EC;
+      --shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
+      --radius: 16px;
+      --transition: all 0.3s ease;
     }
 
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', Arial, sans-serif;
-      background: var(--bg);
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      padding-bottom: 60px;
     }
 
-    body.focus-mode .sidebar,
-    body.focus-mode .module-index,
-    body.focus-mode .source-note,
-    body.focus-mode #resetBtn,
-    body.focus-mode #practiceBtn {
-      display: none !important;
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 59, 113, 0.15);
     }
 
-    body.focus-mode #mainWrapper {
-      grid-template-columns: 1fr !important;
-      max-width: 1100px;
+    header::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      top: -100px;
+      right: -50px;
     }
 
-    body.focus-mode .main-content {
+    header::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(0, 169, 206, 0.1);
+      border-radius: 50%;
+      bottom: -80px;
+      left: -40px;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .header-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* BARRA DE PESQUISA E FILTROS */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .search-box {
+      position: relative;
       width: 100%;
     }
 
-    body.focus-mode .top-actions {
-      justify-content: center;
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px;
+      padding-left: 50px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+      background-color: #F8FBFF;
     }
 
-    body.focus-mode #focusBtn {
-      background: var(--hisense-green) !important;
-      color: #fff !important;
-      border-color: transparent !important;
+    .search-box input:focus {
+      border-color: var(--accent);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 169, 206, 0.15);
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    #mainWrapper {
-      width: min(1440px, 100%);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 28px;
-      padding: 24px;
+    .search-box::before {
+      content: '🔍';
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      opacity: 0.6;
     }
 
-    .sidebar {
-      position: sticky;
-      top: 24px;
-      height: calc(100vh - 48px);
-      overflow: auto;
-      background: linear-gradient(180deg, var(--hisense-blue), #00294E);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .brand {
+    .filter-buttons {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 18px;
     }
 
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, var(--hisense-cyan), var(--hisense-teal));
-      border-radius: 13px;
+    .filter-btn {
+      background-color: #F0F4F8;
+      border: 1px solid transparent;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      background-color: #E2ECF5;
+    }
+
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* GRID DE PROJETOS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(16, 24, 40, 0.12);
+      border-color: var(--accent);
+    }
+
+    .card-banner {
+      height: 140px;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      padding: 20px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+    }
+
+    .card-banner::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" stroke-width="2" fill="none"/></svg>') repeat;
+      opacity: 0.3;
+    }
+
+    .project-card[data-category="hisense"] .card-banner {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+    .project-card[data-category="institucional"] .card-banner {
+      background: linear-gradient(135deg, #4A154B, #611F69);
+    }
+    .project-card[data-category="utilitarios"] .card-banner {
+      background: linear-gradient(135deg, #111827, #374151);
+    }
+
+    .card-category {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      background: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      font-weight: 800;
-      letter-spacing: -.05em;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      position: absolute;
+      bottom: -25px;
+      left: 24px;
     }
 
-    .brand strong { display: block; font-size: 1rem; }
-    .brand span { display: block; font-size: .78rem; opacity: .82; }
-
-    .progress-box {
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 18px;
-    }
-
-    .progress-label {
+    .card-content {
+      padding: 40px 24px 24px 24px;
       display: flex;
-      justify-content: space-between;
-      font-size: .8rem;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
       margin-bottom: 8px;
-      opacity: .9;
+      font-weight: 700;
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 9px;
-      background: rgba(255,255,255,.18);
-      border-radius: 999px;
-      overflow: hidden;
+    .card-content p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+      flex-grow: 1;
     }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--hisense-cyan), var(--hisense-green));
-      transition: width .3s ease;
-    }
-
-    .nav-title {
-      font-size: .74rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      opacity: .7;
-      margin: 18px 0 8px;
-    }
-
-    .nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 8px;
-    }
-
-    .nav-list a {
-      display: block;
-      text-decoration: none;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.10);
-      font-size: .86rem;
-      transition: .2s ease;
-    }
-
-    .nav-list a:hover,
-    .nav-list a.active {
-      background: rgba(0,169,206,.26);
-      border-color: rgba(255,255,255,.28);
-      transform: translateX(2px);
-    }
-
-    .main-content {
-      min-width: 0;
-    }
-
-    .top-actions {
+    .card-tags {
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-bottom: 16px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 8px 0;
-      background: linear-gradient(180deg, rgba(244,247,251,.96), rgba(244,247,251,.72));
-      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      background-color: #F0F4F8;
+      color: var(--primary-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 12px;
     }
 
     .btn {
-      border: 0;
-      cursor: pointer;
-      border-radius: 999px;
+      flex: 1;
       padding: 10px 16px;
+      border-radius: 10px;
       font-family: inherit;
       font-weight: 700;
-      background: var(--hisense-blue);
-      color: #fff;
-      box-shadow: 0 10px 20px rgba(0,59,113,.18);
-      transition: .2s ease;
+      font-size: 0.88rem;
+      text-align: center;
+      cursor: pointer;
       text-decoration: none;
+      transition: var(--transition);
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
     }
 
-    .btn:hover { transform: translateY(-1px); }
-    .btn.secondary { background: #fff; color: var(--hisense-blue); border: 1px solid var(--line); }
-    .btn.ghost { background: transparent; color: var(--hisense-blue); box-shadow: none; border: 1px solid var(--line); }
-    .btn.accent { background: var(--hisense-cyan); box-shadow: 0 10px 20px rgba(0,169,206,.2); }
-
-    .hero {
-      background:
-        radial-gradient(circle at 88% 14%, rgba(0,169,206,.26), transparent 24%),
-        linear-gradient(135deg, var(--hisense-blue), #00528F 58%, var(--hisense-teal));
-      color: #fff;
-      border-radius: 30px;
-      padding: clamp(28px, 5vw, 54px);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: 1px solid transparent;
     }
 
-    .hero:after {
-      content: '';
-      position: absolute;
-      width: 420px;
-      height: 420px;
-      right: -160px;
-      bottom: -190px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.10);
+    .btn-primary:hover {
+      background-color: var(--primary-light);
     }
 
-    .eyebrow {
-      display: inline-flex;
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background-color: #F8FBFF;
+      border-color: var(--primary-light);
+      color: var(--primary-light);
+    }
+
+    /* INSTRUÇÕES DO GITHUB */
+    .info-section {
+      background: #EBF3FC;
+      border: 1px solid #B4D3F5;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 50px;
+    }
+
+    .info-section h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: .82rem;
-      font-weight: 700;
-      margin-bottom: 16px;
     }
 
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1.1;
-      margin: 0 0 14px;
-      letter-spacing: -.04em;
-      max-width: 820px;
+    .info-section ol {
+      padding-left: 20px;
+      font-size: 0.95rem;
+      color: #2D3748;
     }
 
-    .hero p {
-      font-size: 1.05rem;
-      max-width: 740px;
-      margin: 0 0 24px;
-      opacity: .92;
+    .info-section li {
+      margin-bottom: 8px;
     }
 
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; position: relative; z-index: 2; }
-
-    .section,
-    .module {
-      background: var(--card);
-      border-radius: 26px;
-      padding: clamp(22px, 3vw, 34px);
-      margin-top: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(217,226,236,.8);
+    .info-section code {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-weight: bold;
     }
 
-    .module-header {
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 18px;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .module-number {
-      width: 76px;
-      height: 76px;
-      border-radius: 22px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.45rem;
-      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
-    }
-
-    h2, h3, h4 { line-height: 1.25; }
-    h2 { margin: 0 0 8px; font-size: clamp(1.45rem, 2.4vw, 2.1rem); color: var(--hisense-blue); }
-    h3 { margin: 22px 0 10px; font-size: 1.25rem; color: #123B61; }
-    h4 { margin: 0 0 6px; color: var(--hisense-blue); }
-
-    .lead { color: var(--muted); margin: 0; }
-
-    .module-index {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .index-card {
-      background: #F8FBFF;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      text-decoration: none;
-      transition: .2s ease;
-    }
-
-    .index-card:hover { transform: translateY(-2px); border-color: var(--hisense-cyan); }
-    .index-card strong { color: var(--hisense-blue); display: block; margin-bottom: 4px; }
-    .index-card span { color: var(--muted); font-size: .88rem; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .feature-card {
-      background: #F8FBFF;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      min-height: 150px;
-    }
-
-    .feature-card .tag {
-      display: inline-flex;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--hisense-blue);
-      background: rgba(0,169,206,.12);
-      border-radius: 999px;
-      padding: 5px 9px;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p { margin: 0; color: #344054; }
-
-    .accordion {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    details {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #FBFDFF;
-      overflow: hidden;
-    }
-
-    summary {
-      cursor: pointer;
-      padding: 16px 18px;
-      font-weight: 800;
-      color: var(--hisense-blue);
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-    summary:after { content: '+'; font-size: 1.4rem; color: var(--hisense-cyan); }
-    details[open] summary:after { content: '-'; }
-    .details-body { padding: 0 18px 18px; color: #344054; }
-
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-      margin: 18px 0;
-    }
-
-    .flow-step {
-      background: linear-gradient(180deg, #fff, #F4FBFF);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 10px;
+    footer {
       text-align: center;
-      font-size: .88rem;
-      font-weight: 700;
-      color: var(--hisense-blue);
-      position: relative;
+      color: var(--text-muted);
+      margin-top: 60px;
+      font-size: 0.88rem;
     }
 
-    .flow-step:not(:last-child)::after {
-      content: '›';
-      position: absolute;
-      right: -9px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--hisense-cyan);
-      font-size: 1.4rem;
-      z-index: 1;
-    }
-
-    .callout {
-      border-radius: 18px;
-      padding: 16px 18px;
-      margin: 18px 0;
-      border: 1px solid var(--line);
-      background: #F8FBFF;
-    }
-
-    .callout strong { color: var(--hisense-blue); }
-    .callout.warning { background: var(--warning); border-color: var(--warning-border); }
-    .callout.success { background: var(--success); border-color: var(--success-border); }
-    .callout.danger { background: var(--danger); border-color: var(--danger-border); }
-
-    .compare {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 18px 0;
-      overflow: hidden;
-      border-radius: 16px;
-      display: table;
-    }
-
-    .compare th, .compare td {
-      border: 1px solid var(--line);
-      padding: 12px 14px;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .compare th { background: var(--hisense-blue); color: #fff; }
-    .compare td { background: #fff; }
-
-    .quiz {
-      margin-top: 24px;
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #F7FBFF, #FFFFFF);
-      border: 1px solid var(--line);
-      width: 100%;
-    }
-
-    .quiz h4 { display: flex; align-items: center; gap: 8px; }
-    .quiz-question { font-weight: 700; margin-bottom: 12px; }
-    .quiz-options { display: grid; gap: 10px; }
-
-    .quiz-option {
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 14px;
-      padding: 12px 14px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 1rem;
-      text-align: left;
-      color: var(--text);
-      transition: .2s ease;
-    }
-
-    .quiz-option:hover:not(:disabled) { border-color: var(--hisense-cyan); background: #F5FCFF; }
-    .quiz-option.correct { border-color: var(--success-border); background: var(--success); }
-    .quiz-option.incorrect { border-color: var(--danger-border); background: var(--danger); }
-    .quiz-option:disabled { cursor: default; }
-
-    .feedback {
-      margin-top: 12px;
-      font-weight: 700;
-      display: none;
-    }
-
-    .feedback.show { display: block; }
-    .feedback.ok { color: #12783D; }
-    .feedback.no { color: #A12D2D; }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .summary-item {
-      background: #F8FBFF;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .source-note {
-      color: var(--muted);
-      font-size: .82rem;
-      margin: 20px 2px 0;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 28px 0 10px;
-      font-size: .86rem;
-    }
-
-    /* CSS DO MODAL (MODO PRÁTICA) */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(16, 24, 40, 0.85);
-      backdrop-filter: blur(5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-content {
-      background: var(--bg);
-      width: 90%;
-      max-width: 700px;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: var(--radius);
-      padding: 30px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 15px;
-    }
-
-    .modal-header h2 { margin: 0; color: var(--hisense-blue); }
-    
-    #modalQuizzesContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .modal-results {
-      display: none;
-      background: var(--success);
-      border: 1px solid var(--success-border);
-      padding: 20px;
-      border-radius: 16px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #12783D;
-      animation: popIn 0.4s ease;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.9); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @media (max-width: 1040px) {
-      #mainWrapper { grid-template-columns: 1fr; padding: 16px; }
-      .sidebar { position: relative; height: auto; top: 0; }
-      .module-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .flow { grid-template-columns: 1fr; }
-      .flow-step:not(:last-child)::after {
-        content: '↓';
-        right: 50%;
-        top: auto;
-        bottom: -17px;
-        transform: translateX(50%);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .cards, .summary-grid, .module-index { grid-template-columns: 1fr; }
-      .module-header { grid-template-columns: 1fr; }
-      .module-number { width: 62px; height: 62px; border-radius: 18px; }
-      .top-actions { justify-content: center; flex-wrap: wrap; }
-      .hero-actions { flex-direction: column; }
-      .btn { width: 100%; }
-      .compare { display: block; overflow-x: auto; }
-      .modal-content { padding: 20px; width: 95%; }
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .header-content h1 { font-size: 2rem; }
+      .controls { padding: 16px; }
+      .projects-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-
 <body>
-  <div id="mainWrapper">
-    <aside class="sidebar" aria-label="Menu do módulo">
-      <div class="brand">
-        <div class="brand-mark">H</div>
-        <div>
-          <strong>Hisense</strong>
-          <span>Formação Inicial</span>
-        </div>
-      </div>
 
-      <div class="progress-box">
-        <div class="progress-label">
-          <span>Progresso</span>
-          <span id="progressText">0%</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-      </div>
-
-      <div class="nav-title">Navegação</div>
-      <ul class="nav-list">
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#conforto">1. Conforto</a></li>
-        <li><a href="#conectividade">2. Conectividade</a></li>
-        <li><a href="#qualidade">3. Qualidade do Ar</a></li>
-        <li><a href="#eficiencia">4. Eficiência</a></li>
-        <li><a href="#protecao">5. Proteção</a></li>
-        <li><a href="#instalacao">6. Instalação e Manutenção</a></li>
-        <li><a href="#resumo">Resumo Final</a></li>
-      </ul>
-    </aside>
-
-    <main class="main-content">
-      <div class="top-actions">
-        <button class="btn accent" type="button" id="practiceBtn">Modo Prática</button>
-        <button class="btn secondary" type="button" id="focusBtn">Modo foco</button>
-        <button class="btn ghost" type="button" id="resetBtn">Reiniciar quizzes</button>
-      </div>
-
-      <section class="hero" id="inicio">
-        <div class="eyebrow">EAD • Conhecimento de Produto</div>
-        <h1>Conhecendo os Recursos dos Ar-Condicionados Hisense</h1>
-        <p>Um módulo interativo para compreender funções de conforto, conectividade, qualidade do ar, eficiência, proteção e manutenção dos equipamentos apresentados no treinamento Split & LCAC.</p>
-        <div class="hero-actions">
-          <a href="#conforto" class="btn">Iniciar módulo</a>
-          <a href="#resumo" class="btn secondary" style="border:none;">Ver resumo</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Como usar este EAD</h2>
-        <p>Este conteúdo foi criado para ajudar você a entender os recursos dos produtos de forma simples. O foco é conhecimento geral de produto: para que serve cada função, quando ela aparece e quais cuidados devemos ter ao explicar.</p>
-        <div class="callout warning">
-          <strong>Importante:</strong> este EAD não substitui formação técnica de instalação, manutenção ou diagnóstico. Quando um tema depender de avaliação técnica, siga as orientações e fluxos definidos pela operação.
-        </div>
-
-        <div class="module-index">
-          <a href="#conforto" class="index-card"><strong>Conforto</strong><span>Modos de uso, sono, timer e fluxo de ar.</span></a>
-          <a href="#conectividade" class="index-card"><strong>Conectividade</strong><span>Wi-Fi, ConnectLife, celular e voz.</span></a>
-          <a href="#qualidade" class="index-card"><strong>Qualidade do Ar</strong><span>Filtros, Hi-Nano e autolimpeza.</span></a>
-          <a href="#eficiencia" class="index-card"><strong>Eficiência</strong><span>Inverter, Eco, R-32 e consumo.</span></a>
-          <a href="#protecao" class="index-card"><strong>Proteção</strong><span>Golden Fin, anticorrosão e garantia.</span></a>
-          <a href="#instalacao" class="index-card"><strong>Instalação</strong><span>Facilidade de instalação, limpeza e manutenção.</span></a>
-        </div>
-      </section>
-
-      <section class="module" id="conforto" data-module>
-        <div class="module-header">
-          <div class="module-number">1</div>
-          <div>
-            <h2>Conforto e Uso Diário</h2>
-            <p class="lead">Recursos que ajudam o usuário a adaptar o ar-condicionado à rotina, como economia, resfriamento rápido, programação, sono e distribuição do ar.</p>
-          </div>
-        </div>
-
-        <p>Os recursos de conforto não fazem todos a mesma coisa. Cada um atende uma necessidade diferente. Por isso, ao explicar uma função, pense primeiro no objetivo dela: economizar, resfriar rápido, apagar o display, programar funcionamento ou melhorar a distribuição do ar.</p>
-
-        <div class="cards">
-          <article class="feature-card"><span class="tag">Economia</span><h4>Modo Eco</h4><p>Ajuda a otimizar o consumo de energia durante o uso. Explique como apoio à eficiência, sem prometer redução exata na conta de luz.</p></article>
-          <article class="feature-card"><span class="tag">Rapidez</span><h4>Modo Super</h4><p>Usa potência e volume de ar máximos para reduzir a temperatura mais rapidamente. O foco é desempenho, não economia.</p></article>
-          <article class="feature-card"><span class="tag">Automático</span><h4>Modo Smart</h4><p>Ajusta automaticamente temperatura e ventilação com base no ambiente, facilitando o uso para quem não quer alterar configurações o tempo todo.</p></article>
-          <article class="feature-card"><span class="tag">Rotina</span><h4>Timer</h4><p>Permite programar horário para ligar ou desligar o equipamento em até 24 horas, conforme apresentado no material.</p></article>
-          <article class="feature-card"><span class="tag">Noite</span><h4>Dimmer</h4><p>Desliga a luz do display frontal. É útil quando a iluminação do painel incomoda durante o sono.</p></article>
-          <article class="feature-card"><span class="tag">Sono</span><h4>Modos para Dormir</h4><p>Ajustam o funcionamento pensando no conforto noturno. A percepção de conforto pode variar conforme usuário e ambiente.</p></article>
-          <article class="feature-card"><span class="tag">Conforto local</span><h4>I Feel</h4><p>Considera a região onde está o controle remoto para ajustar melhor a temperatura percebida pelo usuário.</p></article>
-          <article class="feature-card"><span class="tag">Distribuição</span><h4>Fluxo de Ar</h4><p>Recursos como Fluxo 4D, fluxo inteligente e longo alcance ajudam a distribuir melhor o ar pelo ambiente.</p></article>
-        </div>
-
-        <div class="callout success">
-          <strong>Como explicar:</strong> se o cliente quer economizar, fale do Modo Eco. Se quer resfriar rápido, fale do Modo Super. Se a luz incomoda à noite, fale do Dimmer. Se o vento fica concentrado, fale sobre fluxo de ar.
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual função é mais adequada quando o usuário deseja resfriar o ambiente rapidamente?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">A) Modo Eco</button>
-            <button class="quiz-option" data-correct="true">B) Modo Super</button>
-            <button class="quiz-option" data-correct="false">C) Dimmer</button>
-            <button class="quiz-option" data-correct="false">D) Timer</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="module" id="conectividade" data-module>
-        <div class="module-header">
-          <div class="module-number">2</div>
-          <div>
-            <h2>Conectividade e Controle</h2>
-            <p class="lead">Recursos que facilitam o controle do ar-condicionado por aplicativo, celular ou comando de voz em modelos compatíveis.</p>
-          </div>
-        </div>
-
-        <p>A conectividade amplia a forma de interação com o produto. Em modelos compatíveis, o usuário pode controlar funções pelo aplicativo ConnectLife, usar o celular à distância e acionar comandos por assistentes como Google e Alexa.</p>
-
-        <div class="flow" aria-label="Fluxo de conectividade">
-          <div class="flow-step">Modelo compatível</div>
-          <div class="flow-step">Wi-Fi integrado</div>
-          <div class="flow-step">ConnectLife</div>
-          <div class="flow-step">Controle remoto</div>
-          <div class="flow-step">Voz e estatísticas</div>
-        </div>
-
-        <div class="cards">
-          <article class="feature-card"><span class="tag">Wi-Fi</span><h4>Wi-Fi Integrado</h4><p>Permite conectar o produto à rede sem fio para controle por aplicativo, desde que o modelo possua essa funcionalidade.</p></article>
-          <article class="feature-card"><span class="tag">Aplicativo</span><h4>ConnectLife</h4><p>Aplicativo citado no material para ligar, desligar e ajustar o ar-condicionado remotamente em modelos compatíveis.</p></article>
-          <article class="feature-card"><span class="tag">Celular</span><h4>Controle pelo Celular</h4><p>Ajuda a acionar o equipamento à distância, como ligar antes de chegar ao ambiente ou ajustar a temperatura com mais praticidade.</p></article>
-          <article class="feature-card"><span class="tag">Voz</span><h4>Google e Alexa</h4><p>Alguns modelos permitem controle de voz com assistentes compatíveis, desde que estejam configurados corretamente.</p></article>
-          <article class="feature-card"><span class="tag">Dados</span><h4>Estatísticas no Aplicativo</h4><p>O material apresenta consulta de informações de potência e capacidade em bases diárias, semanais e anuais em determinados recursos.</p></article>
-          <article class="feature-card"><span class="tag">Atenção</span><h4>Configuração</h4><p>Dificuldade de conexão pode envolver rede Wi-Fi, senha, internet, aplicativo, pareamento ou compatibilidade do modelo.</p></article>
-        </div>
-
-        <div class="callout warning">
-          <strong>Cuidado na comunicação:</strong> use sempre “em modelos compatíveis”. Conectividade depende de configuração correta, conexão estável e disponibilidade do recurso no produto.
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual aplicativo é citado no material para controle remoto do ar-condicionado?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">A) I Feel</button>
-            <button class="quiz-option" data-correct="true">B) ConnectLife</button>
-            <button class="quiz-option" data-correct="false">C) Golden Fin</button>
-            <button class="quiz-option" data-correct="false">D) Hi-Nano</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="module" id="qualidade" data-module>
-        <div class="module-header">
-          <div class="module-number">3</div>
-          <div>
-            <h2>Qualidade do Ar e Autolimpeza</h2>
-            <p class="lead">Recursos relacionados a filtros, purificação, limpeza interna e conservação do equipamento.</p>
-          </div>
-        </div>
-
-        <p>Algumas tecnologias dos ar-condicionados Hisense ajudam na sensação de ar mais limpo e na conservação interna do equipamento. Elas podem envolver filtros, íons, autolimpeza e secagem interna.</p>
-
-        <div class="callout warning">
-          <strong>Atenção:</strong> esses recursos ajudam no cuidado com o ar e com o produto, mas não substituem limpeza regular, manutenção recomendada ou orientação técnica quando necessária.
-        </div>
-
-        <h3>Filtros 4 em 1</h3>
-
-        <div class="accordion">
-          <details>
-            <summary>Filtro de Catequina</summary>
-            <div class="details-body">Apresentado como recurso associado à redução de agentes, bactérias e impurezas do ar.</div>
-          </details>
-          <details>
-            <summary>Filtro de Íons de Prata</summary>
-            <div class="details-body">Descrito como recurso voltado à eliminação de microrganismos, como vírus, ácaros, fungos e mofos.</div>
-          </details>
-          <details>
-            <summary>Filtro Fotocatalisador</summary>
-            <div class="details-body">Ajuda na redução de odores, como cigarro, gases e fumaça, conforme apresentado no material.</div>
-          </details>
-          <details>
-            <summary>Filtro HEPA</summary>
-            <div class="details-body">Associado à retenção de ácaros, bactérias e vírus pelo ar, conforme descrição do material-base.</div>
-          </details>
-        </div>
-
-        <div class="cards">
-          <article class="feature-card"><span class="tag">Íons</span><h4>Hi-Nano</h4><p>Tecnologia de íons duplos associada à purificação do ambiente, redução de poeira, partículas finas e impurezas.</p></article>
-          <article class="feature-card"><span class="tag">Evaporadora</span><h4>Autolimpeza</h4><p>Ajuda a remover poeira e umidade interna, contribuindo para conservação e percepção de ar mais puro.</p></article>
-          <article class="feature-card"><span class="tag">Interna e externa</span><h4>Dupla Autolimpeza</h4><p>Amplia a proposta de limpeza para unidades internas e externas, conforme apresentado no material.</p></article>
-          <article class="feature-card"><span class="tag">Secagem</span><h4>Secagem Antibacteriana</h4><p>Ajuda a secar rapidamente o equipamento durante a limpeza, reduzindo condições favoráveis a fungos e bactérias.</p></article>
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual afirmação está mais correta sobre autolimpeza?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">A) Substitui totalmente qualquer manutenção.</button>
-            <button class="quiz-option" data-correct="true">B) Ajuda na conservação interna, mas não elimina cuidados de limpeza.</button>
-            <button class="quiz-option" data-correct="false">C) Serve apenas para conectar o Wi-Fi.</button>
-            <button class="quiz-option" data-correct="false">D) É exclusiva para controle por voz.</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="module" id="eficiencia" data-module>
-        <div class="module-header">
-          <div class="module-number">4</div>
-          <div>
-            <h2>Eficiência, Economia e Sustentabilidade</h2>
-            <p class="lead">Tecnologias e fatores que influenciam consumo, estabilidade de funcionamento e uso mais eficiente da energia.</p>
-          </div>
-        </div>
-
-        <p>Eficiência energética significa usar melhor a energia para entregar conforto. No ar-condicionado, isso pode depender da tecnologia do compressor, do modo de operação, do fluido refrigerante, da instalação, do ambiente e dos hábitos de uso.</p>
-
-        <div class="cards">
-          <article class="feature-card"><span class="tag">Compressor</span><h4>Tecnologia Inverter</h4><p>Ajusta o funcionamento do compressor para manter a temperatura com mais estabilidade e evitar variações bruscas.</p></article>
-          <article class="feature-card"><span class="tag">Eficiência</span><h4>Inverter Expert</h4><p>Apresentado como tecnologia relacionada ao aumento de eficiência, controle de conforto e operação mais estável.</p></article>
-          <article class="feature-card"><span class="tag">Consumo</span><h4>Modo Eco</h4><p>Ajuda a otimizar automaticamente o consumo durante o funcionamento, conforme apresentado no material.</p></article>
-          <article class="feature-card"><span class="tag">Fluido</span><h4>R-32</h4><p>Fluido refrigerante associado à eficiência, baixo consumo de energia, segurança e menor impacto ambiental.</p></article>
-        </div>
-
-        <h3>O que impacta o consumo?</h3>
-
-        <div class="accordion">
-          <details open>
-            <summary>Fatores de uso e ambiente</summary>
-            <div class="details-body">Tempo de uso, temperatura configurada, tamanho do ambiente, incidência de sol, quantidade de pessoas e vedação influenciam o consumo.</div>
-          </details>
-          <details>
-            <summary>Fatores técnicos e conservação</summary>
-            <div class="details-body">Instalação, limpeza, manutenção e modo de operação também podem alterar o desempenho percebido e o consumo final.</div>
-          </details>
-        </div>
-
-        <div class="callout warning">
-          <strong>Como falar de economia:</strong> explique que recursos como Modo Eco e Inverter ajudam na eficiência, mas evite garantir redução exata na conta de luz.
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual é a forma mais segura de falar sobre economia de energia?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">A) Garantir redução exata na conta de luz.</button>
-            <button class="quiz-option" data-correct="true">B) Explicar que recursos como Modo Eco e Inverter ajudam na eficiência, mas o resultado depende do uso.</button>
-            <button class="quiz-option" data-correct="false">C) Dizer que o consumo não depende do ambiente.</button>
-            <button class="quiz-option" data-correct="false">D) Afirmar que o produto sempre consome zero energia no Modo Eco.</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="module" id="protecao" data-module>
-        <div class="module-header">
-          <div class="module-number">5</div>
-          <div>
-            <h2>Proteção, Durabilidade e Garantia</h2>
-            <p class="lead">Recursos desenvolvidos para proteger componentes e cuidados ao explicar garantia.</p>
-          </div>
-        </div>
-
-        <p>Alguns recursos dos produtos Hisense foram desenvolvidos para aumentar proteção e durabilidade, principalmente contra fatores como oxidação, corrosão, insetos e condições externas mais agressivas.</p>
-
-        <div class="cards">
-          <article class="feature-card"><span class="tag">Corrosão</span><h4>Golden Fin</h4><p>Proteção apresentada no material contra oxidação e corrosão, contribuindo para maior resistência dos componentes.</p></article>
-          <article class="feature-card"><span class="tag">Ambientes agressivos</span><h4>Anticorrosão</h4><p>Inclui proteção em radiador, parafusos, revestimento de PCB e caixa elétrica selada em determinados modelos.</p></article>
-          <article class="feature-card"><span class="tag">PCB</span><h4>Proteção contra Insetos</h4><p>A caixa de vedação elétrica/PCB possui proteção contra insetos, reduzindo riscos em áreas sensíveis do equipamento.</p></article>
-          <article class="feature-card"><span class="tag">Unidade externa</span><h4>Condensadora Resistente</h4><p>A unidade externa aparece associada à estrutura resistente, proteção e operação mais silenciosa em determinados modelos.</p></article>
-          <article class="feature-card"><span class="tag">Garantia</span><h4>Compressor</h4><p>O material informa 10 anos de garantia no compressor inverter em determinados modelos.</p></article>
-          <article class="feature-card"><span class="tag">Atenção</span><h4>Condições Oficiais</h4><p>Garantia deve ser explicada conforme regras oficiais, modelo, documentação e condições aplicáveis.</p></article>
-        </div>
-
-        <div class="callout danger">
-          <strong>Cuidado:</strong> não amplie garantia para componentes ou situações que não estejam previstas oficialmente. Também evite dizer que o produto é imune a qualquer condição externa.
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual cuidado devemos ter ao falar sobre garantia?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="true">A) Informar apenas o que estiver previsto oficialmente.</button>
-            <button class="quiz-option" data-correct="false">B) Ampliar a garantia para todo o produto sem consultar regra oficial.</button>
-            <button class="quiz-option" data-correct="false">C) Dizer que garantia cobre qualquer situação.</button>
-            <button class="quiz-option" data-correct="false">D) Afirmar que não existem condições para garantia.</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="module" id="instalacao" data-module>
-        <div class="module-header">
-          <div class="module-number">6</div>
-          <div>
-            <h2>Instalação, Limpeza e Manutenção</h2>
-            <p class="lead">Recursos que facilitam instalação, limpeza e manutenção, sem aprofundar em procedimento técnico.</p>
-          </div>
-        </div>
-
-        <p>O material apresenta recursos que tornam a instalação, limpeza e manutenção mais práticas. Mesmo assim, esses temas exigem cuidado: conhecer o diferencial do produto não significa orientar instalação ou diagnosticar falhas técnicas.</p>
-
-        <table class="compare" aria-label="Comparativo de instalação, limpeza e manutenção">
-          <thead>
-            <tr>
-              <th>Recurso</th>
-              <th>O que significa</th>
-              <th>Cuidado ao explicar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Fácil instalação</strong></td>
-              <td>Design com mais espaço para conectar tubulação de gás e líquido em determinados modelos.</td>
-              <td>Não substitui instalação correta por profissional qualificado.</td>
-            </tr>
-            <tr>
-              <td><strong>Fácil limpeza</strong></td>
-              <td>Filtro integrado, vedação contra poeira e design de fácil desmontagem para limpeza de componentes.</td>
-              <td>Facilidade de limpeza não significa ausência de limpeza.</td>
-            </tr>
-            <tr>
-              <td><strong>Fácil manutenção</strong></td>
-              <td>Acesso facilitado a componentes, incluindo menção à troca de placa PCB em determinados contextos.</td>
-              <td>Procedimentos devem seguir orientação técnica adequada.</td>
-            </tr>
-            <tr>
-              <td><strong>Tubulação e altura</strong></td>
-              <td>Em modelos comerciais, o material informa tubulação de até 50 m e diferença de altura de até 30 m.</td>
-              <td>Não usar esses dados para orientar instalação sem avaliação técnica.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="callout warning">
-          <strong>Limite da orientaçāo:</strong> este EAD ajuda a entender o produto, mas não ensina a instalar, reparar ou diagnosticar. Quando depender de avaliação técnica, siga o fluxo correto.
-        </div>
-
-        <div class="quiz" data-quiz>
-          <h4>Quiz rápido</h4>
-          <div class="quiz-question">Qual é a interpretação correta sobre recursos de fácil instalação e manutenção?</div>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">A) Eles eliminam a necessidade de profissional qualificado.</button>
-            <button class="quiz-option" data-correct="true">B) Eles facilitam processos, mas não substituem orientação técnica adequada.</button>
-            <button class="quiz-option" data-correct="false">C) Eles permitem qualquer tipo de instalação.</button>
-            <button class="quiz-option" data-correct="false">D) Eles garantem que o produto nunca precisará de manutenção.</button>
-          </div>
-          <div class="feedback" data-feedback></div>
-        </div>
-      </section>
-
-      <section class="section" id="resumo">
-        <h2>Resumo Final</h2>
-        <p>Você concluiu o módulo de recursos dos ar-condicionados Hisense. O mais importante é compreender a finalidade de cada função e explicar os recursos de forma simples, sem transformar diferenciais em promessas absolutas.</p>
-
-        <div class="summary-grid">
-          <div class="summary-item"><h4>Conforto</h4><p>Recursos como Eco, Super, Smart, Timer, Dimmer, I Feel e Fluxo de Ar ajudam na rotina de uso.</p></div>
-          <div class="summary-item"><h4>Conectividade</h4><p>Wi-Fi, ConnectLife, celular e voz facilitam o controle em modelos compatíveis.</p></div>
-          <div class="summary-item"><h4>Qualidade do Ar</h4><p>Filtros, Hi-Nano e autolimpeza contribuem para conservação e sensação de ar mais limpo.</p></div>
-          <div class="summary-item"><h4>Eficiência</h4><p>Inverter, Inverter Expert, Eco e R-32 apoiam eficiência, mas consumo depende do uso.</p></div>
-          <div class="summary-item"><h4>Proteção</h4><p>Golden Fin, anticorrosão, proteção contra insetos e garantia devem ser explicados com precisão.</p></div>
-          <div class="summary-item"><h4>Instalação</h4><p>Facilidades de instalação, limpeza e manutenção não substituem avaliação técnica.</p></div>
-        </div>
-
-        <div class="callout success">
-          <strong>Mensagem final:</strong> conhecer o produto ajuda você a explicar melhor, evitar confusões e apoiar uma experiência mais clara para o cliente.
-        </div>
-
-        <p class="source-note">Material desenvolvido com base no arquivo “Treinamento Split & LCAC.pdf”, enviado para revitalização do treinamento.</p>
-      </section>
-
-      <footer class="footer">Formação Inicial • Ar-Condicionado Split & LCAC • Hisense/Gorenje</footer>
-    </main>
-  </div>
-
-  <div id="practiceModal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Modo Prática</h2>
-        <button class="btn ghost" id="closeModalIcon" style="border:none; font-size:1.6rem; padding:0 12px;" aria-label="Fechar">&times;</button>
-      </div>
-      <p style="color: var(--muted); margin-top: -10px;">Responda a todas as questões abaixo para testar seus conhecimentos. O resultado final aparecerá no final da página.</p>
-      
-      <div id="modalQuizzesContainer"></div>
-      
-      <div id="modalResult" class="modal-results"></div>
-      
-      <button id="closeModalBtn" class="btn" style="margin-top: 10px; width: 100%;">Voltar para o conteúdo</button>
+  <header>
+    <div class="header-content">
+      <h1>Portal de Treinamentos & EADs</h1>
+      <p>Hub central de navegação para os módulos interativos e ferramentas de capacitação da equipe.</p>
     </div>
+  </header>
+
+  <div class="container">
+
+    <!-- CONTROLES (PESQUISA E FILTROS) -->
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Pesquisar treinamentos, tecnologias ou tags...">
+      </div>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="hisense">Hisense</button>
+        <button class="filter-btn" data-filter="institucional">Institucional</button>
+        <button class="filter-btn" data-filter="utilitarios">Utilitários</button>
+      </div>
+    </div>
+
+    <!-- GRID DE PROJETOS -->
+    <div class="projects-grid" id="projectsGrid">
+
+      <!-- CARD 1: Treinamento Hisense que acabamos de ajustar -->
+      <div class="project-card" data-category="hisense">
+        <div class="card-banner">
+          <span class="card-category">Hisense</span>
+          <div class="card-icon">❄️</div>
+        </div>
+        <div class="card-content">
+          <h3>Recursos Ar-Condicionados Hisense</h3>
+          <p>Módulo interativo cobrindo conforto, conectividade, qualidade do ar, eficiência e regras de garantia oficiais.</p>
+          <div class="card-tags">
+            <span class="tag">Interativo</span>
+            <span class="tag">EAD</span>
+            <span class="tag">Quizzes</span>
+            <span class="tag">Modo Prática</span>
+          </div>
+          <div class="card-actions">
+            <!-- COLOQUE O LINK DO SEU SITE DO GITHUB PAGES ABAIXO -->
+            <a href="treinamento-hisense.html" class="btn btn-primary" target="_blank">Acessar EAD 🚀</a>
+            <!-- LINK DO SEU REPOSITÓRIO GITHUB -->
+            <a href="https://github.com/" class="btn btn-outline" target="_blank">Code 💻</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Placeholder para o Formação Inicial Offboarding -->
+      <div class="project-card" data-category="institucional">
+        <div class="card-banner">
+          <span class="card-category">Institucional</span>
+          <div class="card-icon">👋</div>
+        </div>
+        <div class="card-content">
+          <h3>Formação Inicial Offboarding</h3>
+          <p>Treinamento integrado com áudios de escuta (call shadowing) e quiz de fixação para a equipe de atendimento.</p>
+          <div class="card-tags">
+            <span class="tag">Atendimento</span>
+            <span class="tag">Offboarding</span>
+            <span class="tag">Call Shadowing</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" class="btn btn-primary" style="opacity: 0.6; pointer-events: none;">Em breve ⏳</a>
+            <a href="https://github.com/" class="btn btn-outline" target="_blank">Repo 💻</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Placeholder para o Checklist Diário -->
+      <div class="project-card" data-category="utilitarios">
+        <div class="card-banner">
+          <span class="card-category">Utilitários</span>
+          <div class="card-icon">✅</div>
+        </div>
+        <div class="card-content">
+          <h3>Checklist de Autoavaliação</h3>
+          <p>Aplicação interativa em HTML/CSS/JS para auxiliar analistas no alinhamento de respostas de qualidade e personalização.</p>
+          <div class="card-tags">
+            <span class="tag">HTML/JS</span>
+            <span class="tag">Produtividade</span>
+            <span class="tag">Qualidade</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" class="btn btn-primary" style="opacity: 0.6; pointer-events: none;">Em breve ⏳</a>
+            <a href="https://github.com/" class="btn btn-outline" target="_blank">Repo 💻</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADICIONE NOVOS CARDS COPIANDO A ESTRUTURA ACIMA -->
+
+    </div>
+
+    <!-- SEÇÃO INFORMATIVA SOBRE COMO HOSPEDAR NO GITHUB PAGES -->
+    <div class="info-section">
+      <h3>💡 Como organizar e subir no GitHub Pages?</h3>
+      <ol>
+        <li>Crie um repositório no GitHub para guardar seus projetos (ex: <code>meus-treinamentos</code>).</li>
+        <li>Suba este arquivo com o nome de <code>index.html</code> na pasta raiz do repositório.</li>
+        <li>Suba os arquivos de cada treinamento na mesma pasta (ex: salve o treinamento Hisense como <code>treinamento-hisense.html</code> no mesmo local).</li>
+        <li>No GitHub, vá em <b>Settings</b> &rarr; <b>Pages</b>, selecione a branch <code>main</code> (ou <code>master</code>) e a pasta <code>/ (root)</code>, e clique em <b>Save</b>.</li>
+        <li>O GitHub gerará um link público (ex: <code>https://seu-usuario.github.io/meus-treinamentos/</code>). Esse link abrirá este Portal, e a partir dele todos os outros links funcionarão perfeitamente!</li>
+      </ol>
+    </div>
+
   </div>
+
+  <footer>
+    <p>Portal de Treinamentos Interativos • Desenvolvido com ❤️ e tecnologia para capacitação de equipes.</p>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const quizzes = document.querySelectorAll('[data-quiz]');
-      const progressFill = document.getElementById('progressFill');
-      const progressText = document.getElementById('progressText');
-      
-      const focusBtn = document.getElementById('focusBtn');
-      const resetBtn = document.getElementById('resetBtn');
-      
-      // Elementos do Modo Prática
-      const practiceBtn = document.getElementById('practiceBtn');
-      const practiceModal = document.getElementById('practiceModal');
-      const modalQuizzesContainer = document.getElementById('modalQuizzesContainer');
-      const closeModalBtn = document.getElementById('closeModalBtn');
-      const closeModalIcon = document.getElementById('closeModalIcon');
-      const modalResult = document.getElementById('modalResult');
+      const searchInput = document.getElementById('searchInput');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.project-card');
 
-      // Guardar a localização original dos quizzes para poder devolvê-los
-      const quizLocations = Array.from(quizzes).map(quiz => ({
-        element: quiz,
-        parent: quiz.parentNode,
-        nextSibling: quiz.nextSibling
-      }));
+      // Função unificada para busca e filtros
+      function filterProjects() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
 
-      // Lógica de atualização de barra lateral e progresso
-      function updateProgress() {
-        const total = quizzes.length;
-        const answered = document.querySelectorAll('[data-quiz].answered').length;
-        const percent = total ? Math.round((answered / total) * 100) : 0;
-
-        if (progressFill) progressFill.style.width = percent + '%';
-        if (progressText) progressText.textContent = percent + '%';
-        
-        checkModalCompletion(); // Verifica se o usuário terminou as práticas no modal
-      }
-
-      // Função para verificar se todos os quizzes do modal foram respondidos
-      function checkModalCompletion() {
-        if (!practiceModal.classList.contains('active')) return;
-        
-        const total = quizzes.length;
-        const answered = modalQuizzesContainer.querySelectorAll('[data-quiz].answered').length;
-        
-        if (answered === total) {
-          const correctCount = modalQuizzesContainer.querySelectorAll('[data-quiz][data-passed="true"]').length;
-          modalResult.innerHTML = `🎉 Você concluiu a prática!<br>Você acertou ${correctCount} de ${total} questões de primeira.`;
-          modalResult.style.display = 'block';
+        cards.forEach(card => {
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const desc = card.querySelector('p').textContent.toLowerCase();
+          const category = card.dataset.category;
+          const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase());
           
-          // Rola automaticamente para o resultado
-          modalResult.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
+          const matchesSearch = title.includes(searchText) || 
+                                desc.includes(searchText) || 
+                                tags.some(tag => tag.includes(searchText));
+                                
+          const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+          if (matchesSearch && matchesFilter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
       }
 
-      // Lógica interna de cada Quiz
-      quizzes.forEach(function (quiz) {
-        const options = quiz.querySelectorAll('.quiz-option');
-        const feedback = quiz.querySelector('[data-feedback]');
+      // Evento de Digitação na Pesquisa
+      searchInput.addEventListener('input', filterProjects);
 
-        options.forEach(function (option) {
-          option.addEventListener('click', function () {
-            if (quiz.classList.contains('answered')) return;
-
-            const isCorrect = option.dataset.correct === 'true';
-            quiz.classList.add('answered');
-            
-            // Marca se acertou de primeira (usado no cálculo de resultado final)
-            quiz.setAttribute('data-passed', isCorrect ? 'true' : 'false');
-
-            options.forEach(function (btn) {
-              btn.disabled = true;
-              if (btn.dataset.correct === 'true') {
-                btn.classList.add('correct');
-              }
-            });
-
-            if (!isCorrect) {
-              option.classList.add('incorrect');
-            }
-
-            if (feedback) {
-              feedback.classList.add('show');
-              feedback.classList.add(isCorrect ? 'ok' : 'no');
-              feedback.textContent = isCorrect
-                ? 'Correto! Você identificou a função adequada.'
-                : 'Quase! Observe a alternativa destacada em verde.';
-            }
-
-            updateProgress();
-          });
+      // Evento de Clique nos Botões de Filtro
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          filterProjects();
         });
       });
-
-      // Modo Foco
-      if (focusBtn) {
-        focusBtn.addEventListener('click', function () {
-          document.body.classList.toggle('focus-mode');
-          const isFocusMode = document.body.classList.contains('focus-mode');
-          focusBtn.textContent = isFocusMode ? 'Sair do modo foco' : 'Modo foco';
-          focusBtn.setAttribute('aria-pressed', isFocusMode ? 'true' : 'false');
-        });
-      }
-
-      // Reiniciar Quizzes
-      function resetAllQuizzes() {
-        quizzes.forEach(function (quiz) {
-          quiz.classList.remove('answered');
-          quiz.removeAttribute('data-passed');
-          
-          const feedback = quiz.querySelector('[data-feedback]');
-          if (feedback) {
-            feedback.className = 'feedback';
-            feedback.textContent = '';
-          }
-
-          quiz.querySelectorAll('.quiz-option').forEach(function (btn) {
-            btn.disabled = false;
-            btn.classList.remove('correct', 'incorrect');
-          });
-        });
-        modalResult.style.display = 'none';
-        updateProgress();
-      }
-
-      if (resetBtn) {
-        resetBtn.addEventListener('click', resetAllQuizzes);
-      }
-
-      // ======= LÓGICA DO MODO PRÁTICA (MODAL) =======
-      
-      // Abrir Modal
-      if (practiceBtn) {
-        practiceBtn.addEventListener('click', function () {
-          // Mover todos os quizzes originais para dentro do modal
-          quizzes.forEach(quiz => modalQuizzesContainer.appendChild(quiz));
-          
-          practiceModal.classList.add('active');
-          document.body.style.overflow = 'hidden'; // Impede o scroll no fundo da tela
-          
-          checkModalCompletion(); // Verifica se já tinha terminado antes de abrir
-        });
-      }
-
-      // Fechar Modal e devolver Quizzes aos seus lugares originais
-      function closePracticeModal() {
-        quizLocations.forEach(location => {
-          if (location.nextSibling) {
-            location.parent.insertBefore(location.element, location.nextSibling);
-          } else {
-            location.parent.appendChild(location.element);
-          }
-        });
-        
-        practiceModal.classList.remove('active');
-        document.body.style.overflow = ''; // Restaura o scroll do site
-      }
-
-      if (closeModalBtn) closeModalBtn.addEventListener('click', closePracticeModal);
-      if (closeModalIcon) closeModalIcon.addEventListener('click', closePracticeModal);
-
-      // Scroll Intersect (Navegação Ativa)
-      const navLinks = document.querySelectorAll('.nav-list a');
-      const sections = Array.from(document.querySelectorAll('section[id]'));
-
-      if ('IntersectionObserver' in window && navLinks.length && sections.length) {
-        const observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              navLinks.forEach(function (a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-              });
-            }
-          });
-        }, {
-          rootMargin: '-40% 0px -55% 0px',
-          threshold: 0
-        });
-
-        sections.forEach(function (section) {
-          observer.observe(section);
-        });
-      }
-
-      updateProgress();
     });
   </script>
 </body>
