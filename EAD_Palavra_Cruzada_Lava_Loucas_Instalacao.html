@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dinâmica EAD | Palavra Cruzada Lava-Louças</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    :root{
+      --azul:#003B71; --azul2:#005B9F; --ciano:#00A9CE; --verde:#78BE20;
+      --bg:#F4F8FC; --card:#FFFFFF; --texto:#1E293B; --muted:#64748B; --line:#D9E2EC;
+      --ok:#EAF8F1; --okline:#30A46C; --bad:#FEF2F2; --badline:#EF4444; --warn:#FFF7E6; --warnline:#F2B84B;
+      --shadow:0 18px 45px rgba(15,23,42,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--texto);line-height:1.55}
+    #mainWrapper{width:min(1280px,100%);margin:0 auto;padding:24px}
+    .hero{border-radius:32px;background:radial-gradient(circle at 88% 8%,rgba(120,190,32,.35),transparent 24%),linear-gradient(135deg,var(--azul),var(--azul2) 58%,var(--ciano));color:#fff;padding:clamp(28px,5vw,54px);box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .eyebrow{display:inline-flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 12px;font-weight:800;font-size:.8rem;margin-bottom:16px}
+    .hero h1{font-size:clamp(2rem,4vw,3.35rem);line-height:1.06;margin:0 0 12px;letter-spacing:-.04em;max-width:920px}
+    .hero p{max-width:880px;font-size:1.02rem;opacity:.92;margin:0 0 18px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{border:0;border-radius:999px;background:var(--azul);color:#fff;padding:11px 18px;font-family:inherit;font-weight:800;cursor:pointer;box-shadow:0 10px 20px rgba(0,59,113,.18);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn.secondary{background:#fff;color:var(--azul);border:1px solid var(--line);box-shadow:none}
+    .btn.ghost{background:transparent;color:var(--azul);border:1px solid var(--line);box-shadow:none}
+    section{scroll-margin-top:80px}
+    .section,.module{background:var(--card);border:1px solid rgba(217,226,236,.9);border-radius:28px;padding:clamp(22px,3vw,34px);margin-top:24px;box-shadow:var(--shadow)}
+    h2{margin:0 0 8px;color:var(--azul);font-size:clamp(1.45rem,2.4vw,2.05rem);line-height:1.2}
+    h3{color:#123B61;margin:20px 0 10px}.lead{margin:0;color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:start;margin-top:18px}
+    .callout{border-radius:18px;border:1px solid var(--line);padding:16px 18px;margin:18px 0;background:#F8FBFF}.callout strong{color:var(--azul)}.callout.warn{background:var(--warn);border-color:var(--warnline)}.callout.ok{background:var(--ok);border-color:var(--okline)}
+    .crossword-wrap{overflow:auto;padding:10px;background:#F8FBFF;border:1px solid var(--line);border-radius:20px}
+    .crossword{border-collapse:separate;border-spacing:4px;margin:0 auto}
+    .cell{width:42px;height:42px;position:relative;border-radius:8px;text-align:center;background:#1E293B}
+    .cell.active{background:#fff;border:1px solid var(--line);box-shadow:0 5px 14px rgba(15,23,42,.06)}
+    .cell input{width:100%;height:100%;border:0;background:transparent;text-align:center;text-transform:uppercase;font-family:Poppins,Arial,sans-serif;font-weight:800;font-size:1.05rem;color:var(--azul);outline:none;padding-top:8px}
+    .num{position:absolute;top:2px;left:5px;font-size:.62rem;font-weight:800;color:var(--ciano)}
+    .cell.correct{background:var(--ok);border-color:var(--okline)}.cell.wrong{background:var(--bad);border-color:var(--badline)}
+    .clues{display:grid;gap:14px}.clue-box{border:1px solid var(--line);border-radius:18px;background:#FBFDFF;padding:16px}.clue-box h3{margin:0 0 10px}.clue{margin:0 0 12px;color:#344054}.clue:last-child{margin-bottom:0}.clue strong{color:var(--azul)}
+    .result{display:none;border-radius:18px;padding:16px 18px;margin-top:16px;font-weight:800}.result.show{display:block}.result.ok{background:var(--ok);border:1px solid var(--okline);color:#12783D}.result.no{background:var(--bad);border:1px solid var(--badline);color:#A12D2D}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.card{background:#F8FBFF;border:1px solid var(--line);border-radius:18px;padding:16px}.card strong{display:block;color:var(--azul);margin-bottom:6px}.card p{margin:0;color:var(--muted);font-size:.92rem}
+    .trainer{border-left:5px solid var(--ciano);padding-left:16px;margin-top:16px;color:#344054}.footer{text-align:center;color:var(--muted);padding:30px 0 8px;font-size:.86rem}
+    @media(max-width:1050px){.grid2{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){#mainWrapper{padding:16px}.cards{grid-template-columns:1fr}.hero-actions{flex-direction:column}.btn{width:100%}.cell{width:34px;height:34px}.cell input{font-size:.92rem}.num{font-size:.55rem}}
+  </style>
+</head>
+<body>
+<div id="mainWrapper">
+  <section class="hero" id="inicio">
+    <div class="eyebrow">Dinâmica inicial • Instalação e sondagem</div>
+    <h1>Palavra Cruzada: Antes de chamar de defeito, o que verificar?</h1>
+    <p>Uma atividade rápida para mostrar por que instalação, limpeza e drenagem entram na sondagem inicial da lava-louças.</p>
+    <div class="hero-actions"><a class="btn" href="#atividade">Começar atividade</a><button class="btn secondary" onclick="revelarTudo()">Mostrar respostas</button></div>
+  </section>
+
+  <section class="section">
+    <h2>Como aplicar com a turma</h2>
+    <p class="lead">Use antes de entrar no bloco de instalação. A proposta é ativar o raciocínio dos participantes antes de apresentar o conteúdo técnico.</p>
+    <div class="cards">
+      <div class="card"><strong>1. Contexto</strong><p>Apresente a frase: “A lava-louças não funciona direito”. Pergunte: o que precisamos descobrir primeiro?</p></div>
+      <div class="card"><strong>2. Atividade</strong><p>Os participantes resolvem a cruzadinha usando as pistas de sondagem.</p></div>
+      <div class="card"><strong>3. Fechamento</strong><p>Conecte cada palavra a um ponto de verificação antes de concluir defeito.</p></div>
+    </div>
+    <div class="callout warn"><strong>Mensagem do trainer:</strong> a dinâmica não é sobre decorar palavras. É sobre lembrar que muitos sintomas começam em instalação, entrada de água, drenagem ou manutenção.</div>
+  </section>
+
+  <section class="module" id="atividade">
+    <h2>Atividade: preencha a palavra cruzada</h2>
+    <p class="lead">Digite uma letra por quadrado. Use as pistas para descobrir os pontos que devem ser verificados na sondagem.</p>
+    <div class="grid2">
+      <div>
+        <div class="crossword-wrap">
+          <table class="crossword" id="crossword"></table>
+        </div>
+        <div class="hero-actions" style="margin-top:18px">
+          <button class="btn" onclick="verificar()">Verificar respostas</button>
+          <button class="btn secondary" onclick="limpar()">Limpar</button>
+          <button class="btn ghost" onclick="revelarTudo()">Revelar</button>
+        </div>
+        <div class="result" id="resultado"></div>
+      </div>
+      <div class="clues">
+        <div class="clue-box">
+          <h3>Horizontais</h3>
+          <p class="clue"><strong>1.</strong> Deve estar aberta e com fornecimento adequado para entrada de água.</p>
+          <p class="clue"><strong>4.</strong> Pode estar dobrada, obstruída ou mal posicionada na entrada ou drenagem.</p>
+        </div>
+        <div class="clue-box">
+          <h3>Verticais</h3>
+          <p class="clue"><strong>2.</strong> Se estiver obstruído, pode prejudicar o escoamento de água.</p>
+          <p class="clue"><strong>3.</strong> Pino que não deve ser removido da tomada, ligado ao aterramento.</p>
+          <p class="clue"><strong>5.</strong> Deve estar limpo e montado corretamente antes de falar em defeito de drenagem.</p>
+          <p class="clue"><strong>6.</strong> Espaço do móvel que precisa respeitar instalação e alinhamento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Fechamento da dinâmica</h2>
+    <p>A palavra cruzada reforça pontos que aparecem na rotina de atendimento: entrada de água, drenagem, alimentação elétrica, limpeza e instalação no móvel.</p>
+    <div class="trainer">
+      <strong>Fala sugerida para o trainer:</strong><br>
+      “Quando o cliente diz que a lava-louças não enche, não drena ou apresenta código, a primeira resposta não deve ser diagnóstico. Precisamos confirmar torneira, mangueira, sifão, filtro, tomada com terra e nicho. Só depois organizamos o próximo passo.”
+    </div>
+    <div class="callout ok"><strong>Mensagem principal:</strong> antes de concluir defeito, faça perguntas que revelem instalação, uso, limpeza e condição hidráulica.</div>
+  </section>
+
+  <footer class="footer">Dinâmica EAD • Lava-Louças Hisense • Bloco Instalação e Requisitos</footer>
+</div>
+<script>
+const rows=8, cols=14;
+const words=[
+  {num:1, word:'TORNEIRA', row:2, col:2, dir:'H'},
+  {num:2, word:'SIFAO', row:1, col:7, dir:'V'},
+  {num:3, word:'TERRA', row:2, col:2, dir:'V'},
+  {num:4, word:'MANGUEIRA', row:4, col:6, dir:'H'},
+  {num:5, word:'FILTRO', row:3, col:12, dir:'V'},
+  {num:6, word:'NICHO', row:4, col:8, dir:'V'}
+];
+const grid={};
+const nums={};
+for(const w of words){
+  for(let i=0;i<w.word.length;i++){
+    const r=w.row+(w.dir==='V'?i:0), c=w.col+(w.dir==='H'?i:0);
+    const key=`${r}-${c}`;
+    grid[key]=w.word[i];
+    if(i===0) nums[key]=w.num;
+  }
+}
+function build(){
+  const table=document.getElementById('crossword'); table.innerHTML='';
+  for(let r=1;r<=rows;r++){
+    const tr=document.createElement('tr');
+    for(let c=1;c<=cols;c++){
+      const td=document.createElement('td'); td.className='cell';
+      const key=`${r}-${c}`;
+      if(grid[key]){
+        td.classList.add('active');
+        if(nums[key]){const n=document.createElement('span');n.className='num';n.textContent=nums[key];td.appendChild(n)}
+        const inp=document.createElement('input');inp.maxLength=1;inp.dataset.answer=grid[key];inp.dataset.key=key;inp.setAttribute('aria-label',`Letra linha ${r} coluna ${c}`);
+        inp.addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z]/g,''); if(e.target.value){focusNext(e.target)}});
+        td.appendChild(inp);
+      }
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+}
+function focusNext(el){
+  const inputs=[...document.querySelectorAll('.cell.active input')];
+  const idx=inputs.indexOf(el); if(idx>=0 && idx<inputs.length-1) inputs[idx+1].focus();
+}
+function verificar(){
+  let total=0, ok=0, empty=0;
+  document.querySelectorAll('.cell.active').forEach(cell=>{
+    const inp=cell.querySelector('input'); total++;
+    cell.classList.remove('correct','wrong');
+    if(!inp.value){empty++; cell.classList.add('wrong'); return;}
+    if(inp.value.toUpperCase()===inp.dataset.answer){ok++;cell.classList.add('correct')}else{cell.classList.add('wrong')}
+  });
+  const res=document.getElementById('resultado'); res.className='result show '+(ok===total?'ok':'no');
+  res.textContent=ok===total?'Perfeito! Todas as respostas estão corretas. Agora conecte cada palavra com a sondagem do atendimento.':`Você acertou ${ok} de ${total} letras. Revise as casas marcadas em vermelho.`;
+}
+function revelarTudo(){
+  document.querySelectorAll('.cell.active').forEach(cell=>{const inp=cell.querySelector('input');inp.value=inp.dataset.answer;cell.classList.remove('wrong');cell.classList.add('correct')});
+  const res=document.getElementById('resultado'); res.className='result show ok'; res.textContent='Respostas reveladas. Use o fechamento para discutir por que cada item deve ser sondado.';
+}
+function limpar(){
+  document.querySelectorAll('.cell.active').forEach(cell=>{const inp=cell.querySelector('input');inp.value='';cell.classList.remove('correct','wrong')});
+  const res=document.getElementById('resultado'); res.className='result'; res.textContent='';
+}
+build();
+</script>
+</body>
+</html>
