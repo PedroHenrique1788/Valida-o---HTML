@@ -1,0 +1,3014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Simulador | Atendimento no WhatsApp | Pós-Vendas</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --whatsapp-green: #25D366;
+      --whatsapp-dark: #075E54;
+      --bg-soft: #F4F8FB;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --purple: #7C3AED;
+      --shadow: 0 12px 30px rgba(0, 63, 125, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(37, 211, 102, 0.16), transparent 34%),
+        linear-gradient(135deg, #EEF7FF 0%, #F9FCFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 310px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: #FFFFFF;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.2);
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--whatsapp-green);
+      box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.22);
+    }
+
+    .brandBlock h1 {
+      margin: 18px 0 8px;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .sideSearch {
+      margin: 24px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .practiceBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(37, 211, 102, 0.16);
+      border: 1px solid rgba(37, 211, 102, 0.34);
+    }
+
+    .practiceBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .practiceBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .practiceToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: linear-gradient(135deg, var(--whatsapp-green), #009BAA);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 46px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(37, 211, 102, 0.28), transparent 34%),
+        radial-gradient(circle at 12% 85%, rgba(0, 174, 239, 0.22), transparent 36%),
+        linear-gradient(135deg, #003F7D, #005EB8 54%, #075E54);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 880px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.04rem;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 1.64rem;
+      line-height: 1.2;
+    }
+
+    .sectionIntro {
+      max-width: 920px;
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(37, 211, 102, 0.12);
+      color: #128C7E;
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .imagePlaceholder {
+      margin: 16px 0;
+      padding: 24px;
+      border-radius: 18px;
+      border: 2px dashed rgba(0, 94, 184, 0.35);
+      background: rgba(0, 94, 184, 0.05);
+      color: var(--hisense-blue-dark);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .simulatorShell {
+      margin-top: 18px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #E9F0F3;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 12px 28px rgba(31, 41, 51, 0.08);
+    }
+
+    .simTopBar {
+      height: 54px;
+      background: linear-gradient(135deg, #075E54, #128C7E);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .simBody {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      min-height: 420px;
+    }
+
+    .simLeft {
+      background: #FFFFFF;
+      border-right: 1px solid var(--border-soft);
+      padding: 16px;
+    }
+
+    .simRight {
+      background: #F7FAFC;
+      padding: 20px;
+    }
+
+    .simMenuItem {
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #FFFFFF;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .simMenuItem:hover,
+    .simMenuItem.active {
+      border-color: var(--whatsapp-green);
+      background: rgba(37, 211, 102, 0.08);
+    }
+
+    .simMenuItem strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    .simMenuItem span {
+      display: block;
+      color: var(--text-medium);
+      font-size: 0.78rem;
+      margin-top: 3px;
+    }
+
+    .fakeScreen {
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      padding: 22px;
+      min-height: 360px;
+    }
+
+    .fakeScreen h3 {
+      margin: 0 0 8px;
+      color: var(--text-dark);
+    }
+
+    .fakeScreen p {
+      margin: 0 0 14px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .fieldGroup {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .fieldGroup label {
+      font-size: 0.8rem;
+      color: var(--text-medium);
+      font-weight: 700;
+    }
+
+    .fieldGroup input,
+    .fieldGroup select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      outline: none;
+      font-size: 0.92rem;
+      background: #FFFFFF;
+    }
+
+    .simActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .simBtn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      cursor: pointer;
+      font-weight: 800;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      transition: 0.18s ease;
+    }
+
+    .simBtn:hover {
+      transform: translateY(-1px);
+    }
+
+    .simBtn.secondary {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+    }
+
+    .simBtn.green {
+      background: var(--whatsapp-green);
+      color: #FFFFFF;
+    }
+
+    .simBtn.warn {
+      background: var(--warning);
+      color: #FFFFFF;
+    }
+
+    .feedbackBox {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      border-left: 5px solid;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .practiceMode .learningContent {
+      display: none !important;
+    }
+
+    .practiceMode .practiceOnly {
+      display: block !important;
+    }
+
+    .practiceOnly {
+      display: none;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    @media (max-width: 1080px) {
+      #mainWrapper {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .simBody {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+    }
+    .gameCard {
+      padding: 24px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+    }
+
+    .gameHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .scoreBadge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 176, 80, 0.12);
+      color: var(--success);
+      font-size: 0.85rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .questionText {
+      margin: 0 0 16px;
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .optionBtn {
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      background: #FFFFFF;
+      padding: 14px 16px;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .optionBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .optionBtn.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    .optionBtn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 15px;
+      font-size: 0.92rem;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      background: rgba(22, 163, 74, 0.1);
+      color: #166534;
+    }
+
+    .feedback.bad {
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .nextBtn {
+      display: none;
+      margin-top: 14px;
+      border: none;
+      border-radius: 14px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .nextBtn.show {
+      display: inline-flex;
+    }
+
+    .finalSummary {
+      display: none;
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 94, 184, 0.18);
+    }
+
+    .finalSummary.show {
+      display: block;
+    }
+
+    .footer {
+      margin: 36px 0 10px;
+      padding: 22px;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+    .matchingGame {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .matchColumn {
+      padding: 18px;
+      border-radius: 20px;
+      background: #F7FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .matchColumn h3 {
+      margin: 0 0 14px;
+      color: var(--hisense-blue-dark);
+      font-size: 1rem;
+    }
+
+    .matchBtn {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .matchBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .matchBtn.selected {
+      border-color: var(--hisense-blue);
+      background: rgba(0, 94, 184, 0.1);
+    }
+
+    .matchBtn.matched {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+      cursor: default;
+    }
+
+    .matchBtn.wrong {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .sequenceGame {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .sequenceBtn {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 15px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .sequenceBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .sequenceBtn.correctStep {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+      cursor: default;
+    }
+
+    .sequenceBtn.wrongStep {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    @media (max-width: 780px) {
+      .matchingGame {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          Simulador
+        </div>
+
+        <h1>Atendimento no WhatsApp</h1>
+
+        <p>
+          Treine operação ativa, filas, pausa, pesquisa, conversa e ações rápidas no painel.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por operação, fila, pausa..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do simulador">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+          <a href="#inicio" class="navItem">Início</a>
+          <a href="#visao-geral" class="navItem">Visão geral</a>
+          <a href="#operacao" class="navItem">Operação ativa</a>
+          <a href="#filas" class="navItem">Filas</a>
+          <a href="#pausa" class="navItem">Pausa</a>
+          <a href="#retorno-pausa" class="navItem">Retorno da pausa</a>
+          <a href="#pratica" class="navItem">Modo prática</a>
+          <a href="#jogos" class="navItem">Jogos</a>
+        </div>
+      </nav>
+
+      <div class="practiceBox">
+        <h3>Modo prática</h3>
+        <p>
+          Oculte a consulta e pratique decisões como se estivesse no painel.
+        </p>
+        <button class="practiceToggle" id="practiceToggle">
+          Ativar modo prática
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início atendimento whatsapp pós vendas simulador">
+        <div class="heroContent">
+          <div class="heroTag">Pós-Vendas | WhatsApp</div>
+
+          <h2>Simulador de Atendimento no WhatsApp</h2>
+
+          <p>
+            Use este simulador para praticar as ações principais do painel: conferir operação ativa, reconhecer filas, pausar atendimentos, retornar da pausa e preparar a condução correta da conversa.
+          </p>
+
+          <div class="heroActions">
+           <a href="#operacao" class="heroTag">Começar simulação</a>
+           <a href="#pausa" class="heroTag">Praticar pausa</a>
+           <a href="#filas" class="heroTag">Ver filas</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="learningContent">
+
+        <section class="section searchable" id="visao-geral" data-keywords="visão geral atendimento whatsapp canal operação painel">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 1</span>
+              <h2>Como usar este simulador</h2>
+              <p class="sectionIntro">
+                O objetivo é treinar a lógica de uso do atendimento no WhatsApp: antes de atender, conferir a operação; durante a rotina, controlar disponibilidade; e, na continuidade, localizar corretamente o atendimento.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Guia prático</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Antes de atender</h3>
+              <p>
+                Confira a operação ativa e entenda em qual fila o atendimento está acontecendo.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Durante a rotina</h3>
+              <p>
+                Use a pausa corretamente quando precisar se ausentar e retorne pelo botão adequado.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Durante a conversa</h3>
+              <p>
+                Leia o histórico, responda com clareza e use os botões de ação com cuidado.
+              </p>
+            </div>
+          </div>
+
+          <div class="imagePlaceholder">
+            INSERIR IMAGEM: Capa do treinamento Atendimento no WhatsApp
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Uso recomendado</p>
+            <p class="calloutText">
+              Use este HTML como reforço pós-presencial. O treinamento explica o painel e o simulador ajuda o participante a praticar as decisões.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="operacao" data-keywords="operação ativa conversas fábrica hisense gorenje unidade correta">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 2</span>
+              <h2>Operação ativa</h2>
+              <p class="sectionIntro">
+                No menu Conversas, a seção Operação indica qual operação está ativa no momento. Essa conferência evita que atendimentos sejam realizados na unidade incorreta.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Primeira checagem</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Painel WhatsApp | Simulação</span>
+              <span id="activeOperationLabel">Operação ativa: Hisense/Gorenje</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active" onclick="selectOperation('Hisense/Gorenje')">
+                  <strong>Hisense/Gorenje</strong>
+                  <span>Operação correta</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectOperation('Fábrica Exemplo A')">
+                  <strong>Fábrica Exemplo A</strong>
+                  <span>Disponível no login</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectOperation('Fábrica Exemplo B')">
+                  <strong>Fábrica Exemplo B</strong>
+                  <span>Disponível no login</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 1: confira a operação ativa</h3>
+                  <p>
+                    Você vai iniciar o atendimento de Pós-Vendas Hisense/Gorenje. Antes de responder o cliente, confirme se a operação ativa está correta.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print do menu Conversas com operação ativa
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="checkOperation()">Confirmar operação atual</button>
+                    <button class="simBtn secondary" onclick="resetOperation()">Reiniciar desafio</button>
+                  </div>
+
+                  <div class="feedbackBox" id="operationFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Aprendizado esperado</p>
+            <p class="calloutText">
+              Antes de iniciar ou responder uma conversa, confirme a operação ativa. Se estiver incorreta, altere antes de seguir.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="filas" data-keywords="filas n1 receptivo dealer backoffice consumidores revenda tracking">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 3</span>
+              <h2>Filas de atendimento</h2>
+              <p class="sectionIntro">
+                A fila ajuda a entender a origem e o tipo de atendimento. Antes de responder, confira se o cliente está na fila correta e se o contexto da conversa faz sentido.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Direcionamento</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card searchable" data-keywords="n1 receptivo consumidor suporte dúvidas">
+              <h3>N1 Receptivo</h3>
+              <p>
+                Tratativa de consumidores finais que fizeram contato para solicitar suporte ou tirar dúvidas.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="dealer revenda sac revenda parceiros">
+              <h3>Dealer</h3>
+              <p>
+                Canal dedicado para apoio às revendas parceiras, ligado à equipe de SAC Revenda.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="backoffice posto autorizado tracking assistência">
+              <h3>Backoffice</h3>
+              <p>
+                Canal dedicado para apoio aos postos autorizados, ligado à equipe de Tracking.
+              </p>
+            </div>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Filas | Simulação</span>
+              <span>Escolha a fila correta</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem" onclick="selectQueue('N1 Receptivo')">
+                  <strong>N1 Receptivo</strong>
+                  <span>Consumidor final</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectQueue('Dealer')">
+                  <strong>Dealer</strong>
+                  <span>Revenda parceira</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectQueue('Backoffice')">
+                  <strong>Backoffice</strong>
+                  <span>Posto autorizado</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 2: em qual fila esse caso se encaixa?</h3>
+                  <p>
+                    Uma revenda parceira entra em contato solicitando apoio sobre uma demanda de cliente. Qual fila representa esse tipo de atendimento?
+                  </p>
+
+                  <div class="card" style="margin-top:14px;">
+                    <h3>Fila selecionada</h3>
+                    <p><strong>Escolha atual:</strong> <span id="selectedQueue">Nenhuma</span></p>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="checkQueue()">Confirmar fila</button>
+                    <button class="simBtn secondary" onclick="resetQueue()">Reiniciar desafio</button>
+                  </div>
+
+                  <div class="feedbackBox" id="queueFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Ponto de atenção</p>
+            <p class="calloutText">
+              Fila errada pode gerar tratativa fora de contexto. Valide se é consumidor final, revenda ou posto autorizado antes de seguir.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="pausa" data-keywords="pausar atendimento motivo pausa não recebe novos atendimentos online">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 4</span>
+              <h2>Pausar atendimentos</h2>
+              <p class="sectionIntro">
+                A pausa interrompe temporariamente o recebimento de novos atendimentos. Durante a pausa, o usuário não aparece como online para os demais usuários do painel.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Disponibilidade</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Painel WhatsApp | Pausa</span>
+              <span id="pauseStatusLabel">Status: disponível</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Atendimentos</strong>
+                  <span>Recebendo novos casos</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Ícone de pausa</strong>
+                  <span>Interromper temporariamente</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 3: iniciar pausa corretamente</h3>
+                  <p>
+                    Você precisa se ausentar temporariamente. Selecione um motivo de pausa e clique em “Fazer pausa”.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print do botão de pausa e tela de motivo da pausa
+                  </div>
+
+                  <div class="fieldGroup">
+                    <label for="pauseReason">Motivo da pausa</label>
+                    <select id="pauseReason">
+                      <option value="">Selecione</option>
+                      <option value="Treinamento">Treinamento</option>
+                      <option value="Reunião">Reunião</option>
+                      <option value="Pausa regulamentar">Pausa regulamentar</option>
+                      <option value="Suporte interno">Suporte interno</option>
+                    </select>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn warn" onclick="startPause()">Fazer pausa</button>
+                    <button class="simBtn secondary" onclick="cancelPause()">Cancelar</button>
+                  </div>
+
+                  <div class="feedbackBox" id="pauseFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Aprendizado esperado</p>
+            <p class="calloutText">
+              A pausa exige seleção de motivo. Caso o motivo necessário não exista, a orientação é verificar com a liderança.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="retorno-pausa" data-keywords="contador pausa play encerrar pausa zerado voltar disponível">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 5</span>
+              <h2>Contador e retorno da pausa</h2>
+              <p class="sectionIntro">
+                Ao iniciar uma pausa, o contador de tempo é ativado. Para retornar, é necessário clicar no ícone Play ao lado do contador. Depois disso, o contador é zerado.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Retorno</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Controle de pausa | Simulação</span>
+              <span id="pauseTimerLabel">Tempo de pausa: 00:00</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Contador de pausa</strong>
+                  <span id="pauseLeftStatus">Aguardando pausa</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Ícone Play</strong>
+                  <span>Retornar ao atendimento</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 4: voltar a ficar disponível</h3>
+                  <p>
+                    Simule que você está em pausa e precisa voltar a receber atendimentos. Clique em “Play” para encerrar a pausa.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print do contador de pausa e botão Play
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn warn" onclick="simulatePaused()">Simular pausa ativa</button>
+                    <button class="simBtn green" onclick="endPause()">Play | Encerrar pausa</button>
+                  </div>
+
+                  <div class="feedbackBox" id="endPauseFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Aprendizado esperado</p>
+            <p class="calloutText">
+              Para voltar à disponibilidade, não basta retornar fisicamente. É preciso encerrar a pausa no painel pelo botão Play.
+            </p>
+          </div>
+        </section>
+        <section class="section searchable" id="pesquisar" data-keywords="pesquisar atendimento nome telefone cliente lupa localizar atendimento">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 6</span>
+              <h2>Pesquisar atendimento</h2>
+              <p class="sectionIntro">
+                No menu Pesquisar, é possível localizar um atendimento específico de forma rápida. A busca pode ser feita pelo nome ou telefone do cliente. 【1-e89b88】
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Localização rápida</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Pesquisar | Simulação</span>
+              <span>Buscar por nome ou telefone</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Pesquisar</strong>
+                  <span>Localizar atendimento</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Meus Atendimentos</strong>
+                  <span>Lista do usuário</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Conversas</strong>
+                  <span>Painel principal</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 5: localizar atendimento</h3>
+                  <p>
+                    O cliente retornou pelo WhatsApp e você precisa localizar o atendimento anterior. Digite nome ou telefone e clique em pesquisar.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print do menu Pesquisar
+                  </div>
+
+                  <div class="fieldGroup">
+                    <label for="searchCustomer">Nome ou telefone do cliente</label>
+                    <input id="searchCustomer" type="text" placeholder="Ex.: Maria Silva ou 11999999999" />
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="searchAttendance()">Pesquisar</button>
+                    <button class="simBtn secondary" onclick="clearAttendanceSearch()">Limpar</button>
+                  </div>
+
+                  <div class="feedbackBox" id="searchFeedback"></div>
+
+                  <div id="searchResultBox" style="display:none; margin-top:18px;">
+                    <div class="card">
+                      <h3>Resultado encontrado</h3>
+                      <p><strong>Cliente:</strong> Maria Silva</p>
+                      <p><strong>Telefone:</strong> 11999999999</p>
+                      <p><strong>Fila:</strong> N1 Receptivo</p>
+                      <p><strong>Status:</strong> Em atendimento</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Aprendizado esperado</p>
+            <p class="calloutText">
+              A pesquisa ajuda a localizar rapidamente uma conversa, mas antes de abrir o atendimento é preciso confirmar se o resultado corresponde ao cliente correto.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="lista-atendimentos" data-keywords="lista atendimentos meus atendimentos fila status n1 receptivo dealer backoffice cliente">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 7</span>
+              <h2>Lista de atendimentos</h2>
+              <p class="sectionIntro">
+                Em Meus Atendimentos, são exibidos os atendimentos vinculados ao usuário, além da quantidade total de atendimentos listados. 【1-e89b88】
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Meus atendimentos</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Meus Atendimentos | Simulação</span>
+              <span>Total listado: 4</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem" onclick="selectAttendance('Maria Silva', 'N1 Receptivo', 'Em atendimento', '11999999999')">
+                  <strong>Maria Silva</strong>
+                  <span>N1 Receptivo | Em atendimento</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectAttendance('Loja Parceira Alfa', 'Dealer', 'Pendente', '1133334444')">
+                  <strong>Loja Parceira Alfa</strong>
+                  <span>Dealer | Pendente</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectAttendance('Posto Autorizado Beta', 'Backoffice', 'Em atendimento', '1144445555')">
+                  <strong>Posto Autorizado Beta</strong>
+                  <span>Backoffice | Em atendimento</span>
+                </div>
+
+                <div class="simMenuItem" onclick="selectAttendance('Ana Paula', 'N1 Receptivo', 'Finalizado', '1188887777')">
+                  <strong>Ana Paula</strong>
+                  <span>N1 Receptivo | Finalizado</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 6: escolha o atendimento correto</h3>
+                  <p>
+                    Você precisa continuar o atendimento de uma consumidora final chamada Maria Silva, que está na fila N1 Receptivo com status “Em atendimento”.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print da lista de atendimentos
+                  </div>
+
+                  <div class="card" style="margin-top:14px;">
+                    <h3>Atendimento selecionado</h3>
+                    <p><strong>Cliente:</strong> <span id="selectedClient">Nenhum</span></p>
+                    <p><strong>Telefone:</strong> <span id="selectedPhone">-</span></p>
+                    <p><strong>Fila:</strong> <span id="selectedQueueFromList">-</span></p>
+                    <p><strong>Status:</strong> <span id="selectedStatus">-</span></p>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="checkSelectedAttendance()">Confirmar seleção</button>
+                    <button class="simBtn secondary" onclick="resetSelectedAttendance()">Reiniciar desafio</button>
+                  </div>
+
+                  <div class="feedbackBox" id="attendanceFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Ponto de atenção</p>
+            <p class="calloutText">
+              Na lista, valide cliente, telefone, fila e status. Abrir o atendimento errado pode gerar resposta fora de contexto.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="janela-atendimento" data-keywords="janela atendimento conversa cliente telefone histórico mensagens templates campo mensagem envio avião papel">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 8</span>
+              <h2>Janela de atendimento</h2>
+              <p class="sectionIntro">
+                A janela de atendimento é o espaço onde acontece a interação direta com o cliente. No topo ficam o nome ou identificação cadastrada e o número de telefone. No centro fica o histórico de mensagens. Na parte inferior, o campo para digitar e enviar a resposta. 【1-e89b88】
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Conversa</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Atendimento | Maria Silva</span>
+              <span>Telefone: 11999999999</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Cliente</strong>
+                  <span>Maria Silva</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Telefone</strong>
+                  <span>11999999999</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Status</strong>
+                  <span>Em atendimento</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 7: entenda a tela antes de responder</h3>
+                  <p>
+                    Antes de enviar qualquer mensagem, observe a identificação do cliente, o telefone e o histórico da conversa.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print da janela de atendimento
+                  </div>
+
+                  <div class="grid grid3" style="margin-top:18px;">
+                    <div class="card">
+                      <h3>Topo da conversa</h3>
+                      <p>
+                        Confirme nome ou identificação cadastrada e número de telefone do cliente.
+                      </p>
+                    </div>
+
+                    <div class="card">
+                      <h3>Histórico</h3>
+                      <p>
+                        Leia as mensagens anteriores, incluindo templates automáticos e respostas já enviadas.
+                      </p>
+                    </div>
+
+                    <div class="card">
+                      <h3>Campo de mensagem</h3>
+                      <p>
+                        Escreva a resposta, revise e envie pelo ícone verde de envio.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="confirmScreenReading()">Confirmar leitura da tela</button>
+                  </div>
+
+                  <div class="feedbackBox" id="screenReadingFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Aprendizado esperado</p>
+            <p class="calloutText">
+              A resposta ao cliente deve vir depois da leitura do histórico. Isso evita repetição, resposta fora de contexto ou orientação incompleta.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="historico" data-keywords="histórico mensagens templates respostas cliente atendente conversa contexto">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 9</span>
+              <h2>Histórico de mensagens</h2>
+              <p class="sectionIntro">
+                O histórico exibe as mensagens trocadas com o cliente, incluindo textos enviados automaticamente por templates e respostas do atendimento ou do próprio cliente. 【1-e89b88】
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Contexto antes da resposta</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Histórico | Simulação</span>
+              <span>Leia antes de responder</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Histórico</strong>
+                  <span>Mensagens anteriores</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Template</strong>
+                  <span>Mensagem automática</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Cliente</strong>
+                  <span>Nova solicitação</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 8: identifique o contexto correto</h3>
+                  <p>
+                    Leia o histórico simulado e escolha o melhor entendimento antes de responder.
+                  </p>
+
+                  <div style="background:#E5DDD5; border-radius:18px; padding:16px; margin-top:16px;">
+                    <div style="max-width:78%; background:#FFFFFF; padding:12px 14px; border-radius:14px; margin-bottom:10px;">
+                      <p style="margin:0; font-size:0.9rem;">
+                        Olá, Maria. Recebemos sua solicitação e estamos verificando o andamento do atendimento.
+                      </p>
+                    </div>
+
+                    <div style="max-width:78%; margin-left:auto; background:#DCF8C6; padding:12px 14px; border-radius:14px; margin-bottom:10px;">
+                      <p style="margin:0; font-size:0.9rem;">
+                        Certo, fico no aguardo.
+                      </p>
+                    </div>
+
+                    <div style="max-width:78%; background:#FFFFFF; padding:12px 14px; border-radius:14px;">
+                      <p style="margin:0; font-size:0.9rem;">
+                        Olá, gostaria de saber se já tem alguma atualização sobre meu caso.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn" onclick="chooseHistoryContext('novo')">É uma nova solicitação sem histórico</button>
+                    <button class="simBtn" onclick="chooseHistoryContext('retorno')">É retorno sobre atendimento em andamento</button>
+                    <button class="simBtn" onclick="chooseHistoryContext('finalizado')">O atendimento já está finalizado</button>
+                  </div>
+
+                  <div class="feedbackBox" id="historyFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Boa prática</p>
+            <p class="calloutText">
+              Se o cliente está retornando sobre algo já iniciado, evite pedir que ele conte tudo novamente. Primeiro leia o histórico e só depois faça perguntas complementares.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="responder" data-keywords="campo mensagem digite sua mensagem resposta enviar ícone verde avião papel">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 10</span>
+              <h2>Campo de mensagem e envio</h2>
+              <p class="sectionIntro">
+                Na parte inferior da janela, fica o campo “Digite sua mensagem...”. Após escrever a resposta, o envio é feito pelo ícone verde em formato de avião de papel. 【1-e89b88】
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Resposta ao cliente</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Conversa | Maria Silva</span>
+              <span>Envio de mensagem</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Mensagem</strong>
+                  <span>Digite e revise antes de enviar</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Envio</strong>
+                  <span>Ícone verde</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 9: responda com clareza</h3>
+                  <p>
+                    O cliente pediu atualização sobre um atendimento em andamento. Digite uma resposta clara, sem prometer solução sem consulta.
+                  </p>
+
+                  <div style="background:#E5DDD5; border-radius:18px; padding:16px; margin-top:16px;">
+                    <div style="max-width:78%; background:#FFFFFF; padding:12px 14px; border-radius:14px; margin-bottom:10px;">
+                      <p style="margin:0; font-size:0.9rem;">
+                        Olá, gostaria de saber se já tem atualização sobre meu caso.
+                      </p>
+                    </div>
+
+                    <div id="sentMessageBubble" style="display:none; max-width:78%; margin-left:auto; background:#DCF8C6; padding:12px 14px; border-radius:14px;">
+                      <p id="sentMessageText" style="margin:0; font-size:0.9rem;"></p>
+                    </div>
+                  </div>
+
+                  <div class="fieldGroup">
+                    <label for="messageInput">Digite sua mensagem</label>
+                    <textarea id="messageInput" rows="4" placeholder="Digite uma resposta clara para o cliente..."></textarea>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="sendSimulatedMessage()">Enviar mensagem</button>
+                    <button class="simBtn secondary" onclick="clearSimulatedMessage()">Limpar</button>
+                  </div>
+
+                  <div class="feedbackBox" id="messageFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Antes de enviar</p>
+            <p class="calloutText">
+              Revise a resposta. No WhatsApp, uma mensagem enviada sem contexto ou com promessa indevida pode gerar retrabalho e insatisfação.
+            </p>
+          </div>
+        </section>
+        <section class="section searchable" id="botoes-acao" data-keywords="botões ação confirmar lgpd transferir finalizar mais opções atendimento whatsapp">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 11</span>
+              <h2>Botões de ação</h2>
+              <p class="sectionIntro">
+                Acima da conversa ficam os botões de ação rápidos. Eles ajudam a registrar consentimento, transferir, finalizar ou acessar opções adicionais do atendimento.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Ações rápidas</span>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>Botões de ação | Simulação</span>
+              <span>LGPD | Transferir | Finalizar | Mais opções</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Cliente</strong>
+                  <span>Maria Silva</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Status</strong>
+                  <span>Em atendimento</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Cenário</strong>
+                  <span id="actionScenarioLabel">Aguardando desafio</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 10: escolha o botão correto</h3>
+                  <p id="actionScenarioText">
+                    Clique em “Novo desafio” para receber uma situação e escolher o botão correto.
+                  </p>
+
+                  <div class="imagePlaceholder">
+                    INSERIR IMAGEM: Print dos botões de ação
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn secondary" onclick="newActionChallenge()">Novo desafio</button>
+                  </div>
+
+                  <div class="simActions">
+                    <button class="simBtn" onclick="chooseActionButton('lgpd')">Confirmar LGPD</button>
+                    <button class="simBtn" onclick="chooseActionButton('transferir')">Transferir</button>
+                    <button class="simBtn" onclick="chooseActionButton('finalizar')">Finalizar</button>
+                    <button class="simBtn" onclick="chooseActionButton('mais')">Mais opções</button>
+                  </div>
+
+                  <div class="feedbackBox" id="actionFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid2" style="margin-top:18px;">
+            <div class="card">
+              <h3>O que cada botão faz</h3>
+              <ul>
+                <li><strong>Confirmar LGPD:</strong> registra o consentimento do cliente.</li>
+                <li><strong>Transferir:</strong> envia o atendimento para outro responsável.</li>
+                <li><strong>Finalizar:</strong> encerra o atendimento atual.</li>
+                <li><strong>Mais opções:</strong> abre ações adicionais relacionadas ao atendimento.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Como decidir</h3>
+              <p>
+                Primeiro entenda o que precisa acontecer com o atendimento. Depois escolha o botão. A ação errada pode encerrar, transferir ou registrar indevidamente a conversa.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section searchable" id="lgpd" data-keywords="lgpd consentimento confirmar lgpd cliente autorização dados">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 12</span>
+              <h2>Confirmar LGPD</h2>
+              <p class="sectionIntro">
+                O botão Confirmar LGPD deve ser usado para registrar o consentimento do cliente em relação à LGPD.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Consentimento</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando usar</h3>
+              <p>
+                Use quando o cliente confirmar o consentimento necessário para continuidade do atendimento, conforme orientação da operação.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Cuidado importante</h3>
+              <p>
+                Não confirme LGPD sem que o cliente tenha dado o consentimento. O botão registra uma ação sensível dentro do atendimento.
+              </p>
+            </div>
+          </div>
+
+          <div class="simulatorShell">
+            <div class="simTopBar">
+              <span>LGPD | Simulação</span>
+              <span>Registro de consentimento</span>
+            </div>
+
+            <div class="simBody">
+              <div class="simLeft">
+                <div class="simMenuItem active">
+                  <strong>Cliente</strong>
+                  <span>Aguardando confirmação</span>
+                </div>
+
+                <div class="simMenuItem">
+                  <strong>Ação esperada</strong>
+                  <span>Confirmar LGPD</span>
+                </div>
+              </div>
+
+              <div class="simRight">
+                <div class="fakeScreen">
+                  <h3>Desafio 11: registrar consentimento</h3>
+                  <p>
+                    O cliente confirmou o consentimento necessário para a continuidade do atendimento. Qual ação deve ser realizada?
+                  </p>
+
+                  <div class="simActions">
+                    <button class="simBtn green" onclick="confirmLgpd()">Confirmar LGPD</button>
+                    <button class="simBtn secondary" onclick="wrongLgpd()">Transferir atendimento</button>
+                    <button class="simBtn secondary" onclick="wrongLgpd()">Finalizar conversa</button>
+                  </div>
+
+                  <div class="feedbackBox" id="lgpdFeedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="section practiceOnly" id="pratica" data-keywords="modo prática liga liga quebra cabeça monte fluxo atendimento whatsapp operação fila pausa pesquisa conversa lgpd">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Desafios interativos sem consulta</h2>
+            <p class="sectionIntro">
+              Agora a prática será ativa. Conecte ações com funções, monte a sequência correta do atendimento e teste decisões rápidas do painel WhatsApp.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Treino ativo</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Atividade 1 | Liga-liga</h3>
+            <p>
+              Clique em um item da coluna da esquerda e depois na função correspondente da direita. O objetivo é associar cada elemento do painel à ação correta.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Atividade 2 | Monte o fluxo</h3>
+            <p>
+              Organize as etapas na ordem correta para reforçar a sequência de atendimento e a sequência de pausa no WhatsApp.
+            </p>
+          </div>
+        </div>
+
+        <div class="section" style="box-shadow:none; margin-top:22px; background:#FFFFFF;">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Atividade 1</span>
+              <h2>Liga-liga: conecte ação e função</h2>
+              <p class="sectionIntro">
+                Selecione um item da esquerda e depois a descrição correta na direita.
+              </p>
+            </div>
+
+            <span class="pill pillBlue" id="matchScore">Pares corretos: 0/6</span>
+          </div>
+
+          <div class="matchingGame">
+            <div class="matchColumn">
+              <h3>Item do painel</h3>
+
+              <button class="matchBtn leftMatch" data-id="operacao" onclick="selectMatchItem(this, 'left')">
+                Operação ativa
+              </button>
+
+              <button class="matchBtn leftMatch" data-id="dealer" onclick="selectMatchItem(this, 'left')">
+                Dealer
+              </button>
+
+              <button class="matchBtn leftMatch" data-id="pausa" onclick="selectMatchItem(this, 'left')">
+                Pausar atendimentos
+              </button>
+
+              <button class="matchBtn leftMatch" data-id="play" onclick="selectMatchItem(this, 'left')">
+                Play
+              </button>
+
+              <button class="matchBtn leftMatch" data-id="pesquisar" onclick="selectMatchItem(this, 'left')">
+                Pesquisar
+              </button>
+
+              <button class="matchBtn leftMatch" data-id="lgpd" onclick="selectMatchItem(this, 'left')">
+                Confirmar LGPD
+              </button>
+            </div>
+
+            <div class="matchColumn">
+              <h3>Função correta</h3>
+
+              <button class="matchBtn rightMatch" data-id="pesquisar" onclick="selectMatchItem(this, 'right')">
+                Localizar atendimento por nome ou telefone.
+              </button>
+
+              <button class="matchBtn rightMatch" data-id="lgpd" onclick="selectMatchItem(this, 'right')">
+                Registrar consentimento do cliente.
+              </button>
+
+              <button class="matchBtn rightMatch" data-id="operacao" onclick="selectMatchItem(this, 'right')">
+                Conferir se está na unidade correta antes de atender.
+              </button>
+
+              <button class="matchBtn rightMatch" data-id="play" onclick="selectMatchItem(this, 'right')">
+                Encerrar pausa e voltar a ficar disponível.
+              </button>
+
+              <button class="matchBtn rightMatch" data-id="dealer" onclick="selectMatchItem(this, 'right')">
+                Apoio a revendas parceiras.
+              </button>
+
+              <button class="matchBtn rightMatch" data-id="pausa" onclick="selectMatchItem(this, 'right')">
+                Interromper temporariamente novos atendimentos.
+              </button>
+            </div>
+          </div>
+
+          <div class="simActions">
+            <button class="simBtn secondary" onclick="resetMatchingGame()">Reiniciar liga-liga</button>
+          </div>
+
+          <div class="feedbackBox" id="matchingFeedback"></div>
+        </div>
+
+        <div class="section" style="box-shadow:none; margin-top:22px; background:#FFFFFF;">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Atividade 2</span>
+              <h2>Monte o fluxo: atendimento no WhatsApp</h2>
+              <p class="sectionIntro">
+                Clique nas etapas na ordem correta. A sequência reforça o caminho ideal antes de responder o cliente.
+              </p>
+            </div>
+
+            <span class="pill pillWarn" id="flowProgress">Etapa 0/7</span>
+          </div>
+
+          <div class="sequenceGame">
+            <button class="sequenceBtn" data-order="4" onclick="selectSequenceStep(this, 'attendance')">
+              Abrir a janela da conversa.
+            </button>
+
+            <button class="sequenceBtn" data-order="1" onclick="selectSequenceStep(this, 'attendance')">
+              Conferir operação ativa.
+            </button>
+
+            <button class="sequenceBtn" data-order="6" onclick="selectSequenceStep(this, 'attendance')">
+              Responder no campo de mensagem.
+            </button>
+
+            <button class="sequenceBtn" data-order="3" onclick="selectSequenceStep(this, 'attendance')">
+              Pesquisar ou selecionar o atendimento correto.
+            </button>
+
+            <button class="sequenceBtn" data-order="7" onclick="selectSequenceStep(this, 'attendance')">
+              Usar o botão de ação correto, se necessário.
+            </button>
+
+            <button class="sequenceBtn" data-order="2" onclick="selectSequenceStep(this, 'attendance')">
+              Identificar a fila do atendimento.
+            </button>
+
+            <button class="sequenceBtn" data-order="5" onclick="selectSequenceStep(this, 'attendance')">
+              Ler o histórico da conversa.
+            </button>
+          </div>
+
+          <div class="simActions">
+            <button class="simBtn secondary" onclick="resetSequence('attendance')">Reiniciar fluxo</button>
+          </div>
+
+          <div class="feedbackBox" id="attendanceSequenceFeedback"></div>
+        </div>
+
+        <div class="section" style="box-shadow:none; margin-top:22px; background:#FFFFFF;">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Atividade 3</span>
+              <h2>Monte o fluxo: pausa correta</h2>
+              <p class="sectionIntro">
+                Agora organize a sequência correta para pausar e retornar ao atendimento.
+              </p>
+            </div>
+
+            <span class="pill pillWarn" id="pauseFlowProgress">Etapa 0/7</span>
+          </div>
+
+          <div class="sequenceGame">
+            <button class="sequenceBtn" data-order="6" onclick="selectSequenceStep(this, 'pause')">
+              Clicar no Play para encerrar a pausa.
+            </button>
+
+            <button class="sequenceBtn" data-order="2" onclick="selectSequenceStep(this, 'pause')">
+              Selecionar o motivo da pausa.
+            </button>
+
+            <button class="sequenceBtn" data-order="5" onclick="selectSequenceStep(this, 'pause')">
+              Acompanhar o contador de pausa.
+            </button>
+
+            <button class="sequenceBtn" data-order="1" onclick="selectSequenceStep(this, 'pause')">
+              Clicar no ícone de pausa.
+            </button>
+
+            <button class="sequenceBtn" data-order="7" onclick="selectSequenceStep(this, 'pause')">
+              Voltar a ficar disponível.
+            </button>
+
+            <button class="sequenceBtn" data-order="3" onclick="selectSequenceStep(this, 'pause')">
+              Clicar em fazer pausa.
+            </button>
+
+            <button class="sequenceBtn" data-order="4" onclick="selectSequenceStep(this, 'pause')">
+              Aguardar o registro da pausa.
+            </button>
+          </div>
+
+          <div class="simActions">
+            <button class="simBtn secondary" onclick="resetSequence('pause')">Reiniciar pausa</button>
+          </div>
+
+          <div class="feedbackBox" id="pauseSequenceFeedback"></div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="jogos" data-keywords="jogos quiz atendimento whatsapp painel operação pausa pesquisa lgpd">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Jogos de fixação</span>
+            <h2>Pratique as decisões do WhatsApp</h2>
+            <p class="sectionIntro">
+              Responda às perguntas em sequência. O objetivo é reconhecer a ação correta dentro do atendimento no WhatsApp.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Feedback imediato</span>
+        </div>
+
+        <div class="grid">
+
+          <div class="gameCard" id="game1">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 1 | Antes de atender</h3>
+                <p class="sectionIntro">
+                  Identifique a primeira checagem ou decisão operacional.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame1">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame1"></p>
+            <div class="options" id="optionsGame1"></div>
+            <div class="feedback" id="feedbackGame1"></div>
+
+            <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame1"></div>
+          </div>
+
+          <div class="gameCard" id="game2">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 2 | Durante a rotina</h3>
+                <p class="sectionIntro">
+                  Escolha ações corretas para pausa, retorno e pesquisa.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame2">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame2"></p>
+            <div class="options" id="optionsGame2"></div>
+            <div class="feedback" id="feedbackGame2"></div>
+
+            <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame2"></div>
+          </div>
+
+          <div class="gameCard" id="game3">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 3 | Botões de ação</h3>
+                <p class="sectionIntro">
+                  Escolha entre Confirmar LGPD, Transferir, Finalizar ou Mais opções.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame3">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame3"></p>
+            <div class="options" id="optionsGame3"></div>
+            <div class="feedback" id="feedbackGame3"></div>
+
+            <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame3"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section searchable" id="fechamento" data-keywords="fechamento resumo atendimento whatsapp operação pausa pesquisa conversa lgpd">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo do atendimento no WhatsApp</h2>
+            <p class="sectionIntro">
+              O atendimento no WhatsApp exige atenção à operação ativa, fila, disponibilidade, histórico da conversa, resposta enviada e botões de ação.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta pós-treino</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Antes de atender</h3>
+            <p>
+              Confira a operação ativa e entenda em qual fila o atendimento está acontecendo.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Durante a conversa</h3>
+            <p>
+              Leia o histórico, confirme o contexto e revise a resposta antes do envio.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Ao agir no atendimento</h3>
+            <p>
+              Use corretamente os botões de ação: LGPD, transferência, finalização ou opções adicionais.
+            </p>
+          </div>
+        </div>
+
+        <div class="successCallout">
+          <p class="calloutTitle">Mensagem final</p>
+          <p class="calloutText">
+            Antes de clicar, pense: estou na operação certa? Esse atendimento está na fila correta? Já li o histórico? A ação correta é responder, confirmar LGPD, transferir ou finalizar?
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Simulador | Atendimento no WhatsApp | Pós-Vendas
+      </footer>
+
+    </main>
+  </div>
+
+  
+
+  <script>
+    const body = document.body;
+    const practiceToggle = document.getElementById("practiceToggle");
+    const globalSearch = document.getElementById("globalSearch");
+
+    let activeOperation = "Hisense/Gorenje";
+    let selectedQueue = "";
+    let isPaused = false;
+    let selectedClient = "";
+    let selectedPhone = "";
+    let selectedQueueFromList = "";
+    let selectedStatus = "";
+    let currentActionChallenge = null;
+
+    const actionChallenges = [
+      {
+        label: "LGPD",
+        text: "O cliente confirmou consentimento LGPD. Qual botão deve ser usado?",
+        correct: "lgpd",
+        good: "Correto. Use Confirmar LGPD quando houver consentimento do cliente.",
+        bad: "Atenção. Neste caso, o correto é Confirmar LGPD."
+      },
+      {
+        label: "Transferência",
+        text: "O atendimento precisa seguir para outro responsável. Qual botão deve ser usado?",
+        correct: "transferir",
+        good: "Correto. Use Transferir quando outro responsável precisa assumir o atendimento.",
+        bad: "Atenção. Quando outro responsável precisa assumir, use Transferir."
+      },
+      {
+        label: "Finalização",
+        text: "A conversa foi concluída e deve ser encerrada. Qual botão deve ser usado?",
+        correct: "finalizar",
+        good: "Correto. Use Finalizar quando o atendimento atual estiver concluído.",
+        bad: "Atenção. Quando o atendimento foi concluído, use Finalizar."
+      },
+      {
+        label: "Mais opções",
+        text: "Você precisa acessar ações adicionais relacionadas ao atendimento. Qual botão deve ser usado?",
+        correct: "mais",
+        good: "Correto. Use Mais opções para acessar ações adicionais.",
+        bad: "Atenção. Para ações adicionais, use Mais opções."
+      }
+    ];
+
+    practiceToggle.addEventListener("click", function () {
+      body.classList.toggle("practiceMode");
+
+      if (body.classList.contains("practiceMode")) {
+        practiceToggle.textContent = "Desativar modo prática";
+        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
+      } else {
+        practiceToggle.textContent = "Ativar modo prática";
+        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+        } else {
+          if (!item.closest(".searchable:not(.section):not(.hero)")) {
+            item.classList.add("hiddenBySearch");
+          }
+        }
+      });
+    });
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    function setFeedback(id, type, message) {
+      const box = document.getElementById(id);
+      box.className = "feedbackBox show " + type;
+      box.innerHTML = message;
+    }
+
+    function selectOperation(operation) {
+      activeOperation = operation;
+      document.getElementById("activeOperationLabel").textContent = "Operação ativa: " + operation;
+      setFeedback("operationFeedback", "good", "Operação selecionada: " + operation + ".");
+    }
+
+    function checkOperation() {
+      if (activeOperation === "Hisense/Gorenje") {
+        setFeedback("operationFeedback", "good", "Correto. A operação ativa está Hisense/Gorenje.");
+      } else {
+        setFeedback("operationFeedback", "bad", "Atenção. A operação ativa não está Hisense/Gorenje. Altere antes de responder.");
+      }
+    }
+
+    function resetOperation() {
+      activeOperation = "Fábrica Exemplo A";
+      document.getElementById("activeOperationLabel").textContent = "Operação ativa: Fábrica Exemplo A";
+      setFeedback("operationFeedback", "bad", "Desafio reiniciado. Selecione Hisense/Gorenje antes de confirmar.");
+    }
+
+    function selectQueue(queue) {
+      selectedQueue = queue;
+      document.getElementById("selectedQueue").textContent = queue;
+    }
+
+    function checkQueue() {
+      if (selectedQueue === "Dealer") {
+        setFeedback("queueFeedback", "good", "Correto. Dealer é o canal dedicado para apoio às revendas parceiras.");
+      } else if (!selectedQueue) {
+        setFeedback("queueFeedback", "bad", "Selecione uma fila antes de confirmar.");
+      } else {
+        setFeedback("queueFeedback", "bad", "Atenção. Para revenda parceira, a fila esperada é Dealer.");
+      }
+    }
+
+    function resetQueue() {
+      selectedQueue = "";
+      document.getElementById("selectedQueue").textContent = "Nenhuma";
+      setFeedback("queueFeedback", "bad", "Seleção reiniciada.");
+    }
+
+    function startPause() {
+      const reason = document.getElementById("pauseReason").value;
+
+      if (!reason) {
+        setFeedback("pauseFeedback", "bad", "Selecione um motivo de pausa antes de iniciar.");
+        return;
+      }
+
+      isPaused = true;
+      document.getElementById("pauseStatusLabel").textContent = "Status: em pausa";
+      document.getElementById("pauseTimerLabel").textContent = "Tempo de pausa: 00:01";
+      document.getElementById("pauseLeftStatus").textContent = "Pausa ativa";
+      setFeedback("pauseFeedback", "good", "Pausa iniciada. Você não receberá novos atendimentos enquanto estiver pausado.");
+    }
+
+    function cancelPause() {
+      document.getElementById("pauseReason").value = "";
+      setFeedback("pauseFeedback", "bad", "Pausa cancelada. Nenhum motivo foi registrado.");
+    }
+
+    function simulatePaused() {
+      isPaused = true;
+      document.getElementById("pauseTimerLabel").textContent = "Tempo de pausa: 03:15";
+      document.getElementById("pauseLeftStatus").textContent = "Pausa ativa";
+      setFeedback("endPauseFeedback", "good", "Pausa ativa simulada. Agora clique em Play para encerrar.");
+    }
+
+    function endPause() {
+      if (!isPaused) {
+        setFeedback("endPauseFeedback", "bad", "Não há pausa ativa para encerrar. Primeiro simule uma pausa ativa.");
+        return;
+      }
+
+      isPaused = false;
+      document.getElementById("pauseTimerLabel").textContent = "Tempo de pausa: 00:00";
+      document.getElementById("pauseLeftStatus").textContent = "Disponível";
+      document.getElementById("pauseStatusLabel").textContent = "Status: disponível";
+      setFeedback("endPauseFeedback", "good", "Pausa encerrada. O contador foi zerado e você volta a ficar disponível.");
+    }
+
+    function searchAttendance() {
+      const value = document.getElementById("searchCustomer").value.trim();
+
+      if (!value) {
+        setFeedback("searchFeedback", "bad", "Digite nome ou telefone para pesquisar.");
+        document.getElementById("searchResultBox").style.display = "none";
+        return;
+      }
+
+      document.getElementById("searchResultBox").style.display = "block";
+      setFeedback("searchFeedback", "good", "Atendimento localizado. Confirme se nome, telefone, fila e status correspondem ao cliente correto.");
+    }
+
+    function clearAttendanceSearch() {
+      document.getElementById("searchCustomer").value = "";
+      document.getElementById("searchResultBox").style.display = "none";
+      setFeedback("searchFeedback", "bad", "Pesquisa limpa.");
+    }
+
+    function selectAttendance(client, queue, status, phone) {
+      selectedClient = client;
+      selectedQueueFromList = queue;
+      selectedStatus = status;
+      selectedPhone = phone;
+
+      document.getElementById("selectedClient").textContent = client;
+      document.getElementById("selectedPhone").textContent = phone;
+      document.getElementById("selectedQueueFromList").textContent = queue;
+      document.getElementById("selectedStatus").textContent = status;
+    }
+
+    function checkSelectedAttendance() {
+      if (selectedClient === "Maria Silva" && selectedQueueFromList === "N1 Receptivo" && selectedStatus === "Em atendimento") {
+        setFeedback("attendanceFeedback", "good", "Correto. Esse é o atendimento esperado para o cenário.");
+      } else if (!selectedClient) {
+        setFeedback("attendanceFeedback", "bad", "Selecione um atendimento antes de confirmar.");
+      } else {
+        setFeedback("attendanceFeedback", "bad", "Atenção. O atendimento selecionado não corresponde ao cenário solicitado.");
+      }
+    }
+
+    function resetSelectedAttendance() {
+      selectedClient = "";
+      selectedPhone = "";
+      selectedQueueFromList = "";
+      selectedStatus = "";
+
+      document.getElementById("selectedClient").textContent = "Nenhum";
+      document.getElementById("selectedPhone").textContent = "-";
+      document.getElementById("selectedQueueFromList").textContent = "-";
+      document.getElementById("selectedStatus").textContent = "-";
+      setFeedback("attendanceFeedback", "bad", "Seleção reiniciada.");
+    }
+
+    function confirmScreenReading() {
+      setFeedback("screenReadingFeedback", "good", "Correto. Antes de responder, valide cliente, telefone e histórico da conversa.");
+    }
+
+    function chooseHistoryContext(choice) {
+      if (choice === "retorno") {
+        setFeedback("historyFeedback", "good", "Correto. O histórico indica retorno sobre atendimento em andamento.");
+      } else {
+        setFeedback("historyFeedback", "bad", "Atenção. O histórico mostra que o cliente está retornando sobre um atendimento já iniciado.");
+      }
+    }
+
+    function sendSimulatedMessage() {
+      const message = document.getElementById("messageInput").value.trim();
+
+      if (!message) {
+        setFeedback("messageFeedback", "bad", "Digite uma mensagem antes de enviar.");
+        return;
+      }
+
+      document.getElementById("sentMessageText").textContent = message;
+      document.getElementById("sentMessageBubble").style.display = "block";
+
+      const normalized = normalizeText(message);
+
+      if (normalized.includes("vou verificar") || normalized.includes("historico") || normalized.includes("atualizacao") || normalized.includes("consultar")) {
+        setFeedback("messageFeedback", "good", "Boa resposta. A mensagem indica consulta/verificação antes de prometer uma solução.");
+      } else {
+        setFeedback("messageFeedback", "bad", "Mensagem enviada, mas revise: é importante indicar consulta, verificação ou próximo passo sem promessa indevida.");
+      }
+    }
+
+    function clearSimulatedMessage() {
+      document.getElementById("messageInput").value = "";
+      document.getElementById("sentMessageBubble").style.display = "none";
+      setFeedback("messageFeedback", "bad", "Mensagem limpa.");
+    }
+
+    function newActionChallenge() {
+      currentActionChallenge = actionChallenges[Math.floor(Math.random() * actionChallenges.length)];
+      document.getElementById("actionScenarioLabel").textContent = currentActionChallenge.label;
+      document.getElementById("actionScenarioText").textContent = currentActionChallenge.text;
+      setFeedback("actionFeedback", "bad", "Escolha o botão correto para o cenário.");
+    }
+
+    function chooseActionButton(choice) {
+      if (!currentActionChallenge) {
+        setFeedback("actionFeedback", "bad", "Clique em Novo desafio antes de escolher uma ação.");
+        return;
+      }
+
+      if (choice === currentActionChallenge.correct) {
+        setFeedback("actionFeedback", "good", currentActionChallenge.good);
+      } else {
+        setFeedback("actionFeedback", "bad", currentActionChallenge.bad);
+      }
+    }
+
+    function confirmLgpd() {
+      setFeedback("lgpdFeedback", "good", "Correto. O consentimento LGPD foi registrado na simulação.");
+    }
+
+    function wrongLgpd() {
+      setFeedback("lgpdFeedback", "bad", "Atenção. Como o cenário é consentimento LGPD, o botão correto é Confirmar LGPD.");
+    }
+    let selectedLeftMatch = null;
+    let selectedRightMatch = null;
+    let matchedPairs = 0;
+
+    let attendanceExpectedStep = 1;
+    let pauseExpectedStep = 1;
+
+    function selectMatchItem(button, side) {
+      if (button.classList.contains("matched")) return;
+
+      if (side === "left") {
+        document.querySelectorAll(".leftMatch").forEach(function (btn) {
+          btn.classList.remove("selected");
+        });
+
+        selectedLeftMatch = button;
+        button.classList.add("selected");
+      }
+
+      if (side === "right") {
+        document.querySelectorAll(".rightMatch").forEach(function (btn) {
+          btn.classList.remove("selected");
+        });
+
+        selectedRightMatch = button;
+        button.classList.add("selected");
+      }
+
+      if (selectedLeftMatch && selectedRightMatch) {
+        checkMatchPair();
+      }
+    }
+
+    function checkMatchPair() {
+      const leftId = selectedLeftMatch.getAttribute("data-id");
+      const rightId = selectedRightMatch.getAttribute("data-id");
+
+      if (leftId === rightId) {
+        selectedLeftMatch.classList.remove("selected");
+        selectedRightMatch.classList.remove("selected");
+
+        selectedLeftMatch.classList.add("matched");
+        selectedRightMatch.classList.add("matched");
+
+        selectedLeftMatch.disabled = true;
+        selectedRightMatch.disabled = true;
+
+        matchedPairs++;
+        document.getElementById("matchScore").textContent = "Pares corretos: " + matchedPairs + "/6";
+
+        setFeedback("matchingFeedback", "good", "Par correto. Continue conectando os próximos itens.");
+
+        if (matchedPairs === 6) {
+          setFeedback("matchingFeedback", "good", "Excelente. Você conectou todos os itens do painel às funções corretas.");
+        }
+      } else {
+        selectedLeftMatch.classList.add("wrong");
+        selectedRightMatch.classList.add("wrong");
+
+        setFeedback("matchingFeedback", "bad", "Esse par não corresponde. Revise a função de cada item e tente novamente.");
+
+        setTimeout(function () {
+          selectedLeftMatch.classList.remove("selected", "wrong");
+          selectedRightMatch.classList.remove("selected", "wrong");
+          selectedLeftMatch = null;
+          selectedRightMatch = null;
+        }, 900);
+
+        return;
+      }
+
+      selectedLeftMatch = null;
+      selectedRightMatch = null;
+    }
+
+    function resetMatchingGame() {
+      selectedLeftMatch = null;
+      selectedRightMatch = null;
+      matchedPairs = 0;
+
+      document.getElementById("matchScore").textContent = "Pares corretos: 0/6";
+
+      document.querySelectorAll(".matchBtn").forEach(function (btn) {
+        btn.classList.remove("selected", "matched", "wrong");
+        btn.disabled = false;
+      });
+
+      setFeedback("matchingFeedback", "bad", "Liga-liga reiniciado. Comece novamente conectando os pares corretos.");
+    }
+
+    function selectSequenceStep(button, type) {
+      if (button.classList.contains("correctStep")) return;
+
+      const clickedOrder = Number(button.getAttribute("data-order"));
+
+      if (type === "attendance") {
+        if (clickedOrder === attendanceExpectedStep) {
+          button.classList.add("correctStep");
+          button.disabled = true;
+
+          attendanceExpectedStep++;
+          document.getElementById("flowProgress").textContent = "Etapa " + (attendanceExpectedStep - 1) + "/7";
+
+          if (attendanceExpectedStep > 7) {
+            setFeedback("attendanceSequenceFeedback", "good", "Fluxo completo. Você montou a sequência correta do atendimento no WhatsApp.");
+          } else {
+            setFeedback("attendanceSequenceFeedback", "good", "Etapa correta. Continue montando o fluxo.");
+          }
+        } else {
+          button.classList.add("wrongStep");
+          setFeedback("attendanceSequenceFeedback", "bad", "Essa não é a próxima etapa. Pense no que precisa acontecer antes de responder o cliente.");
+
+          setTimeout(function () {
+            button.classList.remove("wrongStep");
+          }, 900);
+        }
+      }
+
+      if (type === "pause") {
+        if (clickedOrder === pauseExpectedStep) {
+          button.classList.add("correctStep");
+          button.disabled = true;
+
+          pauseExpectedStep++;
+          document.getElementById("pauseFlowProgress").textContent = "Etapa " + (pauseExpectedStep - 1) + "/7";
+
+          if (pauseExpectedStep > 7) {
+            setFeedback("pauseSequenceFeedback", "good", "Fluxo completo. Você montou corretamente o processo de pausa e retorno.");
+          } else {
+            setFeedback("pauseSequenceFeedback", "good", "Etapa correta. Continue montando o fluxo de pausa.");
+          }
+        } else {
+          button.classList.add("wrongStep");
+          setFeedback("pauseSequenceFeedback", "bad", "Essa não é a próxima etapa. Revise a sequência correta da pausa.");
+
+          setTimeout(function () {
+            button.classList.remove("wrongStep");
+          }, 900);
+        }
+      }
+    }
+
+    function resetSequence(type) {
+      if (type === "attendance") {
+        attendanceExpectedStep = 1;
+        document.getElementById("flowProgress").textContent = "Etapa 0/7";
+
+        document.querySelectorAll('#pratica .sequenceBtn').forEach(function (btn) {
+          if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes("'attendance'")) {
+            btn.classList.remove("correctStep", "wrongStep");
+            btn.disabled = false;
+          }
+        });
+
+        setFeedback("attendanceSequenceFeedback", "bad", "Fluxo de atendimento reiniciado.");
+      }
+
+      if (type === "pause") {
+        pauseExpectedStep = 1;
+        document.getElementById("pauseFlowProgress").textContent = "Etapa 0/7";
+
+        document.querySelectorAll('#pratica .sequenceBtn').forEach(function (btn) {
+          if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes("'pause'")) {
+            btn.classList.remove("correctStep", "wrongStep");
+            btn.disabled = false;
+          }
+        });
+
+        setFeedback("pauseSequenceFeedback", "bad", "Fluxo de pausa reiniciado.");
+      }
+    }
+    const games = {
+      game1: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame1",
+        questionElement: "questionGame1",
+        optionsElement: "optionsGame1",
+        feedbackElement: "feedbackGame1",
+        nextElement: "nextGame1",
+        summaryElement: "summaryGame1",
+        questions: [
+          {
+            question: "Antes de iniciar atendimento no WhatsApp, qual checagem é essencial?",
+            options: [
+              "Confirmar a operação ativa",
+              "Finalizar a conversa",
+              "Abrir relatório",
+              "Limpar o histórico"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A operação ativa deve ser conferida antes de atender.",
+            feedbackWrong: "Atenção. A primeira checagem é confirmar a operação ativa."
+          },
+          {
+            question: "Uma revenda parceira entra em contato. Qual fila representa esse atendimento?",
+            options: [
+              "Dealer",
+              "N1 Receptivo",
+              "Backoffice",
+              "Desconexão"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Dealer é dedicado a revendas parceiras.",
+            feedbackWrong: "Atenção. Revenda parceira deve ser relacionada à fila Dealer."
+          },
+          {
+            question: "Um posto autorizado entra em contato para apoio. Qual fila está mais relacionada?",
+            options: [
+              "Backoffice",
+              "N1 Receptivo",
+              "Dealer",
+              "LGPD"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Backoffice é dedicado ao apoio a postos autorizados.",
+            feedbackWrong: "Atenção. Posto autorizado está relacionado à fila Backoffice."
+          }
+        ]
+      },
+
+      game2: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame2",
+        questionElement: "questionGame2",
+        optionsElement: "optionsGame2",
+        feedbackElement: "feedbackGame2",
+        nextElement: "nextGame2",
+        summaryElement: "summaryGame2",
+        questions: [
+          {
+            question: "Para iniciar uma pausa corretamente, o que deve ser feito?",
+            options: [
+              "Selecionar um motivo e clicar em Fazer pausa",
+              "Fechar o navegador",
+              "Transferir todos os atendimentos",
+              "Apagar a conversa"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A pausa exige seleção de motivo.",
+            feedbackWrong: "Atenção. Para pausar, selecione o motivo e clique em Fazer pausa."
+          },
+          {
+            question: "Como o atendente retorna da pausa?",
+            options: [
+              "Clicando no ícone Play ao lado do contador",
+              "Clicando em Confirmar LGPD",
+              "Atualizando a página",
+              "Abrindo uma nova conversa"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. O retorno é feito pelo ícone Play.",
+            feedbackWrong: "Atenção. Para retornar, use o ícone Play ao lado do contador."
+          },
+          {
+            question: "No menu Pesquisar, quais dados podem localizar atendimento?",
+            options: [
+              "Nome ou telefone do cliente",
+              "Somente endereço",
+              "Somente CPF",
+              "Apenas modelo do produto"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A pesquisa pode ser feita por nome ou telefone.",
+            feedbackWrong: "Atenção. A busca do WhatsApp usa nome ou telefone."
+          }
+        ]
+      },
+
+      game3: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame3",
+        questionElement: "questionGame3",
+        optionsElement: "optionsGame3",
+        feedbackElement: "feedbackGame3",
+        nextElement: "nextGame3",
+        summaryElement: "summaryGame3",
+        questions: [
+          {
+            question: "O cliente confirmou consentimento LGPD. Qual botão usar?",
+            options: [
+              "Confirmar LGPD",
+              "Transferir",
+              "Finalizar",
+              "Pesquisar"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Use Confirmar LGPD para registrar o consentimento.",
+            feedbackWrong: "Atenção. Consentimento LGPD deve ser registrado em Confirmar LGPD."
+          },
+          {
+            question: "O atendimento precisa seguir para outro responsável. Qual botão usar?",
+            options: [
+              "Transferir",
+              "Finalizar",
+              "Confirmar LGPD",
+              "Pausar"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Transferir envia o atendimento para outro responsável.",
+            feedbackWrong: "Atenção. Quando outro responsável precisa assumir, use Transferir."
+          },
+          {
+            question: "A conversa foi concluída. Qual botão encerra o atendimento atual?",
+            options: [
+              "Finalizar",
+              "Mais opções",
+              "Pesquisar",
+              "Operação ativa"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Finalizar encerra o atendimento atual.",
+            feedbackWrong: "Atenção. Atendimento concluído deve ser encerrado pelo botão Finalizar."
+          }
+        ]
+      }
+    };
+
+    function loadGame(gameId) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      nextElement.classList.remove("show");
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "optionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuestion(gameId, index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      updateScore(gameId);
+    }
+
+    function answerQuestion(gameId, selectedIndex) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+
+      const buttons = optionsElement.querySelectorAll(".optionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        game.score++;
+        feedbackElement.textContent = questionData.feedbackCorrect;
+        feedbackElement.className = "feedback show good";
+      } else {
+        feedbackElement.textContent = questionData.feedbackWrong;
+        feedbackElement.className = "feedback show bad";
+      }
+
+      updateScore(gameId);
+
+      if (game.current < game.questions.length - 1) {
+        nextElement.textContent = "Próxima pergunta";
+      } else {
+        nextElement.textContent = "Ver resumo";
+      }
+
+      nextElement.classList.add("show");
+    }
+
+    function nextQuestion(gameId) {
+      const game = games[gameId];
+
+      if (game.current < game.questions.length - 1) {
+        game.current++;
+        loadGame(gameId);
+      } else {
+        showSummary(gameId);
+      }
+    }
+
+    function updateScore(gameId) {
+      const game = games[gameId];
+      const scoreElement = document.getElementById(game.scoreElement);
+
+      scoreElement.textContent = "Pontuação: " + game.score + "/" + game.questions.length;
+    }
+
+    function showSummary(gameId) {
+      const game = games[gameId];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedback";
+      feedbackElement.textContent = "";
+      nextElement.classList.remove("show");
+
+      let message = "";
+
+      if (game.score === game.questions.length) {
+        message = "Excelente. Você demonstrou segurança nas principais ações do atendimento no WhatsApp.";
+      } else if (game.score >= Math.ceil(game.questions.length * 0.7)) {
+        message = "Bom resultado. Revise apenas os pontos em que houve dúvida.";
+      } else {
+        message = "Vale revisar o simulador. Foque em operação ativa, filas, pausa, pesquisa e botões de ação.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resumo do jogo</h3>
+        <p><strong>Resultado:</strong> ${game.score} de ${game.questions.length} respostas corretas.</p>
+        <p>${message}</p>
+        <button class="btn btnPrimary" type="button" onclick="restartGame('${gameId}')">
+          Refazer jogo
+        </button>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartGame(gameId) {
+      games[gameId].current = 0;
+      games[gameId].score = 0;
+      loadGame(gameId);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadGame("game1");
+      loadGame("game2");
+      loadGame("game3");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Jornadas de Atendimento Hisense Gorenje</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --bg-soft: #F4F8FB;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --purple: #7C3AED;
+      --shadow: 0 12px 30px rgba(0, 63, 125, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(0, 176, 80, 0.14), transparent 34%),
+        linear-gradient(135deg, #EEF7FF 0%, #F9FCFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 310px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: #FFFFFF;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.2);
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--hisense-green);
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.22);
+    }
+
+    .brandBlock h1 {
+      margin: 18px 0 8px;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .sideSearch {
+      margin: 24px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .practiceBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0, 176, 80, 0.16);
+      border: 1px solid rgba(0, 176, 80, 0.34);
+    }
+
+    .practiceBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .practiceBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .practiceToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: linear-gradient(135deg, var(--hisense-green), #009BAA);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 176, 80, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 46px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(0, 174, 239, 0.26), transparent 34%),
+        radial-gradient(circle at 12% 85%, rgba(0, 176, 80, 0.2), transparent 36%),
+        linear-gradient(135deg, #003F7D, #005EB8 54%, #00AEEF);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 870px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.04rem;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 1.64rem;
+      line-height: 1.2;
+    }
+
+    .sectionIntro {
+      max-width: 920px;
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(0, 176, 80, 0.1);
+      color: var(--hisense-green);
+    }
+
+    .pillCyan {
+      background: rgba(0, 174, 239, 0.12);
+      color: #007EA7;
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .journeyCard {
+      position: relative;
+      overflow: hidden;
+      min-height: 230px;
+    }
+
+    .journeyCard::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -42px;
+      top: -42px;
+      border-radius: 50%;
+      background: rgba(0, 174, 239, 0.12);
+    }
+
+    .journeyNumber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .tagList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.08);
+      color: var(--hisense-blue-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      overflow: hidden;
+      padding: 0;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 18px rgba(31, 41, 51, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 20px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--hisense-blue-dark);
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.09);
+      color: var(--hisense-blue);
+      font-weight: 800;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .detailsContent {
+      padding: 0 20px 20px;
+      color: var(--text-medium);
+      font-size: 0.94rem;
+    }
+
+    .detailsContent p {
+      margin-top: 0;
+    }
+
+    .speechBox {
+      margin: 14px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(0, 174, 239, 0.12), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 174, 239, 0.22);
+    }
+
+    .speechBox strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .speechBox p {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .flowLine {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .flowStep {
+      padding: 16px;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      position: relative;
+    }
+
+    .flowStep h4 {
+      margin: 0 0 8px;
+      color: var(--hisense-blue-dark);
+      font-size: 0.94rem;
+    }
+
+    .flowStep p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.86rem;
+    }
+
+    .practiceMode .learningContent {
+      display: none !important;
+    }
+
+    .practiceMode .practiceOnly {
+      display: block !important;
+    }
+
+    .practiceOnly {
+      display: none;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    @media (max-width: 1080px) {
+      #mainWrapper {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .grid4,
+      .flowLine {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+    }
+            .quickSearchBar {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+
+        .quickSearchBar input {
+          width: 100%;
+          padding: 14px 16px;
+          border: 1px solid var(--border-soft);
+          border-radius: 16px;
+          background: #FFFFFF;
+          font-size: 0.96rem;
+          outline: none;
+        }
+
+        .quickSearchBar button {
+          padding: 14px 18px;
+          border: none;
+          border-radius: 16px;
+          background: var(--hisense-blue);
+          color: #FFFFFF;
+          font-weight: 800;
+          cursor: pointer;
+        }
+
+        .gameCard {
+          padding: 24px;
+          border-radius: 22px;
+          background: #FFFFFF;
+          border: 1px solid var(--border-soft);
+          box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+        }
+
+        .gameHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 14px;
+          margin-bottom: 18px;
+        }
+
+        .scoreBadge {
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(0, 176, 80, 0.12);
+          color: var(--success);
+          font-size: 0.85rem;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+
+        .questionText {
+          margin: 0 0 16px;
+          color: var(--text-dark);
+          font-size: 1.05rem;
+          font-weight: 700;
+        }
+
+        .options {
+          display: grid;
+          gap: 10px;
+        }
+
+        .optionBtn {
+          border: 1px solid var(--border-soft);
+          border-radius: 15px;
+          background: #FFFFFF;
+          padding: 14px 16px;
+          color: var(--text-dark);
+          text-align: left;
+          font-weight: 600;
+          cursor: pointer;
+          transition: 0.18s ease;
+        }
+
+        .optionBtn:hover {
+          border-color: var(--hisense-cyan);
+          background: rgba(0, 174, 239, 0.06);
+        }
+
+        .optionBtn.correct {
+          border-color: var(--success);
+          background: rgba(22, 163, 74, 0.1);
+        }
+
+        .optionBtn.incorrect {
+          border-color: var(--danger);
+          background: rgba(220, 38, 38, 0.08);
+        }
+
+        .feedback {
+          display: none;
+          margin-top: 14px;
+          padding: 14px 16px;
+          border-radius: 15px;
+          font-size: 0.92rem;
+        }
+
+        .feedback.show {
+          display: block;
+        }
+
+        .feedback.good {
+          background: rgba(22, 163, 74, 0.1);
+          color: #166534;
+        }
+
+        .feedback.bad {
+          background: rgba(220, 38, 38, 0.08);
+          color: #991B1B;
+        }
+
+        .nextBtn {
+          display: none;
+          margin-top: 14px;
+          border: none;
+          border-radius: 14px;
+          background: var(--hisense-blue);
+          color: #FFFFFF;
+          font-weight: 800;
+          padding: 12px 16px;
+          cursor: pointer;
+        }
+
+        .nextBtn.show {
+          display: inline-flex;
+        }
+
+        .finalSummary {
+          display: none;
+          padding: 22px;
+          border-radius: 20px;
+          background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+          border: 1px solid rgba(0, 94, 184, 0.18);
+        }
+
+        .finalSummary.show {
+          display: block;
+        }
+
+        .footer {
+          margin: 36px 0 10px;
+          padding: 22px;
+          color: var(--text-medium);
+          font-size: 0.82rem;
+          text-align: center;
+        }
+
+        @media (max-width: 640px) {
+          .quickSearchBar {
+            grid-template-columns: 1fr;
+          }
+
+          .gameHeader {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          EAD Consultivo
+        </div>
+
+        <h1>Jornadas de Atendimento</h1>
+
+        <p>
+          Entenda para onde o caso vai, quem assume a continuidade e como cada jornada atua.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por jornada, canal ou situação..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do EAD">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+          <a class="navItem" href="#inicio"> Início</a>
+          <a class="navItem" href="#conceito">O que é jornada</a>
+          <a class="navItem" href="#mapa">Mapa geral</a>
+          <a class="navItem" href="#abertura-os">Abertura de OS</a>
+          <a class="navItem" href="#acordos">Acordos</a>
+          <a class="navItem" href="#midias-voc">Mídias/VOC</a>
+          <a class="navItem" href="#ra">RA</a>
+          <a class="navItem" href="#recall">Recall</a>
+          <a class="navItem" href="#revenda">Revenda SAC</a>
+          <a class="navItem" href="#tracking">Tracking</a>
+          <a class="navItem" href="#consulta">Consulta rápida</a>
+          <a class="navItem" href="#pratica">Modo prática</a>
+          <a class="navItem" href="#jogos">Jogos</a>
+        </div>
+      </nav>
+
+      <div class="practiceBox">
+        <h3>Modo prática</h3>
+        <p>
+          Estamos trabalhando para um novo modo pratica
+        </p>
+        <button class="practiceToggle">
+          Travado
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início jornadas atendimento hisense gorenje operação fluxo caso para onde vai">
+        <div class="heroContent">
+          <div class="heroTag">Hisense Gorenje | Operação de Atendimento</div>
+
+          <h2>Jornadas de Atendimento: entenda para onde o caso vai</h2>
+
+          <p>
+            Este EAD foi criado para ajudar o time a visualizar o caminho dos casos dentro da operação. A proposta é entender quando cada jornada é acionada, o que ela faz e qual é o papel dela na continuidade do atendimento ao cliente.
+          </p>
+
+          <div class="heroActions">
+            <a class="navItem" href="#mapa">Ver mapa geral</a>
+            <a class="navItem" href="#consulta">Consultar por situação</a>
+            <a class="navItem" href="#jogos">Ir para os jogos</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="learningContent">
+
+        <section class="section searchable" id="conceito" data-keywords="conceito jornada atendimento caminho fluxo sequência caso continuidade operação">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 1</span>
+              <h2>O que é uma jornada de atendimento?</h2>
+              <p class="sectionIntro">
+                Jornada é o caminho que um caso percorre dentro da operação. Ela ajuda a entender onde o atendimento começa, para onde ele deve seguir e qual etapa assume a continuidade.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Conceito base</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Por que isso importa?</h3>
+              <p>
+                Muitos casos não terminam no primeiro contato. Eles podem seguir para abertura de OS, acordo, acompanhamento, tratativa de mídia, revenda, recall ou cobrança de assistência.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que o time precisa entender?</h3>
+              <p>
+                O ponto principal é reconhecer o tipo de demanda e saber qual jornada assume o próximo passo. Isso reduz dúvida, retrabalho e encaminhamento incorreto.
+              </p>
+            </div>
+          </div>
+
+          <div class="flowLine">
+            <div class="flowStep">
+              <h4>1. Cliente apresenta a demanda</h4>
+              <p>O caso começa com uma necessidade, reclamação, dúvida ou retorno.</p>
+            </div>
+
+            <div class="flowStep">
+              <h4>2. O cenário é identificado</h4>
+              <p>É preciso entender se o caso envolve OS, acordo, revenda, recall, RA ou outro fluxo.</p>
+            </div>
+
+            <div class="flowStep">
+              <h4>3. A jornada correta assume</h4>
+              <p>Cada jornada tem uma função específica dentro da continuidade do caso.</p>
+            </div>
+
+            <div class="flowStep">
+              <h4>4. O cliente recebe continuidade</h4>
+              <p>O objetivo é evitar que o cliente precise repetir tudo a cada novo contato.</p>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Resumo simples</p>
+            <p class="calloutText">
+              Entender jornada é entender o caminho do caso. Não é apenas saber “quem faz”, mas perceber por que o caso vai para aquela etapa e o que precisa chegar bem registrado.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="mapa" data-keywords="mapa geral jornadas abertura OS acordos midias voc RA recall revenda tracking">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 2</span>
+              <h2>Mapa geral das jornadas</h2>
+              <p class="sectionIntro">
+                Cada jornada existe para tratar um tipo de continuidade. Use este mapa como visão rápida para entender qual caminho o caso pode seguir.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Visão geral</span>
+          </div>
+
+          <div class="grid grid4">
+            <div class="card journeyCard searchable" data-keywords="abertura OS ordem serviço assistência nota fiscal cadastro">
+              <div class="journeyNumber">1</div>
+              <h3>Abertura de OS</h3>
+              <p>
+                Recebe chamado para abrir ordem de serviço, confirma cadastro, nota fiscal e assistência mais próxima.
+              </p>
+              <div class="tagList">
+                <span class="tag">OS</span>
+                <span class="tag">Assistência</span>
+                <span class="tag">Nota fiscal</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="acordos termo aceite dce troca ressarcimento dados bancários">
+              <div class="journeyNumber">2</div>
+              <h3>Acordos</h3>
+              <p>
+                Atua em casos com acordo aprovado, enviando termo, DCE ou solicitando dados bancários para ressarcimento.
+              </p>
+              <div class="tagList">
+                <span class="tag">Termo</span>
+                <span class="tag">Troca</span>
+                <span class="tag">Ressarcimento</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="mídias voc hugme redes sociais reclamação intermediação reparo acordo troca">
+              <div class="journeyNumber">3</div>
+              <h3>Mídias/VOC</h3>
+              <p>
+                Trata reclamações vindas de mídias sociais pela Hugme e acompanha a intermediação até a finalização.
+              </p>
+              <div class="tagList">
+                <span class="tag">Hugme</span>
+                <span class="tag">Mídias</span>
+                <span class="tag">VOC</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="RA reclame aqui hugme tickets marcados para mim análise inicial">
+              <div class="journeyNumber">4</div>
+              <h3>RA</h3>
+              <p>
+                Acompanha casos do Reclame Aqui atribuídos na Hugme, acessa novos tickets e faz análise inicial.
+              </p>
+              <div class="tagList">
+                <span class="tag">Reclame Aqui</span>
+                <span class="tag">Tickets</span>
+                <span class="tag">Análise</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="recall whatsapp lotes W85BH W85BJ inspeção posto autorizado laudo técnico OS">
+              <div class="journeyNumber">5</div>
+              <h3>Recall</h3>
+              <p>
+                Atua em casos de recall para lotes específicos, verifica posto autorizado, abre OS e solicita laudo.
+              </p>
+              <div class="tagList">
+                <span class="tag">W85BH</span>
+                <span class="tag">W85BJ</span>
+                <span class="tag">Laudo</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="revenda sac casas bahia varejo reparo acordo troca">
+              <div class="journeyNumber">6</div>
+              <h3>Revenda SAC</h3>
+              <p>
+                Recebe demandas vindas de revendas e faz intermediação para reparo, acordo ou troca.
+              </p>
+              <div class="tagList">
+                <span class="tag">Revenda</span>
+                <span class="tag">Reparo</span>
+                <span class="tag">Troca</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="revenda sac gorenje revenda produto gorenje reparo acordo troca">
+              <div class="journeyNumber">7</div>
+              <h3>Revenda SAC Gorenje</h3>
+              <p>
+                Trata demandas de revenda envolvendo produtos Gorenje, acompanhando reparo, acordo ou troca.
+              </p>
+              <div class="tagList">
+                <span class="tag">Gorenje</span>
+                <span class="tag">Revenda</span>
+                <span class="tag">Intermediação</span>
+              </div>
+            </div>
+
+            <div class="card journeyCard searchable" data-keywords="tracking assistência técnica cobrança OS 15 dias 30 dias reparo troca ressarcimento">
+              <div class="journeyNumber">8</div>
+              <h3>Tracking</h3>
+              <p>
+                Cobra andamento junto à assistência técnica em OS sem tratativa, principalmente quando há risco de prazo.
+              </p>
+              <div class="tagList">
+                <span class="tag">OS aberta</span>
+                <span class="tag">Cobrança</span>
+                <span class="tag">Prazo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Como usar o mapa</p>
+            <p class="calloutText">
+              Se o caso envolve abertura de visita técnica, pense em OS. Se já existe acordo aprovado, pense em Acordos. Se veio de reclamação pública ou revenda, a jornada muda. Se a OS está parada, pode haver acompanhamento por Tracking.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="abertura-os" data-keywords="abertura OS ordem serviço cadastro nota fiscal assistência próxima cliente chamado N1">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 1</span>
+              <h2>Abertura de OS</h2>
+              <p class="sectionIntro">
+                A jornada de Abertura de OS recebe o chamado para transformar a necessidade de atendimento técnico em uma ordem de serviço registrada.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Ordem de serviço</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando o caso precisa seguir para atendimento técnico com abertura de OS. A demanda chega para que os dados sejam confirmados e a assistência mais próxima seja localizada.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Confirma dados de cadastro, valida informações da nota fiscal, verifica a assistência técnica mais próxima do cliente e realiza a abertura da OS.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Informações que precisam chegar bem registradas</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Dados corretos do cliente.</li>
+                  <li>Endereço completo e localização para busca de assistência.</li>
+                  <li>Produto e modelo, quando disponível.</li>
+                  <li>Nota fiscal ou dados de compra.</li>
+                  <li>Relato objetivo do problema ou motivo da abertura.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary>Exemplo de situação</summary>
+              <div class="detailsContent">
+                <p>
+                  O cliente entra em contato informando que o produto precisa de visita técnica. Após a triagem inicial, o caso segue para abertura da OS com conferência de cadastro, nota fiscal e assistência disponível para a região.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Seu caso seguirá para abertura de ordem de serviço. Nesta etapa, os dados de cadastro, nota fiscal e assistência disponível na região serão confirmados para sequência do atendimento.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="acordos" data-keywords="acordos acordo aprovado termo aceite troca dce ressarcimento dados bancários assinatura email">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 2</span>
+              <h2>Acordos</h2>
+              <p class="sectionIntro">
+                A jornada de Acordos atua quando o cliente já teve uma solução aprovada, como troca ou ressarcimento, e precisa seguir com a formalização.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Formalização</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando o acordo já foi aprovado e o próximo passo é enviar documentação, coletar aceite ou solicitar dados necessários para concluir a solução.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Envia termo de aceite de troca e DCE por e-mail. Em caso de ressarcimento, solicita dados bancários e assinatura no termo de aceite.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Tipos de continuidade</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Troca aprovada: envio de termo de aceite e DCE.</li>
+                  <li>Ressarcimento aprovado: solicitação de dados bancários e assinatura do termo.</li>
+                  <li>Cliente com dúvida no recebimento: confirmação do e-mail e documentos enviados.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary>Informação crítica</summary>
+              <div class="detailsContent">
+                <p>
+                  Esta jornada não começa pela negociação do acordo. Ela atua na continuidade do acordo já aprovado, cuidando da formalização necessária para concluir a solução.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Como o acordo já foi aprovado, a próxima etapa é a formalização. O cliente receberá o termo e os documentos necessários por e-mail para dar continuidade.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="midias-voc" data-keywords="mídias voc mídias sociais hugme reclamação cliente visão negativa reparo acordo troca início fim">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 3</span>
+              <h2>Mídias/VOC</h2>
+              <p class="sectionIntro">
+                A jornada de Mídias/VOC atua em reclamações vindas de mídias sociais pela plataforma Hugme, fazendo a intermediação do caso até a finalização.
+              </p>
+            </div>
+
+            <span class="pill pillPurple">Reclamação pública</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando o cliente manifesta reclamação em mídias sociais e o caso precisa de uma tratativa cuidadosa para reparar a experiência e reduzir a visão negativa sobre a marca.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Faz a intermediação para reparo, acordo ou troca, acompanhando o caso do início até a finalização.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>O que torna essa jornada diferente?</summary>
+              <div class="detailsContent">
+                <p>
+                  Além de resolver a demanda, essa jornada também precisa cuidar da percepção do cliente. Como a manifestação ocorreu em ambiente público, a condução precisa ser clara, ativa e consistente.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Possíveis caminhos do caso</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Intermediação para reparo.</li>
+                  <li>Intermediação para acordo.</li>
+                  <li>Intermediação para troca.</li>
+                  <li>Acompanhamento até a finalização.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Esse caso seguirá por uma jornada de acompanhamento da reclamação, com intermediação da solução e atualização até a finalização.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="ra" data-keywords="RA reclame aqui hugme tickets marcados para mim análise inicial plataforma">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 4</span>
+              <h2>RA | Reclame Aqui</h2>
+              <p class="sectionIntro">
+                A jornada de RA acompanha os casos atribuídos na plataforma Hugme, especialmente os tickets de Reclame Aqui marcados para o responsável.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Hugme</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando existe uma reclamação no Reclame Aqui atribuída ao responsável na plataforma Hugme, exigindo análise inicial e condução do caso.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Acessa diariamente a plataforma Hugme, verifica os casos novos em Tickets, Reclame Aqui, Marcados para mim, e realiza a análise inicial de cada caso.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Caminho dentro da plataforma</summary>
+              <div class="detailsContent">
+                <p>
+                  O caminho de referência é acessar a Hugme e localizar os casos novos atribuídos em: Tickets &gt; Reclame Aqui &gt; Marcados para mim.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>O que observar na análise inicial</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Qual é a reclamação feita pelo cliente.</li>
+                  <li>Se já existe histórico anterior.</li>
+                  <li>Qual solução está em andamento ou precisa ser acionada.</li>
+                  <li>Se o caso tem relação com reparo, acordo, troca ou acompanhamento.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Esse caso está na jornada de Reclame Aqui. Ele será analisado na plataforma Hugme e conduzido conforme o histórico e a necessidade de solução.”
+            </p>
+          </div>
+        </section>
+        <section class="section searchable" id="recall" data-keywords="recall whatsapp lotes W85BH W85BJ inspeção posto autorizado OS laudo técnico">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 5</span>
+              <h2>Recall</h2>
+              <p class="sectionIntro">
+                A jornada de Recall atua nos casos em que o produto pertence a lotes específicos e precisa passar por inspeção com posto autorizado.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Inspeção</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando o atendimento envolve produtos dos lotes W85BH ou W85BJ e há necessidade de inspeção de recall.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Atende pela fila de Recall no WhatsApp, verifica o posto autorizado, realiza a abertura da OS e solicita que a autorizada inclua o laudo técnico na ordem de serviço.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Informações importantes</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Lote do produto informado pelo cliente.</li>
+                  <li>Confirmação se pertence aos lotes W85BH ou W85BJ.</li>
+                  <li>Dados de cadastro do cliente.</li>
+                  <li>Localização para identificação do posto autorizado.</li>
+                  <li>Registro da OS aberta para inspeção.</li>
+                  <li>Solicitação de inclusão do laudo técnico pela autorizada.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary>Exemplo de situação</summary>
+              <div class="detailsContent">
+                <p>
+                  O cliente entra em contato informando que recebeu orientação sobre recall. A jornada verifica se o produto pertence aos lotes indicados, localiza o posto autorizado, abre a OS e solicita o laudo técnico na ordem de serviço.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Vamos verificar se o seu produto pertence ao lote indicado para recall. Caso pertença, seguiremos com a abertura da ordem de serviço para inspeção por um posto autorizado.”
+            </p>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Ponto de atenção</p>
+            <p class="calloutText">
+              Recall não deve ser tratado como uma OS comum sem validação do lote. A confirmação do lote é o ponto que direciona a jornada.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="revenda" data-keywords="revenda sac casas bahia varejo demanda revenda reparo acordo troca início fim">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 6</span>
+              <h2>Revenda SAC</h2>
+              <p class="sectionIntro">
+                A jornada de Revenda SAC atua em demandas que chegam por revendas, como varejistas e parceiros comerciais, fazendo a intermediação da solução.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Revenda</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando a demanda do cliente chega por uma revenda, como Casas Bahia ou outro parceiro, e precisa ser acompanhada pela operação até a solução.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Faz a intermediação para reparo, acordo ou troca, acompanhando o caso do início até a finalização.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Possíveis caminhos</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Intermediação para reparo.</li>
+                  <li>Intermediação para acordo.</li>
+                  <li>Intermediação para troca.</li>
+                  <li>Acompanhamento do caso até a finalização.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary>O que observar</summary>
+              <div class="detailsContent">
+                <p>
+                  É importante identificar qual revenda originou a demanda, qual é o produto, qual solicitação foi apresentada e se já existe histórico de tratativa anterior.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Como essa solicitação veio por uma revenda, o caso seguirá pela jornada responsável por intermediar a solução entre cliente, revenda e operação.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="revenda-gorenje" data-keywords="revenda sac gorenje demanda revenda produto gorenje reparo acordo troca início fim">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 7</span>
+              <h2>Revenda SAC Gorenje</h2>
+              <p class="sectionIntro">
+                A jornada de Revenda SAC Gorenje trata demandas de revendas envolvendo produtos da marca Gorenje.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Gorenje</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando a demanda vem de uma revenda e envolve especificamente produto da marca Gorenje.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Faz a intermediação para reparo, acordo ou troca, acompanhando o caso desde o início até a finalização.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Diferença em relação à Revenda SAC</summary>
+              <div class="detailsContent">
+                <p>
+                  A lógica principal é semelhante à Revenda SAC, mas esta jornada é direcionada para casos de revenda que envolvem produtos Gorenje. Por isso, a marca do produto precisa estar clara no registro.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Informações que ajudam a continuidade</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Revenda de origem.</li>
+                  <li>Marca do produto.</li>
+                  <li>Modelo, quando disponível.</li>
+                  <li>Tipo de solicitação: reparo, acordo ou troca.</li>
+                  <li>Histórico já informado pelo cliente ou pela revenda.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Como o caso veio por revenda e envolve produto Gorenje, ele seguirá pela jornada específica de Revenda SAC Gorenje para intermediação da solução.”
+            </p>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Ponto de atenção</p>
+            <p class="calloutText">
+              Sempre diferencie demanda de revenda geral e demanda de revenda envolvendo Gorenje. Essa separação ajuda a direcionar o caso corretamente.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="tracking" data-keywords="tracking assistência técnica cobrança OS aberta 15 dias 30 dias reparo troca ressarcimento lei consumidor">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Jornada 8</span>
+              <h2>Tracking</h2>
+              <p class="sectionIntro">
+                A jornada de Tracking acompanha ordens de serviço que precisam de cobrança ou atualização junto à assistência técnica.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Acompanhamento</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Quando essa jornada aparece?</h3>
+              <p>
+                Quando existe uma OS aberta e a assistência técnica ainda não tratou o caso ou não entrou em contato com o cliente dentro do prazo esperado.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>O que essa jornada faz?</h3>
+              <p>
+                Entra em contato com a assistência técnica para cobrar contato com o cliente e andamento da OS. Geralmente acompanha casos a partir do 15º dia sem tratativa.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open>
+              <summary>Por que o prazo importa?</summary>
+              <div class="detailsContent">
+                <p>
+                  Quando uma OS fica sem tratativa por muitos dias, aumenta o risco de insatisfação e de evolução do caso para troca ou ressarcimento. O acompanhamento ajuda a evitar que o caso fique parado.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Pontos de acompanhamento</summary>
+              <div class="detailsContent">
+                <ul>
+                  <li>Data de abertura da OS.</li>
+                  <li>Assistência responsável.</li>
+                  <li>Se a assistência já entrou em contato com o cliente.</li>
+                  <li>Se houve agendamento, visita ou atualização.</li>
+                  <li>Quantidade de dias sem tratativa.</li>
+                  <li>Risco de evolução para troca ou ressarcimento.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <div class="speechBox">
+            <strong>Como explicar de forma simples</strong>
+            <p>
+              “Seu caso está em acompanhamento para cobrança de andamento junto à assistência técnica. O objetivo é obter atualização e evitar que a OS fique sem tratativa.”
+            </p>
+          </div>
+
+          <div class="dangerCallout">
+            <p class="calloutTitle">Ponto crítico</p>
+            <p class="calloutText">
+              Com 30 dias sem reparo, o caso pode evoluir para solicitação de troca ou ressarcimento. Por isso, o acompanhamento antes desse prazo é importante.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="consulta" data-keywords="consulta rápida situação para onde vai caso jornada OS acordo mídia voc RA recall revenda tracking">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Consulta rápida</span>
+              <h2>Para onde esse caso pode ir?</h2>
+              <p class="sectionIntro">
+                Use esta seção para consultar rapidamente qual jornada tende a assumir cada tipo de situação.
+              </p>
+            </div>
+
+            <span class="pill pillCyan">Busca por situação</span>
+          </div>
+
+          <div class="quickSearchBar">
+            <input type="search" id="quickSearch" placeholder="Exemplo: OS, acordo aprovado, Reclame Aqui, recall, revenda, assistência parada..." />
+            <button type="button" onclick="clearQuickSearch()">Limpar</button>
+          </div>
+
+          <div class="accordion" id="quickList">
+
+            <details open class="quickItem searchable" data-keywords="visita técnica abrir OS assistência nota fiscal cadastro">
+              <summary>Cliente precisa de visita técnica</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Abertura de OS</strong>.
+                </p>
+                <p>
+                  O caso precisa seguir com confirmação de cadastro, nota fiscal, localização do cliente e assistência mais próxima.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="acordo aprovado termo DCE troca ressarcimento dados bancários">
+              <summary>Cliente já teve acordo aprovado</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Acordos</strong>.
+                </p>
+                <p>
+                  O foco é formalizar a solução, enviando termo, DCE ou solicitando dados bancários e assinatura em caso de ressarcimento.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="mídias sociais reclamação hugme voc visão negativa">
+              <summary>Cliente reclamou em mídias sociais</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Mídias/VOC</strong>.
+                </p>
+                <p>
+                  O caso precisa de intermediação e acompanhamento até a finalização, buscando reverter a visão negativa do cliente.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="reclame aqui RA hugme tickets marcados para mim">
+              <summary>Cliente abriu reclamação no Reclame Aqui</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>RA</strong>.
+                </p>
+                <p>
+                  O caso será acompanhado pela plataforma Hugme, com análise inicial dos tickets atribuídos em Reclame Aqui.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="recall lote W85BH W85BJ inspeção laudo OS">
+              <summary>Produto pertence a lote de recall</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Recall</strong>.
+                </p>
+                <p>
+                  O fluxo envolve confirmação do lote, verificação de posto autorizado, abertura de OS e solicitação de laudo técnico.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="revenda casas bahia varejo demanda revenda">
+              <summary>Demanda veio de uma revenda</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Revenda SAC</strong>.
+                </p>
+                <p>
+                  O caso será intermediado para reparo, acordo ou troca, com acompanhamento até a finalização.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="revenda gorenje produto gorenje">
+              <summary>Demanda de revenda com produto Gorenje</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Revenda SAC Gorenje</strong>.
+                </p>
+                <p>
+                  A jornada é específica para casos de revenda envolvendo produtos Gorenje.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="OS aberta assistência sem contato 15 dias 30 dias tracking">
+              <summary>OS aberta e assistência sem tratativa</summary>
+              <div class="detailsContent">
+                <p>
+                  Jornada provável: <strong>Tracking</strong>.
+                </p>
+                <p>
+                  O acompanhamento cobra a assistência técnica para contato com o cliente e atualização da OS.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+      </div>
+
+      <section class="section practiceOnly" id="pratica" data-keywords="modo prática jornadas direcionamento os acordos midias voc ra recall revenda tracking">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Simulações sem consulta</h2>
+            <p class="sectionIntro">
+              Neste modo, o conteúdo consultivo fica oculto. Leia os casos e identifique qual jornada deve assumir a continuidade.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Treino ativo</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Caso 1 | Precisa de visita técnica</h3>
+            <p>
+              Cliente passou pela triagem e precisa de atendimento técnico. Ainda não existe OS aberta.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a jornada provável e quais informações precisam estar registradas.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 2 | Acordo já aprovado</h3>
+            <p>
+              Cliente informa que a troca foi aprovada e aguarda o termo para assinatura.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a jornada e diferencie aprovação de acordo e formalização.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 3 | Reclamação em mídia social</h3>
+            <p>
+              Cliente fez uma reclamação pública e o caso entrou pela plataforma Hugme.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a jornada e explique por que o acompanhamento até a finalização é importante.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 4 | OS sem retorno</h3>
+            <p>
+              Cliente informa que a OS está aberta há vários dias e a assistência ainda não fez contato.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a jornada e quais informações de prazo precisam ser observadas.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 5 | Produto em recall</h3>
+            <p>
+              Cliente entrou em contato pelo WhatsApp informando que seu produto pode pertencer ao lote W85BH.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a jornada e o que precisa ser validado antes da abertura da OS.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 6 | Demanda de revenda Gorenje</h3>
+            <p>
+              Revenda encaminha uma solicitação envolvendo produto Gorenje, com possibilidade de reparo ou troca.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Diferencie Revenda SAC e Revenda SAC Gorenje.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="jogos" data-keywords="jogos quiz jornadas os acordos mídias voc ra recall revenda tracking direcionamento">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Jogos de fixação</span>
+            <h2>Pratique o direcionamento das jornadas</h2>
+            <p class="sectionIntro">
+              Responda às perguntas em sequência. O objetivo é reconhecer o tipo de caso, identificar qual jornada assume a continuidade e entender quais informações não podem faltar.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Feedback imediato</span>
+        </div>
+
+        <div class="grid">
+
+          <div class="gameCard" id="game1">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 1 | Para onde vai esse caso?</h3>
+                <p class="sectionIntro">
+                  Escolha a jornada mais adequada para cada situação.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame1">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame1"></p>
+            <div class="options" id="optionsGame1"></div>
+            <div class="feedback" id="feedbackGame1"></div>
+
+            <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame1"></div>
+          </div>
+
+          <div class="gameCard" id="game2">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 2 | Qual informação não pode faltar?</h3>
+                <p class="sectionIntro">
+                  Identifique o dado mais importante para a jornada seguir sem retrabalho.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame2">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame2"></p>
+            <div class="options" id="optionsGame2"></div>
+            <div class="feedback" id="feedbackGame2"></div>
+
+            <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame2"></div>
+          </div>
+
+          <div class="gameCard" id="game3">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 3 | Quem acompanha a continuidade?</h3>
+                <p class="sectionIntro">
+                  Diferencie jornadas pontuais de jornadas que acompanham o caso até a finalização.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame3">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame3"></p>
+            <div class="options" id="optionsGame3"></div>
+            <div class="feedback" id="feedbackGame3"></div>
+
+            <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame3"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section searchable" id="fechamento" data-keywords="fechamento resumo jornadas atendimento continuidade caso operação">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo das jornadas</h2>
+            <p class="sectionIntro">
+              Entender jornadas ajuda o time a visualizar o caminho do caso dentro da operação. Cada jornada existe para dar continuidade a um tipo de demanda e evitar que o cliente fique sem direcionamento.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta pós-treinamento</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Identifique o cenário</h3>
+            <p>
+              Antes de pensar no encaminhamento, entenda se o caso envolve OS, acordo, reclamação pública, revenda, recall ou acompanhamento.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Direcione para a jornada correta</h3>
+            <p>
+              Cada jornada tem uma função diferente. Direcionar corretamente reduz retrabalho e melhora a continuidade para o cliente.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Registre com clareza</h3>
+            <p>
+              A jornada seguinte precisa entender o que aconteceu, qual é o histórico e qual próximo passo o cliente espera.
+            </p>
+          </div>
+        </div>
+
+        <div class="successCallout">
+          <p class="calloutTitle">Mensagem final</p>
+          <p class="calloutText">
+            A pergunta central deste EAD é: “para onde esse caso vai agora?”. Quando essa resposta fica clara, o atendimento ganha mais segurança e o cliente percebe continuidade.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        EAD Consultivo | Jornadas de Atendimento Hisense Gorenje
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const practiceToggle = document.getElementById("practiceToggle");
+    const globalSearch = document.getElementById("globalSearch");
+    const quickSearch = document.getElementById("quickSearch");
+
+    practiceToggle.addEventListener("click", function () {
+      body.classList.toggle("practiceMode");
+
+      if (body.classList.contains("practiceMode")) {
+        practiceToggle.textContent = "Desativar modo prática";
+        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
+      } else {
+        practiceToggle.textContent = "Ativar modo prática";
+        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+
+          if (item.tagName.toLowerCase() === "details") {
+            item.open = true;
+          }
+        } else {
+          if (!item.closest(".searchable:not(.section):not(.hero)")) {
+            item.classList.add("hiddenBySearch");
+          }
+        }
+      });
+    });
+
+    if (quickSearch) {
+      quickSearch.addEventListener("input", function () {
+        const term = normalizeText(quickSearch.value);
+        const items = document.querySelectorAll(".quickItem");
+
+        items.forEach(function (item) {
+          const text = normalizeText(item.innerText || "");
+          const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+          if (!term || text.includes(term) || keywords.includes(term)) {
+            item.classList.remove("hiddenBySearch");
+            if (term) item.open = true;
+          } else {
+            item.classList.add("hiddenBySearch");
+          }
+        });
+      });
+    }
+
+    function clearQuickSearch() {
+      if (!quickSearch) return;
+
+      quickSearch.value = "";
+      document.querySelectorAll(".quickItem").forEach(function (item) {
+        item.classList.remove("hiddenBySearch");
+      });
+    }
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    const games = {
+      game1: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame1",
+        questionElement: "questionGame1",
+        optionsElement: "optionsGame1",
+        feedbackElement: "feedbackGame1",
+        nextElement: "nextGame1",
+        summaryElement: "summaryGame1",
+        questions: [
+          {
+            question: "Cliente precisa de visita técnica e ainda não existe OS aberta. Qual jornada deve assumir?",
+            options: [
+              "Abertura de OS",
+              "Acordos",
+              "Tracking",
+              "Revenda SAC"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Quando o caso precisa virar ordem de serviço, a jornada provável é Abertura de OS.",
+            feedbackWrong: "Não é a melhor resposta. Se ainda não existe OS e o caso precisa de visita técnica, a jornada é Abertura de OS."
+          },
+          {
+            question: "Cliente já teve troca aprovada e aguarda o termo de aceite por e-mail. Qual jornada deve atuar?",
+            options: [
+              "Acordos",
+              "Recall",
+              "RA",
+              "Tracking"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Acordos atua na formalização de troca, DCE ou ressarcimento já aprovado.",
+            feedbackWrong: "Essa situação não é análise inicial nem cobrança de OS. Como já existe acordo aprovado, a jornada é Acordos."
+          },
+          {
+            question: "Cliente fez uma reclamação pública em mídia social e o caso entrou pela Hugme. Qual jornada é mais provável?",
+            options: [
+              "Mídias/VOC",
+              "Abertura de OS",
+              "Recall",
+              "Revenda SAC Gorenje"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Reclamações vindas de mídias sociais pela Hugme seguem pela jornada Mídias/VOC.",
+            feedbackWrong: "Reclamação pública em mídia social aponta para Mídias/VOC."
+          },
+          {
+            question: "Cliente informa que o produto pertence ao lote W85BJ e precisa de inspeção. Qual jornada deve ser considerada?",
+            options: [
+              "Recall",
+              "Acordos",
+              "RA",
+              "Revenda SAC"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Lotes W85BH e W85BJ direcionam para a jornada de Recall.",
+            feedbackWrong: "Quando o caso envolve lote W85BH ou W85BJ para inspeção, a jornada provável é Recall."
+          }
+        ]
+      },
+
+      game2: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame2",
+        questionElement: "questionGame2",
+        optionsElement: "optionsGame2",
+        feedbackElement: "feedbackGame2",
+        nextElement: "nextGame2",
+        summaryElement: "summaryGame2",
+        questions: [
+          {
+            question: "Para Abertura de OS, qual informação é essencial?",
+            options: [
+              "Dados de cadastro, nota fiscal e localização para assistência",
+              "Senha da plataforma Hugme",
+              "Termo de aceite assinado",
+              "Print da reclamação pública"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A abertura depende de cadastro, nota fiscal e localização para identificar a assistência.",
+            feedbackWrong: "Para abrir OS, o foco é cadastro, nota fiscal, produto e assistência mais próxima."
+          },
+          {
+            question: "Para Acordos em caso de ressarcimento, o que não pode faltar?",
+            options: [
+              "Dados bancários e assinatura no termo de aceite",
+              "Lote W85BH",
+              "Data de visita técnica futura",
+              "Categoria Reclame Aqui"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Ressarcimento exige dados bancários e assinatura no termo.",
+            feedbackWrong: "Em ressarcimento aprovado, a jornada precisa dos dados bancários e do termo assinado."
+          },
+          {
+            question: "Para Recall, qual dado define se a jornada se aplica?",
+            options: [
+              "Lote do produto",
+              "Quantidade de dias da OS",
+              "Nome da revenda",
+              "Tipo de acordo aprovado"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A confirmação do lote é o principal ponto para saber se o caso entra em Recall.",
+            feedbackWrong: "Recall depende da validação do lote, como W85BH ou W85BJ."
+          },
+          {
+            question: "Para Tracking, qual informação é mais importante observar?",
+            options: [
+              "Data de abertura da OS e se houve contato da assistência",
+              "Código do termo de aceite",
+              "Categoria do produto Gorenje",
+              "Senha de cadastro do cliente"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Tracking acompanha OS parada, por isso data de abertura e contato da assistência são essenciais.",
+            feedbackWrong: "Tracking olha andamento da OS, prazo e contato da assistência."
+          }
+        ]
+      },
+
+      game3: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame3",
+        questionElement: "questionGame3",
+        optionsElement: "optionsGame3",
+        feedbackElement: "feedbackGame3",
+        nextElement: "nextGame3",
+        summaryElement: "summaryGame3",
+        questions: [
+          {
+            question: "Qual jornada normalmente acompanha reclamações de mídias sociais até a finalização?",
+            options: [
+              "Mídias/VOC",
+              "Abertura de OS",
+              "Acordos",
+              "Recall"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Mídias/VOC acompanha a intermediação do caso até a finalização.",
+            feedbackWrong: "Mídias/VOC acompanha reclamações de mídias sociais e cuida da intermediação até finalizar."
+          },
+          {
+            question: "Qual jornada acompanha demandas vindas de revendas, com intermediação para reparo, acordo ou troca?",
+            options: [
+              "Revenda SAC",
+              "RA",
+              "Tracking",
+              "Recall"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Revenda SAC faz a intermediação de casos vindos de revendas.",
+            feedbackWrong: "Quando a origem é revenda e envolve intermediação para solução, a jornada é Revenda SAC."
+          },
+          {
+            question: "Qual jornada é específica para demanda de revenda envolvendo produto Gorenje?",
+            options: [
+              "Revenda SAC Gorenje",
+              "Abertura de OS",
+              "Acordos",
+              "RA"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Quando a demanda vem de revenda e envolve Gorenje, a jornada é Revenda SAC Gorenje.",
+            feedbackWrong: "A marca Gorenje em demanda de revenda direciona para Revenda SAC Gorenje."
+          },
+          {
+            question: "Qual jornada cobra a assistência técnica quando a OS está sem tratativa?",
+            options: [
+              "Tracking",
+              "Acordos",
+              "Recall",
+              "Mídias/VOC"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Tracking faz a cobrança de andamento junto à assistência técnica.",
+            feedbackWrong: "OS aberta sem tratativa aponta para Tracking."
+          }
+        ]
+      }
+    };
+
+    function loadGame(gameId) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      nextElement.classList.remove("show");
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "optionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuestion(gameId, index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      updateScore(gameId);
+    }
+
+    function answerQuestion(gameId, selectedIndex) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+
+      const buttons = optionsElement.querySelectorAll(".optionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        game.score++;
+        feedbackElement.textContent = questionData.feedbackCorrect;
+        feedbackElement.className = "feedback show good";
+      } else {
+        feedbackElement.textContent = questionData.feedbackWrong;
+        feedbackElement.className = "feedback show bad";
+      }
+
+      updateScore(gameId);
+
+      if (game.current < game.questions.length - 1) {
+        nextElement.textContent = "Próxima pergunta";
+      } else {
+        nextElement.textContent = "Ver resumo";
+      }
+
+      nextElement.classList.add("show");
+    }
+
+    function nextQuestion(gameId) {
+      const game = games[gameId];
+
+      if (game.current < game.questions.length - 1) {
+        game.current++;
+        loadGame(gameId);
+      } else {
+        showSummary(gameId);
+      }
+    }
+
+    function updateScore(gameId) {
+      const game = games[gameId];
+      const scoreElement = document.getElementById(game.scoreElement);
+
+      scoreElement.textContent = "Pontuação: " + game.score + "/" + game.questions.length;
+    }
+
+    function showSummary(gameId) {
+      const game = games[gameId];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedback";
+      feedbackElement.textContent = "";
+      nextElement.classList.remove("show");
+
+      let message = "";
+
+      if (game.score === game.questions.length) {
+        message = "Excelente. Você reconheceu as jornadas e demonstrou boa leitura de continuidade do caso.";
+      } else if (game.score >= Math.ceil(game.questions.length * 0.7)) {
+        message = "Bom resultado. Revise apenas as diferenças entre jornadas parecidas, como Revenda SAC, Revenda SAC Gorenje, Mídias/VOC e RA.";
+      } else {
+        message = "Vale revisar o mapa geral das jornadas antes de aplicar no atendimento. Foque em origem do caso, status da OS, acordo aprovado, recall e reclamações públicas.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resumo do jogo</h3>
+        <p><strong>Resultado:</strong> ${game.score} de ${game.questions.length} respostas corretas.</p>
+        <p>${message}</p>
+        <button class="btn btnPrimary" type="button" onclick="restartGame('${gameId}')">
+          Refazer jogo
+        </button>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartGame(gameId) {
+      games[gameId].current = 0;
+      games[gameId].score = 0;
+      loadGame(gameId);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadGame("game1");
+      loadGame("game2");
+      loadGame("game3");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Gorenje Fornos, Micro-ondas e Forno Combinado</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --bg-soft: #F4F8FB;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --purple: #7C3AED;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --shadow: 0 12px 30px rgba(0, 63, 125, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(0, 176, 80, 0.14), transparent 34%),
+        linear-gradient(135deg, #EEF7FF 0%, #F9FCFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 310px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: #FFFFFF;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.2);
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--hisense-green);
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.22);
+    }
+
+    .brandBlock h1 {
+      margin: 18px 0 8px;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .sideSearch {
+      margin: 24px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .practiceBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0, 176, 80, 0.16);
+      border: 1px solid rgba(0, 176, 80, 0.34);
+    }
+
+    .practiceBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .practiceBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .practiceToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: linear-gradient(135deg, var(--hisense-green), #009BAA);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 176, 80, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 46px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(0, 174, 239, 0.26), transparent 34%),
+        radial-gradient(circle at 12% 85%, rgba(0, 176, 80, 0.2), transparent 36%),
+        linear-gradient(135deg, #003F7D, #005EB8 54%, #00AEEF);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.04rem;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 1.64rem;
+      line-height: 1.2;
+    }
+
+    .sectionIntro {
+      max-width: 920px;
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(0, 176, 80, 0.1);
+      color: var(--hisense-green);
+    }
+
+    .pillCyan {
+      background: rgba(0, 174, 239, 0.12);
+      color: #007EA7;
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      overflow: hidden;
+      padding: 0;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 18px rgba(31, 41, 51, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 20px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--hisense-blue-dark);
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.09);
+      color: var(--hisense-blue);
+      font-weight: 800;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .detailsContent {
+      padding: 0 20px 20px;
+      color: var(--text-medium);
+      font-size: 0.94rem;
+    }
+
+    .detailsContent p {
+      margin-top: 0;
+    }
+
+    .imagePlaceholder {
+      margin: 16px 0;
+      padding: 24px;
+      border-radius: 18px;
+      border: 2px dashed rgba(0, 94, 184, 0.35);
+      background: rgba(0, 94, 184, 0.05);
+      color: var(--hisense-blue-dark);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .speechBox {
+      margin: 14px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(0, 174, 239, 0.12), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 174, 239, 0.22);
+    }
+
+    .speechBox strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .speechBox p {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .quickSearchBar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .quickSearchBar input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      background: #FFFFFF;
+      font-size: 0.96rem;
+      outline: none;
+    }
+
+    .quickSearchBar button {
+      padding: 14px 18px;
+      border: none;
+      border-radius: 16px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tagList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.08);
+      color: var(--hisense-blue-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .practiceMode .learningContent {
+      display: none !important;
+    }
+
+    .practiceMode .practiceOnly {
+      display: block !important;
+    }
+
+    .practiceOnly {
+      display: none;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    @media (max-width: 1080px) {
+      #mainWrapper {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .grid4 {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+
+      .quickSearchBar {
+        grid-template-columns: 1fr;
+      }
+    }
+     .gameCard {
+padding: 24px;
+            border-radius: 22px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+          }
+
+          .gameHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+          }
+
+          .scoreBadge {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(0, 176, 80, 0.12);
+            color: var(--success);
+            font-size: 0.85rem;
+            font-weight: 800;
+            white-space: nowrap;
+          }
+
+          .questionText {
+            margin: 0 0 16px;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-weight: 700;
+          }
+
+          .options {
+            display: grid;
+            gap: 10px;
+          }
+
+          .optionBtn {
+            border: 1px solid var(--border-soft);
+            border-radius: 15px;
+            background: #FFFFFF;
+            padding: 14px 16px;
+            color: var(--text-dark);
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.18s ease;
+          }
+
+          .optionBtn:hover {
+            border-color: var(--hisense-cyan);
+            background: rgba(0, 174, 239, 0.06);
+          }
+
+          .optionBtn.correct {
+            border-color: var(--success);
+            background: rgba(22, 163, 74, 0.1);
+          }
+
+          .optionBtn.incorrect {
+            border-color: var(--danger);
+            background: rgba(220, 38, 38, 0.08);
+          }
+
+          .feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 14px 16px;
+            border-radius: 15px;
+            font-size: 0.92rem;
+          }
+
+          .feedback.show {
+            display: block;
+          }
+
+          .feedback.good {
+            background: rgba(22, 163, 74, 0.1);
+            color: #166534;
+          }
+
+          .feedback.bad {
+            background: rgba(220, 38, 38, 0.08);
+            color: #991B1B;
+          }
+
+          .nextBtn {
+            display: none;
+            margin-top: 14px;
+            border: none;
+            border-radius: 14px;
+            background: var(--hisense-blue);
+            color: #FFFFFF;
+            font-weight: 800;
+            padding: 12px 16px;
+            cursor: pointer;
+          }
+
+          .nextBtn.show {
+            display: inline-flex;
+          }
+
+          .finalSummary {
+            display: none;
+            padding: 22px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+            border: 1px solid rgba(0, 94, 184, 0.18);
+          }
+
+          .finalSummary.show {
+            display: block;
+          }
+
+          .footer {
+            margin: 36px 0 10px;
+            padding: 22px;
+            color: var(--text-medium);
+            font-size: 0.82rem;
+            text-align: center;
+          }
+
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          EAD Consultivo
+        </div>
+
+        <h1>Gorenje Fornos e Micro-ondas</h1>
+
+        <p>
+          Consulta rápida sobre modelos, instalação, ventilação, embutimento, programação, limpeza e ocorrências.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por modelo, sintoma ou tema..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do EAD">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+          <a class="navItem" class="navItem" href="#inicio">Início</a>
+          <a class="navItem" href="#modelos">Modelos</a>
+          <a class="navItem" href="#familias">Famílias de produto</a>
+          <a class="navItem" href="#instalacao">Instalação e ventilação</a>
+          <a class="navItem" href="#embutimento">Embutimento</a>
+          <a class="navItem" href="#identificacao">Identificação</a>
+          <a class="navItem" href="#programacao">Programação</a>
+          <a class="navItem" href="#limpeza">Limpeza e manutenção</a>
+          <a class="navItem" href="#ocorrencias">Problemas de campo</a>
+          <a class="navItem" href="#consulta">Consulta rápida</a>
+          <a class="navItem" href="#pratica">Modo prática</a>
+          <a class="navItem" href="#jogos">Jogos</a>
+        </div>
+      </nav>
+
+      <div class="practiceBox">
+        <h3>Modo prática</h3>
+        <p>
+          Oculte a consulta e teste se você consegue reconhecer o cenário do cliente.
+        </p>
+        <button class="practiceToggle" id="practiceToggle">
+          Ativar modo prática
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início gorenje forno elétrico microondas micro ondas forno combinado ead consulta">
+        <div class="heroContent">
+          <div class="heroTag">Hisense Gorenje | Linha Cocção</div>
+
+          <h2>Fornos, Micro-ondas e Forno Combinado Gorenje</h2>
+
+          <p>
+            Este EAD foi criado para consulta no dia a dia. Aqui você encontrará os principais pontos sobre modelos, famílias de produto, instalação elétrica, ventilação, embutimento, identificação, programação, limpeza e problemas de campo.
+          </p>
+
+          <div class="heroActions">
+            <a href="#consulta">Consultar sintoma</a>
+            <a href="#instalacao"></a>Ver instalação</a>
+            <a href="#programacao">Ver programação</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="learningContent">
+
+        <section class="section searchable" id="modelos" data-keywords="modelos BOS6737E13XBR BOS6747A01XBR BSA6747A04XBRWI BM321A7X-BR BCM4547A10XBR">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 1</span>
+              <h2>Modelos contemplados</h2>
+              <p class="sectionIntro">
+                Este conteúdo contempla modelos de forno elétrico, micro-ondas e forno combinado. Antes de orientar sobre programação, embutimento ou ocorrência, confirme qual modelo está sendo atendido.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Visão geral</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card searchable" data-keywords="BOS6737E13XBR forno elétrico">
+              <h3>BOS6737E13XBR</h3>
+              <p>
+                Modelo da família de forno elétrico. Pode envolver dúvidas sobre instalação, ventilação, embutimento, programação, limpeza e função de pré-aquecimento.
+              </p>
+              <div class="tagList">
+                <span class="tag">Forno elétrico</span>
+                <span class="tag">Programação</span>
+                <span class="tag">Ventilação</span>
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="BOS6747A01XBR forno elétrico">
+              <h3>BOS6747A01XBR</h3>
+              <p>
+                Modelo da família de forno elétrico. A identificação correta ajuda a orientar programação, limpeza e requisitos de instalação.
+              </p>
+              <div class="tagList">
+                <span class="tag">Forno elétrico</span>
+                <span class="tag">Embutimento</span>
+                <span class="tag">Limpeza</span>
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="BSA6747A04XBRWI forno elétrico">
+              <h3>BSA6747A04XBRWI</h3>
+              <p>
+                Modelo de forno elétrico contemplado no conteúdo de programação. Confirme o modelo antes de orientar funções específicas do painel.
+              </p>
+              <div class="tagList">
+                <span class="tag">Forno elétrico</span>
+                <span class="tag">Painel</span>
+                <span class="tag">Consulta</span>
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="BM321A7X-BR forno micro ondas microondas">
+              <h3>BM321A7X-BR</h3>
+              <p>
+                Modelo da família de forno micro-ondas. O atendimento pode envolver instalação, ventilação, embutimento, programação e limpeza.
+              </p>
+              <div class="tagList">
+                <span class="tag">Micro-ondas</span>
+                <span class="tag">Ventilação</span>
+                <span class="tag">Embutimento</span>
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="BCM4547A10XBR forno combinado">
+              <h3>BCM4547A10XBR</h3>
+              <p>
+                Modelo da família de forno combinado. Pode reunir características que exigem atenção à identificação, programação, ventilação e limpeza.
+              </p>
+              <div class="tagList">
+                <span class="tag">Forno combinado</span>
+                <span class="tag">Programação</span>
+                <span class="tag">Ventilação</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Antes de orientar</h3>
+              <p>
+                A aparência do produto não deve ser usada como única referência. Confirme modelo, família e sintoma para evitar orientar recurso ou requisito incompatível.
+              </p>
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Visão geral dos modelos de forno elétrico, micro-ondas e forno combinado
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section searchable" id="familias" data-keywords="famílias forno elétrico microondas forno combinado diferença produto">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 2</span>
+              <h2>Famílias de produto</h2>
+              <p class="sectionIntro">
+                O primeiro passo é entender se o cliente está falando de forno elétrico, micro-ondas ou forno combinado. A família muda o tipo de dúvida, a instalação e os cuidados de uso.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Produto em foco</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card searchable" data-keywords="forno elétrico aquecimento preheat trava porta limpeza">
+              <h3>Forno elétrico</h3>
+              <p>
+                Utiliza aquecimento elétrico para preparo dos alimentos. Pode gerar dúvidas sobre programação, pré-aquecimento, ventilação, limpeza e trava da porta.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="forno micro ondas microondas embutir ventilação limpeza programação">
+              <h3>Forno micro-ondas</h3>
+              <p>
+                É voltado ao aquecimento e preparo com micro-ondas. Exige atenção ao embutimento, ventilação, uso correto e limpeza adequada.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="forno combinado aquecimento micro ondas funções programação limpeza">
+              <h3>Forno combinado</h3>
+              <p>
+                Reúne mais de uma forma de preparo. Por isso, a identificação do modelo e da função usada é essencial antes de orientar o cliente.
+              </p>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Como pensar durante a consulta</p>
+            <p class="calloutText">
+              Se o cliente relata “não esquenta”, “não inicia”, “trava a porta” ou “não ventila”, primeiro identifique a família do produto e a função utilizada.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="instalacao" data-keywords="instalação requisitos elétricos ventilação tomada terra pino terra extensão benjamin adaptador tensão saída de ar nicho irregular garantia">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 3</span>
+              <h2>Instalação elétrica e ventilação</h2>
+              <p class="sectionIntro">
+                A instalação influencia diretamente o funcionamento e a segurança. Em produtos de embutir, energia adequada e ventilação correta são pontos essenciais para evitar superaquecimento, erro de instalação e perda de garantia.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Atenção ao nicho</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="requisitos elétricos tomada terra aterramento pino terra garantia extensão adaptador benjamin tensão">
+              <summary>Requisitos elétricos principais</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O produto deve ser conectado a uma tomada adequada, com ligação à terra. A remoção do pino terra caracteriza condição incorreta de uso e pode impactar garantia.
+                </p>
+
+                <p>
+                  Não devem ser utilizadas extensões, tomadas múltiplas, adaptadores, benjamins ou mecanismos de adaptação entre o cabo e a tomada. Antes de conectar o plugue, a tensão deve ser conferida.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que buscar com o cliente</h3>
+                    <ul>
+                      <li>O produto está ligado direto na tomada?</li>
+                      <li>A tomada possui aterramento?</li>
+                      <li>Há uso de extensão, adaptador ou benjamin?</li>
+                      <li>A tensão foi conferida antes de conectar?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação segura</h3>
+                    <p>
+                      Se houver adaptação elétrica ou dúvida sobre tensão e aterramento, oriente a validação por profissional qualificado antes de seguir com uso do produto.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Para segurança e funcionamento correto, o produto precisa estar ligado diretamente em uma tomada adequada, com aterramento e sem extensões, adaptadores ou benjamins.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos elétricos para fornos e micro-ondas Gorenje
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="ventilação saída frontal saída lateral forro refrigerador desembutido nicho compartilhado saída de ar">
+              <summary>Ventilação e saída de ar</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Forno elétrico, micro-ondas e forno combinado precisam de ventilação adequada para dissipar calor. A saída de ar pode estar relacionada à saída frontal, lateral, forro, instalação próxima a refrigerador, produto desembutido ou nicho compartilhado.
+                </p>
+
+                <p>
+                  Nicho irregular é considerado erro de instalação e pode gerar perda de garantia. Por isso, quando o cliente relata aquecimento excessivo, desligamento, mau funcionamento após instalação ou dúvida de embutimento, a ventilação deve ser considerada.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>O produto está instalado em nicho?</li>
+                      <li>Há espaço para saída de ar?</li>
+                      <li>O produto está próximo a refrigerador?</li>
+                      <li>O nicho é compartilhado com outro equipamento?</li>
+                      <li>O sintoma começou após instalação?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>O que não orientar</h3>
+                    <p>
+                      Não orientar alteração de nicho, abertura de móvel, remoção de peças, adaptação de ventilação ou instalação improvisada. A validação deve seguir o fluxo adequado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Ponto crítico</p>
+                  <p class="calloutText">
+                    Nicho irregular pode ser considerado erro de instalação e gerar perda de garantia. Registre quando o cliente relatar instalação fora das condições indicadas.
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos de ventilação do forno elétrico
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos de ventilação do forno micro-ondas
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos de ventilação do forno combinado
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+        <section class="section searchable" id="embutimento" data-keywords="embutimento nicho forno elétrico microondas forno combinado requisitos para embutir instalação móvel medidas">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 4</span>
+              <h2>Requisitos para embutir</h2>
+              <p class="sectionIntro">
+                Os modelos de forno elétrico, micro-ondas e forno combinado possuem requisitos específicos para instalação embutida. O ponto principal é entender que o móvel precisa permitir encaixe, ventilação e dissipação de calor.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Produto de embutir</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="forno elétrico embutir nicho ventilação móvel">
+              <summary>Forno elétrico</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O forno elétrico exige nicho adequado, espaço para ventilação e instalação conforme as condições previstas para o produto. Quando o cliente relata aquecimento excessivo, desligamento ou mau funcionamento após instalação, o nicho deve ser considerado na triagem.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que buscar com o cliente</h3>
+                    <ul>
+                      <li>O produto já está embutido no móvel?</li>
+                      <li>O nicho possui espaço para ventilação?</li>
+                      <li>O problema começou após a instalação?</li>
+                      <li>Há outro equipamento no mesmo nicho?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como conduzir</h3>
+                    <p>
+                      O atendimento deve identificar se o sintoma pode estar relacionado ao embutimento, sem orientar ajustes de móvel ou alterações na instalação.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos para embutir forno elétrico
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="forno micro ondas microondas embutir nicho ventilação">
+              <summary>Forno micro-ondas</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O forno micro-ondas de embutir também depende de nicho compatível e ventilação adequada. Se o cliente relata aquecimento, desligamento ou comportamento estranho após instalação, é importante verificar se o produto está instalado em condição adequada.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>O micro-ondas está embutido?</li>
+                      <li>O móvel possui ventilação?</li>
+                      <li>O produto está próximo de outro equipamento que gera calor?</li>
+                      <li>O cliente percebe aquecimento excessivo no móvel?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Cuidado</h3>
+                    <p>
+                      Não oriente o cliente a remover partes do móvel, abrir áreas de ventilação por conta própria ou adaptar o nicho sem validação adequada.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos para embutir forno micro-ondas
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="forno combinado embutir nicho ventilação instalação">
+              <summary>Forno combinado</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O forno combinado reúne características que exigem atenção ao nicho, ventilação e função utilizada. Como produto de embutir, a instalação inadequada pode impactar funcionamento, aquecimento e percepção de falha.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que confirmar</h3>
+                    <ul>
+                      <li>O modelo informado é BCM4547A10XBR?</li>
+                      <li>O produto está embutido?</li>
+                      <li>Há espaço adequado para saída de ar?</li>
+                      <li>A ocorrência começou após instalação?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Registro importante</h3>
+                    <p>
+                      Quando houver dúvida sobre nicho ou ventilação, registre que a instalação ainda não foi confirmada. Isso ajuda a continuidade do caso.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos para embutir forno combinado
+                </div>
+              </div>
+            </details>
+
+          </div>
+
+          <div class="dangerCallout">
+            <p class="calloutTitle">Atenção ao nicho irregular</p>
+            <p class="calloutText">
+              Nicho irregular pode ser considerado erro de instalação e impactar a garantia. Quando o relato envolver aquecimento, desligamento, mau funcionamento ou instalação recente, registre as condições informadas pelo cliente.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="identificacao" data-keywords="identificação etiqueta modelo série forno elétrico microondas forno combinado">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 5</span>
+              <h2>Identificação do produto</h2>
+              <p class="sectionIntro">
+                A identificação correta evita orientação incompatível. Antes de falar sobre programação, limpeza, embutimento ou ocorrência, confirme se o cliente possui forno elétrico, micro-ondas ou forno combinado.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Modelo correto</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>O que confirmar</h3>
+              <ul>
+                <li>Modelo exato do produto.</li>
+                <li>Número de série, quando disponível.</li>
+                <li>Família do produto: forno elétrico, micro-ondas ou combinado.</li>
+                <li>Data de compra ou instalação.</li>
+                <li>Sintoma, mensagem ou função utilizada.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Por que isso importa</h3>
+              <p>
+                Modelos diferentes podem ter painel, programação, funcionalidades e requisitos de instalação diferentes. A confirmação do modelo reduz risco de orientação errada.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Localização da etiqueta de identificação dos fornos e micro-ondas
+              </div>
+            </div>
+          </div>
+
+          <div class="speechBox">
+            <strong>Fala sugerida</strong>
+            <p>
+              “Para te orientar corretamente, preciso confirmar o modelo exato do produto. Essa informação ajuda a identificar se estamos falando de forno elétrico, micro-ondas ou forno combinado.”
+            </p>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Cuidado comum</p>
+            <p class="calloutText">
+              Não trate todos os produtos como “forno”. A família do produto muda a forma de entender a função, a instalação e a ocorrência relatada.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="programacao" data-keywords="programação painel BOS6747A01XBR BOS6737E13XBR BSA6747A04XBRWI BM321A7X-BR BCM4547A10XBR funções comandos">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 6</span>
+              <h2>Programação e painel</h2>
+              <p class="sectionIntro">
+                A programação deve ser usada como consulta guiada. Antes de orientar uma função, confirme o modelo, o painel e o que o cliente está tentando fazer.
+              </p>
+            </div>
+
+            <span class="pill pillPurple">Consulta por modelo</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="BOS6747A01XBR programação painel forno elétrico">
+              <summary>BOS6747A01XBR | Programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Use esta área para inserir a imagem do painel e o passo visual de programação do modelo. Durante a consulta, confirme qual função o cliente selecionou e em qual etapa ele encontrou dificuldade.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>Qual função foi selecionada?</li>
+                      <li>O painel exibe alguma mensagem?</li>
+                      <li>O produto inicia e depois para?</li>
+                      <li>O cliente está tentando pré-aquecer?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como explicar</h3>
+                    <p>
+                      Oriente a partir da função informada pelo cliente. Se houver comportamento inesperado ou mensagem persistente, registre e siga o fluxo adequado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Programação do modelo BOS6747A01XBR
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="BOS6737E13XBR programação painel forno elétrico">
+              <summary>BOS6737E13XBR | Programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Consulte o painel do modelo antes de orientar a sequência de comandos. O foco é entender se o cliente está com dúvida de uso, seleção de função ou mensagem durante a operação.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Programação do modelo BOS6737E13XBR
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="BSA6747A04XBRWI programação painel forno elétrico">
+              <summary>BSA6747A04XBRWI | Programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Este modelo possui programação própria. Confirme o modelo antes de orientar funções ou etapas do painel, especialmente quando o cliente relata comportamento específico após selecionar uma função.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Programação do modelo BSA6747A04XBRWI
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="BM321A7X-BR programação painel forno micro ondas microondas">
+              <summary>BM321A7X-BR | Programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Para o micro-ondas, confirme a função selecionada, o tempo programado e se o cliente está relatando dúvida de uso ou falha percebida durante a operação.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Programação do modelo BM321A7X-BR
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="BCM4547A10XBR programação painel forno combinado">
+              <summary>BCM4547A10XBR | Programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Para o forno combinado, a função selecionada é essencial para entender o comportamento. Busque saber se o cliente está usando função de forno, micro-ondas ou combinação.
+                </p>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Como este modelo possui funções combinadas, preciso confirmar qual função foi selecionada e o que aparece no painel antes de orientar os próximos passos.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Programação do modelo BCM4547A10XBR
+                </div>
+              </div>
+            </details>
+
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Regra prática</p>
+            <p class="calloutText">
+              Se a dúvida for de programação, confirme modelo, função selecionada, mensagem no painel e comportamento do produto. Evite orientar comandos de outro modelo.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="limpeza" data-keywords="limpeza manutenção forno elétrico forno combinado microondas pano produto abrasivo gordura resíduos">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 7</span>
+              <h2>Limpeza e manutenção</h2>
+              <p class="sectionIntro">
+                Limpeza e manutenção aparecem com frequência em dúvidas sobre cheiro, resíduos, gordura, desempenho percebido e conservação do produto. A orientação deve ser simples e segura.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Uso e cuidado</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card searchable" data-keywords="forno elétrico combinado limpeza manutenção">
+              <h3>Forno elétrico e forno combinado</h3>
+              <p>
+                Para forno elétrico e forno combinado, a limpeza deve considerar as áreas acessíveis e o cuidado com resíduos de preparo. Não oriente desmontagem ou acesso a componentes internos.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Limpeza e manutenção de forno elétrico e forno combinado
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="forno micro ondas microondas limpeza manutenção">
+              <h3>Forno micro-ondas</h3>
+              <p>
+                Para o micro-ondas, o cuidado deve considerar sujeira interna, resíduos de alimentos e conservação das superfícies acessíveis. Evite orientar produtos abrasivos ou limpeza agressiva.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Limpeza e manutenção de forno micro-ondas
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+
+            <details open class="searchable" data-keywords="limpeza segura pano macio pouco úmido abrasivo">
+              <summary>Orientação segura de limpeza</summary>
+
+              <div class="detailsContent">
+                <p>
+                  A limpeza deve ser orientada de forma segura, priorizando áreas acessíveis e evitando produtos abrasivos, excesso de água ou qualquer intervenção interna.
+                </p>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Para limpeza, utilize apenas métodos seguros nas áreas acessíveis do produto. Evite produtos abrasivos e não realize desmontagem de partes internas.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="quando seguir fluxo autorizado limpeza não resolve cheiro fumaça falha">
+              <summary>Quando não insistir em limpeza</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Se houver cheiro forte persistente, fumaça, falha durante uso, travamento de porta, aquecimento irregular ou comportamento recorrente mesmo após limpeza adequada, registre o cenário e siga o fluxo autorizado.
+                </p>
+
+                <div class="warningCallout">
+                  <p class="calloutTitle">Atenção</p>
+                  <p class="calloutText">
+                    Limpeza é uma orientação de cuidado. Ela não deve substituir análise quando houver risco, recorrência ou falha persistente.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <section class="section searchable" id="ocorrencias" data-keywords="problemas de campo preheat pré aquecimento trava porta falha porta forno elétrico combinado microondas">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 8</span>
+              <h2>Problemas de campo e ocorrências comuns</h2>
+              <p class="sectionIntro">
+                Esta seção reúne ocorrências que podem aparecer no atendimento. O objetivo é reconhecer o cenário, explicar de forma simples e registrar corretamente, sem concluir diagnóstico técnico.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Ocorrências</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="preheat pré aquecimento função ativada forno elétrico combinado">
+              <summary>Função PREHEAT ativada</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Em forno elétrico e forno combinado, a função PREHEAT pode gerar dúvida quando o cliente interpreta o comportamento de pré-aquecimento como falha ou demora para iniciar o preparo.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que perguntar</h3>
+                    <ul>
+                      <li>Qual função foi selecionada?</li>
+                      <li>O painel indica PREHEAT ou pré-aquecimento?</li>
+                      <li>O produto chegou a aquecer?</li>
+                      <li>O cliente aguardou o pré-aquecimento finalizar?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como explicar</h3>
+                    <p>
+                      Explique que o pré-aquecimento é uma etapa de preparo. Se o comportamento persistir de forma anormal, registre a função utilizada e siga o fluxo adequado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “A função PREHEAT está relacionada ao pré-aquecimento. Vamos confirmar se essa etapa está ativa e se o produto conclui o aquecimento antes de iniciar o preparo.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="falha trava porta forno elétrico combinado porta travada não abre não fecha">
+              <summary>Falha na trava da porta</summary>
+
+              <div class="detailsContent">
+                <p>
+                  A falha na trava da porta pode aparecer em forno elétrico ou forno combinado. O cliente pode relatar que a porta não abre, não fecha, fica travada ou impede o início da função.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>A porta está travada aberta ou fechada?</li>
+                      <li>O produto estava em uso quando travou?</li>
+                      <li>Alguma função de aquecimento estava ativa?</li>
+                      <li>Aparece mensagem no painel?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Cuidado</h3>
+                    <p>
+                      Não oriente força manual, desmontagem, retirada de peças ou tentativa de destravamento técnico. Registre o cenário e siga o fluxo autorizado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Não orientar</p>
+                  <p class="calloutText">
+                    Não peça ao cliente para forçar a porta, remover o produto do nicho ou acessar mecanismos internos da trava.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="aquecimento excessivo nicho ventilação saída de ar instalação">
+              <summary>Aquecimento excessivo ou sensação de superaquecimento</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Aquecimento excessivo pode estar relacionado à função utilizada, tempo de uso, ventilação ou instalação no nicho. Em produtos de embutir, a saída de ar precisa estar adequada.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que buscar</h3>
+                    <ul>
+                      <li>O produto está embutido?</li>
+                      <li>Há espaço para ventilação?</li>
+                      <li>O nicho é compartilhado?</li>
+                      <li>O sintoma começou após instalação?</li>
+                      <li>Qual função estava em uso?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Condução segura</h3>
+                    <p>
+                      Se houver suspeita de instalação inadequada, registre as condições informadas. Não oriente adaptação no móvel ou alteração da ventilação.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <section class="section searchable" id="consulta" data-keywords="consulta rápida sintoma não aquece preheat porta travada ventilação nicho limpeza programação microondas forno combinado">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Consulta rápida</span>
+              <h2>Pesquisar por sintoma ou tema</h2>
+              <p class="sectionIntro">
+                Use esta seção quando o cliente informar um sintoma genérico. A busca ajuda a localizar a área provável: instalação, ventilação, programação, limpeza, PREHEAT ou trava da porta.
+              </p>
+            </div>
+
+            <span class="pill pillCyan">Busca prática</span>
+          </div>
+
+          <div class="quickSearchBar">
+            <input type="search" id="quickSearch" placeholder="Exemplo: não aquece, porta travada, preheat, ventilação, nicho..." />
+            <button type="button" onclick="clearQuickSearch()">Limpar</button>
+          </div>
+
+          <div class="accordion" id="quickList">
+
+            <details open class="quickItem searchable" data-keywords="não aquece aquecimento função programação preheat">
+              <summary>Cliente informa que não aquece</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Confirme a família do produto, o modelo, a função selecionada e se há etapa de pré-aquecimento ativa. Em forno elétrico ou combinado, verifique se PREHEAT aparece no painel.
+                </p>
+
+                <p>
+                  Se o produto não aquece em nenhuma função ou apresenta comportamento recorrente, registre o cenário e siga o fluxo autorizado.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="porta travada trava porta não abre não fecha">
+              <summary>Porta travada ou dificuldade de fechamento</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Confirme se a porta está travada aberta ou fechada, se o produto estava em uso e se havia função de aquecimento ativa. Não oriente força manual ou desmontagem.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="preheat pré aquecimento demora iniciar função">
+              <summary>PREHEAT ou pré-aquecimento</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Explique que PREHEAT indica etapa de pré-aquecimento. Confirme se o cliente aguardou a conclusão dessa etapa e qual função foi selecionada.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="aquecendo móvel nicho ventilação saída de ar superaquecimento">
+              <summary>Aquecimento no móvel ou suspeita de ventilação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Verifique se o produto está embutido, se há espaço de ventilação, se o nicho é compartilhado e se o sintoma começou após instalação.
+                </p>
+
+                <p>
+                  Nicho irregular pode impactar garantia. Registre as informações relatadas pelo cliente.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="programação painel função comandos modelo">
+              <summary>Dúvida de programação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Confirme o modelo, a função selecionada, o que aparece no painel e em qual etapa o cliente encontrou dificuldade. Use os placeholders de programação por modelo para inserir imagens de apoio.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="limpeza cheiro fumaça resíduos gordura microondas forno">
+              <summary>Limpeza, cheiro ou resíduos</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Verifique se o relato envolve resíduos de alimento, gordura, cheiro após preparo ou falta de limpeza. Oriente apenas limpeza segura em áreas acessíveis e evite produtos abrasivos.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+      </div>
+
+      <section class="section practiceOnly" id="pratica" data-keywords="modo prática simulação forno elétrico microondas forno combinado ventilação programação limpeza preheat porta travada">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Simulações sem consulta</h2>
+            <p class="sectionIntro">
+              Neste modo, o conteúdo consultivo fica oculto. Use os casos abaixo para praticar a identificação da família do produto, área envolvida e condução segura.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Treino ativo</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Caso 1 | Forno não aquece</h3>
+            <p>
+              Cliente informa que o forno elétrico não aquece como esperado. No painel aparece PREHEAT.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique se pode ser etapa de pré-aquecimento, confirme a função selecionada e defina o que registrar.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 2 | Produto aquece o móvel</h3>
+            <p>
+              Cliente informa que o móvel ao redor do forno está muito quente após instalação recente.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Relacione o caso a nicho, ventilação, saída de ar e instalação, sem orientar adaptação do móvel.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 3 | Porta travada</h3>
+            <p>
+              Cliente informa que a porta do forno combinado não abre após uso de uma função de aquecimento.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Defina perguntas de sondagem e explique o que não deve ser orientado ao cliente.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 4 | Dúvida de programação</h3>
+            <p>
+              Cliente informa que não consegue iniciar uma função no micro-ondas de embutir.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Confirme modelo, função, mensagem no painel e etapa em que o cliente encontrou dificuldade.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="jogos" data-keywords="jogos quiz forno microondas combinado preheat ventilação nicho programação limpeza porta">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Jogos de fixação</span>
+            <h2>Pratique a identificação do cenário</h2>
+            <p class="sectionIntro">
+              Responda às perguntas em sequência. O objetivo é reconhecer a área do produto envolvida e escolher uma condução segura.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Feedback imediato</span>
+        </div>
+
+        <div class="grid">
+
+          <div class="gameCard" id="game1">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 1 | Qual área investigar?</h3>
+                <p class="sectionIntro">
+                  Escolha a área mais provável a partir do relato do cliente.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame1">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame1"></p>
+            <div class="options" id="optionsGame1"></div>
+            <div class="feedback" id="feedbackGame1"></div>
+
+            <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame1"></div>
+          </div>
+
+          <div class="gameCard" id="game2">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 2 | Qual pergunta fazer?</h3>
+                <p class="sectionIntro">
+                  Escolha a pergunta que melhor ajuda a localizar o cenário.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame2">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame2"></p>
+            <div class="options" id="optionsGame2"></div>
+            <div class="feedback" id="feedbackGame2"></div>
+
+            <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame2"></div>
+          </div>
+
+          <div class="gameCard" id="game3">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 3 | Qual orientação inicial?</h3>
+                <p class="sectionIntro">
+                  Escolha a condução mais segura para o cliente.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame3">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame3"></p>
+            <div class="options" id="optionsGame3"></div>
+            <div class="feedback" id="feedbackGame3"></div>
+
+            <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame3"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section searchable" id="fechamento" data-keywords="resumo forno elétrico microondas combinado instalação ventilação programação limpeza preheat porta">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo para consulta</h2>
+            <p class="sectionIntro">
+              Em fornos, micro-ondas e forno combinado Gorenje, o foco é entender a família do produto, confirmar o modelo e relacionar o relato do cliente à área correta: instalação, ventilação, embutimento, programação, limpeza ou ocorrência de campo.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta pós-treinamento</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Família do produto</h3>
+            <p>
+              Confirme se o cliente possui forno elétrico, micro-ondas ou forno combinado antes de orientar.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Instalação e ventilação</h3>
+            <p>
+              Produtos de embutir dependem de nicho correto, saída de ar e instalação elétrica adequada.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Ocorrência relatada</h3>
+            <p>
+              PREHEAT, trava de porta, aquecimento excessivo e dúvida de programação exigem perguntas específicas antes de qualquer conclusão.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        EAD Consultivo | Gorenje Fornos, Micro-ondas e Forno Combinado
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const practiceToggle = document.getElementById("practiceToggle");
+    const globalSearch = document.getElementById("globalSearch");
+    const quickSearch = document.getElementById("quickSearch");
+
+    practiceToggle.addEventListener("click", function () {
+      body.classList.toggle("practiceMode");
+
+      if (body.classList.contains("practiceMode")) {
+        practiceToggle.textContent = "Desativar modo prática";
+        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
+      } else {
+        practiceToggle.textContent = "Ativar modo prática";
+        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+
+          if (item.tagName.toLowerCase() === "details") {
+            item.open = true;
+          }
+        } else {
+          if (!item.closest(".searchable:not(.section):not(.hero)")) {
+            item.classList.add("hiddenBySearch");
+          }
+        }
+      });
+    });
+
+    if (quickSearch) {
+      quickSearch.addEventListener("input", function () {
+        const term = normalizeText(quickSearch.value);
+        const items = document.querySelectorAll(".quickItem");
+
+        items.forEach(function (item) {
+          const text = normalizeText(item.innerText || "");
+          const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+          if (!term || text.includes(term) || keywords.includes(term)) {
+            item.classList.remove("hiddenBySearch");
+            if (term) item.open = true;
+          } else {
+            item.classList.add("hiddenBySearch");
+          }
+        });
+      });
+    }
+
+    function clearQuickSearch() {
+      if (!quickSearch) return;
+
+      quickSearch.value = "";
+      document.querySelectorAll(".quickItem").forEach(function (item) {
+        item.classList.remove("hiddenBySearch");
+      });
+    }
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    const games = {
+      game1: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame1",
+        questionElement: "questionGame1",
+        optionsElement: "optionsGame1",
+        feedbackElement: "feedbackGame1",
+        nextElement: "nextGame1",
+        summaryElement: "summaryGame1",
+        questions: [
+          {
+            question: "Cliente informa que o forno elétrico mostra PREHEAT e parece não iniciar o preparo. Qual área investigar primeiro?",
+            options: [
+              "Pré-aquecimento e função selecionada",
+              "Limpeza externa",
+              "Cadastro de aplicativo",
+              "Filtro de drenagem"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. PREHEAT indica etapa de pré-aquecimento, então a função selecionada deve ser confirmada.",
+            feedbackWrong: "Não é a melhor resposta. PREHEAT está relacionado ao pré-aquecimento."
+          },
+          {
+            question: "Cliente relata que o móvel ao redor do forno está muito quente após instalação. Qual área faz mais sentido consultar?",
+            options: [
+              "Ventilação e nicho",
+              "AUID do produto",
+              "Filtro de água",
+              "Pastilha de limpeza"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Aquecimento no móvel após instalação pode envolver nicho, saída de ar e ventilação.",
+            feedbackWrong: "A área mais provável é ventilação e nicho, principalmente após instalação."
+          },
+          {
+            question: "Cliente informa que a porta do forno combinado travou após uso. Qual área está envolvida?",
+            options: [
+              "Trava da porta",
+              "Entrada de água",
+              "Wi-Fi 2.4 GHz",
+              "Sifão"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. O relato envolve trava da porta e exige condução segura.",
+            feedbackWrong: "Porta travada deve ser relacionada à trava da porta, não a temas de água ou conectividade."
+          }
+        ]
+      },
+
+      game2: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame2",
+        questionElement: "questionGame2",
+        optionsElement: "optionsGame2",
+        feedbackElement: "feedbackGame2",
+        nextElement: "nextGame2",
+        summaryElement: "summaryGame2",
+        questions: [
+          {
+            question: "Cliente diz: “Meu forno não esquenta”. Qual pergunta ajuda mais no início?",
+            options: [
+              "Qual função foi selecionada e aparece alguma mensagem no painel?",
+              "A torneira de água está aberta?",
+              "O app recebeu código por e-mail?",
+              "O filtro foi limpo recentemente?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Para aquecimento, é essencial saber função selecionada e mensagem no painel.",
+            feedbackWrong: "A primeira investigação deve considerar função selecionada, painel e família do produto."
+          },
+          {
+            question: "Cliente relata aquecimento excessivo no móvel. Qual pergunta é mais adequada?",
+            options: [
+              "O produto está embutido e há espaço para saída de ar?",
+              "Qual sabão foi utilizado?",
+              "A mangueira está dobrada?",
+              "O produto está conectado ao aplicativo?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Em produto de embutir, ventilação e saída de ar são pontos centrais.",
+            feedbackWrong: "Aquecimento no móvel aponta para instalação, nicho e ventilação."
+          },
+          {
+            question: "Cliente relata dúvida para iniciar uma função no micro-ondas. Qual pergunta é mais útil?",
+            options: [
+              "Qual é o modelo e qual função você está tentando iniciar?",
+              "O sifão está limpo?",
+              "A porta da marcenaria é deslizante?",
+              "A rede é 2.4 GHz?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Para programação, confirme modelo e função selecionada.",
+            feedbackWrong: "Dúvida de programação deve começar por modelo, função e mensagem no painel."
+          }
+        ]
+      },
+
+      game3: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame3",
+        questionElement: "questionGame3",
+        optionsElement: "optionsGame3",
+        feedbackElement: "feedbackGame3",
+        nextElement: "nextGame3",
+        summaryElement: "summaryGame3",
+        questions: [
+          {
+            question: "Cliente informa que usa extensão para ligar o forno. Qual orientação inicial é correta?",
+            options: [
+              "Orientar conexão direta em tomada adequada, com aterramento e sem extensão.",
+              "Autorizar uso de benjamin se for novo.",
+              "Remover o pino terra para encaixar melhor.",
+              "Testar em qualquer tomada disponível."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. O produto deve ser conectado em tomada adequada, sem extensões ou adaptadores.",
+            feedbackWrong: "Extensões, benjamins, adaptadores e remoção do pino terra não devem ser orientados."
+          },
+          {
+            question: "Cliente informa porta travada e pergunta se pode forçar. Qual orientação é mais segura?",
+            options: [
+              "Não forçar a porta, registrar o cenário e seguir fluxo autorizado.",
+              "Forçar com cuidado até abrir.",
+              "Remover o produto do nicho.",
+              "Abrir a trava manualmente com ferramenta."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Não se deve orientar força manual ou intervenção na trava.",
+            feedbackWrong: "Não oriente força, ferramenta, retirada do nicho ou desmontagem."
+          },
+          {
+            question: "Cliente informa cheiro ou resíduos após uso. Qual orientação inicial é adequada?",
+            options: [
+              "Orientar limpeza segura em áreas acessíveis, sem abrasivos ou desmontagem.",
+              "Aplicar produto abrasivo forte.",
+              "Desmontar a parte interna.",
+              "Ignorar e continuar usando sempre."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Limpeza deve ser segura, em áreas acessíveis e sem produtos abrasivos.",
+            feedbackWrong: "Não oriente abrasivos, desmontagem ou intervenção interna."
+          }
+        ]
+      }
+    };
+
+    function loadGame(gameId) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      nextElement.classList.remove("show");
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "optionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuestion(gameId, index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      updateScore(gameId);
+    }
+
+    function answerQuestion(gameId, selectedIndex) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+
+      const buttons = optionsElement.querySelectorAll(".optionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        game.score++;
+        feedbackElement.textContent = questionData.feedbackCorrect;
+        feedbackElement.className = "feedback show good";
+      } else {
+        feedbackElement.textContent = questionData.feedbackWrong;
+        feedbackElement.className = "feedback show bad";
+      }
+
+      updateScore(gameId);
+
+      if (game.current < game.questions.length - 1) {
+        nextElement.textContent = "Próxima pergunta";
+      } else {
+        nextElement.textContent = "Ver resumo";
+      }
+
+      nextElement.classList.add("show");
+    }
+
+    function nextQuestion(gameId) {
+      const game = games[gameId];
+
+      if (game.current < game.questions.length - 1) {
+        game.current++;
+        loadGame(gameId);
+      } else {
+        showSummary(gameId);
+      }
+    }
+
+    function updateScore(gameId) {
+      const game = games[gameId];
+      const scoreElement = document.getElementById(game.scoreElement);
+
+      scoreElement.textContent = "Pontuação: " + game.score + "/" + game.questions.length;
+    }
+
+    function showSummary(gameId) {
+      const game = games[gameId];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedback";
+      feedbackElement.textContent = "";
+      nextElement.classList.remove("show");
+
+      let message = "";
+
+      if (game.score === game.questions.length) {
+        message = "Excelente. Você reconheceu os principais cenários do produto e escolheu conduções seguras.";
+      } else if (game.score >= Math.ceil(game.questions.length * 0.7)) {
+        message = "Bom resultado. Revise apenas os pontos em que houve dúvida, especialmente ventilação, programação e trava de porta.";
+      } else {
+        message = "Vale revisar o EAD antes de aplicar no atendimento. Foque em família do produto, instalação, ventilação, PREHEAT e limpeza.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resumo do jogo</h3>
+        <p><strong>Resultado:</strong> ${game.score} de ${game.questions.length} respostas corretas.</p>
+        <p>${message}</p>
+        <button class="btn btnPrimary" type="button" onclick="restartGame('${gameId}')">
+          Refazer jogo
+        </button>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartGame(gameId) {
+      games[gameId].current = 0;
+      games[gameId].score = 0;
+      loadGame(gameId);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadGame("game1");
+      loadGame("game2");
+      loadGame("game3");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAD Técnico de TV Hisense | Imagem, Conectividade e Prática</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    
+    :root {
+      --azul: #003B71; 
+      --azul2: #005B9F; 
+      --ciano: #00A9CE; 
+      --verde: #78BE20;
+      --bg: #F4F8FC; 
+      --card: #FFFFFF; 
+      --texto: #1E293B; 
+      --muted: #64748B; 
+      --line: #D9E2EC;
+      --warn: #FFF7E6; 
+      --warnline: #F2B84B; 
+      --ok: #EAF8F1; 
+      --okline: #30A46C; 
+      --bad: #FEF2F2; 
+      --badline: #EF4444;
+      --shadow: 0 18px 45px rgba(15,23,42,.10); 
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--texto);
+      line-height: 1.58;
+    }
+
+    /* Modos Visuais */
+    body.focus .sidebar, 
+    body.focus .module-map { display: none; }
+    body.focus #mainWrapper { grid-template-columns: 1fr; max-width: 1100px; }
+    
+    body.practice .sidebar, 
+    body.practice .topbar, 
+    body.practice #contentView { display: none !important; }
+    body.practice #mainWrapper { grid-template-columns: 1fr; max-width: 980px; }
+    body.practice #practiceMode { display: block; animation: fadeIn 0.4s ease; }
+    body.practice .to-top { display: none !important; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estrutura Principal */
+    #mainWrapper {
+      width: min(1480px, 100%);
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 26px;
+    }
+
+    /* Menu Lateral */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 48px);
+      overflow: auto;
+      border-radius: 28px;
+      background: linear-gradient(180deg, var(--azul), #00284D);
+      color: #fff;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .logo {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--ciano), var(--verde));
+      display: grid; place-items: center; font-weight: 800;
+    }
+    .brand strong { display: block; }
+    .brand span { font-size: .78rem; opacity: .82; }
+
+    .progress-wrap {
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px; padding: 14px; margin: 16px 0;
+    }
+    .progress-info { display: flex; justify-content: space-between; font-size: .8rem; margin-bottom: 8px; }
+    .bar { height: 9px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.2); }
+    .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--ciano), var(--verde)); transition: .25s; }
+
+    .nav-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; margin: 18px 0 8px; }
+    .nav { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .nav a {
+      display: block; text-decoration: none; color: #fff; padding: 10px 12px;
+      border-radius: 13px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      font-size: .86rem; transition: 0.2s;
+    }
+    .nav a:hover, .nav a.active { background: rgba(0,169,206,.28); transform: translateX(2px); }
+    .group-hint { font-size: .72rem; color: rgba(255,255,255,.55); margin: -2px 0 4px; line-height: 1.4; }
+
+    /* Área Principal */
+    .main { min-width: 0; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; display: flex; justify-content: flex-end; gap: 10px;
+      padding: 8px 0; background: linear-gradient(180deg, rgba(244,248,252,.96), rgba(244,248,252,.72));
+      backdrop-filter: blur(8px);
+    }
+    body.focus .topbar { position: fixed; right: 24px; top: 18px; background: transparent; padding: 0; }
+    body.focus .topbar .btn.ghost { display: none; }
+
+    /* Botões */
+    .btn {
+      border: 0; border-radius: 999px; background: var(--azul); color: #fff;
+      padding: 10px 16px; font-family: inherit; font-weight: 700; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,59,113,.18); text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.secondary { background: #fff; color: var(--azul); border: 1px solid var(--line); box-shadow: none; }
+    .btn.ghost { background: transparent; color: var(--azul); border: 1px solid var(--line); box-shadow: none; }
+    .btn.green { background: var(--verde); }
+
+    /* Hero Section */
+    .hero {
+      border-radius: 32px;
+      background: radial-gradient(circle at 88% 8%, rgba(120,190,32,.35), transparent 24%),
+                  linear-gradient(135deg, var(--azul), var(--azul2) 58%, var(--ciano));
+      color: #fff; padding: clamp(30px, 5vw, 58px); box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+    }
+    .hero:after {
+      content: ""; position: absolute; width: 440px; height: 440px; border-radius: 50%;
+      right: -170px; bottom: -220px; background: rgba(255,255,255,.10);
+    }
+    .eyebrow {
+      display: inline-flex; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px; padding: 7px 12px; font-weight: 800; font-size: .8rem; margin-bottom: 16px;
+    }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; margin: 0 0 12px; letter-spacing: -.04em; max-width: 900px; }
+    .hero p { max-width: 860px; font-size: 1.04rem; opacity: .92; margin: 0 0 22px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 2; }
+
+    /* Componentes de Módulo */
+    section { scroll-margin-top: 80px; }
+    .section, .module {
+      background: var(--card); border: 1px solid rgba(217,226,236,.9);
+      border-radius: 28px; padding: clamp(22px, 3vw, 36px); margin-top: 24px; box-shadow: var(--shadow);
+    }
+    
+    .module-head { display: grid; grid-template-columns: 78px 1fr; gap: 18px; align-items: center; margin-bottom: 18px; }
+    .num {
+      width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--azul), var(--ciano));
+      color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.35rem;
+    }
+    h2 { margin: 0 0 8px; color: var(--azul); font-size: clamp(1.45rem, 2.4vw, 2.15rem); line-height: 1.2; }
+    h3 { color: #123B61; margin: 22px 0 10px; line-height: 1.25; }
+    h4 { color: var(--azul); margin: 0 0 7px; }
+    .lead { margin: 0; color: var(--muted); }
+
+    /* Grids e Cards */
+    .module-map, .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+    .map-card, .card {
+      background: #F8FBFF; border: 1px solid var(--line); border-radius: 18px; padding: 16px;
+      text-decoration: none; color: var(--texto); transition: 0.2s;
+    }
+    .map-card:hover { border-color: var(--ciano); transform: translateY(-2px); }
+    .map-card strong, .card strong { display: block; color: var(--azul); margin-bottom: 5px; }
+    .map-card span, .card p { color: var(--muted); font-size: .9rem; margin: 0; }
+    
+    .tag {
+      display: inline-flex; border-radius: 999px; background: rgba(0,169,206,.12); color: var(--azul);
+      font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+      padding: 5px 9px; margin-bottom: 9px;
+    }
+    
+    .callout { border-radius: 18px; border: 1px solid var(--line); padding: 16px 18px; margin: 18px 0; background: #F8FBFF; }
+    .callout strong { color: var(--azul); }
+    .callout.warn { background: var(--warn); border-color: var(--warnline); }
+    .callout.ok { background: var(--ok); border-color: var(--okline); }
+    .callout.bad { background: var(--bad); border-color: var(--badline); }
+
+    .placeholder {
+      border: 2px dashed #A8B7C8; background: #F8FBFF; border-radius: 22px; padding: 22px;
+      text-align: center; color: #475569; margin: 18px 0;
+    }
+    .placeholder strong { color: var(--azul); display: block; margin-bottom: 6px; }
+    .placeholder small { display: block; color: var(--muted); }
+
+    /* Accordion (Busca) */
+    .accordion { display: grid; gap: 12px; margin-top: 16px; }
+    details { background: #FBFDFF; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: 0.2s; }
+    summary { padding: 16px 18px; cursor: pointer; font-weight: 800; color: var(--azul); list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary:after { content: "+"; color: var(--ciano); font-size: 1.3rem; }
+    details[open] summary:after { content: "-"; }
+    .details-body { padding: 0 18px 18px; color: #344054; }
+
+    /* Tabelas e Visual Strips */
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; border-radius: 16px; overflow: hidden; }
+    th, td { border: 1px solid var(--line); padding: 12px 14px; text-align: left; vertical-align: top; }
+    th { background: var(--azul); color: #fff; }
+    td { background: #fff; }
+    
+    .visual-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 22px 0; }
+    .visual-pill { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.24); border-radius: 18px; padding: 14px; color: #fff; }
+    .visual-pill strong { display: block; font-size: 1.15rem; }
+    .visual-pill span { font-size: .82rem; opacity: .88; }
+
+    /* Barra de Pesquisa */
+    .searchbox { display: flex; gap: 10px; margin: 14px 0; }
+    .searchbox input { width: 100%; border: 1px solid var(--line); border-radius: 999px; padding: 12px 16px; font-family: inherit; font-size: 1rem; outline: none; transition: 0.2s; }
+    .searchbox input:focus { border-color: var(--ciano); box-shadow: 0 0 0 3px rgba(0,169,206,.15); }
+    
+    .hidden { display: none !important; }
+
+    /* Elementos do Quiz */
+    .quiz { margin-top: 24px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(180deg, #F7FBFF, #fff); padding: 20px; }
+    .quiz-q { font-weight: 800; margin-bottom: 12px; }
+    .opts { display: grid; gap: 10px; }
+    .opt { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 12px 14px; cursor: pointer; font-family: inherit; text-align: left; transition: 0.2s; }
+    .opt:hover:not(:disabled) { border-color: var(--ciano); background: #F5FCFF; }
+    .opt.ok { background: var(--ok); border-color: var(--okline); color: #12783D; font-weight: 600; }
+    .opt.no { background: var(--bad); border-color: var(--badline); color: #A12D2D; }
+    .opt:disabled { cursor: default; }
+    .feedback { display: none; margin-top: 12px; font-weight: 800; }
+    .feedback.show { display: block; animation: fadeIn 0.3s; }
+    .feedback.ok { color: #12783D; }
+    .feedback.no { color: #A12D2D; }
+
+    /* Modo Prática */
+    #practiceMode { display: none; }
+    .practice-shell { min-height: calc(100vh - 48px); display: grid; place-items: center; }
+    .practice-card { background: #fff; border: 1px solid var(--line); border-radius: 32px; padding: clamp(22px, 4vw, 44px); box-shadow: var(--shadow); width: min(920px, 100%); }
+    .practice-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 18px; }
+    .practice-badge { display: inline-flex; border-radius: 999px; background: rgba(0,169,206,.12); color: var(--azul); font-weight: 800; padding: 8px 12px; font-size: .82rem; }
+    .score { font-weight: 800; color: var(--azul); }
+    .scenario { font-size: 1.22rem; font-weight: 800; color: #123B61; margin: 18px 0; }
+    
+    .game-options { display: grid; gap: 12px; }
+    .game-option { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 14px 16px; text-align: left; font-family: inherit; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+    .game-option:hover:not(:disabled) { border-color: var(--ciano); background: #F5FCFF; }
+    .game-option.selected { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0,59,113,.10); }
+    .game-option.correct { border-color: var(--okline); background: var(--ok); color: #12783D; font-weight: 600; }
+    .game-option.wrong { border-color: var(--badline); background: var(--bad); color: #A12D2D; }
+    
+    .game-feedback { display: none; margin-top: 14px; border-radius: 16px; padding: 14px 16px; font-weight: 700; }
+    .game-feedback.show { display: block; animation: fadeIn 0.3s; }
+    .game-feedback.ok { background: var(--ok); border: 1px solid var(--okline); color: #12783D; }
+    .game-feedback.no { background: var(--bad); border: 1px solid var(--badline); color: #A12D2D; }
+    .game-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    
+    .practice-menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+    .practice-choice { border: 1px solid var(--line); background: linear-gradient(135deg, #F8FBFF, #fff); border-radius: 22px; padding: 22px; text-align: left; cursor: pointer; transition: 0.2s; }
+    .practice-choice:hover { transform: translateY(-3px); border-color: var(--ciano); box-shadow: 0 10px 20px rgba(0,169,206,.1); }
+    .practice-choice strong { display: block; color: var(--azul); font-size: 1.2rem; margin-bottom: 6px; }
+    .practice-choice span { display: block; color: var(--muted); font-size: .92rem; }
+    
+    .results-list { display: grid; gap: 10px; margin-top: 14px; }
+    .result-item { border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; background: #F8FBFF; }
+    .result-item strong { color: var(--azul); }
+
+    /* Elementos Auxiliares */
+    .footer { text-align: center; color: var(--muted); padding: 30px 0 8px; font-size: .86rem; }
+    .source-note { font-size: .82rem; color: var(--muted); margin-top: 16px; }
+    
+    .to-top {
+      position: fixed; right: 22px; bottom: 22px; z-index: 30; width: 46px; height: 46px;
+      border-radius: 50%; background: var(--azul); color: #fff; border: 0;
+      box-shadow: 0 10px 24px rgba(0,59,113,.28); cursor: pointer; font-size: 1.1rem;
+      align-items: center; justify-content: center; display: none; transition: 0.3s;
+    }
+    .to-top:hover { background: var(--ciano); transform: translateY(-3px); }
+    .to-top.show { display: flex; animation: fadeIn 0.3s; }
+
+    /* Responsividade */
+    @media (max-width: 1050px) {
+      #mainWrapper { grid-template-columns: 1fr; padding: 16px; }
+      .sidebar { position: relative; height: auto; top: 0; }
+      .module-map, .grid, .visual-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .module-head, .module-map, .grid, .visual-strip, .practice-menu { grid-template-columns: 1fr; }
+      .hero-actions, .topbar, .practice-top { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; }
+      table { display: block; overflow-x: auto; }
+      .num { width: 58px; height: 58px; border-radius: 18px; }
+      .practice-shell { display: block; }
+      .practice-card { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div id="mainWrapper">
+  
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">H</div>
+      <div><strong>Hisense</strong><span>EAD de consulta rápida</span></div>
+    </div>
+    
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span>Quizzes concluídos</span>
+        <span id="progTxt">0%</span>
+      </div>
+      <div class="bar">
+        <div class="fill" id="progFill"></div>
+      </div>
+    </div>
+    
+    <div class="nav-title">Conteúdo EAD</div>
+    <ul class="nav">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#imagem">Tecnologias de imagem</a></li>
+      <li><a href="#retro">Retroiluminação e HDR</a></li>
+      <li><a href="#conectividade">Funcionalidades e internet</a></li>
+      <li><a href="#consulta">Consulta rápida</a></li>
+      <li><a href="#quizfinal">Quiz final</a></li>
+    </ul>
+    
+    <div class="nav-title">Prática</div>
+    <div class="group-hint">Ambiente sem consulta ao conteúdo.</div>
+    <ul class="nav">
+      <li><a href="#" id="navPractice">Modo prática</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="btn secondary" id="focusBtn" type="button">Modo foco</button>
+      <button class="btn ghost" id="resetBtn" type="button">Reiniciar quizzes</button>
+    </div>
+    
+    <div id="contentView">
+      <section class="hero" id="inicio">
+        <div class="eyebrow">EAD final da trilha • TV Hisense</div>
+        <h1>Tecnologias, Imagem e Conectividade</h1>
+        <p>Use este EAD após os blocos em slides para aprofundar conceitos técnicos, consultar dúvidas no dia a dia e praticar situações comuns de atendimento.</p>
+        
+        <div class="visual-strip">
+          <div class="visual-pill"><strong>Imagem</strong><span>QLED, OLED, Mini LED</span></div>
+          <div class="visual-pill"><strong>Luz</strong><span>Edge, Direct, Local Dimming</span></div>
+          <div class="visual-pill"><strong>HDR</strong><span>SDR, HDR e Dolby Vision</span></div>
+          <div class="visual-pill"><strong>Internet</strong><span>2.4 GHz, 5 GHz e streaming</span></div>
+        </div>
+        
+        <div class="hero-actions">
+          <a class="btn" href="#imagem">Ver conteúdo</a>
+          <button class="btn secondary" id="startPracticeHero" type="button">Praticar sem consultar</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Como usar este EAD</h2>
+        <p>Este conteúdo entra no final da trilha do Academy. A primeira parte dos slides conduz os temas sensíveis e operacionais. Aqui, o participante aprofunda os conceitos técnicos e utiliza a consulta rápida durante o atendimento.</p>
+        
+        <div class="callout warn">
+          <strong>Importante:</strong> este EAD ajuda a explicar tecnologia e funcionamento. Ele não substitui diagnóstico técnico, laudo autorizado ou fluxo interno de garantia.
+        </div>
+        
+        <div class="module-map">
+          <a class="map-card" href="#imagem"><strong>Tecnologias de imagem</strong><span>Painéis, cores, brilho, contraste e benefícios.</span></a>
+          <a class="map-card" href="#retro"><strong>Retroiluminação e HDR</strong><span>Controle de luz, Local Dimming e experiência HDR.</span></a>
+          <a class="map-card" href="#conectividade"><strong>Funcionalidades</strong><span>Internet, streaming, voz, áudio e espelhamento.</span></a>
+        </div>
+      </section>
+
+      <section class="module" id="imagem" data-module>
+        <div class="module-head">
+          <div class="num">1</div>
+          <div>
+            <h2>Tecnologias de imagem</h2>
+            <p class="lead">Entenda a evolução dos painéis e como traduzir tecnologia em benefício.</p>
+          </div>
+        </div>
+        
+        <div class="placeholder">
+          <strong>INSERIR IMAGEM: TIPOS DE PAINEL</strong>
+          <small>Sugestão: diagrama LCD, LED, QLED, Mini LED, OLED e MicroLED.</small>
+        </div>
+        
+        <p>A experiência de imagem de uma TV depende de como a luz é gerada, controlada e transformada em cor. Tecnologias como LED, QLED, Mini LED, OLED e MicroLED têm propostas diferentes para brilho, contraste, volume de cor e controle de pretos.</p>
+        
+        <div class="grid">
+          <div class="card"><span class="tag">Base LCD</span><strong>LCD / LED</strong><p>Usa cristais líquidos e uma fonte de luz de fundo. Em LED, a retroiluminação é feita por LEDs, com melhor eficiência que tecnologias antigas.</p></div>
+          <div class="card"><span class="tag">Cor</span><strong>QLED</strong><p>Usa pontos quânticos para entregar cores mais puras, maior volume de cor e brilho superior.</p></div>
+          <div class="card"><span class="tag">Contraste</span><strong>Mini LED</strong><p>Usa muitos LEDs menores, permitindo mais controle de luz e melhor contraste quando combinado com zonas de escurecimento.</p></div>
+          <div class="card"><span class="tag">Premium</span><strong>Mini LED RGB</strong><p>Usa LEDs vermelhos, verdes e azuis independentes, buscando cores mais puras, brilho elevado e contraste avançado.</p></div>
+          <div class="card"><span class="tag">Autoemissivo</span><strong>OLED</strong><p>Cada pixel emite sua própria luz, permitindo pretos profundos e contraste muito alto.</p></div>
+          <div class="card"><span class="tag">Próxima geração</span><strong>MicroLED</strong><p>Cada pixel é um LED microscópico autoemissivo, com alto controle de brilho e grande potencial de durabilidade.</p></div>
+        </div>
+        
+        <div class="callout ok">
+          <strong>Como explicar:</strong> QLED melhora cor e brilho; Mini LED melhora controle de luz e contraste; OLED prioriza pretos profundos por pixels autoemissivos.
+        </div>
+        
+        <div class="quiz" data-quiz>
+          <h4>Fixação rápida</h4>
+          <div class="quiz-q">Qual tecnologia está mais associada a pontos quânticos e maior volume de cor?</div>
+          <div class="opts">
+            <button class="opt" data-correct="false">A) HDMI-CEC</button>
+            <button class="opt" data-correct="true">B) QLED</button>
+            <button class="opt" data-correct="false">C) ARC</button>
+            <button class="opt" data-correct="false">D) Streaming</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section class="module" id="retro" data-module>
+        <div class="module-head">
+          <div class="num">2</div>
+          <div>
+            <h2>Retroiluminação, Local Dimming e HDR</h2>
+            <p class="lead">A luz é a base da imagem. Entenda como o controle de luz impacta contraste e qualidade.</p>
+          </div>
+        </div>
+        
+        <div class="placeholder">
+          <strong>INSERIR IMAGEM: EDGE VS DIRECT / LOCAL DIMMING</strong>
+          <small>Sugestão: comparação de LEDs nas bordas, Direct LED e controle por zonas.</small>
+        </div>
+        
+        <p>Em TVs LCD/LED, os LEDs não formam a imagem sozinhos. Eles fornecem a luz de fundo, que passa por camadas ópticas e cristais líquidos até formar a imagem final. Quanto melhor o controle dessa luz, maior tende a ser o contraste e a percepção de profundidade.</p>
+        
+        <div class="grid">
+          <div class="card"><span class="tag">Edge</span><strong>LED Edge</strong><p>LEDs posicionados nas bordas. Favorece TVs mais finas, mas tem menor controle de uniformidade e contraste.</p></div>
+          <div class="card"><span class="tag">Direct</span><strong>Direct LED</strong><p>LEDs posicionados atrás da tela. Tende a oferecer melhor uniformidade de brilho.</p></div>
+          <div class="card"><span class="tag">Zonas</span><strong>Full Array Local Dimming</strong><p>Controla zonas de luz de forma independente, melhorando pretos e contraste.</p></div>
+          <div class="card"><span class="tag">Halo</span><strong>Blooming</strong><p>Halo de luz ao redor de objetos brilhantes em cenas escuras. Pode ocorrer quando há limitação no controle de zonas.</p></div>
+          <div class="card"><span class="tag">HDR</span><strong>Alto alcance dinâmico</strong><p>Melhora brilho, contraste e cor, revelando mais detalhes em áreas claras e escuras.</p></div>
+          <div class="card"><span class="tag">Dolby Vision</span><strong>Mais profundidade</strong><p>Associado a maior profundidade de cor e metadados mais avançados, quando conteúdo e TV são compatíveis.</p></div>
+        </div>
+        
+        <table>
+          <thead>
+            <tr><th>Conceito</th><th>Como explicar ao cliente</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Local Dimming</td><td>A TV escurece e ilumina áreas da tela de forma separada para melhorar o contraste.</td></tr>
+            <tr><td>HDR</td><td>A imagem pode exibir mais detalhes em áreas claras e escuras quando o conteúdo é compatível.</td></tr>
+            <tr><td>Blooming</td><td>É um halo de luz que pode aparecer em cenas escuras, dependendo da tecnologia e das configurações.</td></tr>
+          </tbody>
+        </table>
+        
+        <div class="quiz" data-quiz>
+          <h4>Fixação rápida</h4>
+          <div class="quiz-q">Qual recurso controla áreas da tela de forma independente para melhorar pretos e contraste?</div>
+          <div class="opts">
+            <button class="opt" data-correct="false">A) Espelhamento de tela</button>
+            <button class="opt" data-correct="false">B) Wi-Fi 2.4 GHz</button>
+            <button class="opt" data-correct="true">C) Local Dimming</button>
+            <button class="opt" data-correct="false">D) HDMI-CEC</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section class="module" id="conectividade" data-module>
+        <div class="module-head">
+          <div class="num">3</div>
+          <div>
+            <h2>Funcionalidades, internet e conectividade</h2>
+            <p class="lead">Temas recorrentes em atendimento: Wi-Fi, streaming, voz, HDMI, áudio e espelhamento.</p>
+          </div>
+        </div>
+        
+        <div class="placeholder">
+          <strong>INSERIR IMAGEM: REDES 2.4 GHZ VS 5 GHZ</strong>
+          <small>Sugestão: quadro comparativo alcance, velocidade e interferências.</small>
+        </div>
+        
+        <div class="accordion">
+          <details open>
+            <summary>2.4 GHz x 5 GHz</summary>
+            <div class="details-body">2.4 GHz tem maior alcance e atravessa obstáculos com mais facilidade, mas sofre mais interferência. 5 GHz tem maior velocidade e menos interferência, mas menor alcance.</div>
+          </details>
+          <details>
+            <summary>Streaming e qualidade de imagem</summary>
+            <div class="details-body">Streaming depende da internet e do serviço utilizado. Conteúdo HD, Full HD, 4K e 8K exigem velocidades e estabilidade diferentes. O plano do aplicativo também pode limitar a qualidade.</div>
+          </details>
+          <details>
+            <summary>Espelhamento de tela</summary>
+            <div class="details-body">Exibe conteúdo do celular ou notebook na TV. Normalmente exige que os dispositivos estejam na mesma rede Wi-Fi e pode ser afetado pela qualidade do sinal.</div>
+          </details>
+          <details>
+            <summary>Assistentes de voz</summary>
+            <div class="details-body">Alexa e VIDAA Voice permitem comandos por voz, quando o modelo e a configuração são compatíveis.</div>
+          </details>
+          <details>
+            <summary>HDMI-CEC</summary>
+            <div class="details-body">Permite controlar múltiplos dispositivos via HDMI, desde que todos os aparelhos envolvidos sejam compatíveis.</div>
+          </details>
+          <details>
+            <summary>ARC e eARC</summary>
+            <div class="details-body">Permitem retorno de áudio para soundbar ou home theater via HDMI. eARC oferece maior largura de banda e suporte a formatos de áudio mais avançados.</div>
+          </details>
+        </div>
+        
+        <div class="callout warn">
+          <strong>Cuidado no atendimento:</strong> falhas de internet, streaming ou espelhamento nem sempre indicam defeito da TV. Verifique rede, distância do roteador, aplicativo, plano, compatibilidade e configuração.
+        </div>
+        
+        <div class="quiz" data-quiz>
+          <h4>Fixação rápida</h4>
+          <div class="quiz-q">Cliente está longe do roteador e há muitas paredes. Qual rede tende a ter melhor alcance?</div>
+          <div class="opts">
+            <button class="opt" data-correct="true">A) 2.4 GHz</button>
+            <button class="opt" data-correct="false">B) 5 GHz</button>
+            <button class="opt" data-correct="false">C) HDMI-ARC</button>
+            <button class="opt" data-correct="false">D) Dolby Vision</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section class="module" id="consulta" data-module>
+        <div class="module-head">
+          <div class="num">4</div>
+          <div>
+            <h2>Consulta rápida</h2>
+            <p class="lead">Busque um termo ou sintoma durante o atendimento.</p>
+          </div>
+        </div>
+        
+        <div class="searchbox">
+          <input id="filterInput" type="search" placeholder="Buscar: QLED, OLED, Local Dimming, blooming, 5 GHz, ARC, streaming, espelhamento..." />
+        </div>
+        
+        <div class="accordion" id="filterArea">
+          <details data-filter="qled quantum dot cor brilho volume de cor">
+            <summary>QLED</summary>
+            <div class="details-body">Tecnologia com pontos quânticos. Ajuda a entregar cores mais puras, maior volume de cor e brilho superior.</div>
+          </details>
+          <details data-filter="oled autoemissivo pretos contraste pixel">
+            <summary>OLED</summary>
+            <div class="details-body">Painel autoemissivo. Cada pixel emite luz própria, permitindo pretos profundos e contraste muito alto.</div>
+          </details>
+          <details data-filter="mini led local dimming zonas contraste blooming">
+            <summary>Mini LED e Local Dimming</summary>
+            <div class="details-body">Mini LEDs fornecem mais pontos de controle de luz. Local Dimming ajusta zonas para melhorar contraste e reduzir vazamento de luz.</div>
+          </details>
+          <details data-filter="blooming halo luz tela escura">
+            <summary>Blooming ou halo</summary>
+            <div class="details-body">Halo de luz ao redor de objetos claros em fundo escuro. Pode aparecer por limitação de controle de luz ou configuração de imagem.</div>
+          </details>
+          <details data-filter="2.4 ghz alcance paredes obstaculos interferencia">
+            <summary>2.4 GHz</summary>
+            <div class="details-body">Melhor alcance e melhor passagem por obstáculos, mas maior chance de interferência e menor velocidade máxima.</div>
+          </details>
+          <details data-filter="5 ghz velocidade streaming 4k perto roteador">
+            <summary>5 GHz</summary>
+            <div class="details-body">Mais velocidade e menos interferência, ideal quando a TV está mais próxima do roteador.</div>
+          </details>
+          <details data-filter="arc earc audio soundbar home theater hdmi">
+            <summary>ARC/eARC</summary>
+            <div class="details-body">Recursos HDMI para retorno de áudio. eARC oferece maior largura de banda e suporte a áudio mais avançado.</div>
+          </details>
+          <details data-filter="espelhamento mesma rede wifi celular notebook">
+            <summary>Espelhamento</summary>
+            <div class="details-body">Normalmente exige que TV e dispositivo estejam na mesma rede Wi-Fi e que o sinal esteja estável.</div>
+          </details>
+          <details data-filter="streaming netflix 4k plano internet velocidade buffer">
+            <summary>Streaming em 4K</summary>
+            <div class="details-body">Depende do plano do aplicativo, disponibilidade do conteúdo, velocidade/estabilidade da internet e configuração de imagem.</div>
+          </details>
+        </div>
+      </section>
+
+      <section class="module" id="quizfinal" data-module>
+        <div class="module-head">
+          <div class="num">5</div>
+          <div>
+            <h2>Quiz final do EAD</h2>
+            <p class="lead">Reforce os pontos principais antes de encerrar a trilha.</p>
+          </div>
+        </div>
+        
+        <div class="quiz" data-quiz>
+          <h4>Questão 1</h4>
+          <div class="quiz-q">Qual tecnologia usa pontos quânticos para melhorar volume de cor?</div>
+          <div class="opts">
+            <button class="opt" data-correct="false">A) HDMI-CEC</button>
+            <button class="opt" data-correct="true">B) QLED</button>
+            <button class="opt" data-correct="false">C) ARC</button>
+            <button class="opt" data-correct="false">D) 2.4 GHz</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+        <div class="quiz" data-quiz>
+          <h4>Questão 2</h4>
+          <div class="quiz-q">Qual tecnologia está relacionada ao controle de zonas para melhorar contraste?</div>
+          <div class="opts">
+            <button class="opt" data-correct="false">A) Streaming</button>
+            <button class="opt" data-correct="false">B) Bluetooth</button>
+            <button class="opt" data-correct="true">C) Local Dimming</button>
+            <button class="opt" data-correct="false">D) Controle remoto</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+        <div class="quiz" data-quiz>
+          <h4>Questão 3</h4>
+          <div class="quiz-q">Cliente não consegue assistir em 4K. O que deve ser considerado?</div>
+          <div class="opts">
+            <button class="opt" data-correct="false">A) Apenas a TV.</button>
+            <button class="opt" data-correct="true">B) Plano do app, conteúdo, internet e configurações.</button>
+            <button class="opt" data-correct="false">C) Apenas a pilha do controle.</button>
+            <button class="opt" data-correct="false">D) Sempre é tela quebrada.</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Resumo executivo</h2>
+        <ul>
+          <li><strong>QLED:</strong> melhor associado a cor, brilho e volume de cor.</li>
+          <li><strong>Mini LED e Local Dimming:</strong> melhor associados a controle de luz, contraste e pretos mais profundos.</li>
+          <li><strong>HDR:</strong> melhora percepção de detalhes em brilho, contraste e cor quando conteúdo e TV são compatíveis.</li>
+          <li><strong>2.4 GHz:</strong> mais alcance. <strong>5 GHz:</strong> mais velocidade em curta distância.</li>
+          <li><strong>Streaming e espelhamento:</strong> dependem muito de internet, compatibilidade, configuração e aplicativo.</li>
+        </ul>
+        <p class="source-note">Conteúdo baseado no treinamento técnico interno de TV Hisense. Em caso de dúvida sobre modelo, garantia, laudo ou reparo, siga os fluxos oficiais da operação.</p>
+      </section>
+    </div>
+
+    <section id="practiceMode">
+      <div class="practice-shell">
+        <div class="practice-card">
+          <div class="practice-top">
+            <div>
+              <span class="practice-badge">Modo prática</span>
+              <h2 id="practiceTitle">Escolha um desafio</h2>
+              <p class="lead" id="practiceLead">Aqui o conteúdo fica oculto para testar sua assimilação.</p>
+            </div>
+            <button class="btn secondary" id="exitPractice" type="button">Voltar ao conteúdo</button>
+          </div>
+          
+          <div id="practiceHome">
+            <div class="practice-menu">
+              <button class="practice-choice" data-game="tech">
+                <strong>Jogo 1 — Qual tecnologia?</strong>
+                <span>Associe a necessidade do cliente à tecnologia mais relacionada.</span>
+              </button>
+              <button class="practice-choice" data-game="connect">
+                <strong>Jogo 2 — Qual orientação?</strong>
+                <span>Escolha a melhor orientação para internet, áudio, streaming e espelhamento.</span>
+              </button>
+            </div>
+          </div>
+          
+          <div id="gameArea" class="hidden">
+            <div class="practice-top">
+              <span class="practice-badge" id="gameBadge">Jogo</span>
+              <span class="score" id="gameScore">Pontuação: 0/0</span>
+            </div>
+            <div class="scenario" id="scenarioText"></div>
+            <div class="game-options" id="gameOptions"></div>
+            <div class="game-feedback" id="gameFeedback"></div>
+            
+            <div class="game-actions">
+              <button class="btn" id="answerBtn" type="button">Responder</button>
+              <button class="btn secondary hidden" id="nextBtn" type="button">Próxima</button>
+              <button class="btn ghost" id="backPractice" type="button">Escolher outro jogo</button>
+            </div>
+          </div>
+          
+          <div id="resultArea" class="hidden">
+            <h2>Resultado da prática</h2>
+            <p id="resultText"></p>
+            <div class="results-list" id="resultList"></div>
+            
+            <div class="game-actions">
+              <button class="btn" id="retryBtn" type="button">Refazer prática</button>
+              <button class="btn secondary" id="homePractice" type="button">Escolher outro jogo</button>
+              <button class="btn ghost" id="contentBtn" type="button">Voltar ao conteúdo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <footer class="footer">EAD Técnico de TV • Hisense/Gorenje</footer>
+  </main>
+</div>
+
+<button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<script>
+  // Lógica dos Quizzes Regulares
+  const quizzes = document.querySelectorAll('[data-quiz]');
+  const fill = document.getElementById('progFill');
+  const txt = document.getElementById('progTxt');
+  
+  function updateProgress() {
+    const answered = document.querySelectorAll('[data-quiz].answered').length;
+    const percent = quizzes.length ? Math.round((answered / quizzes.length) * 100) : 0;
+    fill.style.width = percent + '%';
+    txt.textContent = percent + '%';
+  }
+  
+  quizzes.forEach(quiz => {
+    const opts = quiz.querySelectorAll('.opt');
+    const fb = quiz.querySelector('.feedback');
+    
+    opts.forEach(opt => opt.addEventListener('click', () => {
+      if(quiz.classList.contains('answered')) return;
+      quiz.classList.add('answered');
+      
+      const isCorrect = opt.dataset.correct === 'true';
+      
+      opts.forEach(btn => {
+        btn.disabled = true;
+        if(btn.dataset.correct === 'true') btn.classList.add('ok');
+      });
+      
+      if(!isCorrect) opt.classList.add('no');
+      
+      fb.classList.add('show', isCorrect ? 'ok' : 'no');
+      fb.textContent = isCorrect ? 'Correto!' : 'Quase! Veja a alternativa destacada em verde.';
+      
+      updateProgress();
+    }));
+  });
+
+  // Modo Foco
+  document.getElementById('focusBtn').addEventListener('click', e => {
+    document.body.classList.toggle('focus');
+    e.target.textContent = document.body.classList.contains('focus') ? 'Sair do modo foco' : 'Modo foco';
+  });
+
+  // Reiniciar Quizzes Regulares
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    quizzes.forEach(quiz => {
+      quiz.classList.remove('answered');
+      const fb = quiz.querySelector('.feedback');
+      fb.className = 'feedback';
+      fb.textContent = '';
+      quiz.querySelectorAll('.opt').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('ok', 'no');
+      });
+    });
+    updateProgress();
+  });
+
+  // Filtro de Busca (Consulta Rápida)
+  const filterInput = document.getElementById('filterInput');
+  if (filterInput) {
+    filterInput.addEventListener('input', () => {
+      const term = filterInput.value.toLowerCase().trim();
+      document.querySelectorAll('#filterArea details').forEach(detail => {
+        const hay = (detail.textContent + ' ' + (detail.dataset.filter || '')).toLowerCase();
+        
+        if (term) {
+          detail.classList.toggle('hidden', !hay.includes(term));
+          if (hay.includes(term)) detail.open = true;
+        } else {
+          // Quando limpar a busca, volta ao estado normal
+          detail.classList.remove('hidden');
+          detail.open = false; 
+        }
+      });
+    });
+  }
+
+  // Interação do Menu Lateral (Scroll Spying)
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = [...document.querySelectorAll('section[id]')];
+  
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  
+  sections.forEach(sec => observer.observe(sec));
+  updateProgress();
+
+  // Botão Voltar ao Topo
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    toTop.classList.toggle('show', window.scrollY > 500);
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Dados do Modo Prática
+  const practiceData = {
+    tech: {
+      title: 'Jogo 1 — Qual tecnologia?',
+      lead: 'Associe a necessidade do cliente à tecnologia mais relacionada.',
+      badge: 'Qual tecnologia?',
+      items: [
+        { q: 'Cliente quer cores mais vivas e maior volume de cor.', options: ['QLED', 'HDMI-CEC', 'ARC', '2.4 GHz'], a: 0, why: 'QLED usa pontos quânticos para entregar cores mais puras e maior volume de cor.' },
+        { q: 'Cliente quer pretos mais profundos em uma tecnologia autoemissiva.', options: ['OLED', 'Edge LED', 'Streaming', 'Espelhamento'], a: 0, why: 'OLED é autoemissivo, com cada pixel emitindo sua própria luz.' },
+        { q: 'Cliente pergunta por melhor controle de brilho em áreas diferentes da tela.', options: ['Local Dimming', 'Bluetooth', 'VIDAA Voice', 'HDMI'], a: 0, why: 'Local Dimming controla zonas da tela para melhorar contraste.' },
+        { q: 'Cliente pergunta por halos em cena escura ao redor de objeto claro.', options: ['Blooming', 'ARC', '5 GHz', 'R-32'], a: 0, why: 'Blooming é o halo de luz que pode aparecer por limitação de controle de retroiluminação.' },
+        { q: 'Cliente quer entender uma evolução premium de Mini LED com LEDs vermelhos, verdes e azuis.', options: ['Mini LED RGB', 'LCD antigo', 'HDMI-CEC', 'TOSLINK'], a: 0, why: 'Mini LED RGB usa LEDs RGB independentes para mais pureza de cor e brilho.' }
+      ]
+    },
+    connect: {
+      title: 'Jogo 2 — Qual orientação?',
+      lead: 'Escolha a melhor orientação para situações de conectividade e funcionalidades.',
+      badge: 'Qual orientação?',
+      items: [
+        { q: 'Cliente está longe do roteador e há muitas paredes entre a TV e o modem.', options: ['Usar 2.4 GHz', 'Usar apenas eARC', 'Trocar HDMI', 'Desligar HDR'], a: 0, why: '2.4 GHz tem maior alcance e atravessa obstáculos com mais facilidade.' },
+        { q: 'Cliente está perto do roteador e quer melhor desempenho para streaming 4K.', options: ['Usar 5 GHz', 'Usar apenas 2.4 GHz sempre', 'Desligar Wi-Fi', 'Usar ARC'], a: 0, why: '5 GHz oferece maior velocidade quando a TV está próxima do roteador.' },
+        { q: 'Cliente não consegue ver 4K na Netflix.', options: ['Verificar plano, conteúdo e internet', 'Trocar painel imediatamente', 'Informar que toda TV exibe 4K automaticamente', 'Ignorar o app'], a: 0, why: 'Streaming em 4K depende do plano, conteúdo disponível, velocidade e estabilidade da rede.' },
+        { q: 'Cliente quer enviar áudio da TV para soundbar via HDMI.', options: ['Verificar ARC/eARC', 'Usar QLED', 'Usar Local Dimming', 'Trocar para 2.4 GHz'], a: 0, why: 'ARC/eARC são recursos de retorno de áudio por HDMI.' },
+        { q: 'Cliente não consegue espelhar o celular na TV.', options: ['Verificar se os dispositivos estão na mesma rede Wi-Fi', 'Informar que espelhamento não existe', 'Trocar cabo de energia', 'Ativar Dolby Vision'], a: 0, why: 'Espelhamento normalmente exige dispositivos na mesma rede Wi-Fi e sinal estável.' }
+      ]
+    }
+  };
+
+  // Lógica do Modo Prática
+  let currentGame = null, idx = 0, score = 0, selected = null, answers = [];
+  
+  const practiceHome = document.getElementById('practiceHome');
+  const gameArea = document.getElementById('gameArea');
+  const resultArea = document.getElementById('resultArea');
+  const scenarioText = document.getElementById('scenarioText');
+  const gameOptions = document.getElementById('gameOptions');
+  const gameFeedback = document.getElementById('gameFeedback');
+  const gameScore = document.getElementById('gameScore');
+
+  function enterPractice() {
+    document.body.classList.add('practice');
+    document.body.classList.remove('focus');
+    document.getElementById('practiceMode').scrollIntoView({ behavior: 'smooth' });
+    showPracticeHome();
+  }
+
+  function exitPractice() {
+    document.body.classList.remove('practice');
+    document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function showPracticeHome() {
+    practiceHome.classList.remove('hidden');
+    gameArea.classList.add('hidden');
+    resultArea.classList.add('hidden');
+    document.getElementById('practiceTitle').textContent = 'Escolha um desafio';
+    document.getElementById('practiceLead').textContent = 'Aqui o conteúdo fica oculto para testar sua assimilação.';
+  }
+
+  function startGame(name) {
+    currentGame = name; idx = 0; score = 0; answers = [];
+    practiceHome.classList.add('hidden');
+    resultArea.classList.add('hidden');
+    gameArea.classList.remove('hidden');
+    
+    document.getElementById('practiceTitle').textContent = practiceData[name].title;
+    document.getElementById('practiceLead').textContent = practiceData[name].lead;
+    document.getElementById('gameBadge').textContent = practiceData[name].badge;
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const item = practiceData[currentGame].items[idx];
+    selected = null;
+    
+    gameFeedback.className = 'game-feedback';
+    gameFeedback.textContent = '';
+    
+    document.getElementById('answerBtn').classList.remove('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
+    
+    scenarioText.textContent = (idx + 1) + '. ' + item.q;
+    gameScore.textContent = 'Pontuação: ' + score + '/' + idx;
+    gameOptions.innerHTML = '';
+    
+    item.options.forEach((op, i) => {
+      const b = document.createElement('button');
+      b.className = 'game-option';
+      b.type = 'button';
+      b.textContent = String.fromCharCode(65 + i) + ') ' + op;
+      b.onclick = () => {
+        document.querySelectorAll('.game-option').forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected');
+        selected = i;
+      };
+      gameOptions.appendChild(b);
+    });
+  }
+
+  function answerQuestion() {
+    if (selected === null) {
+      gameFeedback.className = 'game-feedback show no';
+      gameFeedback.textContent = 'Escolha uma alternativa antes de responder.';
+      return;
+    }
+    
+    const item = practiceData[currentGame].items[idx];
+    const isCorrect = selected === item.a;
+    
+    if (isCorrect) score++;
+    
+    answers.push({
+      q: item.q, ok: isCorrect, why: item.why,
+      chosen: item.options[selected], correct: item.options[item.a]
+    });
+    
+    document.querySelectorAll('.game-option').forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.a) b.classList.add('correct');
+      if (i === selected && !isCorrect) b.classList.add('wrong');
+    });
+    
+    gameFeedback.className = 'game-feedback show ' + (isCorrect ? 'ok' : 'no');
+    gameFeedback.textContent = (isCorrect ? 'Correto! ' : 'Quase! ') + item.why;
+    gameScore.textContent = 'Pontuação: ' + score + '/' + (idx + 1);
+    
+    document.getElementById('answerBtn').classList.add('hidden');
+    document.getElementById('nextBtn').classList.remove('hidden');
+  }
+
+  function nextQuestion() {
+    idx++;
+    if (idx >= practiceData[currentGame].items.length) showResults();
+    else renderQuestion();
+  }
+
+  function showResults() {
+    gameArea.classList.add('hidden');
+    resultArea.classList.remove('hidden');
+    
+    const total = practiceData[currentGame].items.length;
+    document.getElementById('resultText').textContent = 'Você acertou ' + score + ' de ' + total + ' situações.';
+    
+    const list = document.getElementById('resultList');
+    list.innerHTML = '';
+    
+    answers.forEach((r, i) => {
+      const div = document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = '<strong>' + (r.ok ? 'Acerto' : 'Revisar') + ' — Situação ' + (i + 1) + '</strong><br>' + 
+                      r.q + '<br><small>Sua resposta: ' + r.chosen + ' | Correta: ' + r.correct + '</small><br>' +
+                      '<small>' + r.why + '</small>';
+      list.appendChild(div);
+    });
+  }
+
+  // Event Listeners dos Botões de Prática
+  document.getElementById('startPracticeHero').addEventListener('click', enterPractice);
+  document.getElementById('navPractice').addEventListener('click', e => { e.preventDefault(); enterPractice(); });
+  document.getElementById('exitPractice').addEventListener('click', exitPractice);
+  document.querySelectorAll('.practice-choice').forEach(b => b.addEventListener('click', () => startGame(b.dataset.game)));
+  
+  document.getElementById('answerBtn').addEventListener('click', answerQuestion);
+  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+  document.getElementById('backPractice').addEventListener('click', showPracticeHome);
+  document.getElementById('retryBtn').addEventListener('click', () => startGame(currentGame));
+  document.getElementById('homePractice').addEventListener('click', showPracticeHome);
+  document.getElementById('contentBtn').addEventListener('click', exitPractice);
+</script>
+</body>
+</html>

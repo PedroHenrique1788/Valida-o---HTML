@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>RPG de Atendimento | Classificação e Sondagem</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --bg-main: #EEF7FF;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --success: #16A34A;
+      --danger: #DC2626;
+      --warning: #F59E0B;
+      --purple: #7C3AED;
+      --shadow: 0 18px 42px rgba(0, 63, 125, 0.16);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 176, 80, 0.18), transparent 30%),
+        linear-gradient(135deg, #EDF7FF 0%, #FFFFFF 46%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #appWrapper {
+      min-height: 100vh;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .topBar {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(221, 230, 237, 0.92);
+      box-shadow: 0 10px 28px rgba(0, 63, 125, 0.08);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+
+    .topBrand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brandIcon {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(0, 94, 184, 0.18);
+      flex: 0 0 auto;
+    }
+
+    .topBrandText {
+      min-width: 0;
+    }
+
+    .topBrandText strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topBrandText span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+    }
+
+    .topActions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .focusBtn,
+    .historyBtn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .focusBtn {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+      color: #FFFFFF;
+    }
+
+    .historyBtn {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .focusBtn:hover,
+    .historyBtn:hover {
+      transform: translateY(-2px);
+    }
+
+    .progressWrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progressInfo {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+      font-weight: 700;
+    }
+
+    .progressTrack {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(0, 94, 184, 0.12);
+      border: 1px solid rgba(0, 94, 184, 0.08);
+    }
+
+    .progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--hisense-blue), var(--hisense-cyan), var(--hisense-green));
+      transition: width 0.3s ease;
+    }
+
+    .slideStage {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      flex: 1;
+      display: grid;
+      place-items: stretch;
+    }
+
+    .slide {
+      display: none;
+      min-height: calc(100vh - 170px);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeSlide 0.28s ease both;
+    }
+
+    .slide.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slideHeader {
+      padding: 30px 34px 22px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(0, 176, 80, 0.15), transparent 32%),
+        linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .slideEyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .slideHeader h1,
+    .slideHeader h2 {
+      margin: 0;
+      color: var(--text-dark);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .slideHeader h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+    }
+
+    .slideHeader h2 {
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+    }
+
+    .slideIntro {
+      max-width: 920px;
+      margin: 12px 0 0;
+      color: var(--text-medium);
+      font-size: 0.98rem;
+    }
+
+    .slideBody {
+      padding: 30px 34px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .slideFooter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 34px 26px;
+      border-top: 1px solid var(--border-soft);
+      background: #FFFFFF;
+    }
+
+    .footerHint {
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .navButtons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+    }
+
+    .btnGreen {
+      background: linear-gradient(135deg, var(--hisense-green), #059669);
+    }
+
+    .btnGhost {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btnWarn {
+      background: linear-gradient(135deg, var(--warning), #D97706);
+    }
+
+    .btnDanger {
+      background: linear-gradient(135deg, var(--danger), #991B1B);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      width: max-content;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.13);
+      color: #B45309;
+    }
+
+    .pillDanger {
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--danger);
+    }
+
+    .callout {
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+      background: #FFFFFF;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .callout.info {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .callout.success {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .callout.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .callout.danger {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .chatPanel {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #E8F3F8 0%, #F8FCFF 100%);
+      border: 1px solid var(--border-soft);
+    }
+
+    .chatBubble {
+      max-width: 84%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      font-size: 0.94rem;
+      box-shadow: 0 7px 16px rgba(31, 41, 51, 0.06);
+    }
+
+    .chatBubble.client {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      justify-self: start;
+    }
+
+    .chatBubble.agent {
+      background: #DCF8C6;
+      border: 1px solid rgba(22, 163, 74, 0.18);
+      justify-self: end;
+    }
+
+    .choiceGroup {
+      display: grid;
+      gap: 12px;
+    }
+
+    .choiceBtn {
+      width: 100%;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 15px 16px;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 700;
+      line-height: 1.45;
+      transition: 0.18s ease;
+    }
+
+    .choiceBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .choiceBtn.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .choiceBtn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .feedbackBox {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 17px;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .feedbackBox.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+      color: #92400E;
+    }
+
+    .historyDrawer {
+      position: fixed;
+      top: 0;
+      right: -430px;
+      width: min(430px, 92vw);
+      height: 100vh;
+      z-index: 100;
+      background: #FFFFFF;
+      box-shadow: -10px 0 34px rgba(31, 41, 51, 0.18);
+      border-left: 1px solid var(--border-soft);
+      transition: right 0.28s ease;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .historyDrawer.open {
+      right: 0;
+    }
+
+    .historyHeader {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .historyHeader h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .historyClose {
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      font-weight: 900;
+    }
+
+    .historyContent {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .historyItem {
+      padding: 14px;
+      border-radius: 16px;
+      background: #F7FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .historyItem strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .historyItem p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.84rem;
+    }
+
+    .focusMode .topBar,
+    .focusMode .progressWrap {
+      opacity: 0.98;
+    }
+
+    .focusMode .supportText {
+      display: none !important;
+    }
+
+    @media (max-width: 920px) {
+      #appWrapper {
+        padding: 14px;
+      }
+
+      .topBar {
+        position: relative;
+        top: 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .topActions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .slide {
+        min-height: auto;
+      }
+
+      .slideHeader,
+      .slideBody,
+      .slideFooter {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .slideFooter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navButtons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .grid2,
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+    }
+        /* MODO FOCO REAL */
+    body.focusMode {
+      background: #F6FAFD;
+      overflow-x: hidden;
+    }
+
+    body.focusMode #appWrapper {
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    body.focusMode .progressWrap {
+      display: none !important;
+    }
+
+    body.focusMode .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 999;
+    }
+
+    body.focusMode .topBrand,
+    body.focusMode .historyBtn {
+      display: none !important;
+    }
+
+    body.focusMode .focusBtn {
+      box-shadow: 0 10px 24px rgba(0, 63, 125, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    body.focusMode .slideStage {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body.focusMode .slide {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    body.focusMode .slide.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    body.focusMode .slideHeader {
+      padding-top: 52px;
+      border-bottom: 1px solid rgba(221, 230, 237, 0.8);
+    }
+
+    body.focusMode .slideBody {
+      align-content: center;
+    }
+
+    body.focusMode .slideFooter {
+      border-top: 1px solid rgba(221, 230, 237, 0.8);
+    }
+
+    body.focusMode .historyDrawer {
+      display: none !important;
+    }
+
+    body.focusMode .supportText {
+      display: none !important;
+    }
+
+    @media (max-width: 920px) {
+      body.focusMode .topBar {
+        top: 12px;
+        right: 12px;
+        align-items: center;
+      }
+
+      body.focusMode .slideHeader {
+        padding-top: 72px;
+      }
+    }
+    /* MODO FOCO REAL COM FULLSCREEN */
+body.focusMode {
+  background: #F6FAFD;
+  overflow: hidden;
+}
+
+body.focusMode #appWrapper {
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background: #F6FAFD;
+}
+
+body.focusMode .progressWrap {
+  display: none !important;
+}
+
+body.focusMode .topBar {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  left: auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  z-index: 9999;
+}
+
+body.focusMode .topBrand,
+body.focusMode .historyBtn {
+  display: none !important;
+}
+
+body.focusMode .focusBtn {
+  box-shadow: 0 10px 24px rgba(0, 63, 125, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+body.focusMode .slideStage {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+}
+
+body.focusMode .slide {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  min-height: 100vh;
+}
+
+body.focusMode .slide.active {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+body.focusMode .slideHeader {
+  padding-top: 62px;
+}
+
+body.focusMode .slideBody {
+  align-content: center;
+}
+
+body.focusMode .historyDrawer {
+  display: none !important;
+}
+
+body.focusMode .supportText {
+  display: none !important;
+}
+
+/* Quando o appWrapper estiver em fullscreen */
+#appWrapper:fullscreen {
+  background: #F6FAFD;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+#appWrapper:fullscreen .progressWrap {
+  display: none !important;
+}
+
+#appWrapper:fullscreen .topBar {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  left: auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  z-index: 9999;
+}
+
+#appWrapper:fullscreen .topBrand,
+#appWrapper:fullscreen .historyBtn {
+  display: none !important;
+}
+
+#appWrapper:fullscreen .slideStage {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+}
+
+#appWrapper:fullscreen .slide {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  min-height: 100vh;
+}
+
+#appWrapper:fullscreen .slideHeader {
+  padding-top: 62px;
+}
+
+/* Safari/WebKit */
+#appWrapper:-webkit-full-screen {
+  background: #F6FAFD;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+  </style>
+</head>
+
+<body>
+  <div id="appWrapper">
+    <header class="topBar">
+      <div class="topBrand">
+        <div class="brandIcon">RPG</div>
+        <div class="topBrandText">
+          <strong>Classificação e Sondagem</strong>
+          <span>Atendimento resolutivo | Onde Comprar e Solicitação de Serviço</span>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="historyBtn" id="historyToggle" type="button">
+          Ver histórico
+        </button>
+
+        <button class="focusBtn" id="focusToggle" type="button">
+          Modo foco
+        </button>
+      </div>
+    </header>
+
+    <div class="progressWrap">
+      <div class="progressInfo">
+        <span id="stepLabel">Etapa 1 de 18</span>
+        <span id="scoreLabel">Pontuação: 0</span>
+      </div>
+
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <aside class="historyDrawer" id="historyDrawer">
+      <div class="historyHeader">
+        <h3>Histórico do RPG</h3>
+        <button class="historyClose" id="historyClose" type="button">X</button>
+      </div>
+
+      <div class="historyContent" id="historyContent">
+        <div class="historyItem">
+          <strong>Orientação</strong>
+          <p>Seu histórico de decisões aparecerá aqui conforme você avançar nas etapas.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="slideStage">
+
+      <section class="slide active" data-step="1" id="slide-intro">
+        <div class="slideHeader">
+          <span class="slideEyebrow">RPG de Atendimento</span>
+          <h1>Identifique o cenário correto</h1>
+          <p class="slideIntro">
+            Neste RPG, você vai simular atendimentos reais, escolher a melhor condução, escrever uma resposta final e classificar o caso digitando a classificação e a providência correta.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Etapa 1</span>
+              <h3>Condução</h3>
+              <p>Você seleciona a melhor resposta para cada interação com o cliente.</p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Etapa 2</span>
+              <h3>Resposta escrita</h3>
+              <p>Você escreve a resposta final. O sistema valida clareza, termos essenciais e possíveis riscos de promessa indevida.</p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Etapa 3</span>
+              <h3>Classificação</h3>
+              <p>Você digita a classificação, a providência e a possível causa. A validação aceita variações de caixa, acentos e espaços extras.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Importante</strong>
+            <p>
+              O objetivo não é decorar opções. O objetivo é entender a intenção do cliente e registrar o atendimento no cenário correto.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Caso 1: compra de controle remoto.</span>
+          <div class="navButtons">
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Começar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="2" id="slide-case1-start">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1</span>
+          <h2>Cliente quer comprar um acessório</h2>
+          <p class="slideIntro">
+            Leia a mensagem do cliente e escolha a melhor primeira resposta.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Olá, preciso comprar um controle remoto para minha TV Hisense. Vocês vendem por aqui?
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case1-q1">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q1', false, 'Atenção. A resposta é seca, não acolhe e não conduz a sondagem. O cliente quer comprar um acessório e precisa de orientação segura.')">
+              Não vendemos controle remoto. Procure na internet.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q1', true, 'Correto. A resposta acolhe a solicitação, evita orientação genérica e prepara a sondagem do item, produto e localização.', 'Caso 1 | Primeira resposta', 'Acolheu e iniciou sondagem para compra de acessório.')">
+              Entendi. Para te orientar corretamente, vou confirmar alguns dados do produto e sua localização para indicar o caminho mais adequado de compra.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q1', false, 'Atenção. O cliente não relatou defeito nem necessidade de suporte técnico. A intenção principal é comprar um acessório.')">
+              Isso é suporte técnico. Vou abrir chamado para análise.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q1', false, 'Atenção. Dizer “assistência qualquer” não orienta com segurança. É preciso conduzir para a indicação correta.')">
+              Você precisa procurar uma assistência qualquer.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case1-q1"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Escolha uma alternativa para liberar o avanço.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case1-q1" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+            <section class="slide" data-step="3" id="slide-case1-sondagem">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1 | Sondagem</span>
+          <h2>Entenda o item e o produto</h2>
+          <p class="slideIntro">
+            O cliente confirmou que deseja comprar um controle remoto, mas ainda não tem o modelo da TV em mãos.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              É o controle remoto mesmo. A TV é uma Hisense, mas não sei o modelo agora.
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case1-q2">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q2', true, 'Correto. Para acessório, o modelo do produto ajuda a evitar indicação errada. A pergunta é objetiva e mantém a conversa aberta.', 'Caso 1 | Sondagem do item', 'Solicitou modelo ou etiqueta para orientar compra de acessório.')">
+              Você tem como verificar o modelo da TV ou enviar uma foto da etiqueta quando possível?
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q2', false, 'Atenção. A falta do modelo não deve encerrar o atendimento de forma seca. O atendimento deve orientar como localizar ou enviar a informação necessária.')">
+              Sem modelo não tem como fazer nada.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q2', false, 'Atenção. A solicitação ainda não foi concluída. O cliente precisa de orientação para compra de acessório.')">
+              Então vou finalizar.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q2', false, 'Atenção. O cliente não abriu uma reclamação. A intenção é compra de acessório.')">
+              Esse caso é reclamação.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case1-q2"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">A sondagem deve ajudar a orientar sem travar a conversa.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case1-q2" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="4" id="slide-case1-localizacao">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1 | Decisão operacional</span>
+          <h2>Identifique a intenção real do cliente</h2>
+          <p class="slideIntro">
+            O cliente ainda quer comprar o acessório e informa a cidade onde está.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Posso verificar o modelo depois. Eu moro em Campinas, SP. Preciso saber onde comprar.
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case1-q3">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q3', true, 'Correto. O cliente quer comprar um acessório. O caminho mais adequado é Onde Comprar, com providência Acessórios, coletando localização e modelo quando possível.', 'Caso 1 | Decisão operacional', 'Identificou cenário Onde Comprar > Acessórios.')">
+              Vou registrar sua solicitação como Onde Comprar, pois você deseja comprar um acessório. Para seguir com a indicação, preciso confirmar seu CEP ou endereço para buscar o posto mais próximo.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q3', false, 'Atenção. O cliente falou de TV, mas a intenção principal não é receber informação sobre produto. A intenção é comprar um acessório.')">
+              Vou registrar como Informação sobre Produto, porque você falou de TV.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q3', false, 'Atenção. O cliente não relatou defeito, falha ou necessidade de análise técnica. Controle remoto, neste caso, é intenção de compra de acessório.')">
+              Vou registrar como Suporte Técnico, porque controle remoto é item técnico.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case1-q3', false, 'Atenção. Solicitação de Serviço é mais adequada para instalação ou manutenção. Aqui, a intenção é comprar acessório.')">
+              Vou registrar como Solicitação de Serviço, porque envolve assistência.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case1-q3"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">A classificação nasce da intenção: compra de acessório.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case1-q3" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="5" id="slide-case1-reference">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1 | Referência</span>
+          <h2>Observe uma resposta adequada</h2>
+          <p class="slideIntro">
+            Antes de escrever sua própria resposta, leia a referência abaixo. Na próxima tela, essa referência não ficará visível.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="card">
+            <span class="pill pillGreen">Resposta de referência</span>
+            <h3>Orientação final ao cliente</h3>
+            <p>
+              Entendi. Como você deseja comprar um acessório, vou registrar sua solicitação como Onde Comprar. Para indicar o local mais adequado, preciso confirmar seu CEP ou endereço e, se possível, o modelo da TV. Com essas informações, conseguimos orientar sobre o posto ou canal mais próximo para verificar a compra do controle remoto.
+            </p>
+          </div>
+
+          <div class="callout info">
+            <strong>O que essa resposta faz bem?</strong>
+            <p>
+              Reconhece a solicitação, menciona que se trata de acessório, pede localização, pede o modelo quando possível e evita prometer estoque ou disponibilidade.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Leia com atenção. A próxima etapa será sem consulta.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Escrever minha resposta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="6" id="slide-case1-written">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1 | Resposta escrita</span>
+          <h2>Escreva a resposta final ao cliente</h2>
+          <p class="slideIntro">
+            Escreva uma resposta clara, cordial e segura. A resposta deve orientar sem prometer disponibilidade de estoque ou venda garantida.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Posso verificar o modelo depois. Eu moro em Campinas, SP. Preciso saber onde comprar.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Sua resposta</h3>
+            <p class="supportText">
+              Inclua ideias como: acessório, CEP ou endereço, modelo da TV, indicação de posto ou canal adequado e cuidado para não prometer disponibilidade.
+            </p>
+
+            <textarea
+              id="case1Written"
+              rows="7"
+              placeholder="Digite aqui sua resposta ao cliente..."
+              style="width:100%; margin-top:14px; padding:14px 16px; border-radius:16px; border:1px solid var(--border-soft); resize:vertical; font-size:0.94rem;"
+            ></textarea>
+
+            <div class="navButtons" style="margin-top:14px; justify-content:flex-start;">
+              <button class="btn btnGreen" type="button" onclick="validateWrittenResponse('case1')">
+                Validar resposta
+              </button>
+            </div>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case1-written"></div>
+
+          <div class="callout warn supportText">
+            <strong>Atenção</strong>
+            <p>
+              A validação considera termos essenciais, clareza e risco de promessa indevida. A resposta não precisa ser idêntica à referência.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Valide a resposta para liberar a classificação.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case1-written" type="button" onclick="goNext()" disabled>Classificar atendimento</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="7" id="slide-case1-classification">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 1 | Classificação</span>
+          <h2>Digite a classificação do atendimento</h2>
+          <p class="slideIntro">
+            Preencha os campos abaixo. A validação aceita diferença de maiúsculas, minúsculas, acentos e espaços extras.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Classificação</h3>
+              <input
+                id="case1Classification"
+                type="text"
+                placeholder="Ex.: Onde Comprar"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Providência</h3>
+              <input
+                id="case1Providence"
+                type="text"
+                placeholder="Ex.: Acessórios"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Possível causa / Providência 3</h3>
+              <input
+                id="case1Cause"
+                type="text"
+                placeholder="Ex.: Não aplicável"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateClassification('case1')">
+              Validar classificação
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case1-classification"></div>
+
+          <div class="callout info supportText">
+            <strong>Dica</strong>
+            <p>
+              O cliente quer comprar um controle remoto. A intenção principal é compra de acessório, não suporte técnico nem informação institucional.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">A próxima etapa inicia o Caso 2.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case1-classification" type="button" onclick="goNext()" disabled>Ir para Caso 2</button>
+          </div>
+        </div>
+      </section>
+            <section class="slide" data-step="8" id="slide-case2-start">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2</span>
+          <h2>Cliente quer indicação para instalação</h2>
+          <p class="slideIntro">
+            Agora o cenário muda. Leia a mensagem do cliente e identifique se é informação, serviço, suporte ou abertura de atendimento.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Comprei uma TV Hisense e quero saber onde faço a instalação.
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case2-q1">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q1', false, 'Atenção. Orientar o cliente a procurar “qualquer técnico” não garante uma condução segura nem padronizada.')">
+              Você precisa procurar qualquer técnico.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q1', true, 'Correto. O cliente está solicitando serviço de instalação. A localização é necessária para indicar as opções mais próximas.', 'Caso 2 | Primeira resposta', 'Identificou necessidade de instalação e iniciou coleta de localização.')">
+              Entendi. Vou confirmar sua localização para indicar as opções de serviço mais próximas para instalação.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q1', false, 'Atenção. O cliente não relatou insatisfação, dano, atraso ou problema com atendimento. Não há indicação de reclamação neste momento.')">
+              Isso é reclamação.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q1', false, 'Atenção. O cliente não relatou risco, dano, fumaça, cheiro de queimado ou incidente. Não é cenário de Sinistro.')">
+              Vou abrir Sinistro.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case2-q1"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">A primeira resposta precisa confirmar a necessidade real do cliente.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case2-q1" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="9" id="slide-case2-sondagem">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2 | Sondagem</span>
+          <h2>Confirme se existe defeito ou apenas solicitação de serviço</h2>
+          <p class="slideIntro">
+            A resposta do cliente ajuda a diferenciar solicitação de instalação, suporte técnico e abertura de ordem de serviço.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Eu só quero saber quem pode instalar. Não é defeito.
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case2-q2">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q2', false, 'Atenção. Informação sobre Produto seria mais adequada para dúvida de função, manual, especificação ou orientação de uso. Aqui o cliente quer indicação de instalação.')">
+              Informação sobre Produto.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q2', true, 'Correto. A frase “quem pode instalar” indica Solicitação de Serviço, com providência de Instalação.', 'Caso 2 | Sondagem do serviço', 'Confirmou que não é defeito e identificou solicitação de instalação.')">
+              Solicitação de Serviço.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q2', false, 'Atenção. O cliente não relatou reclamação. O contato é sobre indicação para instalação.')">
+              VOC Reclamação.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q2', false, 'Atenção. Não há relato de risco, dano ou incidente. Não é Sinistro.')">
+              Sinistro.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case2-q2"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">A frase “não é defeito” ajuda a afastar Suporte Técnico e Abertura de OS.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case2-q2" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="10" id="slide-case2-cep">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2 | Decisão operacional</span>
+          <h2>Use a localização para orientar o cliente</h2>
+          <p class="slideIntro">
+            Para solicitação de serviço, a orientação precisa considerar a localização do cliente.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Meu CEP é 13000-000.
+            </div>
+          </div>
+
+          <div class="choiceGroup" data-question="case2-q3">
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q3', true, 'Correto. Para Solicitação de Serviço, a busca deve considerar o CEP para indicar as opções mais próximas.', 'Caso 2 | Uso do CEP', 'Usou o CEP para conduzir indicação de serviço.')">
+              Buscar os postos mais próximos com base no CEP e orientar o cliente.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q3', false, 'Atenção. Depois que o cliente forneceu o CEP, o atendimento precisa usar essa informação para orientar o caminho correto.')">
+              Finalizar sem informar nada.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q3', false, 'Atenção. Informação Institucional é usada para informações sobre a empresa, imprensa, marketing, comercial ou recursos humanos. Não é o caso.')">
+              Classificar como Informação Institucional.
+            </button>
+
+            <button class="choiceBtn" type="button" onclick="answerChoice(this, 'case2-q3', false, 'Atenção. O cliente não trouxe necessidade de análise técnica do fabricante. Ele quer indicação de instalação.')">
+              Escalar para Engenharia.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case2-q3"></div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Com CEP, a condução deve seguir para indicação das opções mais próximas.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case2-q3" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="11" id="slide-case2-reference">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2 | Referência</span>
+          <h2>Observe uma resposta adequada</h2>
+          <p class="slideIntro">
+            Leia a referência. Na próxima etapa, você escreverá sua resposta sem essa consulta visível.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="card">
+            <span class="pill pillGreen">Resposta de referência</span>
+            <h3>Orientação final ao cliente</h3>
+            <p>
+              Entendi. Como sua solicitação é para instalação, vou utilizar o CEP informado para localizar as opções de postos mais próximos. Com essa indicação, você poderá verificar diretamente as condições de atendimento e disponibilidade para instalação da sua TV.
+            </p>
+          </div>
+
+          <div class="callout info">
+            <strong>O que essa resposta faz bem?</strong>
+            <p>
+              Confirma que o cenário é instalação, usa o CEP informado, orienta a indicação por proximidade e evita prometer disponibilidade imediata.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Leia com atenção. A próxima etapa será sem consulta.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Escrever minha resposta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="12" id="slide-case2-written">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2 | Resposta escrita</span>
+          <h2>Escreva a resposta final ao cliente</h2>
+          <p class="slideIntro">
+            Escreva uma resposta clara e objetiva para orientar o cliente sobre a indicação de instalação.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="chatPanel">
+            <div class="chatBubble client">
+              Eu só quero saber quem pode instalar. Não é defeito.
+            </div>
+            <div class="chatBubble client">
+              Meu CEP é 13000-000.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Sua resposta</h3>
+            <p class="supportText">
+              Inclua ideias como: instalação, CEP, postos mais próximos ou assistência mais próxima, verificação de condições e disponibilidade.
+            </p>
+
+            <textarea
+              id="case2Written"
+              rows="7"
+              placeholder="Digite aqui sua resposta ao cliente..."
+              style="width:100%; margin-top:14px; padding:14px 16px; border-radius:16px; border:1px solid var(--border-soft); resize:vertical; font-size:0.94rem;"
+            ></textarea>
+
+            <div class="navButtons" style="margin-top:14px; justify-content:flex-start;">
+              <button class="btn btnGreen" type="button" onclick="validateWrittenResponse('case2')">
+                Validar resposta
+              </button>
+            </div>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case2-written"></div>
+
+          <div class="callout warn supportText">
+            <strong>Atenção</strong>
+            <p>
+              Não prometa disponibilidade imediata do serviço. Oriente que a indicação será feita com base no CEP e que condições devem ser verificadas com o posto indicado.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Valide a resposta para liberar a etapa de classificação.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case2-written" type="button" onclick="goNext()" disabled>Classificar atendimento</button>
+          </div>
+        </div>
+      </section>
+            <section class="slide" data-step="13" id="slide-case2-classification">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Caso 2 | Classificação</span>
+          <h2>Digite a classificação do atendimento</h2>
+          <p class="slideIntro">
+            Preencha os campos abaixo com base na intenção real do cliente: ele deseja indicação para instalação, não suporte técnico, reclamação ou abertura de OS.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Classificação</h3>
+              <input
+                id="case2Classification"
+                type="text"
+                placeholder="Ex.: Solicitação de Serviço"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Providência</h3>
+              <input
+                id="case2Providence"
+                type="text"
+                placeholder="Ex.: Instalação"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Possível causa / Providência 3</h3>
+              <input
+                id="case2Cause"
+                type="text"
+                placeholder="Ex.: Não aplicável"
+                style="width:100%; padding:13px 14px; border-radius:14px; border:1px solid var(--border-soft); font-size:0.94rem;"
+              />
+            </div>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateClassification('case2')">
+              Validar classificação
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-case2-classification"></div>
+
+          <div class="callout info supportText">
+            <strong>Dica</strong>
+            <p>
+              O cliente disse que não é defeito e que deseja saber quem pode instalar. Isso indica solicitação de serviço, com providência de instalação.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Valide a classificação para finalizar o RPG.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-case2-classification" type="button" onclick="goNext()" disabled>Ver resultado</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="14" id="slide-debrief">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Debrief</span>
+          <h2>O que os dois casos treinaram</h2>
+          <p class="slideIntro">
+            Os dois atendimentos parecem simples, mas exigem sondagem para diferenciar compra de acessório, indicação de serviço, informação de produto, suporte técnico e abertura de OS.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillBlue">Caso 1</span>
+              <h3>Compra de controle remoto</h3>
+              <p>
+                A intenção do cliente era comprar um acessório. O caminho correto foi identificar o item, pedir modelo quando possível e usar localização para indicar o caminho adequado.
+              </p>
+
+              <ul>
+                <li><strong>Classificação:</strong> Onde Comprar</li>
+                <li><strong>Providência:</strong> Acessórios</li>
+                <li><strong>Providência 3:</strong> Não aplicável</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Caso 2</span>
+              <h3>Indicação para instalação</h3>
+              <p>
+                A intenção do cliente era encontrar quem pudesse instalar a TV. Como não havia defeito, reclamação ou risco, a classificação correta foi solicitação de serviço.
+              </p>
+
+              <ul>
+                <li><strong>Classificação:</strong> Solicitação de Serviço</li>
+                <li><strong>Providência:</strong> Instalação</li>
+                <li><strong>Providência 3:</strong> Não aplicável</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Aprendizado central</strong>
+            <p>
+              A pergunta mais importante é: o cliente quer comprar algo, saber uma informação, receber suporte técnico, solicitar serviço ou abrir atendimento formal?
+            </p>
+          </div>
+
+          <div class="callout warn">
+            <strong>Evite atalhos</strong>
+            <p>
+              Não classifique pelo primeiro termo citado pelo cliente. O cliente pode falar “TV”, “controle”, “assistência” ou “instalação”, mas a classificação correta depende da intenção confirmada pela sondagem.
+            </p>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Confira o resultado final e o histórico de decisões.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Resultado final</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-step="15" id="slide-result">
+        <div class="slideHeader">
+          <span class="slideEyebrow">Resultado</span>
+          <h2>Resultado final do RPG</h2>
+          <p class="slideIntro">
+            Revise sua pontuação, os pontos fortes da condução e os principais cuidados para aplicar no atendimento real.
+          </p>
+        </div>
+
+        <div class="slideBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Pontuação</span>
+              <h3 id="finalScoreTitle">Pontuação final</h3>
+              <p id="finalScoreText">
+                Sua pontuação aparecerá aqui ao carregar o resultado.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Condução</span>
+              <h3>Sondagem</h3>
+              <p>
+                Uma boa sondagem identificou a intenção do cliente antes da classificação: compra de acessório no Caso 1 e instalação no Caso 2.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Registro</span>
+              <h3>Classificação digitada</h3>
+              <p>
+                A validação aceita variações de maiúsculas, minúsculas, acentos e espaços extras, mas a intenção registrada precisa estar correta.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Resumo para levar para a operação</strong>
+            <p>
+              Antes de classificar, confirme a intenção. Antes de finalizar, confirme se a orientação foi suficiente. Antes de escalar, confirme se existe necessidade real de continuidade.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Checklist de decisão</h3>
+            <ul>
+              <li>O cliente quer comprar produto, peça ou acessório?</li>
+              <li>O cliente quer indicação de instalação ou manutenção?</li>
+              <li>O cliente relatou defeito, risco ou necessidade de análise?</li>
+              <li>O cliente precisa de abertura formal de OS?</li>
+              <li>A classificação escolhida representa a intenção real do contato?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="slideFooter">
+          <span class="footerHint">Você pode reiniciar o RPG ou revisar o histórico.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnWarn" type="button" onclick="restartRpg()">Reiniciar RPG</button>
+            <button class="btn btnGreen" type="button" onclick="openHistory()">Ver histórico</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+    <script>
+    const body = document.body;
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const progressFill = document.getElementById("progressFill");
+    const stepLabel = document.getElementById("stepLabel");
+    const scoreLabel = document.getElementById("scoreLabel");
+    const focusToggle = document.getElementById("focusToggle");
+    const historyToggle = document.getElementById("historyToggle");
+    const historyDrawer = document.getElementById("historyDrawer");
+    const historyClose = document.getElementById("historyClose");
+    const historyContent = document.getElementById("historyContent");
+
+    let currentSlideIndex = 0;
+    let score = 0;
+    let maxScore = 0;
+    let answeredQuestions = {};
+    let historyItems = [];
+
+    const totalSteps = slides.length;
+
+    function initializeRpg() {
+      maxScore = document.querySelectorAll(".choiceGroup").length + 4;
+      updateSlideView();
+      updateScore();
+      updateHistory();
+    }
+
+    function goNext() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updateSlideView();
+      }
+
+      if (slides[currentSlideIndex] && slides[currentSlideIndex].id === "slide-result") {
+        renderFinalScore();
+      }
+    }
+
+    function goPrev() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updateSlideView();
+      }
+    }
+
+    function updateSlideView() {
+      slides.forEach(function (slide, index) {
+        slide.classList.toggle("active", index === currentSlideIndex);
+      });
+
+      const currentStep = currentSlideIndex + 1;
+      const percent = (currentStep / totalSteps) * 100;
+
+      progressFill.style.width = percent + "%";
+      stepLabel.textContent = "Etapa " + currentStep + " de " + totalSteps;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function updateScore() {
+      scoreLabel.textContent = "Pontuação: " + score;
+    }
+
+    function addScore(points) {
+      score += points;
+      updateScore();
+    }
+
+    function setFeedback(id, type, message) {
+      const feedback = document.getElementById(id);
+
+      if (!feedback) return;
+
+      feedback.className = "feedbackBox show " + type;
+      feedback.innerHTML = message;
+    }
+
+    function clearFeedback(id) {
+      const feedback = document.getElementById(id);
+
+      if (!feedback) return;
+
+      feedback.className = "feedbackBox";
+      feedback.innerHTML = "";
+    }
+
+    function answerChoice(button, questionId, isCorrect, message, historyTitle, historyText) {
+      if (answeredQuestions[questionId]) return;
+
+      answeredQuestions[questionId] = true;
+
+      const choiceGroup = document.querySelector('[data-question="' + questionId + '"]');
+      const buttons = choiceGroup.querySelectorAll(".choiceBtn");
+
+      buttons.forEach(function (btn) {
+        btn.disabled = true;
+      });
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        setFeedback("feedback-" + questionId, "good", message);
+        addScore(1);
+
+        if (historyTitle && historyText) {
+          addHistory(historyTitle, historyText);
+        }
+      } else {
+        button.classList.add("incorrect");
+        setFeedback("feedback-" + questionId, "bad", message);
+
+        addHistory("Ajuste necessário", "Uma alternativa incorreta foi selecionada. Revise o feedback da etapa para entender o melhor caminho.");
+      }
+
+      const nextButton = document.getElementById("next-" + questionId);
+
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+    }
+
+    function addHistory(title, text) {
+      historyItems.push({
+        title: title,
+        text: text
+      });
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      historyContent.innerHTML = "";
+
+      if (historyItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "historyItem";
+        empty.innerHTML = `
+          <strong>Orientação</strong>
+          <p>Seu histórico de decisões aparecerá aqui conforme você avançar nas etapas.</p>
+        `;
+        historyContent.appendChild(empty);
+        return;
+      }
+
+      historyItems.forEach(function (item, index) {
+        const historyItem = document.createElement("div");
+        historyItem.className = "historyItem";
+        historyItem.innerHTML = `
+          <strong>${index + 1}. ${item.title}</strong>
+          <p>${item.text}</p>
+        `;
+
+        historyContent.appendChild(historyItem);
+      });
+    }
+
+    function openHistory() {
+      historyDrawer.classList.add("open");
+    }
+
+    function closeHistory() {
+      historyDrawer.classList.remove("open");
+    }
+
+    historyToggle.addEventListener("click", function () {
+      openHistory();
+    });
+
+    historyClose.addEventListener("click", function () {
+      closeHistory();
+    });
+
+    focusToggle.addEventListener("click", async function () {
+      const app = document.getElementById("appWrapper");
+
+      try {
+        if (!document.fullscreenElement) {
+          body.classList.add("focusMode");
+          focusToggle.textContent = "Sair do modo foco";
+          closeHistory();
+
+          if (app.requestFullscreen) {
+            await app.requestFullscreen();
+          } else if (app.webkitRequestFullscreen) {
+            await app.webkitRequestFullscreen();
+          } else if (app.msRequestFullscreen) {
+            await app.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            await document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            await document.msExitFullscreen();
+          }
+
+          body.classList.remove("focusMode");
+          focusToggle.textContent = "Modo foco";
+        }
+      } catch (error) {
+        body.classList.add("focusMode");
+        focusToggle.textContent = "Sair do modo foco";
+
+        alert("O modo tela cheia foi bloqueado pelo navegador ou pela plataforma. Se isso acontecer, abra o RPG em uma nova aba ou use o modo tela cheia do conteúdo, se disponível.");
+      }
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+    function renderFinalScore() {
+      const finalScoreTitle = document.getElementById("finalScoreTitle");
+      const finalScoreText = document.getElementById("finalScoreText");
+
+      let performanceMessage = "";
+
+      if (score >= maxScore) {
+        performanceMessage = "Excelente. Você conduziu os casos com segurança, respondeu com clareza e classificou os atendimentos corretamente.";
+      } else if (score >= Math.ceil(maxScore * 0.75)) {
+        performanceMessage = "Bom resultado. Você demonstrou boa leitura dos cenários. Revise os pontos em que apareceu feedback de ajuste.";
+      } else {
+        performanceMessage = "Vale revisar o RPG. Foque em confirmar a intenção do cliente antes de classificar e em diferenciar compra, serviço, suporte e abertura de atendimento.";
+      }
+
+      finalScoreTitle.textContent = "Pontuação: " + score + " de " + maxScore;
+      finalScoreText.textContent = performanceMessage;
+    }
+
+    function restartRpg() {
+      currentSlideIndex = 0;
+      score = 0;
+      answeredQuestions = {};
+      historyItems = [];
+
+      document.querySelectorAll(".choiceBtn").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correct", "incorrect");
+      });
+
+      document.querySelectorAll(".feedbackBox").forEach(function (feedback) {
+        feedback.className = "feedbackBox";
+        feedback.innerHTML = "";
+      });
+
+      document.querySelectorAll("textarea").forEach(function (textarea) {
+        textarea.value = "";
+      });
+
+      document.querySelectorAll("input").forEach(function (input) {
+        input.value = "";
+      });
+
+      const nextButtons = [
+        "next-case1-q1",
+        "next-case1-q2",
+        "next-case1-q3",
+        "next-case1-written",
+        "next-case1-classification",
+        "next-case2-q1",
+        "next-case2-q2",
+        "next-case2-q3",
+        "next-case2-written",
+        "next-case2-classification"
+      ];
+
+      nextButtons.forEach(function (id) {
+        const btn = document.getElementById(id);
+        if (btn) btn.disabled = true;
+      });
+
+      closeHistory();
+      updateHistory();
+      updateScore();
+      updateSlideView();
+    }
+        function normalizeInput(value) {
+      return value
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function containsAny(normalizedText, terms) {
+      return terms.some(function (term) {
+        return normalizedText.includes(normalizeInput(term));
+      });
+    }
+
+    function hasPotentialGrammarIssues(text) {
+      const normalized = text.trim();
+
+      if (normalized.length < 35) {
+        return true;
+      }
+
+      if (!/[.!?]$/.test(normalized)) {
+        return true;
+      }
+
+      if (/\s{2,}/.test(normalized)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function validateWrittenResponse(caseId) {
+      const textarea = document.getElementById(caseId + "Written");
+      const feedbackId = "feedback-" + caseId + "-written";
+      const nextButton = document.getElementById("next-" + caseId + "-written");
+
+      const originalText = textarea.value;
+      const text = normalizeInput(originalText);
+
+      if (!text) {
+        setFeedback(feedbackId, "bad", "Digite uma resposta antes de validar.");
+        return;
+      }
+
+      let missing = [];
+      let warnings = [];
+      let goodPoints = [];
+
+      if (caseId === "case1") {
+        if (!containsAny(text, ["acessorio", "controle remoto"])) {
+          missing.push("mencionar que a solicitação envolve acessório ou controle remoto");
+        } else {
+          goodPoints.push("identificou que o cliente quer comprar um acessório");
+        }
+
+        if (!containsAny(text, ["cep", "endereco", "localizacao", "cidade"])) {
+          missing.push("pedir ou confirmar CEP, endereço ou localização");
+        } else {
+          goodPoints.push("considerou a localização do cliente para indicação");
+        }
+
+        if (!containsAny(text, ["modelo", "etiqueta"])) {
+          missing.push("pedir o modelo da TV ou orientar o envio da etiqueta quando possível");
+        } else {
+          goodPoints.push("considerou o modelo ou etiqueta para evitar indicação errada");
+        }
+
+        if (!containsAny(text, ["indicar", "orientar", "posto", "canal", "assistencia"])) {
+          missing.push("explicar que será feita uma indicação ou orientação de posto/canal adequado");
+        } else {
+          goodPoints.push("explicou o próximo passo de orientação ao cliente");
+        }
+
+        if (containsAny(text, ["tem em estoque", "estoque garantido", "com certeza tem", "garanto que tem", "venda garantida"])) {
+          warnings.push("evite prometer estoque, disponibilidade ou venda garantida sem confirmação");
+        }
+      }
+
+      if (caseId === "case2") {
+        if (!containsAny(text, ["instalacao", "instalar"])) {
+          missing.push("mencionar que a solicitação é sobre instalação");
+        } else {
+          goodPoints.push("identificou que o cliente quer instalação");
+        }
+
+        if (!containsAny(text, ["cep", "endereco", "localizacao"])) {
+          missing.push("mencionar que a busca será feita com base no CEP ou localização");
+        } else {
+          goodPoints.push("usou a localização como critério de indicação");
+        }
+
+        if (!containsAny(text, ["posto", "assistencia", "postos mais proximos", "opcoes mais proximas", "servico"])) {
+          missing.push("informar que serão indicados postos, assistência ou opções de serviço próximas");
+        } else {
+          goodPoints.push("orientou sobre indicação de serviço próximo");
+        }
+
+        if (!containsAny(text, ["verificar", "confirmar", "condicoes", "disponibilidade"])) {
+          missing.push("orientar que o cliente confirme condições ou disponibilidade com o posto indicado");
+        } else {
+          goodPoints.push("evitou prometer atendimento imediato");
+        }
+
+        if (containsAny(text, ["vai instalar hoje", "instalacao garantida", "com certeza instala", "garanto a instalacao"])) {
+          warnings.push("evite prometer instalação imediata ou disponibilidade garantida");
+        }
+      }
+
+      if (hasPotentialGrammarIssues(originalText)) {
+        warnings.push("revise pontuação, espaçamento e clareza da resposta");
+      }
+
+      if (missing.length > 0) {
+        let html = "<strong>Ajuste necessário.</strong><br>";
+        html += "Sua resposta está no caminho, mas precisa incluir:<ul>";
+        missing.forEach(function (item) {
+          html += "<li>" + item + "</li>";
+        });
+        html += "</ul>";
+
+        if (warnings.length > 0) {
+          html += "<br><strong>Pontos de atenção:</strong><ul>";
+          warnings.forEach(function (item) {
+            html += "<li>" + item + "</li>";
+          });
+          html += "</ul>";
+        }
+
+        setFeedback(feedbackId, "bad", html);
+        return;
+      }
+
+      let successHtml = "<strong>Boa resposta.</strong><br>";
+      successHtml += "Sua resposta contempla os pontos essenciais da condução:<ul>";
+
+      goodPoints.forEach(function (item) {
+        successHtml += "<li>" + item + "</li>";
+      });
+
+      successHtml += "</ul>";
+
+      if (warnings.length > 0) {
+        successHtml += "<strong>Apenas revise:</strong><ul>";
+        warnings.forEach(function (item) {
+          successHtml += "<li>" + item + "</li>";
+        });
+        successHtml += "</ul>";
+        setFeedback(feedbackId, "warn", successHtml);
+      } else {
+        setFeedback(feedbackId, "good", successHtml);
+      }
+
+      if (!answeredQuestions[caseId + "-written"]) {
+        answeredQuestions[caseId + "-written"] = true;
+        addScore(1);
+
+        if (caseId === "case1") {
+          addHistory("Caso 1 | Resposta escrita", "Resposta final validada com os elementos essenciais para compra de acessório.");
+        }
+
+        if (caseId === "case2") {
+          addHistory("Caso 2 | Resposta escrita", "Resposta final validada com os elementos essenciais para indicação de instalação.");
+        }
+      }
+
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+    }
+
+    function validateClassification(caseId) {
+      const classificationInput = document.getElementById(caseId + "Classification");
+      const providenceInput = document.getElementById(caseId + "Providence");
+      const causeInput = document.getElementById(caseId + "Cause");
+
+      const feedbackId = "feedback-" + caseId + "-classification";
+      const nextButton = document.getElementById("next-" + caseId + "-classification");
+
+      const classification = normalizeInput(classificationInput.value);
+      const providence = normalizeInput(providenceInput.value);
+      const cause = normalizeInput(causeInput.value);
+
+      if (!classification || !providence || !cause) {
+        setFeedback(feedbackId, "bad", "Preencha classificação, providência e possível causa antes de validar.");
+        return;
+      }
+
+      let expected = {};
+
+      if (caseId === "case1") {
+        expected = {
+          classification: ["onde comprar"],
+          providence: ["acessorios", "acessorio"],
+          cause: ["nao aplicavel", "n/a", "na", "sem providencia 3", "sem providencia", "nao se aplica", "não aplicável"]
+        };
+      }
+
+      if (caseId === "case2") {
+        expected = {
+          classification: ["solicitacao de servico", "solicitacao servico", "solicitação de serviço"],
+          providence: ["instalacao", "instalação"],
+          cause: ["nao aplicavel", "n/a", "na", "sem providencia 3", "sem providencia", "nao se aplica", "não aplicável"]
+        };
+      }
+
+      const classificationOk = expected.classification
+        .map(normalizeInput)
+        .includes(classification);
+
+      const providenceOk = expected.providence
+        .map(normalizeInput)
+        .includes(providence);
+
+      const causeOk = expected.cause
+        .map(normalizeInput)
+        .includes(cause);
+
+      let feedback = "";
+
+      if (classificationOk && providenceOk && causeOk) {
+        if (!answeredQuestions[caseId + "-classification"]) {
+          answeredQuestions[caseId + "-classification"] = true;
+          addScore(1);
+
+          if (caseId === "case1") {
+            addHistory("Caso 1 | Classificação", "Classificação correta: Onde Comprar > Acessórios > Não aplicável.");
+          }
+
+          if (caseId === "case2") {
+            addHistory("Caso 2 | Classificação", "Classificação correta: Solicitação de Serviço > Instalação > Não aplicável.");
+          }
+        }
+
+        if (caseId === "case1") {
+          feedback = `
+            <strong>Classificação correta.</strong><br>
+            O cliente deseja comprar um controle remoto. O cenário é compra de acessório, portanto:
+            <ul>
+              <li><strong>Classificação:</strong> Onde Comprar</li>
+              <li><strong>Providência:</strong> Acessórios</li>
+              <li><strong>Providência 3:</strong> Não aplicável</li>
+            </ul>
+          `;
+        }
+
+        if (caseId === "case2") {
+          feedback = `
+            <strong>Classificação correta.</strong><br>
+            O cliente deseja indicação para instalação, sem relato de defeito. Portanto:
+            <ul>
+              <li><strong>Classificação:</strong> Solicitação de Serviço</li>
+              <li><strong>Providência:</strong> Instalação</li>
+              <li><strong>Providência 3:</strong> Não aplicável</li>
+            </ul>
+          `;
+        }
+
+        setFeedback(feedbackId, "good", feedback);
+
+        if (nextButton) {
+          nextButton.disabled = false;
+        }
+
+        return;
+      }
+
+      feedback = "<strong>Ajuste necessário.</strong><br><ul>";
+
+      if (!classificationOk) {
+        if (caseId === "case1") {
+          feedback += "<li>A classificação correta é <strong>Onde Comprar</strong>, pois o cliente quer comprar um controle remoto.</li>";
+        }
+
+        if (caseId === "case2") {
+          feedback += "<li>A classificação correta é <strong>Solicitação de Serviço</strong>, pois o cliente quer indicação para instalação.</li>";
+        }
+      }
+
+      if (!providenceOk) {
+        if (caseId === "case1") {
+          feedback += "<li>A providência correta é <strong>Acessórios</strong>, pois controle remoto é um acessório.</li>";
+        }
+
+        if (caseId === "case2") {
+          feedback += "<li>A providência correta é <strong>Instalação</strong>, pois o cliente quer saber quem pode instalar.</li>";
+        }
+      }
+
+      if (!causeOk) {
+        feedback += "<li>A possível causa ou Providência 3 esperada é <strong>Não aplicável</strong>.</li>";
+      }
+
+      feedback += "</ul>";
+      feedback += "<br>Observação: a validação aceita acentos, maiúsculas/minúsculas e espaços extras, mas a intenção digitada precisa corresponder ao cenário correto.";
+
+      setFeedback(feedbackId, "bad", feedback);
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        const activeSlide = slides[currentSlideIndex];
+        const activeNextButton = activeSlide.querySelector(".slideFooter .btnPrimary:not(:disabled)");
+
+        if (activeNextButton) {
+          activeNextButton.click();
+        }
+      }
+
+      if (event.key === "ArrowLeft") {
+        goPrev();
+      }
+
+      if (event.key === "Escape") {
+        closeHistory();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initializeRpg();
+    });
+  </script>
+</body>
+</html>

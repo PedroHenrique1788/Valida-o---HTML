@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Gorenje Cooktops Indução e Gás | Atendimento N1</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --gorenje-gray: #F4F7FA;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --text-light: #FFFFFF;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --card-shadow: 0 10px 28px rgba(0, 63, 125, 0.12);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #EEF7FF 0%, #F7FBFF 45%, #F3FFF8 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .sidebar {
+      width: 310px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: var(--text-light);
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.18);
+    }
+
+    .brandBlock {
+      margin-bottom: 26px;
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--hisense-green);
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.2);
+    }
+
+    .brandBlock h1 {
+      font-size: 1.42rem;
+      line-height: 1.22;
+      margin: 18px 0 8px;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.78);
+      margin: 0;
+    }
+
+    .sideSearch {
+      margin: 22px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.58);
+      margin: 0 0 10px;
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .practiceBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0, 176, 80, 0.16);
+      border: 1px solid rgba(0, 176, 80, 0.34);
+    }
+
+    .practiceBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .practiceBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .practiceToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, var(--hisense-green), #009BAA);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 176, 80, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 44px;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(0, 174, 239, 0.26), transparent 32%),
+        radial-gradient(circle at 12% 82%, rgba(0, 176, 80, 0.18), transparent 34%),
+        linear-gradient(135deg, #003F7D, #005EB8 52%, #00AEEF);
+      color: #FFFFFF;
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -130px;
+      bottom: -160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 940px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 1.04rem;
+      color: rgba(255, 255, 255, 0.86);
+      max-width: 820px;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 1.64rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+
+    .sectionIntro {
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      max-width: 900px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(0, 176, 80, 0.1);
+      color: var(--hisense-green);
+    }
+
+    .pillCyan {
+      background: rgba(0, 174, 239, 0.12);
+      color: #007EA7;
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+      color: var(--text-dark);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      padding: 18px 20px;
+      border-radius: 18px;
+      margin: 18px 0;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(31, 41, 51, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 20px;
+      font-weight: 800;
+      color: var(--hisense-blue-dark);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.09);
+      color: var(--hisense-blue);
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .detailsContent {
+      padding: 0 20px 20px;
+      color: var(--text-medium);
+      font-size: 0.94rem;
+    }
+
+    .detailsContent p {
+      margin-top: 0;
+    }
+
+    .quickSearchBar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .quickSearchBar input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      font-size: 0.96rem;
+      outline: none;
+      background: #FFFFFF;
+    }
+
+    .quickSearchBar button {
+      padding: 14px 18px;
+      border: none;
+      border-radius: 16px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .searchResults {
+      display: grid;
+      gap: 12px;
+    }
+
+    .resultItem {
+      padding: 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+    }
+
+    .resultItem h4 {
+      margin: 0 0 6px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .resultItem p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    .imagePlaceholder {
+      margin: 16px 0;
+      padding: 24px;
+      border-radius: 18px;
+      border: 2px dashed rgba(0, 94, 184, 0.35);
+      background: rgba(0, 94, 184, 0.05);
+      color: var(--hisense-blue-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .speechBox {
+      margin: 14px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(0, 174, 239, 0.12), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 174, 239, 0.22);
+    }
+
+    .speechBox strong {
+      color: var(--hisense-blue-dark);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .speechBox p {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .tableWrap {
+      overflow-x: auto;
+      margin-top: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #FFFFFF;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(0, 94, 184, 0.08);
+      color: var(--hisense-blue-dark);
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .practiceMode .learningContent {
+      display: none !important;
+    }
+
+    .practiceMode .practiceOnly {
+      display: block !important;
+    }
+
+    .practiceOnly {
+      display: none;
+    }
+
+    .gameCard {
+      padding: 24px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+    }
+
+    .gameHeader {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .scoreBadge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 176, 80, 0.12);
+      color: var(--success);
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .questionText {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0 0 16px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .optionBtn {
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      background: #FFFFFF;
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: 0.18s ease;
+    }
+
+    .optionBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .optionBtn.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    .optionBtn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 15px;
+      display: none;
+      font-size: 0.92rem;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      background: rgba(22, 163, 74, 0.1);
+      color: #166534;
+    }
+
+    .feedback.bad {
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .nextBtn {
+      margin-top: 14px;
+      display: none;
+      border: none;
+      border-radius: 14px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .nextBtn.show {
+      display: inline-flex;
+    }
+
+    .finalSummary {
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 94, 184, 0.18);
+      display: none;
+    }
+
+    .finalSummary.show {
+      display: block;
+    }
+
+    .footer {
+      margin: 36px 0 10px;
+      padding: 22px;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    @media (max-width: 1080px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+
+      #mainWrapper {
+        display: block;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .grid4 {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+
+      .quickSearchBar {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        padding: 24px 18px;
+      }
+
+      .content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          Formação Inicial N1
+        </div>
+
+        <h1>Gorenje Cooktops Indução e Gás</h1>
+
+        <p>
+          Guia consultivo para atendimento, sondagem, registro e orientação inicial ao cliente.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por modelo, sintoma ou tema..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do EAD">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+          <a href="#inicio" class="navItem">Início</a>
+          <a href="#visao-geral" class="navItem">Visão geral da linha</a>
+          <a href="#modelos" class="navItem">Modelos e diferenças</a>
+          <a href="#instalacao" class="navItem">Instalação e validações</a>
+          <a href="#identificacao" class="navItem">Identificação do produto</a>
+          <a href="#sintomas" class="navItem">Consulta por sintoma</a>
+          <a href="#gn-glp" class="navItem">Conversão GN e GLP</a>
+          <a href="#registro" class="navItem">Registro correto</a>
+          <a href="#pratica" class="navItem">Modo prática</a>
+          <a href="#jogos" class="navItem">Jogos de fixação</a>
+        </div>
+      </nav>
+
+      <div class="practiceBox">
+        <h3>Modo prática</h3>
+        <p>
+          Use este modo para ocultar a consulta e testar se você consegue decidir a melhor condução do atendimento.
+        </p>
+        <button class="practiceToggle" id="practiceToggle">
+          Ativar modo prática
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início treinamento gorenje cooktop indução gás N1 atendimento">
+        <div class="heroContent">
+          <div class="heroTag">
+            EAD Consultivo | Hisense Gorenje
+          </div>
+
+          <h2>Cooktops Gorenje: instalação, identificação e primeiro atendimento</h2>
+
+          <p>
+            Este EAD foi criado para apoiar sua atuação no primeiro atendimento. Aqui você encontrará orientações para entender a solicitação do cliente, validar informações essenciais, reconhecer sinais de instalação inadequada, registrar corretamente o caso e encaminhar situações que exigem análise especializada.
+          </p>
+
+          <div class="heroActions">
+            <a href="#sintomas" class="btn btnPrimary">Consultar por sintoma</a>
+            <a href="#modelos" class="btn btnSecondary">Ver modelos</a>
+            <a href="#jogos" class="btn btnSecondary">Ir para os jogos</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="learningContent">
+
+        <section class="section searchable" id="visao-geral" data-keywords="visão geral linha gorenje cooktop indução gás GI3201BC GI6421BSC IS846BG GW951X-BR">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 1</span>
+              <h2>Visão geral da linha</h2>
+              <p class="sectionIntro">
+                Antes de iniciar qualquer orientação, é importante reconhecer qual família de produto está sendo atendida. Cooktops de indução e cooktops a gás podem apresentar sintomas parecidos na fala do cliente, mas exigem sondagens diferentes.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Consulta inicial</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Cooktops de indução</h3>
+              <p>
+                Os modelos de indução utilizam energia elétrica para aquecer diretamente o fundo da panela compatível. Por isso, sintomas como “não aquece”, “liga e desliga” ou “não reconhece a panela” precisam ser analisados considerando instalação elétrica, compatibilidade do utensílio, bloqueio do painel e modo de uso.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Cooktop de indução Gorenje em bancada
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Cooktop a gás</h3>
+              <p>
+                O modelo a gás depende de instalação adequada, alimentação elétrica para recursos de acendimento e configuração correta do tipo de gás. No atendimento, devemos separar claramente o que pode ser uma dúvida de uso, uma condition de instalação ou uma necessidade de conversão autorizada.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Cooktop a gás Gorenje GW951X-BR
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Raciocínio de atendimento</p>
+            <p class="calloutText">
+              A N1 não realiza diagnóstico técnico aprofundado. Nossa função é conduzir a triagem inicial, confirmar dados, identificar sinais de uso ou instalação inadequada, orientar dentro do escopo permitido e registrar o caso com informações suficientes para continuidade.
+            </p>
+          </div>
+
+          <div class="speechBox">
+            <strong>Exemplo de fala segura</strong>
+            <p>
+              “Para te orientar com segurança, vou confirmar primeiro o modelo do produto e alguns pontos da instalação. Essas informações ajudam a entender se estamos diante de uma condição de uso, instalação ou necessidade de análise técnica.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="modelos" data-keywords="modelos GI3201BC GI6421BSC IS846BG GW951X-BR indução gás bridgezone child lock timer powerboost">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 2</span>
+              <h2>Modelos e diferenças principais</h2>
+              <p class="sectionIntro">
+                A identificação do modelo evita orientações incorretas. Alguns recursos aparecem em mais de um produto, como Timer, bloqueio do painel e indicador de calor residual, mas a quantidade de zonas, dimensões e recursos de cocção podem variar.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Por família</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="GI3201BC duas zonas indução 30 cm timer child lock powerboost">
+              <summary>GI3201BC | Cooktop de indução compacto</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O GI3201BC é um cooktop de indução com proposta compacta, indicado para espaços menores ou composições planejadas. Ele possui 2 zonas de indução, controle por toque, função Timer, indicador de calor residual e bloqueio de segurança Child Lock.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Principais pontos para atendimento</h3>
+                    <ul>
+                      <li>Confirmar se o produto está ligado em alimentação compatível.</li>
+                      <li>Verificar se o cliente utiliza panela própria para indução.</li>
+                      <li>Validar se o painel não está bloqueado pelo Child Lock.</li>
+                      <li>Registrar se o sintoma ocorre em uma zona ou nas duas zonas.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Quando suspeitar de uso ou instalação</h3>
+                    <p>
+                      Se o cliente informa que o produto liga, mas não aquece, ou aquece apenas em certas panelas, a sondagem deve começar pela compatibilidade da panela e pela forma de acionamento. Se o produto não liga, a validação inicial deve priorizar alimentação elétrica e instalação.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Painel e zonas do modelo GI3201BC
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="GI6421BSC quatro zonas indução 60 cm bridgezone timer child lock calor residual">
+              <summary>GI6421BSC | Cooktop de indução 60 cm</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O GI6421BSC é um cooktop de indução com 4 zonas e largura comercial de 60 cm. O modelo possui controle por toque, Timer, indicador de calor residual, Child Lock e recurso BridgeZone, que permite combinar áreas de cocção para recipientes maiores.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Principais pontos para atendimento</h3>
+                    <ul>
+                      <li>Confirmar o modelo antes de orientar sobre BridgeZone.</li>
+                      <li>Identificar se o sintoma ocorre em uma zona específica ou em todas.</li>
+                      <li>Verificar se há mensagem, bloqueio, desligamento ou falha de aquecimento.</li>
+                      <li>Registrar se o cliente relata uso de panela grande ou área combinada.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Risco de confusão</h3>
+                    <p>
+                      O cliente pode chamar o recurso BridgeZone de “boca dupla”, “zona grande” ou “área expandida”. Antes de concluir que há falha, confirme se ele está tentando usar uma área combinada e se a panela é compatível com indução.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Exemplo de fala segura</strong>
+                  <p>
+                    “Esse modelo possui áreas de aquecimento que podem trabalhar de forma combinada. Vou confirmar como o senhor está posicionando a panela e se ela é própria para indução antes de registrarmos como falha.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Painel do GI6421BSC com indicação das zonas e BridgeZone
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="IS846BG indução 80 cm área expandida xpanzone recursos avançados">
+              <summary>IS846BG | Cooktop de indução 80 cm</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O IS846BG é um cooktop de indução maior, com proposta premium e área ampla de cocção. Em atendimentos desse modelo, é comum que a dúvida envolva uso das zonas, reconhecimento de panela, acionamento do painel, instalação elétrica ou interpretação de recursos avançados.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Principais pontos para atendimento</h3>
+                    <ul>
+                      <li>Confirmar o modelo exato na etiqueta antes de orientar.</li>
+                      <li>Validar se o cliente está usando panelas compatíveis com indução.</li>
+                      <li>Identificar se o comportamento ocorre em todas as áreas ou em uma área específica.</li>
+                      <li>Evitar explicar programação avançada sem apoio do fluxo autorizado.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Limite da N1</h3>
+                    <p>
+                      Caso o atendimento envolva programação específica, falha persistente, comportamento irregular do painel ou necessidade de validação técnica, devemos registrar o máximo de informações e seguir o fluxo autorizado. Não devemos conduzir procedimentos técnicos improvisados.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Painel e áreas de cocção do modelo IS846BG
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="GW951X-BR cooktop gás GN GLP conversão kit fora de garantia">
+              <summary>GW951X-BR | Cooktop a gás</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O GW951X-BR é o modelo a gás contemplado neste treinamento. De acordo com o material de referência, o produto sai configurado para GN, gás natural encanado. Caso o cliente deseje utilizar GLP, gás de botijão, é possível realizar conversão com o kit que acompanha o produto, porém esse serviço é fora de garantia.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Principais pontos para atendimento</h3>
+                    <ul>
+                      <li>Confirmar se o cliente usa gás natural ou GLP.</li>
+                      <li>Verificar se o cliente está solicitando conversão ou relatando falha.</li>
+                      <li>Explicar que o produto sai de fábrica configurado para GN.</li>
+                      <li>Informar que a conversão para GLP é possível, mas fora de garantia.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Cuidados na orientação</h3>
+                    <p>
+                      Não devemos orientar troca de injetores, ajuste de chama, intervenção em tubulação ou qualquer procedimento técnico de gás. A N1 deve explicar a regra, registrar a solicitação e seguir o fluxo autorizado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Exemplo de fala segura</strong>
+                  <p>
+                    “Esse modelo sai configurado de fábrica para gás natural. Para utilização com GLP, é necessária a conversão com o kit fornecido. Esse procedimento deve seguir o fluxo autorizado e não faz parte da cobertura de garantia.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Etiqueta, queimadores e kit de conversão do GW951X-BR
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <section class="section searchable" id="instalacao" data-keywords="instalação requisitos elétricos monofásico bifásico 220 volts tomada aterramento NBR5410 adaptador benjamin extensão">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 3</span>
+              <h2>Instalação e validações iniciais</h2>
+              <p class="sectionIntro">
+                Muitos atendimentos de cooktop começam como uma reclamação de funcionamento, mas a causa pode estar relacionada à instalação. Por isso, antes de tratar o caso como falha do produto, precisamos validar os pontos básicos que estão dentro do escopo da N1.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Atenção ao escopo</span>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Importante</p>
+            <p class="calloutText">
+              Validar instalação não significa ensinar o cliente a executar instalação elétrica ou de gás. A N1 deve fazer perguntas, orientar sobre requisitos gerais, registrar evidências e direcionar o cliente para profissional qualificado ou fluxo autorizado quando necessário.
+            </p>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="cooktop indução requisitos elétricos 220 volts monofásico bifásico disjuntor cabos instalação">
+              <summary>Cooktops de indução | Requisitos elétricos</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Os cooktops de indução dependem diretamente de uma instalação elétrica adequada. Conforme o material de referência, os modelos trabalham em 220 V e podem envolver configuração monofásica ou bifásica, de acordo com a instalação disponível no local.
+                </p>
+
+                <p>
+                  Durante o atendimento, nossa prioridade é confirmar se o cliente possui estrutura elétrica compatível e se a instalação foi preparada antes da tentativa de uso. Se houver dúvida sobre cabos, disjuntor, tensão ou ponto elétrico, a orientação segura é direcionar o cliente a um profissional de elétrica de confiança.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>O produto foi instalado por profissional qualificado?</li>
+                      <li>A tensão disponível no ponto é 220 V?</li>
+                      <li>O produto chegou a ligar alguma vez?</li>
+                      <li>O disjuntor desarma ao tentar usar o cooktop?</li>
+                      <li>O sintoma ocorre em todas as zonas ou apenas em uma?</li>
+                      <li>Há alguma mensagem, luz ou sinal no painel?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>O que registrar</h3>
+                    <ul>
+                      <li>Modelo informado pelo cliente.</li>
+                      <li>Tipo de alimentação declarada, quando o cliente souber informar.</li>
+                      <li>Se houve instalação profissional.</li>
+                      <li>Se o produto liga, não liga ou desarma o disjuntor.</li>
+                      <li>Se o problema começou após instalação ou após uso normal.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Limite de atuação</p>
+                  <p class="calloutText">
+                    As assistências não estão autorizadas a realizar a passagem dos cabos do disjuntor até o cooktop. Os cabos devem estar disponíveis no local de instalação, e esse serviço deve ser realizado por profissional de elétrica de confiança do cliente, conforme orientação de instalação e NBR5410.
+                  </p>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Exemplo de fala segura</strong>
+                  <p>
+                    “Para a instalação elétrica, é necessário que o ponto já esteja preparado no local onde o cooktop será instalado. Caso ainda exista dúvida sobre cabos, disjuntor ou tensão, recomendamos que essa validação seja feita por um eletricista de confiança antes de seguirmos com a análise do produto.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Esquema de ligação 220 V monofásico do cooktop de indução
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Esquema de ligação 220 V bifásico do cooktop de indução
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="cooktop gás requisitos elétricos aterramento tomada terra extensão benjamin adaptador tensão correta">
+              <summary>Cooktop a gás | Requisitos elétricos básicos</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Mesmo sendo um produto a gás, o cooktop pode depender de alimentação elétrica para funções como acendimento. Por isso, a instalação elétrica também precisa seguir requisitos mínimos de segurança.
+                </p>
+
+                <p>
+                  O material de referência orienta o uso de tomada com ligação à terra, sem remoção do pino de aterramento, sem extensões, sem tomadas múltiplas e sem adaptadores. Também orienta verificar a tensão antes de conectar o plugue à tomada.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Checklist de validação</h3>
+                    <ul>
+                      <li>A tomada possui aterramento?</li>
+                      <li>O pino terra do plugue foi mantido?</li>
+                      <li>O cliente utiliza extensão, benjamin, adaptador ou tomada múltipla?</li>
+                      <li>A tensão da tomada foi conferida antes da conexão?</li>
+                      <li>O problema envolve acendimento, ausência de faísca ou funcionamento geral?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação permitida</h3>
+                    <p>
+                      Podemos orientar o cliente a não utilizar adaptadores, extensões, benjamins ou mecanismos de adaptação. Também podemos orientar que a avaliação da tomada e da tensão seja realizada por profissional qualificado, quando o cliente não tiver segurança para confirmar.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="warningCallout">
+                  <p class="calloutTitle">Garantia e segurança</p>
+                  <p class="calloutText">
+                    A remoção do pino terra caracteriza perda de garantia. Além disso, adaptações elétricas podem gerar risco de mau funcionamento, aquecimento, instabilidade e insegurança para o cliente.
+                  </p>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Exemplo de fala segura</strong>
+                  <p>
+                    “Para sua segurança e para preservar as condições de garantia, o produto deve ser conectado diretamente a uma tomada adequada, com aterramento, sem adaptadores, extensões ou benjamins.”
+                  </p>
+                </div>
+              </div>
+            </details>
+</div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Como pensar antes de registrar falha</p>
+            <p class="calloutText">
+              Quando o cliente relata que o produto não liga, não aquece, desarma, não acende ou apresenta comportamento irregular logo após a instalação, a primeira pergunta não deve ser “qual peça falhou?”. A primeira análise deve ser: o produto está instalado, alimentado e configurado corretamente para funcionar?
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="identificacao" data-keywords="identificação etiqueta modelo número de série produto parte inferior registro evidência">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 4</span>
+              <h2>Identificação do produto</h2>
+              <p class="sectionIntro">
+                A identificação correta evita abertura de caso com modelo incorreto, envio de orientação incompatível e retrabalho para as próximas áreas. Nos cooktops Gorenje, a etiqueta de identificação fica sempre na parte inferior do produto.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Registro obrigatório</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>O que confirmar com o cliente</h3>
+              <p>
+                Sempre que possível, confirme o modelo diretamente na etiqueta do produto ou em documento de compra. Evite assumir o modelo apenas pela aparência, quantidade de zonas ou informação verbal incompleta.
+              </p>
+
+              <ul>
+                <li>Modelo exato do produto.</li>
+                <li>Número de série, quando disponível.</li>
+                <li>Data de compra ou instalação.</li>
+                <li>Tipo de instalação realizada.</li>
+                <li>Sintoma relatado pelo cliente.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Por que isso importa</h3>
+              <p>
+                Modelos diferentes podem ter dimensões, potência, recursos e comportamentos distintos. Um atendimento sem identificação correta pode gerar orientação inadequada, principalmente em dúvidas sobre BridgeZone, painel, conversão de gás, embutimento ou requisitos elétricos.
+              </p>
+            </div>
+          </div>
+
+          <div class="imagePlaceholder">
+            INSERIR IMAGEM: Localização da etiqueta na parte inferior dos cooktops de indução e gás
+          </div>
+
+          <div class="speechBox">
+            <strong>Exemplo de fala segura</strong>
+            <p>
+              “Para garantir que eu te passe a orientação correta, preciso confirmar o modelo exato do produto. A etiqueta fica na parte inferior do cooktop. Caso não consiga acessar agora, podemos usar a nota fiscal ou o pedido de compra como apoio inicial.”
+            </p>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Cuidado importante</p>
+            <p class="calloutText">
+              Se o cliente não conseguir confirmar o modelo durante o contato, registre essa limitação. Não avance com orientação específica de programação, conversão ou recurso exclusivo sem validar o modelo.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="sintomas" data-keywords="sintomas não liga não aquece painel bloqueado child lock disjuntor desarma panela indução chama irregular queimador acende">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 5</span>
+              <h2>Consulta rápida por sintoma</h2>
+              <p class="sectionIntro">
+                Esta seção foi pensada para uso no dia a dia. Ao receber uma solicitação, localize o sintoma mais próximo da fala do cliente e siga o raciocínio de sondagem antes de registrar ou encaminhar.
+              </p>
+            </div>
+
+            <span class="pill pillCyan">Busca por sintoma</span>
+          </div>
+
+          <div class="quickSearchBar">
+            <input type="search" id="symptomSearch" placeholder="Digite: não liga, não aquece, painel, chama, GLP, disjuntor..." />
+            <button type="button" onclick="clearSymptomSearch()">Limpar</button>
+          </div>
+
+          <div class="accordion" id="symptomList">
+
+            <details open class="symptomItem searchable" data-keywords="não liga produto apagado painel apagado energia tomada disjuntor instalação elétrica">
+              <summary>Cliente informa que o cooktop não liga</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Quando o cliente diz que o cooktop não liga, a N1 deve separar três possibilidades iniciais: ausência de alimentação elétrica, instalação inadequada ou condição do próprio produto. O primeiro passo é entender se o painel permanece totalmente apagado ou se existe algum sinal luminoso, som ou resposta ao toque.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>O produto chegou a ligar alguma vez?</li>
+                      <li>O painel fica totalmente apagado?</li>
+                      <li>O disjuntor desarma quando tenta ligar?</li>
+                      <li>A instalação foi feita por profissional qualificado?</li>
+                      <li>A tensão do ponto foi confirmada como compatível?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação inicial permitida</h3>
+                    <p>
+                      Oriente o cliente a confirmar se há energia no ponto e se o disjuntor está acionado, sem orientar manuseio técnico. Se houver dúvida sobre tensão, cabos ou disjuntor, direcione para eletricista de confiança ou fluxo autorizado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Como o painel não apresenta sinal, precisamos confirmar primeiro se o produto está recebendo alimentação elétrica adequada. Essa validação deve ser feita com segurança por um profissional qualificado, principalmente se houver dúvida sobre tensão ou disjuntor.”
+                  </p>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Não orientar</p>
+                  <p class="calloutText">
+                    Não oriente abertura do produto, alteração de cabos, teste direto em fiação, troca de disjuntor ou qualquer intervenção elétrica.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="symptomItem searchable" data-keywords="não aquece indução panela incompatível reconhecimento panela fundo magnético zona aquece">
+              <summary>Cooktop de indução liga, mas não aquece</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Em cooktops de indução, ligar o painel não significa necessariamente que a zona irá aquecer. A indução depende de panela compatível, posicionamento correto e acionamento adequado da zona. Por isso, a primeira validação deve considerar o uso, antes de tratar como defeito.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>A panela utilizada é própria para indução?</li>
+                      <li>O fundo da panela é plano e compatível com a zona?</li>
+                      <li>O sintoma ocorre com todas as panelas?</li>
+                      <li>O sintoma ocorre em todas as zonas?</li>
+                      <li>O painel exibe algum aviso ou desliga após alguns segundos?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como orientar</h3>
+                    <p>
+                      Explique que a tecnologia de indução aquece a panela diretamente, e não a superfície da mesma forma que um cooktop convencional. Se a panela não for compatível, o produto pode não iniciar o aquecimento ou interromper o funcionamento.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Esse tipo de cooktop precisa reconhecer uma panela compatível com indução. Vamos validar se a panela utilizada possui fundo adequado e se o comportamento acontece também com outras panelas.”
+                  </p>
+                </div>
+
+                <div class="infoCallout">
+                  <p class="calloutTitle">Dica de registro</p>
+                  <p class="calloutText">
+                    Registre se o cliente testou mais de uma panela compatível e se o sintoma ocorre em uma zona específica ou em todas as zonas.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="symptomItem searchable" data-keywords="painel não responde bloqueado child lock trava segurança toque comando">
+              <summary>Painel não responde aos comandos</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Um painel que não responde pode estar relacionado a bloqueio de segurança, toque incorreto, superfície molhada, acionamento inadequado ou falha que exige análise. Como alguns modelos possuem Child Lock, é importante investigar se o painel está bloqueado antes de registrar como defeito.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>Algum símbolo de trava aparece no painel?</li>
+                      <li>O painel emite som ao tocar?</li>
+                      <li>A superfície está limpa e seca?</li>
+                      <li>O cliente consegue ligar e apenas não consegue alterar potência?</li>
+                      <li>O comportamento começou após limpeza ou após instalação?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação inicial permitida</h3>
+                    <p>
+                      Oriente o cliente a verificar se há indicação de bloqueio e se a superfície está seca e limpa. Caso o desbloqueio exija procedimento específico do modelo e não esteja no fluxo autorizado, registre e encaminhe conforme orientação operacional.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Alguns modelos possuem trava de segurança no painel. Vou verificar com você se há algum símbolo de bloqueio ou se o painel responde parcialmente, para entendermos se é uma condição de uso ou se precisa seguir para análise.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="symptomItem searchable" data-keywords="disjuntor desarma queda energia desliga instalação inadequada sobrecarga cooktop indução">
+              <summary>Disjuntor desarma ao ligar ou durante o uso</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Quando o disjuntor desarma, a prioridade é segurança. Esse tipo de relato pode indicar incompatibilidade da instalação, dimensionamento inadequado, problema no circuito ou necessidade de avaliação técnica. A N1 não deve orientar testes elétricos ou insistência no uso.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>O disjuntor desarma imediatamente ao ligar?</li>
+                      <li>Desarma apenas quando usa mais de uma zona?</li>
+                      <li>A instalação é nova?</li>
+                      <li>Outros equipamentos estão no mesmo circuito?</li>
+                      <li>O eletricista confirmou dimensionamento adequado?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação segura</h3>
+                    <p>
+                      Oriente a interromper o uso até avaliação adequada. Se a instalação ainda não foi validada, direcione o cliente para profissional de elétrica. Se a instalação já foi validada e o sintoma persiste, registre o caso para seguir o fluxo autorizado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Risco crítico</p>
+                  <p class="calloutText">
+                    Não oriente o cliente a religar repetidamente, trocar disjuntor, alterar fiação ou realizar qualquer teste energizado.
+                  </p>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Como há desarme de disjuntor, por segurança recomendamos interromper o uso até a validação da instalação. Vou registrar as informações do caso para seguirmos com a orientação correta.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="symptomItem searchable" data-keywords="queimador não acende gás faísca acendimento tomada energia eletrodo">
+              <summary>Cooktop a gás: queimador não acende</summary>
+
+              <div class="detailsContent">
+                <p>
+                  No cooktop a gás, a queixa de queimador que não acende pode envolver alimentação de gás, acionamento, instalação, conexão elétrica do acendimento ou necessidade de avaliação técnica. A N1 deve sondar sem orientar intervenção em componentes.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>O sintoma ocorre em todos os queimadores ou apenas em um?</li>
+                      <li>Há faísca ao tentar acender?</li>
+                      <li>O gás está chegando normalmente aos demais pontos da residência?</li>
+                      <li>O produto está ligado diretamente na tomada adequada?</li>
+                      <li>Foi realizada conversão para GLP, se aplicável?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação inicial permitida</h3>
+                    <p>
+                      Podemos orientar validações simples de uso e registro do comportamento. Não devemos orientar desmontagem de queimador, regulagem interna, intervenção em gás, troca de peças ou teste de vazamento.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Vou confirmar se isso acontece em todos os queimadores ou apenas em um ponto. Também preciso entender se há faísca no acendimento e qual tipo de gás está sendo utilizado.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="symptomItem searchable" data-keywords="chama irregular baixa alta amarela gás GN GLP conversão pressão instalação">
+              <summary>Cooktop a gás: chama irregular</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Chama muito alta, baixa, amarelada, instável ou apagando pode estar relacionada ao tipo de gás, conversão, instalação, pressão, montagem ou necessidade de avaliação técnica. A N1 deve tratar como tema de segurança e registrar com clareza.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas de sondagem</h3>
+                    <ul>
+                      <li>O cliente utiliza GN ou GLP?</li>
+                      <li>O produto passou por conversão?</li>
+                      <li>A chama irregular ocorre em todos os queimadores?</li>
+                      <li>A instalação é recente?</li>
+                      <li>Há cheiro de gás?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação segura</h3>
+                    <p>
+                      Se houver cheiro de gás, instabilidade intensa ou suspeita de vazamento, oriente o cliente a interromper o uso e seguir medidas de segurança conforme fluxo autorizado. Não conduza testes ou ajustes de gás por telefone.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Atenção máxima</p>
+                  <p class="calloutText">
+                    Relatos envolvendo gás exigem cuidado. Não oriente ajuste de válvula, troca de bico, desmontagem ou qualquer procedimento que envolva risco ao cliente.
+                  </p>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Por envolver gás, vamos priorizar sua segurança. Não realize ajustes no produto. Vou registrar o comportamento da chama, o tipo de gás utilizado e seguir com o fluxo correto para orientação.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <section class="section searchable" id="gn-glp" data-keywords="GN GLP gás natural gás botijão conversão kit GW951X-BR fora de garantia">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 6</span>
+              <h2>Conversão GN e GLP</h2>
+              <p class="sectionIntro">
+                A conversão de gás é um dos pontos mais importantes do atendimento do modelo GW951X-BR. O cliente pode entrar em contato acreditando que o produto está com defeito, quando na verdade está tentando utilizar um tipo de gás diferente da configuração original.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">GW951X-BR</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Regra principal</h3>
+              <p>
+                O modelo GW951X-BR sai configurado de fábrica para GN, gás natural encanado. Caso o cliente deseje utilizar GLP, gás de botijão, a conversão é possível com o kit que acompanha o produto.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Garantia</h3>
+              <p>
+                O serviço de conversão para GLP é fora de garantia. Por isso, a informação precisa ser transmitida com clareza, sem gerar expectativa de atendimento gratuito.
+              </p>
+            </div>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Separar dúvida de uso e solicitação de serviço</p>
+            <p class="calloutText">
+              Se o cliente apenas quer saber se pode usar GLP, explique a regra. Se ele já está usando GLP sem conversão ou relata chama irregular após instalação, registre como condição que exige orientação pelo fluxo autorizado.
+            </p>
+          </div>
+
+          <div class="speechBox">
+            <strong>Fala sugerida para o cliente</strong>
+            <p>
+              “Esse produto sai de fábrica configurado para gás natural. Para uso com gás de botijão, é necessária a conversão para GLP utilizando o kit que acompanha o produto. Esse serviço é fora da cobertura de garantia e deve seguir o fluxo autorizado.”
+            </p>
+          </div>
+
+          <div class="dangerCallout">
+            <p class="calloutTitle">Não orientar procedimento técnico</p>
+            <p class="calloutText">
+              A N1 não deve orientar troca de injetores, regulagem de chama, abertura do produto, ajuste de gás ou qualquer intervenção técnica. O papel do atendimento é explicar a regra, registrar corretamente e encaminhar conforme processo.
+            </p>
+          </div>
+
+          <div class="imagePlaceholder">
+            INSERIR IMAGEM: Kit de conversão GN para GLP do modelo GW951X-BR
+          </div>
+        </section>
+
+        <section class="section searchable" id="registro" data-keywords="registro correto informações obrigatórias atendimento sondagem orientação evidências encaminhamento">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 7</span>
+              <h2>Registro correto do atendimento</h2>
+              <p class="sectionIntro">
+                Um bom registro permite que qualquer pessoa entenda o que foi relatado, o que foi perguntado, o que foi orientado e por que o caso precisa ou não seguir para outra área. O registro deve contar a história do atendimento de forma objetiva.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Qualidade operacional</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>Informações essenciais</h3>
+              <ul>
+                <li>Modelo do produto.</li>
+                <li>Número de série, quando disponível.</li>
+                <li>Data de compra ou instalação.</li>
+                <li>Sintoma descrito pelo cliente.</li>
+                <li>Quando o sintoma começou.</li>
+                <li>Se ocorre sempre ou de forma intermitente.</li>
+                <li>Se ocorre em uma zona/queimador ou em todos.</li>
+                <li>Tipo de instalação informada.</li>
+                <li>Orientações prestadas durante o contato.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Como escrever melhor</h3>
+              <p>
+                Evite registros genéricos como “produto com defeito” ou “cliente reclama que não funciona”. Prefira registrar o comportamento observado, as perguntas realizadas e as respostas do cliente.
+              </p>
+
+              <div class="speechBox">
+                <strong>Exemplo de registro adequado</strong>
+                <p>
+                  “Cliente informa que cooktop de indução GI6421BSC liga o painel, porém não aquece em nenhuma zona. Relata instalação recente, tensão 220 V informada, não soube confirmar tipo de circuito. Orientado a validar instalação com profissional qualificado e testar panela compatível com indução. Caso seguirá conforme fluxo.”
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <details class="searchable" data-keywords="registro ruim incompleto defeito não funciona">
+              <summary>Exemplo de registro insuficiente</summary>
+
+              <div class="detailsContent">
+                <p>
+                  “Cliente informa que cooktop não funciona.”
+                </p>
+
+                <p>
+                  Esse registro não ajuda a entender se o produto não liga, não aquece, não acende, desarma, apresenta bloqueio, está sem instalação adequada ou se o cliente precisa apenas de orientação de uso.
+                </p>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="registro bom completo sondagem atendimento">
+              <summary>Exemplo de registro completo</summary>
+
+              <div class="detailsContent">
+                <p>
+                  “Cliente informa que cooktop a gás GW951X-BR apresenta chama irregular em todos os queimadores após instalação. Cliente utiliza GLP e não soube confirmar se foi realizada conversão. Orientado que o produto sai configurado para GN e que a conversão para GLP deve seguir fluxo autorizado, sendo serviço fora de garantia. Não foram orientados ajustes técnicos.”
+                </p>
+
+                <p>
+                  Esse registro mostra modelo, sintoma, abrangência, tipo de gás, condição provável, orientação prestada e limite de atuação.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Checklist mental antes de finalizar</p>
+            <p class="calloutText">
+              Antes de encerrar, pergunte a si mesmo: ficou claro qual é o produto, qual é o sintoma, o que foi validado, qual orientação foi dada e qual será o próximo passo?
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="section practiceOnly" id="pratica" data-keywords="modo prática atendimento simulação sondagem registro orientação">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Simulações sem consulta</h2>
+            <p class="sectionIntro">
+              Neste modo, o conteúdo consultivo fica oculto. Use as situações abaixo para praticar raciocínio de atendimento, sondagem, registro e orientação segura.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Treino ativo</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Caso 1 | Cooktop de indução não aquece</h3>
+            <p>
+              O cliente informa que o produto liga normalmente, mas nenhuma panela aquece. Ele relata que acabou de instalar o produto e ainda não sabe informar se as panelas são próprias para indução.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Defina quais perguntas fazer, qual orientação inicial fornecer e como registrar o caso.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 2 | Cliente quer usar GLP</h3>
+            <p>
+              O cliente comprou o GW951X-BR e informa que em sua residência utiliza gás de botijão. Ele pergunta se pode instalar diretamente.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Explique a regra de GN e GLP, informe o limite de garantia e evite orientar procedimento técnico.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 3 | Disjuntor desarma</h3>
+            <p>
+              O cliente relata que o disjuntor desarma sempre que tenta ligar duas zonas ao mesmo tempo no cooktop de indução.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique risco, perguntas de instalação e orientação segura sem conduzir procedimento elétrico.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 4 | Painel travado</h3>
+            <p>
+              O cliente relata que o painel acende, mas não aceita comandos. Ele não sabe dizer se aparece símbolo de bloqueio.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Conduza a sondagem para diferenciar bloqueio de painel, condição de uso e possível necessidade de análise.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+<section class="section searchable" id="jogos" data-keywords="jogos quiz perguntas atendimento sondagem registro orientação sintomas instalação">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Jogos de fixação</span>
+            <h2>Pratique a tomada de decisão no atendimento</h2>
+            <p class="sectionIntro">
+              Os jogos abaixo simulam decisões comuns da N1. Leia cada situação, escolha a melhor resposta e observe o feedback. O objetivo não é decorar respostas, mas desenvolver o raciocínio correto para sondar, registrar e orientar com segurança.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Feedback imediato</span>
+        </div>
+
+        <div class="grid grid1">
+
+          <div class="gameCard" id="game1">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 1 | Qual pergunta fazer?</h3>
+                <p class="sectionIntro">
+                  Escolha a pergunta mais adequada para iniciar a sondagem.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame1">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame1"></p>
+
+            <div class="options" id="optionsGame1"></div>
+
+            <div class="feedback" id="feedbackGame1"></div>
+
+            <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame1"></div>
+          </div>
+
+          <div class="gameCard" id="game2">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 2 | Sintoma, instalação ou uso?</h3>
+                <p class="sectionIntro">
+                  Identifique a principal área de investigação inicial.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame2">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame2"></p>
+
+            <div class="options" id="optionsGame2"></div>
+
+            <div class="feedback" id="feedbackGame2"></div>
+
+            <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame2"></div>
+          </div>
+
+          <div class="gameCard" id="game3">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 3 | Registro correto</h3>
+                <p class="sectionIntro">
+                  Escolha o registro mais completo e útil para continuidade do atendimento.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame3">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame3"></p>
+
+            <div class="options" id="optionsGame3"></div>
+
+            <div class="feedback" id="feedbackGame3"></div>
+
+            <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame3"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section searchable" id="fechamento" data-keywords="fechamento resumo atendimento N1 gorenje cooktop">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo para atuação da N1</h2>
+            <p class="sectionIntro">
+              Em atendimentos de cooktops Gorenje, o mais importante é conduzir a triagem com segurança. Antes de concluir que existe falha no produto, valide modelo, instalação, tipo de uso, sintomas e informações essenciais para registro.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta pós-treinamento</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>1. Identifique</h3>
+            <p>
+              Confirme o modelo, número de série quando disponível e tipo de produto. Isso evita orientação incompatível.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>2. Sonde</h3>
+            <p>
+              Faça perguntas que diferenciem instalação, uso, configuração, sintoma recorrente e necessidade de análise técnica.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>3. Registre</h3>
+            <p>
+              Documente o que o cliente relatou, o que foi validado, a orientação fornecida e o próximo passo.
+            </p>
+          </div>
+        </div>
+
+        <div class="successCallout">
+          <p class="calloutTitle">Mensagem final</p>
+          <p class="calloutText">
+            Um bom atendimento N1 não depende de resolver tecnicamente todos os casos. Depende de entender corretamente o cenário, orientar sem ultrapassar o escopo, proteger a segurança do cliente e garantir que o registro permita continuidade eficiente.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        EAD Consultivo | Formação Inicial N1 | Gorenje Cooktops Indução e Gás
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const practiceToggle = document.getElementById("practiceToggle");
+    const globalSearch = document.getElementById("globalSearch");
+    const symptomSearch = document.getElementById("symptomSearch");
+
+    practiceToggle.addEventListener("click", function () {
+      body.classList.toggle("practiceMode");
+
+      if (body.classList.contains("practiceMode")) {
+        practiceToggle.textContent = "Desativar modo prática";
+        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
+      } else {
+        practiceToggle.textContent = "Ativar modo prática";
+        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+
+          if (item.tagName.toLowerCase() === "details") {
+            item.open = true;
+          }
+        } else {
+          if (!item.closest(".searchable:not(.section):not(.hero)")) {
+            item.classList.add("hiddenBySearch");
+          }
+        }
+      });
+    });
+
+    if (symptomSearch) {
+      symptomSearch.addEventListener("input", function () {
+        const term = normalizeText(symptomSearch.value);
+        const items = document.querySelectorAll(".symptomItem");
+
+        items.forEach(function (item) {
+          const text = normalizeText(item.innerText || "");
+          const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+          if (!term || text.includes(term) || keywords.includes(term)) {
+            item.classList.remove("hiddenBySearch");
+
+            if (term) {
+              item.open = true;
+            }
+          } else {
+            item.classList.add("hiddenBySearch");
+          }
+        });
+      });
+    }
+
+    function clearSymptomSearch() {
+      if (!symptomSearch) return;
+
+      symptomSearch.value = "";
+      const items = document.querySelectorAll(".symptomItem");
+
+      items.forEach(function (item) {
+        item.classList.remove("hiddenBySearch");
+      });
+    }
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    const games = {
+      game1: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame1",
+        questionElement: "questionGame1",
+        optionsElement: "optionsGame1",
+        feedbackElement: "feedbackGame1",
+        nextElement: "nextGame1",
+        summaryElement: "summaryGame1",
+        questions: [
+          {
+            question: "O cliente informa que o cooktop de indução liga, mas não aquece nenhuma panela. Qual pergunta deve vir primeiro?",
+            options: [
+              "O senhor quer abrir uma assistência técnica agora?",
+              "A panela utilizada é própria para cooktop de indução?",
+              "O senhor deseja trocar o produto?",
+              "A bancada foi cortada na medida correta?"
+            ],
+            correct: 1,
+            feedbackCorrect: "Correto. Em indução, validar a compatibilidade da panela é uma das primeiras sondagens quando o painel liga, mas não há aquecimento.",
+            feedbackWrong: "Não é a melhor primeira pergunta. Quando o painel liga e não aquece, a compatibilidade da panela deve ser validada antes de tratar como falha."
+          },
+          {
+            question: "O cliente relata que o disjuntor desarma ao ligar o cooktop. Qual pergunta ajuda mais na triagem inicial?",
+            options: [
+              "O senhor já tentou trocar o disjuntor?",
+              "O senhor tentou ligar novamente várias vezes?",
+              "A instalação elétrica foi validada por profissional qualificado?",
+              "O senhor consegue abrir a parte inferior do produto?"
+            ],
+            correct: 2,
+            feedbackCorrect: "Correto. Desarme de disjuntor envolve segurança e instalação. A N1 deve sondar, registrar e orientar validação profissional.",
+            feedbackWrong: "Cuidado. A N1 não deve orientar troca de disjuntor, insistência no uso ou abertura do produto."
+          },
+          {
+            question: "O cliente informa que o painel acende, mas não aceita comandos. Qual pergunta é mais adequada?",
+            options: [
+              "Aparece algum símbolo de bloqueio ou trava no painel?",
+              "O senhor quer fazer a troca do painel?",
+              "O senhor pode desmontar o vidro para verificar?",
+              "Isso significa que o produto queimou?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Alguns modelos possuem bloqueio de segurança. É importante diferenciar trava, uso e possível falha.",
+            feedbackWrong: "Não é adequado concluir falha ou orientar intervenção. Primeiro, investigue bloqueio, resposta parcial e condição de uso."
+          },
+          {
+            question: "O cliente comprou um GW951X-BR e deseja usar gás de botijão. Qual pergunta é essencial?",
+            options: [
+              "O senhor já removeu os queimadores?",
+              "Foi realizada conversão para GLP?",
+              "O senhor quer aumentar a chama?",
+              "O senhor consegue trocar os injetores sozinho?"
+            ],
+            correct: 1,
+            feedbackCorrect: "Correto. O GW951X-BR sai configurado para GN. Para GLP, é necessária conversão pelo fluxo autorizado.",
+            feedbackWrong: "A N1 não deve orientar intervenção técnica em gás. A pergunta correta é se houve conversão para GLP."
+          }
+        ]
+      },
+
+      game2: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame2",
+        questionElement: "questionGame2",
+        optionsElement: "optionsGame2",
+        feedbackElement: "feedbackGame2",
+        nextElement: "nextGame2",
+        summaryElement: "summaryGame2",
+        questions: [
+          {
+            question: "Situação: produto recém-instalado, painel apagado, cliente não sabe informar tensão do ponto. Qual área investigar primeiro?",
+            options: [
+              "Instalação elétrica",
+              "Conversão de gás",
+              "Limpeza da superfície",
+              "Configuração de Timer"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Painel apagado após instalação exige validação de alimentação elétrica e instalação.",
+            feedbackWrong: "Não é a melhor rota. Nesse cenário, a prioridade é entender se o produto está recebendo alimentação elétrica adequada."
+          },
+          {
+            question: "Situação: cooktop de indução liga, cliente usa panela de alumínio comum e relata que não esquenta. Qual área investigar?",
+            options: [
+              "Garantia",
+              "Compatibilidade de uso",
+              "Conversão GN/GLP",
+              "Etiqueta de identificação"
+            ],
+            correct: 1,
+            feedbackCorrect: "Correto. A panela precisa ser compatível com indução. O problema pode ser de uso, não de falha do produto.",
+            feedbackWrong: "Antes de registrar falha, é preciso validar se a panela é compatível com indução."
+          },
+          {
+            question: "Situação: cooktop a gás GW951X-BR apresenta chama irregular após instalação com botijão. Qual área investigar primeiro?",
+            options: [
+              "Timer",
+              "Child Lock",
+              "Conversão GN para GLP",
+              "BridgeZone"
+            ],
+            correct: 2,
+            feedbackCorrect: "Correto. O modelo sai configurado para GN. Uso com GLP exige conversão autorizada.",
+            feedbackWrong: "Essa situação aponta para tipo de gás e conversão, não para recursos de indução ou painel."
+          },
+          {
+            question: "Situação: o cliente diz que somente uma zona não aquece, mas as outras funcionam normalmente. Qual informação é importante registrar?",
+            options: [
+              "Somente que o produto está com defeito",
+              "Se o sintoma ocorre em uma zona específica e qual zona é",
+              "Que o cliente deve trocar todos os utensílios",
+              "Que a instalação não importa nesse caso"
+            ],
+            correct: 1,
+            feedbackCorrect: "Correto. Diferenciar uma zona de todas as zonas ajuda muito no encaminhamento e na análise posterior.",
+            feedbackWrong: "O registro precisa ser específico. Informar se ocorre em uma zona ou em todas muda a interpretação do caso."
+          }
+        ]
+      },
+
+      game3: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame3",
+        questionElement: "questionGame3",
+        optionsElement: "optionsGame3",
+        feedbackElement: "feedbackGame3",
+        nextElement: "nextGame3",
+        summaryElement: "summaryGame3",
+        questions: [
+          {
+            question: "Qual registro é mais adequado para um cooktop de indução que liga, mas não aquece?",
+            options: [
+              "Cliente diz que não funciona.",
+              "Produto com defeito, abrir assistência.",
+              "Cliente informa que cooktop de indução liga o painel, porém não aquece. Não soube confirmar se a panela é compatível. Orientado a validar utensílio próprio para indução e informado que será seguido fluxo conforme retorno.",
+              "Cliente quer trocar o produto porque não esquenta."
+            ],
+            correct: 2,
+            feedbackCorrect: "Correto. O registro descreve sintoma, contexto, sondagem e orientação prestada.",
+            feedbackWrong: "Registro genérico dificulta a continuidade. O ideal é registrar comportamento, validações e orientação."
+          },
+          {
+            question: "Qual registro é mais adequado para solicitação de uso com GLP no GW951X-BR?",
+            options: [
+              "Cliente quer gás de botijão.",
+              "Cliente informa possuir modelo GW951X-BR e deseja utilizar GLP. Orientado que o produto sai configurado para GN e que a conversão para GLP deve seguir fluxo autorizado, sendo serviço fora de garantia. Não foram orientados procedimentos técnicos.",
+              "Cliente deve trocar os bicos do produto.",
+              "Produto não funciona com gás."
+            ],
+            correct: 1,
+            feedbackCorrect: "Correto. O registro informa modelo, solicitação, regra, garantia e limite de atuação.",
+            feedbackWrong: "Cuidado. A N1 não deve orientar troca de componentes ou registrar de forma incompleta."
+          },
+          {
+            question: "Qual registro é mais adequado para desarme de disjuntor?",
+            options: [
+              "Cliente informa que disjuntor desarma ao ligar duas zonas do cooktop de indução. Orientado a interromper o uso e validar instalação elétrica com profissional qualificado. Registrado que não foram orientados testes elétricos.",
+              "Cliente deve tentar ligar de novo.",
+              "Cliente reclamou da energia.",
+              "Produto desarma porque está com problema."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. O registro prioriza segurança, descreve o cenário e evita orientação técnica indevida.",
+            feedbackWrong: "Desarme de disjuntor exige registro cuidadoso e orientação segura, sem testes improvisados."
+          },
+          {
+            question: "Qual registro é mais adequado para painel que não responde?",
+            options: [
+              "Painel ruim.",
+              "Cliente não consegue usar.",
+              "Cliente informa que painel acende, mas não aceita comandos. Não soube confirmar símbolo de bloqueio. Orientado a verificar se há indicação de trava e manter superfície limpa e seca. Caso seguirá conforme fluxo se persistir.",
+              "Trocar painel."
+            ],
+            correct: 2,
+            feedbackCorrect: "Correto. O registro diferencia comportamento, possível bloqueio, orientação inicial e próximo passo.",
+            feedbackWrong: "O registro precisa evitar conclusão técnica sem análise. Descreva o comportamento e as validações realizadas."
+          }
+        ]
+      }
+    };
+
+    function loadGame(gameId) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      nextElement.classList.remove("show");
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "optionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuestion(gameId, index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      updateScore(gameId);
+    }
+
+    function answerQuestion(gameId, selectedIndex) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+
+      const buttons = optionsElement.querySelectorAll(".optionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        game.score++;
+        feedbackElement.textContent = questionData.feedbackCorrect;
+        feedbackElement.className = "feedback show good";
+      } else {
+        feedbackElement.textContent = questionData.feedbackWrong;
+        feedbackElement.className = "feedback show bad";
+      }
+
+      updateScore(gameId);
+
+      if (game.current < game.questions.length - 1) {
+        nextElement.textContent = "Próxima pergunta";
+      } else {
+        nextElement.textContent = "Ver resumo";
+      }
+
+      nextElement.classList.add("show");
+    }
+
+    function nextQuestion(gameId) {
+      const game = games[gameId];
+
+      if (game.current < game.questions.length - 1) {
+        game.current++;
+        loadGame(gameId);
+      } else {
+        showSummary(gameId);
+      }
+    }
+
+    function updateScore(gameId) {
+      const game = games[gameId];
+      const scoreElement = document.getElementById(game.scoreElement);
+
+      scoreElement.textContent = "Pontuação: " + game.score + "/" + game.questions.length;
+    }
+
+    function showSummary(gameId) {
+      const game = games[gameId];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedback";
+      feedbackElement.textContent = "";
+      nextElement.classList.remove("show");
+
+      let message = "";
+
+      if (game.score === game.questions.length) {
+        message = "Excelente resultado. Você demonstrou domínio do raciocínio de atendimento, sondagem e orientação segura.";
+      } else if (game.score >= Math.ceil(game.questions.length * 0.7)) {
+        message = "Bom resultado. Revise apenas os pontos em que houve dúvida para fortalecer a tomada de decisão.";
+      } else {
+        message = "Convém revisar o conteúdo consultivo antes de aplicar no atendimento. Foque em instalação, limites da N1 e registro correto.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resumo do jogo</h3>
+        <p><strong>Resultado:</strong> ${game.score} de ${game.questions.length} respostas corretas.</p>
+        <p>${message}</p>
+        <button class="btn btnPrimary" type="button" onclick="restartGame('${gameId}')">
+          Refazer jogo
+        </button>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartGame(gameId) {
+      games[gameId].current = 0;
+      games[gameId].score = 0;
+      loadGame(gameId);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadGame("game1");
+      loadGame("game2");
+      loadGame("game3");
+    });
+  </script>
+</body>
+</html>

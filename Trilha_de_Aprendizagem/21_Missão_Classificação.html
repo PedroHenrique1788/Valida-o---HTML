@@ -1,0 +1,4295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Missão Classificação | Dados, Decisão e Direcionamento</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --purple: #7C3AED;
+      --orange: #F97316;
+      --yellow: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --bg-main: #EEF7FF;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --text-light: #7B8794;
+      --border-soft: #DDE6ED;
+      --shadow: 0 18px 42px rgba(0, 63, 125, 0.16);
+      --shadow-soft: 0 8px 20px rgba(31, 41, 51, 0.06);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(0, 174, 239, 0.26), transparent 32%),
+        radial-gradient(circle at 92% 16%, rgba(124, 58, 237, 0.18), transparent 30%),
+        radial-gradient(circle at 86% 86%, rgba(0, 176, 80, 0.18), transparent 34%),
+        linear-gradient(135deg, #EDF7FF 0%, #FFFFFF 46%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #gameWrapper {
+      min-height: 100vh;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .topBar {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(221, 230, 237, 0.92);
+      box-shadow: 0 10px 28px rgba(0, 63, 125, 0.08);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+
+    .topBrand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brandIcon {
+      width: 46px;
+      height: 46px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--purple));
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(0, 94, 184, 0.2);
+      flex: 0 0 auto;
+    }
+
+    .topBrandText {
+      min-width: 0;
+    }
+
+    .topBrandText strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topBrandText span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+    }
+
+    .topActions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .topBtn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .topBtn:hover {
+      transform: translateY(-2px);
+    }
+
+    .focusBtn {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+      color: #FFFFFF;
+    }
+
+    .historyBtn {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .progressWrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progressInfo {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+      font-weight: 700;
+    }
+
+    .progressTrack {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(0, 94, 184, 0.12);
+      border: 1px solid rgba(0, 94, 184, 0.08);
+    }
+
+    .progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--hisense-blue), var(--hisense-cyan), var(--hisense-green));
+      transition: width 0.3s ease;
+    }
+
+    .stage {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      flex: 1;
+      display: grid;
+      place-items: stretch;
+    }
+
+    .screen {
+      display: none;
+      min-height: calc(100vh - 175px);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeSlide 0.28s ease both;
+    }
+
+    .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screenHeader {
+      padding: 32px 36px 24px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(0, 176, 80, 0.15), transparent 32%),
+        linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screenHeader h1,
+    .screenHeader h2 {
+      margin: 0;
+      color: var(--text-dark);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .screenHeader h1 {
+      font-size: clamp(2rem, 4vw, 3.45rem);
+    }
+
+    .screenHeader h2 {
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+    }
+
+    .screenIntro {
+      max-width: 940px;
+      margin: 12px 0 0;
+      color: var(--text-medium);
+      font-size: 0.98rem;
+    }
+
+    .screenBody {
+      padding: 30px 36px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .screenFooter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 36px 26px;
+      border-top: 1px solid var(--border-soft);
+      background: #FFFFFF;
+    }
+
+    .footerHint {
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .navButtons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+    }
+
+    .btnGreen {
+      background: linear-gradient(135deg, var(--hisense-green), #059669);
+    }
+
+    .btnGhost {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btnWarn {
+      background: linear-gradient(135deg, var(--yellow), #D97706);
+    }
+
+    .btnPurple {
+      background: linear-gradient(135deg, var(--purple), #4C1D95);
+    }
+
+    .btnDanger {
+      background: linear-gradient(135deg, var(--danger), #991B1B);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      width: max-content;
+      margin-bottom: 12px;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.13);
+      color: #B45309;
+    }
+
+    .pillDanger {
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--danger);
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .callout {
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+      background: #FFFFFF;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .callout.info {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .callout.success {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .callout.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+    }
+
+    .callout.danger {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .missionMap {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .missionNode {
+      position: relative;
+      padding: 18px;
+      min-height: 155px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .missionNode::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.06);
+    }
+
+    .missionNumber {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      color: #FFFFFF;
+      font-weight: 900;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+    }
+
+    .missionNode h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .missionNode p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .feedbackBox {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 17px;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .feedbackBox.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+      color: #92400E;
+    }
+
+    .historyDrawer {
+      position: fixed;
+      top: 0;
+      right: -430px;
+      width: min(430px, 92vw);
+      height: 100vh;
+      z-index: 100;
+      background: #FFFFFF;
+      box-shadow: -10px 0 34px rgba(31, 41, 51, 0.18);
+      border-left: 1px solid var(--border-soft);
+      transition: right 0.28s ease;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .historyDrawer.open {
+      right: 0;
+    }
+
+    .historyHeader {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .historyHeader h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .historyClose {
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      font-weight: 900;
+    }
+
+    .historyContent {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .historyItem {
+      padding: 14px;
+      border-radius: 16px;
+      background: #F7FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .historyItem strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .historyItem p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.84rem;
+    }
+
+    /* MODO FOCO REAL COM FULLSCREEN */
+    body.focusMode {
+      background: #F6FAFD;
+      overflow: hidden;
+    }
+
+    body.focusMode #gameWrapper {
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: #F6FAFD;
+    }
+
+    body.focusMode .progressWrap {
+      display: none !important;
+    }
+
+    body.focusMode .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    body.focusMode .topBrand,
+    body.focusMode .historyBtn {
+      display: none !important;
+    }
+
+    body.focusMode .focusBtn {
+      box-shadow: 0 10px 24px rgba(0, 63, 125, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    body.focusMode .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body.focusMode .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    body.focusMode .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    body.focusMode .screenHeader {
+      padding-top: 62px;
+    }
+
+    body.focusMode .screenBody {
+      align-content: center;
+    }
+
+    body.focusMode .historyDrawer {
+      display: none !important;
+    }
+
+    #gameWrapper:fullscreen {
+      background: #F6FAFD;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    #gameWrapper:fullscreen .progressWrap {
+      display: none !important;
+    }
+
+    #gameWrapper:fullscreen .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    #gameWrapper:fullscreen .topBrand,
+    #gameWrapper:fullscreen .historyBtn {
+      display: none !important;
+    }
+
+    #gameWrapper:fullscreen .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    #gameWrapper:fullscreen .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    #gameWrapper:fullscreen .screenHeader {
+      padding-top: 62px;
+    }
+
+    @media (max-width: 980px) {
+      #gameWrapper {
+        padding: 14px;
+      }
+
+      .topBar {
+        position: relative;
+        top: 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .topActions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .screen {
+        min-height: auto;
+      }
+
+      .screenHeader,
+      .screenBody,
+      .screenFooter {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .screenFooter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navButtons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .grid2,
+      .grid3,
+      .grid4,
+      .missionMap {
+        grid-template-columns: 1fr;
+      }
+
+      body.focusMode .topBar {
+        top: 12px;
+        right: 12px;
+        align-items: center;
+      }
+
+      body.focusMode .screenHeader {
+        padding-top: 72px;
+      }
+    }
+        .choiceGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choiceCard {
+      width: 100%;
+      min-height: 86px;
+      padding: 17px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 800;
+      line-height: 1.42;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .choiceCard:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .choiceCard.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .choiceCard.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .checkGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .checkCard {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+      padding: 15px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      font-weight: 800;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+      cursor: pointer;
+    }
+
+    .checkCard:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .checkCard input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--hisense-blue);
+      flex: 0 0 auto;
+    }
+
+    .checkCard.selected {
+      border-color: var(--hisense-blue);
+      background: rgba(0, 94, 184, 0.08);
+    }
+
+    .checkCard.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .checkCard.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    @media (max-width: 980px) {
+      .choiceGrid,
+      .checkGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+        .decisionGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .decisionCard {
+      width: 100%;
+      min-height: 96px;
+      padding: 17px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 900;
+      line-height: 1.42;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .decisionCard:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .decisionCard.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .decisionCard.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .decisionIcon {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-size: 0.82rem;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .decisionIcon.green {
+      background: linear-gradient(135deg, var(--success), #059669);
+    }
+
+    .decisionIcon.warn {
+      background: linear-gradient(135deg, var(--yellow), #D97706);
+    }
+
+    .decisionIcon.purple {
+      background: linear-gradient(135deg, var(--purple), #4C1D95);
+    }
+
+    .decisionIcon.danger {
+      background: linear-gradient(135deg, var(--danger), #991B1B);
+    }
+
+    @media (max-width: 980px) {
+      .decisionGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+        .orderGame {
+      display: grid;
+      gap: 12px;
+    }
+
+    .orderBtn {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 800;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .orderBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .orderBtn.correctStep {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+      cursor: default;
+    }
+
+    .orderBtn.wrongStep {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .orderProgress {
+      display: inline-flex;
+      width: max-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .inlineBlank {
+      width: 190px;
+      max-width: 100%;
+      margin: 0 6px;
+      padding: 9px 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      background: #FFFFFF;
+    }
+
+    .inlineBlank:focus {
+      outline: 2px solid rgba(0, 94, 184, 0.18);
+      border-color: var(--hisense-blue);
+    }
+
+    @media (max-width: 640px) {
+      .inlineBlank {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+        .textInput {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.94rem;
+      color: var(--text-dark);
+      font-weight: 700;
+      background: #FFFFFF;
+    }
+
+    .textInput:focus {
+      outline: 2px solid rgba(0, 94, 184, 0.18);
+      border-color: var(--hisense-blue);
+    }
+        .grid5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .resultHero {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 26px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 90% 20%, rgba(0, 176, 80, 0.14), transparent 30%),
+        linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .medalBadge {
+      width: 104px;
+      height: 104px;
+      border-radius: 32px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-size: 2.4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--purple));
+      box-shadow: 0 16px 34px rgba(0, 94, 184, 0.22);
+    }
+
+    .resultHero h3 {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+      color: var(--text-dark);
+    }
+
+    .resultHero p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.94rem;
+    }
+
+    .competencyCard {
+      padding: 18px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .competencyIcon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .competencyIcon.blue {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+    }
+
+    .competencyIcon.green {
+      background: linear-gradient(135deg, var(--success), #059669);
+    }
+
+    .competencyIcon.warn {
+      background: linear-gradient(135deg, var(--yellow), #D97706);
+    }
+
+    .competencyIcon.purple {
+      background: linear-gradient(135deg, var(--purple), #4C1D95);
+    }
+
+    .competencyIcon.danger {
+      background: linear-gradient(135deg, var(--danger), #991B1B);
+    }
+
+    .competencyCard h3 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .competencyCard p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .finalStatement {
+      padding: 30px;
+      border-radius: 28px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 90% 12%, rgba(255, 255, 255, 0.18), transparent 28%),
+        linear-gradient(135deg, var(--hisense-blue-dark), var(--hisense-blue), var(--purple));
+      box-shadow: var(--shadow);
+    }
+
+    .finalStatement h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      line-height: 1.15;
+    }
+
+    .finalStatement p {
+      margin: 0;
+      max-width: 850px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    @media (max-width: 980px) {
+      .grid5 {
+        grid-template-columns: 1fr;
+      }
+
+      .resultHero {
+        grid-template-columns: 1fr;
+      }
+
+      .medalBadge {
+        width: 86px;
+        height: 86px;
+        font-size: 2rem;
+      }
+    }
+        .registerSentence {
+      font-size: 1rem;
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    .blankSlot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 170px;
+      margin: 0 6px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      border: 2px dashed rgba(0, 94, 184, 0.35);
+      background: rgba(0, 94, 184, 0.06);
+      color: var(--hisense-blue-dark);
+      font-weight: 900;
+      transition: 0.18s ease;
+    }
+
+    .blankSlot:hover {
+      background: rgba(0, 174, 239, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .blankSlot.filled {
+      border-style: solid;
+      border-color: var(--hisense-blue);
+      background: rgba(0, 94, 184, 0.1);
+    }
+
+    .blankSlot.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .blankSlot.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .wordBank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .wordChip {
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--text-dark);
+      padding: 10px 14px;
+      font-weight: 900;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .wordChip:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .wordChip.selected {
+      border-color: var(--hisense-blue);
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue-dark);
+    }
+
+    .wordChip.used {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .blankSlot {
+        display: flex;
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="gameWrapper">
+    <header class="topBar">
+      <div class="topBrand">
+        <div class="brandIcon">MC</div>
+        <div class="topBrandText">
+          <strong>Missão Classificação</strong>
+          <span>Dados, Decisão e Direcionamento | Desafio Final</span>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="topBtn historyBtn" id="historyToggle" type="button">
+          Ver histórico
+        </button>
+
+        <button class="topBtn focusBtn" id="focusToggle" type="button">
+          Modo foco
+        </button>
+      </div>
+    </header>
+
+    <div class="progressWrap">
+      <div class="progressInfo">
+        <span id="stepLabel">Etapa 1 de 26</span>
+        <span id="scoreLabel">Pontuação: 0</span>
+      </div>
+
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <aside class="historyDrawer" id="historyDrawer">
+      <div class="historyHeader">
+        <h3>Histórico da missão</h3>
+        <button class="historyClose" id="historyClose" type="button">X</button>
+      </div>
+
+      <div class="historyContent" id="historyContent">
+        <div class="historyItem">
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas fases.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="stage">
+
+      <section class="screen active" data-step="1" id="screen-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Desafio Final</span>
+          <h1>Missão Classificação</h1>
+          <p class="screenIntro">
+            Você vai praticar identificação de cenário, coleta de dados, decisão de finalização ou escalação, registro e classificação. A missão é provar que consegue decidir sozinho, sem transformar o atendimento em tentativa e erro.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="missionMap">
+            <div class="missionNode">
+              <div class="missionNumber">1</div>
+              <h3>Radar de Cenário</h3>
+              <p>Leia a fala do cliente e identifique a classificação mais provável.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">2</div>
+              <h3>Checklist Relâmpago</h3>
+              <p>Selecione os dados necessários conforme o cenário apresentado.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">3</div>
+              <h3>Finaliza ou Escala</h3>
+              <p>Decida se o atendimento resolve, permanece aberto ou precisa de outra área.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">4</div>
+              <h3>Registro Sem Ruído</h3>
+              <p>Identifique, organize e complete registros úteis para continuidade.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">5</div>
+              <h3>Chefão Final</h3>
+              <p>Resolva casos completos, digitando classificação e providência.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Como jogar</strong>
+            <p>
+              Cada fase tem feedback imediato. O objetivo não é memorizar uma tabela, mas reconhecer a intenção do cliente, capturar os dados certos e decidir o próximo passo com segurança.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Tempo estimado: 45 a 50 minutos.</span>
+          <div class="navButtons">
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar missão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="2" id="screen-rules">
+        <div class="screenHeader">
+          <span class="eyebrow">Regras do jogo</span>
+          <h2>O que você precisa fazer</h2>
+          <p class="screenIntro">
+            A missão foi desenhada para revisar os pontos mais críticos dos blocos de Matriz de Dados e Encerramento ou Escalação.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Decidir</span>
+              <h3>Leia a intenção</h3>
+              <p>
+                A primeira fala do cliente nem sempre entrega a classificação. Use o cenário para escolher o caminho.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Coletar</span>
+              <h3>Escolha dados úteis</h3>
+              <p>
+                A coleta deve ser proporcional ao caso: simples, orientativa ou completa.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Direcionar</span>
+              <h3>Resolvido ou aberto?</h3>
+              <p>
+                Decida se o atendimento finaliza, permanece aberto ou segue para outra área.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Meta da missão</strong>
+            <p>
+              Ao final, você verá seu desempenho em identificação de cenário, coleta de dados, decisão final, registro e classificação.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela inicia a Fase 1.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Começar Fase 1</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="3" id="screen-phase1-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 1</span>
+          <h2>Radar de Cenário</h2>
+          <p class="screenIntro">
+            Nesta fase, sua missão é ler a fala do cliente e identificar qual classificação representa melhor a intenção do contato.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Objetivo</span>
+              <h3>Reconhecer intenção</h3>
+              <p>
+                A primeira fala do cliente pode parecer simples, mas a classificação correta depende do cenário por trás da solicitação.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Como jogar</span>
+              <h3>Escolha a classificação</h3>
+              <p>
+                Leia a mensagem, escolha a classificação mais adequada e veja o feedback imediato.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Atenção</span>
+              <h3>Não chute pela palavra</h3>
+              <p>
+                Cliente pode falar “produto”, “assistência” ou “problema”, mas a intenção real é o que define o caminho.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Foco da fase</strong>
+            <p>
+              Diferenciar informação, compra, reclamação, solicitação de serviço, suporte técnico, sinistro e canais sensíveis.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Serão 4 rodadas rápidas.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar Radar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="4" id="screen-radar-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Radar de Cenário | 1 de 4</span>
+          <h2>Compra de acessório</h2>
+          <p class="screenIntro">
+            Leia a fala do cliente e escolha a classificação mais adequada.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Quero saber onde compro um controle remoto para minha TV.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar1', false, 'Atenção. Informação sobre Produto seria usada para dúvidas sobre função, manual, especificação ou orientação. Aqui o cliente quer comprar um item.')">
+              Informação sobre Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar1', true, 'Correto. O cliente quer comprar um acessório, então o cenário mais adequado é Onde Comprar.', 'Fase 1 | Radar 1', 'Identificou compra de acessório como Onde Comprar.')">
+              Onde Comprar
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar1', false, 'Atenção. Suporte Técnico exige necessidade de análise, falha persistente ou orientação especializada. O cliente quer comprar um controle remoto.')">
+              Suporte Técnico
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar1', false, 'Atenção. Solicitação de Serviço se aplica a instalação ou manutenção. O cliente quer comprar um acessório.')">
+              Solicitação de Serviço
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-radar1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A intenção é compra, não suporte.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-radar1" type="button" onclick="goNext()" disabled>Próxima rodada</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="5" id="screen-radar-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Radar de Cenário | 2 de 4</span>
+          <h2>Status de atendimento</h2>
+          <p class="screenIntro">
+            Identifique se o cliente está pedindo informação, reclamando ou solicitando abertura de atendimento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Quero saber o andamento da minha ordem de serviço.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar2', true, 'Correto. O cliente quer consultar o andamento da OS. Se for apenas status, o cenário é Informação ao Consumidor.', 'Fase 1 | Radar 2', 'Identificou consulta de status como Informação ao Consumidor.')">
+              Informação ao Consumidor
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar2', false, 'Atenção. VOC Reclamação seria mais adequado se o cliente estivesse relatando falha, atraso, visita não cumprida ou insatisfação que exige tratativa.')">
+              VOC Reclamação
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar2', false, 'Atenção. Abertura de OS se aplica quando há necessidade de formalizar um atendimento técnico. Aqui o cliente quer saber o andamento da OS existente.')">
+              Abertura de Ordem de Serviço
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar2', false, 'Atenção. Solicitação de Serviço é usada para indicação de instalação ou manutenção. Não é o caso apresentado.')">
+              Solicitação de Serviço
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-radar2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Status de OS tende a ser Informação ao Consumidor.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-radar2" type="button" onclick="goNext()" disabled>Próxima rodada</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="6" id="screen-radar-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Radar de Cenário | 3 de 4</span>
+          <h2>Falha na jornada</h2>
+          <p class="screenIntro">
+            Agora o cliente não quer apenas informação. Existe relato de falha na execução do atendimento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “A visita estava marcada para ontem e ninguém apareceu.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar3', false, 'Atenção. Informação ao Consumidor seria usada se o cliente quisesse apenas saber o status. Aqui há relato de falha na visita.')">
+              Informação ao Consumidor
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar3', true, 'Correto. Visita não cumprida indica falha na jornada e precisa de tratativa como VOC Reclamação.', 'Fase 1 | Radar 3', 'Identificou visita não cumprida como VOC Reclamação.')">
+              VOC Reclamação
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar3', false, 'Atenção. Sugestão/Elogios é usada para manifestações positivas ou sugestões. Aqui há uma reclamação sobre falha no atendimento.')">
+              Sugestão/Elogios
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar3', false, 'Atenção. Informação Institucional é usada para informações sobre a empresa, imprensa, marketing, comercial ou recursos humanos.')">
+              Informação Institucional
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-radar3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Falha na jornada exige tratativa, não apenas informação.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-radar3" type="button" onclick="goNext()" disabled>Próxima rodada</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="7" id="screen-radar-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Radar de Cenário | 4 de 4</span>
+          <h2>Possível cenário crítico</h2>
+          <p class="screenIntro">
+            Leia com atenção. O relato apresenta sinais que não devem ser tratados como defeito comum.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “O produto soltou cheiro de queimado e a tomada ficou escura.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar4', false, 'Atenção. Suporte Técnico pode ser usado para análise técnica, mas cheiro de queimado e dano na tomada indicam possível Sinistro.')">
+              Suporte Técnico
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar4', true, 'Correto. Cheiro de queimado e tomada escurecida indicam possível risco ou dano. O cenário mais adequado é Sinistro.', 'Fase 1 | Radar 4', 'Identificou cheiro de queimado e dano na tomada como possível Sinistro.')">
+              Sinistro
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar4', false, 'Atenção. Informação sobre Produto é usada para dúvidas ou orientações. Aqui existe relato de risco e dano.')">
+              Informação sobre Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'radar4', false, 'Atenção. Solicitação de Serviço é usada para instalação ou manutenção. O relato envolve possível risco e dano.')">
+              Solicitação de Serviço
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-radar4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Fase 1. A próxima fase será sobre dados necessários.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-radar4" type="button" onclick="goNext()" disabled>Ir para Fase 2</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="8" id="screen-phase2-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 2</span>
+          <h2>Checklist Relâmpago</h2>
+          <p class="screenIntro">
+            Nesta fase, sua missão é escolher quais dados são necessários para cada cenário. A coleta deve ser proporcional ao atendimento: nem dados demais, nem dados de menos.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Coleta simples</span>
+              <h3>Contato resolutivo</h3>
+              <p>
+                Usada quando o atendimento pode ser registrado e finalizado sem continuidade operacional.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Coleta orientativa</span>
+              <h3>Depende do produto</h3>
+              <p>
+                Usada quando a orientação depende de categoria, modelo, função, aplicativo, peça ou acessório.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillDanger">Coleta completa</span>
+              <h3>Precisa seguir</h3>
+              <p>
+                Usada quando o atendimento exige análise, abertura de OS, evidências, Recall, Sinistro ou continuidade.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Foco da fase</strong>
+            <p>
+              Selecione apenas o que faz sentido para o cenário. Dados demais deixam o atendimento pesado. Dados de menos podem travar a continuidade.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Serão 4 checklists rápidos.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar Checklist</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="9" id="screen-checklist-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Checklist Relâmpago | 1 de 4</span>
+          <h2>Sugestão ou elogio</h2>
+          <p class="screenIntro">
+            Escolha os dados necessários para registrar um elogio sobre atendimento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente quer elogiar o atendimento da assistência.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="check1">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="endereco" />
+              <span>Endereço completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo, se relacionado ao elogio</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="evidencia" />
+              <span>Evidência/foto</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('check1')">
+              Validar checklist
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-check1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Para elogio, a coleta deve ser simples.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-check1" type="button" onclick="goNext()" disabled>Próximo checklist</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="10" id="screen-checklist-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Checklist Relâmpago | 2 de 4</span>
+          <h2>Informação sobre produto</h2>
+          <p class="screenIntro">
+            Escolha os dados necessários para orientar sobre compatibilidade de aplicativo.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente quer saber se o produto é compatível com um aplicativo.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="check2">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="endereco" />
+              <span>Endereço completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="aplicativo" />
+              <span>Aplicativo ou função citada</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('check2')">
+              Validar checklist
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-check2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Se a orientação depende do produto, confirme o modelo.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-check2" type="button" onclick="goNext()" disabled>Próximo checklist</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="11" id="screen-checklist-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Checklist Relâmpago | 3 de 4</span>
+          <h2>Abertura de Ordem de Serviço</h2>
+          <p class="screenIntro">
+            Escolha os dados necessários para um caso em garantia que precisa de atendimento técnico.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente informa que o produto está em garantia e precisa abrir atendimento técnico.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="check3">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail válidos</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="endereco" />
+              <span>Endereço completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="midias" />
+              <span>Postagem em rede social</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('check3')">
+              Validar checklist
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-check3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Abertura de OS exige cadastro completo.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-check3" type="button" onclick="goNext()" disabled>Próximo checklist</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="12" id="screen-checklist-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Checklist Relâmpago | 4 de 4</span>
+          <h2>Possível Sinistro</h2>
+          <p class="screenIntro">
+            Escolha os dados e evidências necessários para um atendimento com risco ou dano.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente relata cheiro de queimado e dano na tomada.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="check4">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail válidos</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="endereco" />
+              <span>Endereço completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="evidencia" />
+              <span>Evidências/fotos</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="relato" />
+              <span>Relato detalhado do ocorrido</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="elogio" />
+              <span>Elogio do cliente</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('check4')">
+              Validar checklist
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-check4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Fase 2. A próxima fase será sobre decisão final.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-check4" type="button" onclick="goNext()" disabled>Ir para Fase 3</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 3</span>
+          <h2>Finaliza ou Escala?</h2>
+          <p class="screenIntro">
+            Nesta fase, sua missão é decidir o próximo caminho do atendimento: finalizar, manter aberto ou escalar para a área correta.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillGreen">Finalizar</span>
+              <h3>Quando resolve em linha</h3>
+              <p>
+                Use quando a orientação foi suficiente, não há pendência e o atendimento não precisa seguir para outra célula.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Manter aberto</span>
+              <h3>Quando existe continuidade</h3>
+              <p>
+                Use quando o caso precisa de retorno, análise, acompanhamento, documento ou atuação posterior.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillDanger">Escalar</span>
+              <h3>Quando outra área precisa atuar</h3>
+              <p>
+                Use quando o atendimento exige N2, Recall, Engenharia, Jurídico ou célula responsável.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Foco da fase</strong>
+            <p>
+              A decisão final deve refletir a continuidade real do atendimento. Nem todo atendimento aberto precisa ser resolvido na hora, e nem todo atendimento simples precisa ser escalado.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Serão 4 decisões rápidas.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar Fase 3</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="14" id="screen-decision-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Finaliza ou Escala | 1 de 4</span>
+          <h2>Cliente quer comprar uma peça</h2>
+          <p class="screenIntro">
+            Decida o caminho correto após orientar o cliente sobre onde comprar uma peça.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente quer saber onde comprar uma peça. O atendimento coletou a localização e orientou o caminho adequado.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision1', true, 'Correto. Onde Comprar tende a ser resolutivo quando a orientação foi suficiente. Após indicar o caminho correto, o atendimento pode ser finalizado.', 'Fase 3 | Decisão 1', 'Decidiu finalizar um atendimento resolutivo de Onde Comprar.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision1', false, 'Atenção. Se a orientação foi suficiente e não há pendência, o atendimento não precisa permanecer aberto.')">
+              <span class="decisionIcon warn">…</span>
+              Manter aberto
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision1', false, 'Atenção. Não há necessidade de N2 quando o cliente recebeu uma orientação simples de Onde Comprar.')">
+              <span class="decisionIcon purple">N2</span>
+              Escalar N2
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision1', false, 'Atenção. O caso não envolve análise técnica ou cenário crítico para Engenharia.')">
+              <span class="decisionIcon danger">E</span>
+              Escalar Engenharia
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-decision1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Atendimento resolutivo deve ser finalizado quando a orientação foi suficiente.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-decision1" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="15" id="screen-decision-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Finaliza ou Escala | 2 de 4</span>
+          <h2>Falha que exige suporte técnico</h2>
+          <p class="screenIntro">
+            Decida o caminho quando a orientação inicial não resolveu e o caso precisa de análise técnica.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente recebeu orientação de uso, tentou seguir o passo a passo, mas o produto continua apresentando falha que exige análise.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision2', false, 'Atenção. Se existe necessidade de análise técnica, o atendimento não deve ser finalizado como informação simples.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision2', true, 'Correto. Quando existe necessidade de análise técnica ou retorno especializado, o chamado deve permanecer aberto e seguir para suporte técnico.', 'Fase 3 | Decisão 2', 'Manteve aberto um atendimento com necessidade de suporte técnico.')">
+              <span class="decisionIcon warn">…</span>
+              Manter aberto / escalar Suporte Técnico
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision2', false, 'Atenção. Caso jurídico envolve PROCON, JEC ou processo. O cenário aqui é necessidade técnica.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision2', false, 'Atenção. Recall depende de critérios de modelo, voltagem, lote ou campanha. Aqui o cenário é falha técnica.')">
+              <span class="decisionIcon danger">R</span>
+              Escalar Recall
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-decision2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Se precisa de análise, não finalize como atendimento resolutivo.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-decision2" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="16" id="screen-decision-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Finaliza ou Escala | 3 de 4</span>
+          <h2>Produto aderente ao Recall</h2>
+          <p class="screenIntro">
+            Decida o caminho quando o cliente informa dados compatíveis com Recall Lava e Seca.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente informa Lava e Seca, modelo aderente, voltagem 110V e lote compatível com a campanha.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision3', false, 'Atenção. Produto com dados aderentes ao Recall não deve ser finalizado em linha sem o direcionamento correto.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision3', false, 'Atenção. Manter aberto é parte da continuidade, mas o direcionamento correto é para a célula responsável por Recall.')">
+              <span class="decisionIcon warn">…</span>
+              Apenas manter aberto sem direcionar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision3', true, 'Correto. Recall confirmado ou suspeito exige continuidade pela célula responsável. O caso deve ser mantido aberto e direcionado para Recall.', 'Fase 3 | Decisão 3', 'Direcionou corretamente um caso aderente a Recall.')">
+              <span class="decisionIcon danger">R</span>
+              Escalar Recall / manter aberto
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision3', false, 'Atenção. Jurídico se aplica a PROCON, JEC ou processo. O cenário é Recall Lava e Seca.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-decision3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Recall exige fluxo próprio e continuidade pela célula responsável.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-decision3" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="17" id="screen-decision-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Finaliza ou Escala | 4 de 4</span>
+          <h2>Tratativa jurídica</h2>
+          <p class="screenIntro">
+            Decida o caminho quando o cliente informa que existe sentença no Juizado.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente informa que possui sentença no Juizado e quer saber sobre o cumprimento.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision4', false, 'Atenção. Um caso com sentença no Juizado não deve ser finalizado como atendimento simples.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision4', false, 'Atenção. Manter aberto sem direcionar não basta. O caso precisa seguir fluxo jurídico.')">
+              <span class="decisionIcon warn">…</span>
+              Apenas manter aberto
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision4', false, 'Atenção. Recall depende de critérios de produto e campanha. O cenário apresentado é jurídico.')">
+              <span class="decisionIcon danger">R</span>
+              Escalar Recall
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'decision4', true, 'Correto. JEC envolve tratativa judicial. O atendimento deve ser direcionado para o fluxo jurídico e permanecer com continuidade adequada.', 'Fase 3 | Decisão 4', 'Direcionou corretamente um caso de JEC para fluxo jurídico.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico / manter aberto
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-decision4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Fase 3. A próxima fase será sobre registro.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-decision4" type="button" onclick="goNext()" disabled>Ir para Fase 4</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="18" id="screen-phase4-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 4</span>
+          <h2>Registro Sem Ruído</h2>
+          <p class="screenIntro">
+            Nesta fase, sua missão é identificar registros que ajudam a continuidade do atendimento. Um bom registro precisa mostrar o que aconteceu, qual cenário foi identificado e qual ação foi tomada.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Clareza</span>
+              <h3>O que aconteceu?</h3>
+              <p>
+                O registro precisa mostrar o relato do cliente de forma objetiva.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Contexto</span>
+              <h3>Qual cenário?</h3>
+              <p>
+                A observação deve deixar claro se é informação, reclamação, OS, Recall, Sinistro ou outro cenário.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Continuidade</span>
+              <h3>Qual ação?</h3>
+              <p>
+                A próxima área precisa entender o que já foi feito e o que precisa acontecer depois.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Foco da fase</strong>
+            <p>
+              Registro bom reduz retrabalho. Registro genérico faz a próxima pessoa perguntar tudo de novo.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Serão 3 desafios de registro.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar Fase 4</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="19" id="screen-register-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Registro Sem Ruído | 1 de 3</span>
+          <h2>Escolha o melhor registro</h2>
+          <p class="screenIntro">
+            O cenário envolve possível Sinistro. Escolha qual registro ajuda melhor a continuidade da análise.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente relata que o produto soltou cheiro de queimado e que a tomada ficou escurecida.
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'register1', false, 'Atenção. Esse registro é muito genérico. Não informa risco, dano, evidências nem direcionamento.')">
+              Cliente reclama de problema no produto.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'register1', true, 'Correto. O registro descreve o relato, o risco, as evidências e o direcionamento para possível Sinistro.', 'Fase 4 | Registro 1', 'Escolheu registro completo para possível Sinistro.')">
+              Cliente relata cheiro de queimado durante o uso. Produto desligou sozinho e tomada ficou escurecida. Cliente possui fotos da tomada, etiqueta e nota fiscal. Caso direcionado para análise de possível Sinistro.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'register1', false, 'Atenção. “Produto com defeito” não mostra o ocorrido. Em possível Sinistro, o registro precisa ser específico.')">
+              Produto com defeito. Verificar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'register1', false, 'Atenção. O registro não pode tratar cheiro de queimado e tomada escurecida como dúvida simples de uso.')">
+              Cliente com dúvida de uso. Orientado a verificar manual.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-register1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Registro precisa sustentar análise e continuidade.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-register1" type="button" onclick="goNext()" disabled>Próximo desafio</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="20" id="screen-register-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Registro Sem Ruído | 2 de 3</span>
+          <h2>Monte o registro em ordem</h2>
+          <p class="screenIntro">
+            Clique nos blocos na ordem correta para montar um registro coerente sobre uma reclamação de visita não cumprida.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente informa que a visita técnica estava agendada para ontem e não foi realizada.
+            </p>
+          </div>
+
+          <div class="orderGame">
+            <button class="orderBtn" data-order="3" onclick="selectOrderStep(this, 'order1')">
+              Cliente solicita tratativa da reclamação.
+            </button>
+
+            <button class="orderBtn" data-order="1" onclick="selectOrderStep(this, 'order1')">
+              Cliente relata visita técnica não cumprida.
+            </button>
+
+            <button class="orderBtn" data-order="5" onclick="selectOrderStep(this, 'order1')">
+              Providência relacionada a visita não cumprida.
+            </button>
+
+            <button class="orderBtn" data-order="2" onclick="selectOrderStep(this, 'order1')">
+              Visita estava agendada para data anterior.
+            </button>
+
+            <button class="orderBtn" data-order="4" onclick="selectOrderStep(this, 'order1')">
+              Caso registrado como VOC Reclamação.
+            </button>
+          </div>
+
+          <div class="orderProgress">
+            <span id="order1Progress">Etapa 0/5</span>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGhost" type="button" onclick="resetOrderGame('order1')">
+              Reiniciar ordem
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-order1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">O registro deve mostrar fato, contexto, classificação e providência.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-order1" type="button" onclick="goNext()" disabled>Próximo desafio</button>
+          </div>
+        </div>
+      </section>
+
+            <section class="screen" data-step="21" id="screen-register-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Registro Sem Ruído | 3 de 3</span>
+          <h2>Complete o registro com as informações certas</h2>
+          <p class="screenIntro">
+            Escolha no banco de palavras quais informações completam melhor o registro. O objetivo é entender quais dados ajudam a orientar a compra de um acessório.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente quer saber onde comprar controle remoto para uma TV Hisense.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Registro incompleto</h3>
+
+            <p class="registerSentence">
+              Cliente deseja comprar controle remoto. Necessário confirmar
+              <button class="blankSlot" id="blankSlot1" type="button" onclick="fillBlank('blankSlot1')">
+                escolher informação
+              </button>
+              e
+              <button class="blankSlot" id="blankSlot2" type="button" onclick="fillBlank('blankSlot2')">
+                escolher informação
+              </button>
+              para indicar o caminho adequado.
+            </p>
+
+            <div class="wordBank">
+              <button class="wordChip" type="button" onclick="selectWord(this, 'modelo')">
+                modelo da TV
+              </button>
+
+              <button class="wordChip" type="button" onclick="selectWord(this, 'localizacao')">
+                CEP ou localização
+              </button>
+
+              <button class="wordChip" type="button" onclick="selectWord(this, 'notaFiscal')">
+                nota fiscal
+              </button>
+
+              <button class="wordChip" type="button" onclick="selectWord(this, 'evidencia')">
+                foto do defeito
+              </button>
+
+              <button class="wordChip" type="button" onclick="selectWord(this, 'sinistro')">
+                relato de risco
+              </button>
+            </div>
+
+            <div class="navButtons" style="justify-content:flex-start; margin-top:16px;">
+              <button class="btn btnGreen" type="button" onclick="validateWordBlanks()">
+                Validar registro
+              </button>
+
+              <button class="btn btnGhost" type="button" onclick="resetWordBlanks()">
+                Limpar escolhas
+              </button>
+            </div>
+          </div>
+
+          <div class="feedbackBox" id="feedback-blanks"></div>
+
+          <div class="callout warn">
+            <strong>Dica</strong>
+            <p>
+              Para compra de acessório, pense no que ajuda a identificar o item correto e no que ajuda a indicar o canal ou posto mais adequado.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Fase 4. A próxima fase será o Chefão Final.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-blanks" type="button" onclick="goNext()" disabled>Ir para Chefão Final</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="22" id="screen-boss-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 5</span>
+          <h2>Chefão da Classificação</h2>
+          <p class="screenIntro">
+            Agora é a fase final. Você vai resolver casos completos, passando por sondagem, dados necessários, decisão de continuidade e classificação digitada.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Caso 1</span>
+              <h3>Acessório</h3>
+              <p>
+                Cliente quer comprar controle remoto. Você precisa identificar intenção, dados e classificação.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Caso 2</span>
+              <h3>Reclamação sensível</h3>
+              <p>
+                Cliente relata visita técnica não cumprida. Você precisa decidir se é informação ou reclamação.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillDanger">Caso 3</span>
+              <h3>Sinistro</h3>
+              <p>
+                Cliente relata cheiro de queimado e dano na tomada. Você precisa conduzir como cenário crítico.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Como funciona</strong>
+            <p>
+              Em cada caso, você vai escolher a melhor condução, selecionar os dados necessários, decidir se finaliza ou escala e digitar a classificação e providência.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Começaremos pelo caso de acessório.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar Chefão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="23" id="screen-boss1-step1">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 1</span>
+          <h2>Compra de controle remoto</h2>
+          <p class="screenIntro">
+            Leia a fala do cliente e escolha a melhor primeira condução.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Preciso comprar um controle remoto para minha TV Hisense.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss1-step1', true, 'Correto. A melhor condução é confirmar o modelo da TV e a localização para indicar o caminho adequado de compra do acessório.', 'Chefão 1 | Sondagem inicial', 'Identificou que a compra de controle remoto exige modelo e localização.')">
+              Confirmar o modelo da TV e a localização do cliente para orientar onde comprar o acessório.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss1-step1', false, 'Atenção. O cliente não relatou defeito. Abrir suporte técnico nesse momento seria um desvio de classificação.')">
+              Abrir Suporte Técnico, pois controle remoto é um item técnico.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss1-step1', false, 'Atenção. O cliente não pediu instalação nem manutenção. Solicitação de Serviço não é o melhor cenário.')">
+              Registrar como Solicitação de Serviço para indicar assistência.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss1-step1', false, 'Atenção. O cliente precisa de orientação. Finalizar sem sondagem não resolve o atendimento.')">
+              Finalizar, pois a central não vende controle remoto diretamente.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss1-step1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">O foco é identificar intenção: compra de acessório.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss1-step1" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="24" id="screen-boss1-step2">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 1</span>
+          <h2>Quais dados precisam ser coletados?</h2>
+          <p class="screenIntro">
+            Selecione as informações necessárias para orientar a compra do controle remoto.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente quer comprar um controle remoto para uma TV Hisense.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="boss1-check">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo da TV</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="localizacao" />
+              <span>CEP/endereço ou localização</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="evidencia" />
+              <span>Foto do dano</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="risco" />
+              <span>Relato de risco ou dano</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('boss1-check')">
+              Validar dados
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss1-check"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Para acessório, modelo e localização são essenciais.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss1-check" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="25" id="screen-boss1-step3">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 1</span>
+          <h2>Finaliza ou escala?</h2>
+          <p class="screenIntro">
+            Depois de orientar o cliente sobre o caminho para compra do acessório, decida o próximo passo.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              O atendimento confirmou que o cliente quer comprar um controle remoto, coletou modelo quando possível e localização para indicação.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss1-decision', true, 'Correto. Compra de acessório tende a ser resolutiva. Após orientar o caminho adequado, o atendimento pode ser finalizado.', 'Chefão 1 | Decisão final', 'Finalizou corretamente um caso resolutivo de compra de acessório.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar após orientação
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss1-decision', false, 'Atenção. Se não há defeito, risco, OS ou análise pendente, não há motivo para manter aberto.')">
+              <span class="decisionIcon warn">…</span>
+              Manter aberto
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss1-decision', false, 'Atenção. O cliente quer comprar um acessório. Não há necessidade de Engenharia.')">
+              <span class="decisionIcon danger">E</span>
+              Escalar Engenharia
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss1-decision', false, 'Atenção. Jurídico não se aplica a compra de controle remoto.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss1-decision"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Se a orientação foi suficiente, o caso pode ser finalizado.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss1-decision" type="button" onclick="goNext()" disabled>Classificar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="26" id="screen-boss1-classification">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 1</span>
+          <h2>Digite a classificação</h2>
+          <p class="screenIntro">
+            Agora digite a classificação e a providência corretas para o caso de compra de controle remoto.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Classificação</h3>
+              <input
+                id="boss1Classification"
+                type="text"
+                placeholder="Ex.: Onde Comprar"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Providência</h3>
+              <input
+                id="boss1Providence"
+                type="text"
+                placeholder="Ex.: Acessórios"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Possível causa / Providência 3</h3>
+              <input
+                id="boss1Cause"
+                type="text"
+                placeholder="Ex.: Não aplicável"
+                class="textInput"
+              />
+            </div>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateBossClassification('boss1')">
+              Validar classificação
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss1-classification"></div>
+
+          <div class="callout info">
+            <strong>Dica</strong>
+            <p>
+              O cliente quer comprar um controle remoto. O cenário está ligado à compra de acessório, não suporte técnico.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Depois da validação, avançaremos para o próximo caso.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss1-classification" type="button" onclick="goNext()" disabled>Próximo caso</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="27" id="screen-boss2-step1">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 2</span>
+          <h2>Reclamação sensível</h2>
+          <p class="screenIntro">
+            O cliente relata uma falha na jornada de atendimento. Sua missão é identificar se o caso é apenas consulta de status ou se precisa de tratativa como reclamação.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “O técnico não compareceu na data marcada e ninguém me deu retorno.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss2-step1', false, 'Atenção. O cliente não está pedindo apenas status. O cliente relata uma falha na visita e ausência de retorno.')">
+              Tratar como Informação ao Consumidor, pois o cliente quer saber do atendimento.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss2-step1', true, 'Correto. O cliente relata falha na jornada: visita não cumprida e ausência de retorno. O cenário tende a ser VOC Reclamação.', 'Chefão 2 | Identificação do cenário', 'Identificou reclamação por visita não cumprida e falta de retorno.')">
+              Tratar como VOC Reclamação, pois há relato de visita não cumprida e falha de retorno.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss2-step1', false, 'Atenção. O cliente não está elogiando nem fazendo sugestão. Existe uma reclamação sobre falha no atendimento.')">
+              Registrar como Sugestão/Elogios.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss2-step1', false, 'Atenção. O cliente não relatou risco, dano, cheiro de queimado ou incidente. Não é Sinistro.')">
+              Registrar como Sinistro.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss2-step1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A diferença aqui é: status simples ou falha na jornada?</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss2-step1" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="28" id="screen-boss2-step2">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 2</span>
+          <h2>Quais dados ajudam na tratativa?</h2>
+          <p class="screenIntro">
+            Selecione as informações necessárias para registrar e direcionar a reclamação de visita não cumprida.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente informa que a visita técnica estava marcada, mas não aconteceu. Também informa que não recebeu retorno.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="boss2-check">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail para retorno</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="os" />
+              <span>Número da OS ou protocolo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="data" />
+              <span>Data agendada da visita</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="historico" />
+              <span>Histórico do atendimento</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="relato" />
+              <span>Relato objetivo do cliente</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal obrigatória para esta reclamação</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="recall" />
+              <span>Lote de Recall</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('boss2-check')">
+              Validar dados
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss2-check"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Para reclamação, o registro precisa sustentar a tratativa.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss2-check" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="29" id="screen-boss2-step3">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 2</span>
+          <h2>Finaliza ou mantém aberto?</h2>
+          <p class="screenIntro">
+            Depois de identificar a reclamação, decida se o atendimento pode ser finalizado ou se precisa seguir para tratativa.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente relata visita técnica não cumprida e ausência de retorno. O caso precisa de apuração e continuidade.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss2-decision', false, 'Atenção. O cliente relata falha na jornada. Finalizar sem tratativa pode gerar recontato e insatisfação.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar após ouvir o cliente
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss2-decision', true, 'Correto. Reclamação de visita não cumprida exige continuidade. O caso deve permanecer aberto e seguir para tratativa adequada.', 'Chefão 2 | Decisão final', 'Manteve aberto um caso de VOC Reclamação por visita não cumprida.')">
+              <span class="decisionIcon warn">…</span>
+              Manter aberto / seguir para tratativa
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss2-decision', false, 'Atenção. O cenário não envolve engenharia ou sinistro. É uma falha de jornada de atendimento.')">
+              <span class="decisionIcon danger">E</span>
+              Escalar Engenharia
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss2-decision', false, 'Atenção. Jurídico se aplica a PROCON, JEC ou tratativa judicial. O cenário apresentado é reclamação operacional.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss2-decision"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Falha na jornada normalmente exige continuidade.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss2-decision" type="button" onclick="goNext()" disabled>Classificar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="30" id="screen-boss2-classification">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 2</span>
+          <h2>Digite a classificação</h2>
+          <p class="screenIntro">
+            Agora digite a classificação e a providência corretas para a reclamação de visita não cumprida.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Classificação</h3>
+              <input
+                id="boss2Classification"
+                type="text"
+                placeholder="Ex.: VOC Reclamação"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Providência</h3>
+              <input
+                id="boss2Providence"
+                type="text"
+                placeholder="Ex.: Não cumpriu visita"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Possível causa / Providência 3</h3>
+              <input
+                id="boss2Cause"
+                type="text"
+                placeholder="Ex.: Não aplicável"
+                class="textInput"
+              />
+            </div>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateBossClassification('boss2')">
+              Validar classificação
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss2-classification"></div>
+
+          <div class="callout info">
+            <strong>Dica</strong>
+            <p>
+              O cliente relata uma falha na visita técnica. O cenário não é apenas consulta de status, é reclamação sobre execução do atendimento.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Depois da validação, avançaremos para o terceiro caso.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss2-classification" type="button" onclick="goNext()" disabled>Próximo caso</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="31" id="screen-boss3-step1">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 3</span>
+          <h2>Possível Sinistro</h2>
+          <p class="screenIntro">
+            O cliente relata sinais de risco e possível dano. Sua missão é reconhecer o cenário crítico e evitar tratar como defeito comum.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Minha lava e seca soltou cheiro de queimado, desligou sozinha e a tomada ficou escura.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss3-step1', false, 'Atenção. O cliente não trouxe uma dúvida simples sobre uso ou função. O relato envolve cheiro de queimado e tomada escurecida.')">
+              Tratar como Informação sobre Produto e orientar consulta ao manual.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss3-step1', false, 'Atenção. Abertura de OS pode ser necessária em alguns defeitos, mas neste caso há sinais de possível risco e dano. O primeiro enquadramento deve considerar Sinistro.')">
+              Tratar como Abertura de Ordem de Serviço comum.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss3-step1', true, 'Correto. Cheiro de queimado, desligamento automático e tomada escurecida indicam possível Sinistro. A condução deve ser cuidadosa e sem orientar novo uso.', 'Chefão 3 | Identificação do cenário', 'Identificou cheiro de queimado e tomada escurecida como possível Sinistro.')">
+              Tratar como possível Sinistro, registrar com cuidado e aprofundar a sondagem de risco e evidências.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerSingleChoice(this, 'boss3-step1', false, 'Atenção. Não é correto normalizar o relato nem orientar o cliente a ligar novamente em possível cenário crítico.')">
+              Informar que é normal e orientar o cliente a ligar novamente.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss3-step1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Cheiro de queimado e dano são alertas de cenário crítico.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss3-step1" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="32" id="screen-boss3-step2">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 3</span>
+          <h2>Quais dados e evidências coletar?</h2>
+          <p class="screenIntro">
+            Selecione as informações necessárias para registrar e direcionar o possível Sinistro.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente relata cheiro de queimado, desligamento automático e tomada escurecida. Informa que possui foto da tomada e da etiqueta.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="boss3-check">
+            <label class="checkCard">
+              <input type="checkbox" value="nome" />
+              <span>Nome completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="telefone" />
+              <span>Telefone/e-mail válidos</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="endereco" />
+              <span>Endereço completo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="produto" />
+              <span>Produto/modelo</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nf" />
+              <span>Nota fiscal</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="evidencia" />
+              <span>Evidências/fotos</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="relato" />
+              <span>Relato detalhado do ocorrido</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="uso" />
+              <span>Orientação para ligar novamente</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="estoque" />
+              <span>Informação de estoque de peça</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="elogio" />
+              <span>Elogio sobre atendimento</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('boss3-check')">
+              Validar dados
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss3-check"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Sinistro exige cadastro completo, produto, nota fiscal, relato e evidências.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss3-check" type="button" onclick="goNext()" disabled>Próxima etapa</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="33" id="screen-boss3-step3">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 3</span>
+          <h2>Finaliza ou escala?</h2>
+          <p class="screenIntro">
+            Depois de identificar possível Sinistro, decida se o caso pode ser finalizado ou se precisa de continuidade especializada.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              O cliente relatou cheiro de queimado, tomada escurecida e possui evidências. O produto desligou sozinho.
+            </p>
+          </div>
+
+          <div class="decisionGrid">
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss3-decision', false, 'Atenção. Possível Sinistro não deve ser finalizado em linha. O caso precisa de análise e continuidade.')">
+              <span class="decisionIcon green">✓</span>
+              Finalizar após orientar o cliente
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss3-decision', false, 'Atenção. Manter aberto sem direcionamento não basta. O caso precisa seguir para análise especializada.')">
+              <span class="decisionIcon warn">…</span>
+              Apenas manter aberto, sem direcionar
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss3-decision', true, 'Correto. Possível Sinistro deve permanecer aberto e seguir para análise especializada, com dados completos e evidências.', 'Chefão 3 | Decisão final', 'Direcionou corretamente um possível Sinistro para análise especializada.')">
+              <span class="decisionIcon danger">E</span>
+              Manter aberto / escalar para análise especializada
+            </button>
+
+            <button class="decisionCard" type="button" onclick="answerSingleChoice(this, 'boss3-decision', false, 'Atenção. Jurídico não é o primeiro caminho do cenário apresentado. O relato indica possível Sinistro.')">
+              <span class="decisionIcon purple">J</span>
+              Direcionar Jurídico imediatamente
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss3-decision"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Sinistro exige continuidade e análise. Não finalize em linha.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss3-decision" type="button" onclick="goNext()" disabled>Classificar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="34" id="screen-boss3-step4">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 3</span>
+          <h2>O que não deve ser dito?</h2>
+          <p class="screenIntro">
+            Em possível Sinistro, a comunicação precisa ser segura. Marque as frases que devem ser evitadas.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cenário:</strong>
+            <p>
+              Cliente relata cheiro de queimado, tomada escurecida e preocupação com segurança.
+            </p>
+          </div>
+
+          <div class="checkGrid" data-checkgroup="boss3-avoid">
+            <label class="checkCard">
+              <input type="checkbox" value="ligar" />
+              <span>“Pode ligar novamente para testar.”</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="normal" />
+              <span>“Isso é normal.”</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="troca" />
+              <span>“A troca está garantida.”</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="registrar" />
+              <span>“Vou registrar as informações para análise.”</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="dados" />
+              <span>“Preciso confirmar dados e evidências.”</span>
+            </label>
+
+            <label class="checkCard">
+              <input type="checkbox" value="nada" />
+              <span>“Não deve ser nada grave.”</span>
+            </label>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateChecklist('boss3-avoid')">
+              Validar frases
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss3-avoid"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Em cenário crítico, evite minimizar e evite prometer solução.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss3-avoid" type="button" onclick="goNext()" disabled>Classificar atendimento</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="35" id="screen-boss3-classification">
+        <div class="screenHeader">
+          <span class="eyebrow">Chefão | Caso 3</span>
+          <h2>Digite a classificação</h2>
+          <p class="screenIntro">
+            Agora digite a classificação e a providência corretas para o possível Sinistro.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Classificação</h3>
+              <input
+                id="boss3Classification"
+                type="text"
+                placeholder="Ex.: Sinistro"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Providência</h3>
+              <input
+                id="boss3Providence"
+                type="text"
+                placeholder="Ex.: Análise do Sinistro"
+                class="textInput"
+              />
+            </div>
+
+            <div class="card">
+              <h3>Possível causa / Providência 3</h3>
+              <input
+                id="boss3Cause"
+                type="text"
+                placeholder="Ex.: Severidade Média"
+                class="textInput"
+              />
+            </div>
+          </div>
+
+          <div class="navButtons" style="justify-content:flex-start;">
+            <button class="btn btnGreen" type="button" onclick="validateBossClassification('boss3')">
+              Validar classificação
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-boss3-classification"></div>
+
+          <div class="callout info">
+            <strong>Dica</strong>
+            <p>
+              O relato envolve cheiro de queimado, desligamento automático e tomada escurecida. Esse conjunto indica possível Sinistro.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Depois da validação, você verá o resultado final da missão.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-boss3-classification" type="button" onclick="goNext()" disabled>Ver resultado</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="36" id="screen-result">
+        <div class="screenHeader">
+          <span class="eyebrow">Resultado Final</span>
+          <h2>Missão concluída</h2>
+          <p class="screenIntro">
+            Você concluiu o desafio final de classificação. Agora revise seu desempenho por competência e veja quais pontos precisam de reforço.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="resultHero">
+            <div class="medalBadge" id="medalBadge">
+              ?
+            </div>
+
+            <div>
+              <span class="pill pillBlue">Desempenho geral</span>
+              <h3 id="resultTitle">Resultado da missão</h3>
+              <p id="resultText">
+                Seu desempenho será calculado automaticamente com base nas decisões tomadas durante a missão.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid5">
+            <div class="competencyCard">
+              <div class="competencyIcon blue">1</div>
+              <h3>Identificação de cenário</h3>
+              <p id="competencyScenario">
+                Avalia se você reconheceu a intenção do cliente e escolheu a classificação mais provável.
+              </p>
+            </div>
+
+            <div class="competencyCard">
+              <div class="competencyIcon green">2</div>
+              <h3>Coleta de dados</h3>
+              <p id="competencyData">
+                Avalia se você selecionou os dados necessários sem excesso ou falta de informação.
+              </p>
+            </div>
+
+            <div class="competencyCard">
+              <div class="competencyIcon warn">3</div>
+              <h3>Decisão final</h3>
+              <p id="competencyDecision">
+                Avalia se você soube quando finalizar, manter aberto ou escalar.
+              </p>
+            </div>
+
+            <div class="competencyCard">
+              <div class="competencyIcon purple">4</div>
+              <h3>Registro</h3>
+              <p id="competencyRegister">
+                Avalia se você reconheceu registros claros, úteis e completos para continuidade.
+              </p>
+            </div>
+
+            <div class="competencyCard">
+              <div class="competencyIcon danger">5</div>
+              <h3>Classificação final</h3>
+              <p id="competencyClassification">
+                Avalia se você digitou corretamente classificação, providência e possível causa.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Resumo da missão</strong>
+            <p>
+              A classificação correta nasce da sondagem. A coleta de dados sustenta a continuidade. A decisão final define se o atendimento será resolvido, mantido aberto ou direcionado. O registro garante que a próxima etapa não comece do zero.
+            </p>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Quando finalizar</span>
+              <h3>Atendimento resolutivo</h3>
+              <p>
+                Finalize quando a orientação foi suficiente, não existe pendência e nenhuma outra célula precisa atuar.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Quando manter aberto</span>
+              <h3>Existe continuidade</h3>
+              <p>
+                Mantenha aberto quando há análise, retorno, documentação, acompanhamento ou tratativa em andamento.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillDanger">Quando escalar</span>
+              <h3>Outra área precisa atuar</h3>
+              <p>
+                Escale quando o caso exige N2, Recall, Engenharia, Jurídico ou outra célula responsável.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Frase de fixação</strong>
+            <p>
+              Classificar bem é entender o cenário, coletar o necessário, decidir o próximo passo e registrar com clareza.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Você pode revisar o histórico ou reiniciar a missão.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnGreen" type="button" onclick="openHistory()">Ver histórico</button>
+            <button class="btn btnWarn" type="button" onclick="restartMission()">Reiniciar missão</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Encerramento</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="37" id="screen-closing">
+        <div class="screenHeader">
+          <span class="eyebrow">Encerramento</span>
+          <h2>Missão Classificação finalizada</h2>
+          <p class="screenIntro">
+            Este desafio consolidou os principais pontos para tomar decisões de atendimento com mais segurança: identificar o cenário, coletar dados, definir continuidade, registrar e classificar corretamente.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillGreen">Você praticou</span>
+              <h3>Decisão de atendimento</h3>
+              <ul>
+                <li>Reconhecer intenção do cliente;</li>
+                <li>diferenciar informação, reclamação, serviço, suporte e cenário crítico;</li>
+                <li>selecionar dados proporcionais ao caso;</li>
+                <li>decidir entre finalizar, manter aberto ou escalar;</li>
+                <li>registrar de forma útil para continuidade.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <span class="pill pillBlue">Leve para a operação</span>
+              <h3>Raciocínio antes do clique</h3>
+              <ul>
+                <li>O que o cliente realmente quer?</li>
+                <li>Existe falha, risco ou canal sensível?</li>
+                <li>Quais dados sustentam o próximo passo?</li>
+                <li>O caso termina agora ou precisa continuar?</li>
+                <li>A classificação representa o cenário real?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="finalStatement">
+            <h3>Antes de classificar, confirme o cenário.</h3>
+            <p>
+              A qualidade da classificação não está apenas no campo selecionado. Está na escuta, na sondagem, na coleta correta e no registro que permite a continuidade do atendimento.
+            </p>
+          </div>
+
+          <div class="callout warn">
+            <strong>Momento Qualistore</strong>
+            <p>
+              Após concluir esta missão, revise os procedimentos aplicáveis às classificações com maior criticidade: abertura de OS, VOC Reclamação, Reclame Aqui, Mídias Sociais, Recall, Sinistro, PROCON e JEC.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim do EAD final.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar ao resultado</button>
+            <button class="btn btnWarn" type="button" onclick="restartMission()">Refazer missão</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+    <script>
+    const body = document.body;
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressFill = document.getElementById("progressFill");
+    const stepLabel = document.getElementById("stepLabel");
+    const scoreLabel = document.getElementById("scoreLabel");
+    const focusToggle = document.getElementById("focusToggle");
+    const historyToggle = document.getElementById("historyToggle");
+    const historyDrawer = document.getElementById("historyDrawer");
+    const historyClose = document.getElementById("historyClose");
+    const historyContent = document.getElementById("historyContent");
+
+    let currentScreenIndex = 0;
+    let score = 0;
+    let maxScore = 0;
+    let answeredItems = {};
+    let historyItems = [];
+    let orderExpected = {
+      order1: 1
+    };
+
+    const totalSteps = screens.length;
+
+    const checklistRules = {
+      check1: {
+        correct: ["nome", "produto"],
+        optional: ["produto"],
+        feedbackGood: "Boa escolha. Para sugestão ou elogio, a coleta deve ser simples. O produto/modelo só é necessário quando o elogio estiver relacionado ao produto ou atendimento específico.",
+        feedbackBad: "Ajuste necessário. Para sugestão ou elogio, a coleta deve ser simples. Nome completo é importante para registro, e produto/modelo pode ser usado se estiver relacionado ao elogio."
+      },
+      check2: {
+        correct: ["nome", "produto", "aplicativo"],
+        feedbackGood: "Correto. Quando a orientação depende de compatibilidade, produto/modelo e aplicativo citado são essenciais.",
+        feedbackBad: "Ajuste necessário. Para informação sobre compatibilidade, confirme nome, produto/modelo e aplicativo ou função citada."
+      },
+      check3: {
+        correct: ["nome", "telefone", "endereco", "produto", "nf"],
+        feedbackGood: "Correto. Abertura de OS exige cadastro completo, produto/modelo e nota fiscal para continuidade.",
+        feedbackBad: "Ajuste necessário. Abertura de OS exige nome, telefone/e-mail, endereço, produto/modelo e nota fiscal."
+      },
+      check4: {
+        correct: ["nome", "telefone", "endereco", "produto", "nf", "evidencia", "relato"],
+        feedbackGood: "Correto. Possível Sinistro exige cadastro completo, produto, nota fiscal, evidências e relato detalhado.",
+        feedbackBad: "Ajuste necessário. Em possível Sinistro, o registro precisa sustentar análise: dados completos, produto, nota fiscal, evidências e relato detalhado."
+      },
+      "boss1-check": {
+        correct: ["nome", "produto", "localizacao"],
+        feedbackGood: "Correto. Para compra de controle remoto, nome, produto/modelo e localização ajudam a orientar o caminho adequado.",
+        feedbackBad: "Ajuste necessário. Para compra de acessório, confirme nome, produto/modelo e localização. Nota fiscal e evidências não são essenciais nesse cenário."
+      },
+      "boss2-check": {
+        correct: ["nome", "telefone", "os", "data", "historico", "relato"],
+        feedbackGood: "Correto. Reclamação de visita não cumprida precisa de cliente, contato, OS/protocolo, data agendada, histórico e relato objetivo.",
+        feedbackBad: "Ajuste necessário. Para reclamação de visita não cumprida, registre cliente, contato, OS/protocolo, data agendada, histórico e relato."
+      },
+      "boss3-check": {
+        correct: ["nome", "telefone", "endereco", "produto", "nf", "evidencia", "relato"],
+        feedbackGood: "Correto. Possível Sinistro exige cadastro completo, produto/modelo, nota fiscal, evidências e relato detalhado.",
+        feedbackBad: "Ajuste necessário. Em Sinistro, não basta registrar o defeito. Capture dados completos, produto, nota fiscal, evidências e relato detalhado."
+      },
+      "boss3-avoid": {
+        correct: ["ligar", "normal", "troca", "nada"],
+        feedbackGood: "Correto. Em possível Sinistro, evite orientar novo uso, minimizar o relato ou prometer troca/solução antes da análise.",
+        feedbackBad: "Ajuste necessário. As frases a evitar são: orientar novo uso, dizer que é normal, prometer troca garantida ou minimizar o risco."
+      }
+    };
+
+    function initializeMission() {
+      maxScore =
+        document.querySelectorAll(".choiceGrid").length +
+        document.querySelectorAll(".decisionGrid").length +
+        Object.keys(checklistRules).length +
+        1 +
+        3;
+
+      updateScreenView();
+      updateScore();
+      updateHistory();
+    }
+
+    function goNext() {
+      if (currentScreenIndex < screens.length - 1) {
+        currentScreenIndex++;
+        updateScreenView();
+      }
+
+      if (screens[currentScreenIndex] && screens[currentScreenIndex].id === "screen-result") {
+        renderResult();
+      }
+    }
+
+    function goPrev() {
+      if (currentScreenIndex > 0) {
+        currentScreenIndex--;
+        updateScreenView();
+      }
+    }
+
+    function updateScreenView() {
+      screens.forEach(function (screen, index) {
+        screen.classList.toggle("active", index === currentScreenIndex);
+      });
+
+      const currentStep = currentScreenIndex + 1;
+      const percent = (currentStep / totalSteps) * 100;
+
+      progressFill.style.width = percent + "%";
+      stepLabel.textContent = "Etapa " + currentStep + " de " + totalSteps;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function updateScore() {
+      scoreLabel.textContent = "Pontuação: " + score;
+    }
+
+    function addScoreOnce(key, points) {
+      if (answeredItems[key]) return;
+      answeredItems[key] = true;
+      score += points;
+      updateScore();
+    }
+
+    function setFeedback(id, type, message) {
+      const feedback = document.getElementById(id);
+      if (!feedback) return;
+
+      feedback.className = "feedbackBox show " + type;
+      feedback.innerHTML = message;
+    }
+
+    function normalizeInput(value) {
+      return value
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function addHistory(title, text) {
+      historyItems.push({
+        title: title,
+        text: text
+      });
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      historyContent.innerHTML = "";
+
+      if (historyItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "historyItem";
+        empty.innerHTML = `
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas fases.</p>
+        `;
+        historyContent.appendChild(empty);
+        return;
+      }
+
+      historyItems.forEach(function (item, index) {
+        const historyItem = document.createElement("div");
+        historyItem.className = "historyItem";
+        historyItem.innerHTML = `
+          <strong>${index + 1}. ${item.title}</strong>
+          <p>${item.text}</p>
+        `;
+        historyContent.appendChild(historyItem);
+      });
+    }
+
+    function openHistory() {
+      historyDrawer.classList.add("open");
+    }
+
+    function closeHistory() {
+      historyDrawer.classList.remove("open");
+    }
+
+    historyToggle.addEventListener("click", function () {
+      openHistory();
+    });
+
+    historyClose.addEventListener("click", function () {
+      closeHistory();
+    });
+
+    focusToggle.addEventListener("click", async function () {
+      const game = document.getElementById("gameWrapper");
+
+      try {
+        if (!document.fullscreenElement) {
+          body.classList.add("focusMode");
+          focusToggle.textContent = "Sair do modo foco";
+          closeHistory();
+
+          if (game.requestFullscreen) {
+            await game.requestFullscreen();
+          } else if (game.webkitRequestFullscreen) {
+            await game.webkitRequestFullscreen();
+          } else if (game.msRequestFullscreen) {
+            await game.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            await document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            await document.msExitFullscreen();
+          }
+
+          body.classList.remove("focusMode");
+          focusToggle.textContent = "Modo foco";
+        }
+      } catch (error) {
+        body.classList.add("focusMode");
+        focusToggle.textContent = "Sair do modo foco";
+        closeHistory();
+
+        alert("O modo tela cheia foi bloqueado pelo navegador ou pela plataforma. Se isso acontecer, abra o conteúdo em uma nova aba ou use o modo tela cheia do player.");
+      }
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    document.addEventListener("webkitfullscreenchange", function () {
+      if (!document.webkitFullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    function answerSingleChoice(button, questionId, isCorrect, message, historyTitle, historyText) {
+      if (answeredItems[questionId]) return;
+
+      const parent =
+        button.closest(".choiceGrid") ||
+        button.closest(".decisionGrid");
+
+      if (parent) {
+        parent.querySelectorAll("button").forEach(function (btn) {
+          btn.disabled = true;
+        });
+      }
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        setFeedback("feedback-" + questionId, "good", message);
+        addScoreOnce(questionId, 1);
+
+        if (historyTitle && historyText) {
+          addHistory(historyTitle, historyText);
+        }
+      } else {
+        button.classList.add("incorrect");
+        setFeedback("feedback-" + questionId, "bad", message);
+        answeredItems[questionId] = true;
+
+        addHistory(
+          "Ajuste necessário",
+          "Uma alternativa incorreta foi selecionada. Revise o feedback da etapa para entender o melhor caminho."
+        );
+      }
+
+      const nextButton = document.getElementById("next-" + questionId);
+      if (nextButton) nextButton.disabled = false;
+    }
+
+    function validateChecklist(groupId) {
+      const group = document.querySelector('[data-checkgroup="' + groupId + '"]');
+      const feedbackId = "feedback-" + groupId;
+      const nextButton = document.getElementById("next-" + groupId);
+      const rule = checklistRules[groupId];
+
+      if (!group || !rule) return;
+
+      const checked = Array.from(group.querySelectorAll("input:checked")).map(function (input) {
+        return input.value;
+      });
+
+      const allBoxes = Array.from(group.querySelectorAll(".checkCard"));
+
+      allBoxes.forEach(function (label) {
+        label.classList.remove("correct", "incorrect", "selected");
+
+        const input = label.querySelector("input");
+        if (input.checked) label.classList.add("selected");
+      });
+
+      const correctSorted = [...rule.correct].sort().join("|");
+      const checkedSorted = [...checked].sort().join("|");
+
+      const isCorrect = correctSorted === checkedSorted;
+
+      allBoxes.forEach(function (label) {
+        const input = label.querySelector("input");
+        const value = input.value;
+
+        if (rule.correct.includes(value)) {
+          label.classList.add("correct");
+        }
+
+        if (input.checked && !rule.correct.includes(value)) {
+          label.classList.add("incorrect");
+        }
+      });
+
+      if (isCorrect) {
+        setFeedback(feedbackId, "good", rule.feedbackGood);
+        addScoreOnce(groupId, 1);
+
+        addHistory("Checklist validado", rule.feedbackGood);
+
+        if (nextButton) nextButton.disabled = false;
+      } else {
+        setFeedback(feedbackId, "bad", rule.feedbackBad);
+      }
+    }
+
+    function selectOrderStep(button, gameId) {
+      if (button.classList.contains("correctStep")) return;
+
+      const expected = orderExpected[gameId];
+      const clickedOrder = Number(button.getAttribute("data-order"));
+
+      if (clickedOrder === expected) {
+        button.classList.add("correctStep");
+        button.disabled = true;
+
+        orderExpected[gameId]++;
+        document.getElementById(gameId + "Progress").textContent =
+          "Etapa " + (orderExpected[gameId] - 1) + "/5";
+
+        if (orderExpected[gameId] > 5) {
+          setFeedback(
+            "feedback-" + gameId,
+            "good",
+            "Registro montado corretamente. A sequência mostra fato, contexto, solicitação, classificação e providência."
+          );
+
+          addScoreOnce(gameId, 1);
+          addHistory(
+            "Registro em ordem",
+            "Montou corretamente o registro de visita não cumprida."
+          );
+
+          const nextButton = document.getElementById("next-" + gameId);
+          if (nextButton) nextButton.disabled = false;
+        } else {
+          setFeedback(
+            "feedback-" + gameId,
+            "good",
+            "Etapa correta. Continue montando o registro."
+          );
+        }
+      } else {
+        button.classList.add("wrongStep");
+        setFeedback(
+          "feedback-" + gameId,
+          "bad",
+          "Essa não é a próxima etapa. Pense na ordem lógica: fato, contexto, solicitação, classificação e providência."
+        );
+
+        setTimeout(function () {
+          button.classList.remove("wrongStep");
+        }, 850);
+      }
+    }
+
+    function resetOrderGame(gameId) {
+      orderExpected[gameId] = 1;
+
+      document.querySelectorAll("#screen-register-2 .orderBtn").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correctStep", "wrongStep");
+      });
+
+      document.getElementById(gameId + "Progress").textContent = "Etapa 0/5";
+      setFeedback("feedback-" + gameId, "warn", "Ordem reiniciada. Comece novamente pelo fato relatado pelo cliente.");
+
+      const nextButton = document.getElementById("next-" + gameId);
+      if (nextButton) nextButton.disabled = true;
+    }
+
+        let selectedWord = null;
+    let selectedWordButton = null;
+
+    function selectWord(button, value) {
+      if (button.classList.contains("used")) return;
+
+      document.querySelectorAll(".wordChip").forEach(function (chip) {
+        chip.classList.remove("selected");
+      });
+
+      selectedWord = value;
+      selectedWordButton = button;
+      button.classList.add("selected");
+    }
+
+    function fillBlank(slotId) {
+      if (!selectedWord || !selectedWordButton) {
+        setFeedback(
+          "feedback-blanks",
+          "warn",
+          "Primeiro escolha uma palavra no banco de palavras. Depois clique na lacuna onde ela deve entrar."
+        );
+        return;
+      }
+
+      const slot = document.getElementById(slotId);
+
+      slot.textContent = selectedWordButton.textContent.trim();
+      slot.setAttribute("data-value", selectedWord);
+      slot.classList.add("filled");
+
+      selectedWordButton.classList.remove("selected");
+      selectedWordButton.classList.add("used");
+
+      selectedWord = null;
+      selectedWordButton = null;
+    }
+
+    function resetWordBlanks() {
+      selectedWord = null;
+      selectedWordButton = null;
+
+      document.querySelectorAll(".wordChip").forEach(function (chip) {
+        chip.classList.remove("selected", "used");
+      });
+
+      ["blankSlot1", "blankSlot2"].forEach(function (slotId) {
+        const slot = document.getElementById(slotId);
+        slot.textContent = "escolher informação";
+        slot.removeAttribute("data-value");
+        slot.classList.remove("filled", "correct", "incorrect");
+      });
+
+      const nextButton = document.getElementById("next-blanks");
+      if (nextButton) nextButton.disabled = true;
+
+      setFeedback(
+        "feedback-blanks",
+        "warn",
+        "Escolhas limpas. Selecione novamente as informações no banco de palavras."
+      );
+    }
+
+    function validateWordBlanks() {
+      const slot1 = document.getElementById("blankSlot1");
+      const slot2 = document.getElementById("blankSlot2");
+
+      const value1 = slot1.getAttribute("data-value");
+      const value2 = slot2.getAttribute("data-value");
+
+      slot1.classList.remove("correct", "incorrect");
+      slot2.classList.remove("correct", "incorrect");
+
+      if (!value1 || !value2) {
+        setFeedback(
+          "feedback-blanks",
+          "bad",
+          "Preencha as duas lacunas antes de validar o registro."
+        );
+        return;
+      }
+
+      const values = [value1, value2];
+
+      const hasModel = values.includes("modelo");
+      const hasLocation = values.includes("localizacao");
+
+      if (hasModel && hasLocation) {
+        slot1.classList.add(
+          value1 === "modelo" || value1 === "localizacao" ? "correct" : "incorrect"
+        );
+
+        slot2.classList.add(
+          value2 === "modelo" || value2 === "localizacao" ? "correct" : "incorrect"
+        );
+
+        setFeedback(
+          "feedback-blanks",
+          "good",
+          "Correto. Para compra de acessório, o modelo ajuda a identificar o item correto e o CEP ou localização ajuda a indicar o canal ou posto mais adequado."
+        );
+
+        addScoreOnce("blanks", 1);
+
+        addHistory(
+          "Registro completo",
+          "Completou o registro de compra de acessório usando modelo da TV e CEP/localização."
+        );
+
+        document.getElementById("next-blanks").disabled = false;
+      } else {
+        if (value1 === "modelo" || value1 === "localizacao") {
+          slot1.classList.add("correct");
+        } else {
+          slot1.classList.add("incorrect");
+        }
+
+        if (value2 === "modelo" || value2 === "localizacao") {
+          slot2.classList.add("correct");
+        } else {
+          slot2.classList.add("incorrect");
+        }
+
+        setFeedback(
+          "feedback-blanks",
+          "bad",
+          "Ajuste necessário. As informações esperadas são <strong>modelo da TV</strong> e <strong>CEP ou localização</strong>. Nota fiscal, foto do defeito e relato de risco não são essenciais nesse cenário."
+        );
+      }
+    }
+
+    function validateBossClassification(caseId) {
+      const classification = normalizeInput(document.getElementById(caseId + "Classification").value);
+      const providence = normalizeInput(document.getElementById(caseId + "Providence").value);
+      const cause = normalizeInput(document.getElementById(caseId + "Cause").value);
+
+      const feedbackId = "feedback-" + caseId + "-classification";
+      const nextButton = document.getElementById("next-" + caseId + "-classification");
+
+      if (!classification || !providence || !cause) {
+        setFeedback(feedbackId, "bad", "Preencha classificação, providência e possível causa antes de validar.");
+        return;
+      }
+
+      const rules = {
+        boss1: {
+          classification: ["onde comprar"],
+          providence: ["acessorios", "acessorio"],
+          cause: ["nao aplicavel", "não aplicável", "n/a", "na", "nao se aplica", "não se aplica", "sem providencia 3", "sem providência 3"],
+          success: `
+            <strong>Classificação correta.</strong><br>
+            O cliente quer comprar controle remoto, então o cenário é:
+            <ul>
+              <li><strong>Classificação:</strong> Onde Comprar</li>
+              <li><strong>Providência:</strong> Acessórios</li>
+              <li><strong>Providência 3:</strong> Não aplicável</li>
+            </ul>
+          `,
+          error: "A classificação esperada é Onde Comprar, com providência Acessórios e Providência 3 como Não aplicável."
+        },
+        boss2: {
+          classification: ["voc reclamacao", "voc reclamação", "reclamacao", "reclamação"],
+          providence: ["nao cumpriu visita", "não cumpriu visita", "visita nao cumprida", "visita não cumprida"],
+          cause: ["nao aplicavel", "não aplicável", "n/a", "na", "nao se aplica", "não se aplica", "sem providencia 3", "sem providência 3"],
+          success: `
+            <strong>Classificação correta.</strong><br>
+            O cliente relata visita não cumprida e ausência de retorno. O cenário é:
+            <ul>
+              <li><strong>Classificação:</strong> VOC Reclamação</li>
+              <li><strong>Providência:</strong> Não cumpriu visita</li>
+              <li><strong>Providência 3:</strong> Não aplicável</li>
+            </ul>
+          `,
+          error: "A classificação esperada é VOC Reclamação, com providência Não cumpriu visita e Providência 3 como Não aplicável."
+        },
+        boss3: {
+          classification: ["sinistro", "possivel sinistro", "possível sinistro"],
+          providence: ["analise do sinistro", "análise do sinistro", "analise de sinistro", "análise de sinistro", "analise sinistro", "análise sinistro"],
+          cause: ["severidade media", "severidade média", "media", "média"],
+          success: `
+            <strong>Classificação correta.</strong><br>
+            O cliente relata cheiro de queimado, desligamento automático e tomada escurecida. O cenário é:
+            <ul>
+              <li><strong>Classificação:</strong> Sinistro</li>
+              <li><strong>Providência:</strong> Análise do Sinistro</li>
+              <li><strong>Providência 3:</strong> Severidade Média</li>
+            </ul>
+          `,
+          error: "A classificação esperada é Sinistro, com providência Análise do Sinistro e Providência 3 como Severidade Média."
+        }
+      };
+
+      const rule = rules[caseId];
+
+      const classificationOk = rule.classification.map(normalizeInput).includes(classification);
+      const providenceOk = rule.providence.map(normalizeInput).includes(providence);
+      const causeOk = rule.cause.map(normalizeInput).includes(cause);
+
+      if (classificationOk && providenceOk && causeOk) {
+        setFeedback(feedbackId, "good", rule.success);
+        addScoreOnce(caseId + "-classification", 1);
+
+        addHistory("Classificação final", "Classificação digitada corretamente no " + caseId + ".");
+
+        if (nextButton) nextButton.disabled = false;
+      } else {
+        setFeedback(
+          feedbackId,
+          "bad",
+          "<strong>Ajuste necessário.</strong><br>" +
+          rule.error +
+          "<br><br>A validação aceita acentos, maiúsculas/minúsculas e espaços extras, mas a intenção precisa corresponder ao cenário correto."
+        );
+      }
+    }
+
+    function renderResult() {
+      const resultTitle = document.getElementById("resultTitle");
+      const resultText = document.getElementById("resultText");
+      const medalBadge = document.getElementById("medalBadge");
+
+      const percent = Math.round((score / maxScore) * 100);
+
+      if (percent >= 90) {
+        medalBadge.textContent = "🏆";
+        resultTitle.textContent = "Excelente desempenho";
+        resultText.textContent = "Você demonstrou domínio na identificação de cenário, coleta de dados, decisão final, registro e classificação.";
+      } else if (percent >= 75) {
+        medalBadge.textContent = "🥇";
+        resultTitle.textContent = "Bom desempenho";
+        resultText.textContent = "Você demonstrou boa compreensão da lógica de classificação. Revise os pontos marcados no histórico.";
+      } else if (percent >= 55) {
+        medalBadge.textContent = "🥈";
+        resultTitle.textContent = "Reforço recomendado";
+        resultText.textContent = "Você acertou parte importante da missão, mas deve revisar cenários sensíveis, coleta de dados e decisão de escalação.";
+      } else {
+        medalBadge.textContent = "🔁";
+        resultTitle.textContent = "Refazer missão";
+        resultText.textContent = "Vale refazer a missão e revisar os procedimentos antes de aplicar em operação.";
+      }
+
+      updateCompetencies(percent);
+    }
+
+    function updateCompetencies(percent) {
+      const scenario = document.getElementById("competencyScenario");
+      const data = document.getElementById("competencyData");
+      const decision = document.getElementById("competencyDecision");
+      const register = document.getElementById("competencyRegister");
+      const classification = document.getElementById("competencyClassification");
+
+      const message =
+        percent >= 75
+          ? "Competência demonstrada durante a missão."
+          : "Revise esta competência nos feedbacks e procedimentos relacionados.";
+
+      scenario.textContent = message;
+      data.textContent = message;
+      decision.textContent = message;
+      register.textContent = message;
+      classification.textContent = message;
+    }
+
+    function restartMission() {
+      currentScreenIndex = 0;
+      score = 0;
+      answeredItems = {};
+      historyItems = [];
+      orderExpected = {
+        order1: 1
+      };
+
+      document.querySelectorAll("button").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correct", "incorrect", "correctStep", "wrongStep");
+      });
+
+      document.querySelectorAll(".feedbackBox").forEach(function (feedback) {
+        feedback.className = "feedbackBox";
+        feedback.innerHTML = "";
+      });
+
+      document.querySelectorAll("input").forEach(function (input) {
+        if (input.type === "checkbox") {
+          input.checked = false;
+        } else {
+          input.value = "";
+        }
+      });
+            selectedWord = null;
+      selectedWordButton = null;
+
+      document.querySelectorAll(".wordChip").forEach(function (chip) {
+        chip.classList.remove("selected", "used");
+      });
+
+      ["blankSlot1", "blankSlot2"].forEach(function (slotId) {
+        const slot = document.getElementById(slotId);
+        if (slot) {
+          slot.textContent = "escolher informação";
+          slot.removeAttribute("data-value");
+          slot.classList.remove("filled", "correct", "incorrect");
+        }
+      });
+
+      document.querySelectorAll(".checkCard").forEach(function (card) {
+        card.classList.remove("selected", "correct", "incorrect");
+      });
+
+      const nextIds = [
+        "next-radar1", "next-radar2", "next-radar3", "next-radar4",
+        "next-check1", "next-check2", "next-check3", "next-check4",
+        "next-decision1", "next-decision2", "next-decision3", "next-decision4",
+        "next-register1", "next-order1", "next-blanks",
+        "next-boss1-step1", "next-boss1-check", "next-boss1-decision", "next-boss1-classification",
+        "next-boss2-step1", "next-boss2-check", "next-boss2-decision", "next-boss2-classification",
+        "next-boss3-step1", "next-boss3-check", "next-boss3-decision", "next-boss3-avoid", "next-boss3-classification"
+      ];
+
+      nextIds.forEach(function (id) {
+        const btn = document.getElementById(id);
+        if (btn) btn.disabled = true;
+      });
+
+      const orderProgress = document.getElementById("order1Progress");
+      if (orderProgress) orderProgress.textContent = "Etapa 0/5";
+
+      closeHistory();
+      updateHistory();
+      updateScore();
+      updateScreenView();
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        const activeScreen = screens[currentScreenIndex];
+        const nextButton = activeScreen.querySelector(".screenFooter .btnPrimary:not(:disabled)");
+
+        if (nextButton) {
+          nextButton.click();
+        }
+      }
+
+      if (event.key === "ArrowLeft") {
+        goPrev();
+      }
+
+      if (event.key === "Escape") {
+        closeHistory();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initializeMission();
+    });
+  </script>
+</body>
+</html>

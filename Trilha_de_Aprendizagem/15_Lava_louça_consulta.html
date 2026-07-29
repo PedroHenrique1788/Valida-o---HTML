@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Gorenje Lava-Louças | Consulta Operacional</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --bg-soft: #F4F8FB;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --purple: #7C3AED;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --shadow: 0 12px 30px rgba(0, 63, 125, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(0, 176, 80, 0.14), transparent 34%),
+        linear-gradient(135deg, #EEF7FF 0%, #F9FCFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 310px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: #FFFFFF;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.2);
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--hisense-green);
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.22);
+    }
+
+    .brandBlock h1 {
+      margin: 18px 0 8px;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .sideSearch {
+      margin: 24px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .practiceBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0, 176, 80, 0.16);
+      border: 1px solid rgba(0, 176, 80, 0.34);
+    }
+
+    .practiceBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .practiceBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .practiceToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: linear-gradient(135deg, var(--hisense-green), #009BAA);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 176, 80, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 46px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(0, 174, 239, 0.26), transparent 34%),
+        radial-gradient(circle at 12% 85%, rgba(0, 176, 80, 0.2), transparent 36%),
+        linear-gradient(135deg, #003F7D, #005EB8 54%, #00AEEF);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.04rem;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 1.64rem;
+      line-height: 1.2;
+    }
+
+    .sectionIntro {
+      max-width: 920px;
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(0, 176, 80, 0.1);
+      color: var(--hisense-green);
+    }
+
+    .pillCyan {
+      background: rgba(0, 174, 239, 0.12);
+      color: #007EA7;
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      overflow: hidden;
+      padding: 0;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 18px rgba(31, 41, 51, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 20px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--hisense-blue-dark);
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.09);
+      color: var(--hisense-blue);
+      font-weight: 800;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .detailsContent {
+      padding: 0 20px 20px;
+      color: var(--text-medium);
+      font-size: 0.94rem;
+    }
+
+    .detailsContent p {
+      margin-top: 0;
+    }
+
+    .imagePlaceholder {
+      margin: 16px 0;
+      padding: 24px;
+      border-radius: 18px;
+      border: 2px dashed rgba(0, 94, 184, 0.35);
+      background: rgba(0, 94, 184, 0.05);
+      color: var(--hisense-blue-dark);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .speechBox {
+      margin: 14px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(0, 174, 239, 0.12), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 174, 239, 0.22);
+    }
+
+    .speechBox strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .speechBox p {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .quickSearchBar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .quickSearchBar input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      background: #FFFFFF;
+      font-size: 0.96rem;
+      outline: none;
+    }
+
+    .quickSearchBar button {
+      padding: 14px 18px;
+      border: none;
+      border-radius: 16px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tagList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.08);
+      color: var(--hisense-blue-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .tableWrap {
+      overflow-x: auto;
+      margin-top: 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: #FFFFFF;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--hisense-blue-dark);
+      background: rgba(0, 94, 184, 0.08);
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .practiceMode .learningContent {
+      display: none !important;
+    }
+
+    .practiceMode .practiceOnly {
+      display: block !important;
+    }
+
+    .practiceOnly {
+      display: none;
+    }
+
+    .gameCard {
+      padding: 24px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+    }
+
+    .gameHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .scoreBadge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 176, 80, 0.12);
+      color: var(--success);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .questionText {
+      margin: 0 0 16px;
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .optionBtn {
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      background: #FFFFFF;
+      padding: 14px 16px;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .optionBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .optionBtn.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    .optionBtn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 15px;
+      font-size: 0.92rem;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      background: rgba(22, 163, 74, 0.1);
+      color: #166534;
+    }
+
+    .feedback.bad {
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .nextBtn {
+      display: none;
+      margin-top: 14px;
+      border: none;
+      border-radius: 14px;
+      background: var(--hisense-blue);
+      color: #FFFFFF;
+      font-weight: 800;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .nextBtn.show {
+      display: inline-flex;
+    }
+
+    .finalSummary {
+      display: none;
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 94, 184, 0.18);
+    }
+
+    .finalSummary.show {
+      display: block;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    .footer {
+      margin: 36px 0 10px;
+      padding: 22px;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1080px) {
+      #mainWrapper {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .grid4 {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+
+      .quickSearchBar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          EAD Consultivo
+        </div>
+
+        <h1>Gorenje Lava-Louças</h1>
+
+        <p>
+          Consulta rápida sobre modelos, instalação, manutenção, códigos de erro e ConnectLife.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por código, sintoma, modelo ou tema..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do EAD">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+          #inicioInício</a>
+          #modelosModelos</a>
+          #funcionamentoComo funciona</a>
+          #instalacaoInstalação</a>
+          #identificacaoIdentificação</a>
+          #limpezaLimpeza e manutenção</a>
+          #codigosCódigos de erro</a>
+          #connectlifeConnectLife</a>
+          #consultaConsulta rápida</a>
+          #praticaModo prática</a>
+          #jogosJogos</a>
+        </div>
+      </nav>
+
+      <div class="practiceBox">
+        <h3>Modo prática</h3>
+        <p>
+          Oculte a consulta e teste se você consegue reconhecer o cenário do cliente.
+        </p>
+        <button class="practiceToggle" id="practiceToggle">
+          Ativar modo prática
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início lava louças gorenje GV66260BR GV693C60UVBR ead consulta produto">
+        <div class="heroContent">
+          <div class="heroTag">Hisense Gorenje | Linha Branca</div>
+
+          <h2>Lava-Louças Gorenje: produto, funcionamento e principais ocorrências</h2>
+
+          <p>
+            Este EAD foi criado para apoiar a consulta no dia a dia. Aqui você encontrará as principais informações sobre os modelos, pontos de instalação, limpeza, manutenção, códigos de erro, sintomas frequentes e conectividade ConnectLife.
+          </p>
+
+          <div class="heroActions">
+            #consultaConsultar código ou sintoma</a>
+            #codigosVer códigos de erro</a>
+            #connectlifeConnectLife</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="learningContent">
+
+        <section class="section searchable" id="modelos" data-keywords="modelos GV66260BR GV693C60UVBR lava louças gorenje connectlife">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 1</span>
+              <h2>Modelos contemplados</h2>
+              <p class="sectionIntro">
+                Os modelos trabalhados neste EAD são GV66260BR e GV693C60UVBR. Ambos possuem tópicos de instalação, identificação, nicho, porta de marcenaria, acessórios, limpeza, manutenção, programação e códigos de erro. O GV693C60UVBR também possui conectividade ConnectLife.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Visão geral</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card searchable" data-keywords="GV66260BR instalação elétrica hidráulica identificação nicho marcenaria acessórios limpeza manutenção programação códigos erro">
+              <h3>GV66260BR</h3>
+              <p>
+                Modelo de lava-louças Gorenje com conteúdos voltados a instalação, requisitos elétricos e hidráulicos, identificação, nicho, porta de marcenaria, acessórios, limpeza, manutenção, programação e códigos de erro.
+              </p>
+
+              <div class="tagList">
+                <span class="tag">Instalação</span>
+                <span class="tag">Limpeza</span>
+                <span class="tag">Códigos</span>
+                <span class="tag">Programação</span>
+              </div>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Produto GV66260BR ou visão frontal da lava-louças
+              </div>
+            </div>
+
+            <div class="card searchable" data-keywords="GV693C60UVBR connectlife wifi aplicativo instalação identificação códigos erro">
+              <h3>GV693C60UVBR</h3>
+              <p>
+                Modelo de lava-louças Gorenje com os mesmos temas essenciais de produto e uma camada adicional de conectividade pelo aplicativo ConnectLife.
+              </p>
+
+              <div class="tagList">
+                <span class="tag">Instalação</span>
+                <span class="tag">Códigos</span>
+                <span class="tag">ConnectLife</span>
+                <span class="tag">Wi-Fi 2.4 GHz</span>
+              </div>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Produto GV693C60UVBR ou tela de conectividade ConnectLife
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Como usar esta informação no atendimento</p>
+            <p class="calloutText">
+              Antes de falar sobre código, instalação, programação ou ConnectLife, confirme o modelo. Isso evita orientar um recurso que não se aplica ao produto do cliente.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="funcionamento" data-keywords="funcionamento lava louças água energia drenagem filtro sifão limpeza programa lavagem secagem">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 2</span>
+              <h2>O que a lava-louças precisa para funcionar bem</h2>
+              <p class="sectionIntro">
+                A lava-louças depende de condições básicas para entregar bom desempenho: energia adequada, entrada de água, saída de água, instalação correta, uso de programa adequado e manutenção dos pontos de limpeza.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Produto em foco</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card">
+              <h3>Energia</h3>
+              <p>
+                O produto precisa estar conectado em tomada adequada, com aterramento e tensão compatível. Adaptadores, extensões e benjamins não devem ser usados.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Água</h3>
+              <p>
+                A entrada de água precisa estar disponível e sem bloqueios. Muitos códigos de entrada aparecem quando o produto não recebe água suficiente.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Drenagem</h3>
+              <p>
+                A saída de água depende de mangueira, sifão, filtro e drenagem sem obstrução. Falhas nessa área podem gerar água acumulada ou códigos específicos.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid3" style="margin-top: 18px;">
+            <div class="card">
+              <h3>Instalação</h3>
+              <p>
+                Nicho, porta de marcenaria e encaixe correto impactam abertura, fechamento, nivelamento e funcionamento percebido pelo cliente.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Uso</h3>
+              <p>
+                Programa escolhido, carregamento das louças e produtos utilizados influenciam o resultado final de lavagem.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Manutenção</h3>
+              <p>
+                Filtros, braços de pulverização, sifão e limpeza periódica ajudam a evitar mau desempenho, água parada e mensagens de limpeza.
+              </p>
+            </div>
+          </div>
+
+          <div class="speechBox">
+            <strong>Fala simples para o cliente</strong>
+            <p>
+              “Para entender o que está acontecendo, vamos confirmar se o produto está recebendo energia, água e se a drenagem está funcionando. Esses pontos influenciam diretamente o funcionamento da lava-louças.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="instalacao" data-keywords="instalação requisitos elétricos hidráulicos tomada aterramento extensão benjamin adaptador tensão nicho marcenaria porta fixa deslizante">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 3</span>
+              <h2>Instalação e condições de funcionamento</h2>
+              <p class="sectionIntro">
+                A instalação pode impactar diretamente a experiência do cliente. Quando a lava-louças apresenta erro logo após instalação, falha de entrada de água, dificuldade de drenagem ou problema de porta, vale verificar se as condições básicas foram atendidas.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Atenção ao escopo</span>
+          </div>
+
+          <div class="accordion">
+
+            <details open class="searchable" data-keywords="requisitos elétricos tomada terra aterramento pino terra garantia extensão adaptador benjamin tensão">
+              <summary>Requisitos elétricos principais</summary>
+
+              <div class="detailsContent">
+                <p>
+                  A lava-louças deve ser conectada a uma tomada adequada, com ligação à terra. A remoção do pino terra descaracteriza a condição correta de uso e pode impactar garantia.
+                </p>
+
+                <p>
+                  Não devem ser utilizadas extensões, tomadas múltiplas, adaptadores, benjamins ou mecanismos de adaptação entre o cabo e a tomada. Antes da conexão, a tensão precisa ser compatível com o produto.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que buscar com o cliente</h3>
+                    <ul>
+                      <li>O produto está ligado direto na tomada?</li>
+                      <li>A tomada possui aterramento?</li>
+                      <li>Há uso de extensão, adaptador ou benjamin?</li>
+                      <li>A tensão foi conferida antes da instalação?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Orientação segura</h3>
+                    <p>
+                      Se houver adaptação elétrica, oriente a regularização com profissional qualificado antes de seguir com qualquer análise de funcionamento.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Para segurança e funcionamento correto, a lava-louças precisa estar ligada diretamente em uma tomada adequada, com aterramento e sem adaptadores, extensões ou benjamins.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos elétricos da lava-louças
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="requisitos hidráulicos entrada água saída água mangueira sifão drenagem torneira filtro externo aqua stop">
+              <summary>Requisitos hidráulicos: entrada e saída de água</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O funcionamento depende de entrada de água adequada e saída de água livre. Quando há falha de entrada, drenagem ou água acumulada, a triagem deve considerar torneira, mangueira de entrada, filtro externo, mangueira de saída e sifão.
+                </p>
+
+                <p>
+                  O atendimento não deve orientar intervenção técnica na instalação. A função aqui é reconhecer sinais básicos, registrar o cenário e direcionar a validação quando necessário.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Entrada de água</h3>
+                    <ul>
+                      <li>A torneira está aberta?</li>
+                      <li>Há água chegando ao ponto?</li>
+                      <li>A mangueira de entrada está conectada?</li>
+                      <li>O filtro externo pode estar bloqueado?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Saída de água</h3>
+                    <ul>
+                      <li>Há água acumulada no interior?</li>
+                      <li>A mangueira de drenagem está dobrada?</li>
+                      <li>O sifão pode estar obstruído?</li>
+                      <li>O erro apareceu durante ou ao fim do ciclo?</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Requisitos hidráulicos de entrada e drenagem
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="nicho medida embutir marcenaria porta fixa porta deslizante instalação embutida">
+              <summary>Nicho e porta de marcenaria</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Como produto de embutir, a lava-louças precisa estar instalada em nicho adequado. A instalação da porta de marcenaria também pode influenciar abertura, fechamento, encaixe, alinhamento e percepção de funcionamento.
+                </p>
+
+                <p>
+                  Existem orientações específicas para porta deslizante e porta fixa. No atendimento, o ideal é confirmar qual tipo de instalação o cliente possui e se o problema começou após montagem da marcenaria.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>A porta de marcenaria já foi instalada?</li>
+                      <li>A porta é fixa ou deslizante?</li>
+                      <li>A dificuldade ocorre ao abrir, fechar ou iniciar o ciclo?</li>
+                      <li>O problema começou após instalação no nicho?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Cuidado</h3>
+                    <p>
+                      Não oriente ajustes de marcenaria, desmontagem ou alteração de instalação. Quando houver dúvida sobre encaixe ou porta, registre e siga o fluxo autorizado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Nicho de instalação da lava-louças
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Porta de marcenaria fixa e porta deslizante
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="acessórios instalação peças encaixes kit suportes lava louças">
+              <summary>Acessórios e itens de instalação</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Acessórios e itens de instalação ajudam no encaixe correto do produto e na montagem conforme o projeto. Quando o cliente relata falta de peça, dúvida de montagem ou dificuldade na instalação, registre exatamente o item mencionado.
+                </p>
+
+                <p>
+                  Se o cliente não souber identificar a peça, solicite descrição ou foto quando o processo permitir. Evite orientar adaptações ou substituições improvisadas.
+                </p>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Para entender melhor, preciso identificar qual item está faltando ou causando dúvida. Se possível, descreva a peça ou envie uma foto conforme o canal permitir.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Acessórios de instalação da lava-louças
+                </div>
+              </div>
+            </details>
+
+          </div>
+
+          <div class="successCallout">
+            <p class="calloutTitle">Resumo da triagem de instalação</p>
+            <p class="calloutText">
+              Se o sintoma começou logo após instalação, busque entender energia, entrada de água, drenagem, nicho, porta de marcenaria e acessórios. Não é necessário diagnosticar tecnicamente, mas o registro precisa mostrar o que foi confirmado.
+            </p>
+          </div>
+        </section>
+        <section class="section searchable" id="identificacao" data-keywords="identificação etiqueta modelo série lateral direita porta AUID QR Code GV66260BR GV693C60UVBR">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 4</span>
+              <h2>Identificação do produto</h2>
+              <p class="sectionIntro">
+                A identificação correta evita orientação incompatível, principalmente quando o atendimento envolve programação, código de erro, conectividade ou diferença entre modelos.
+              </p>
+            </div>
+
+            <span class="pill pillBlue">Dados do produto</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>O que confirmar</h3>
+              <p>
+                Sempre que possível, confirme o modelo exato da lava-louças, o número de série e o código exibido no painel, caso exista.
+              </p>
+
+              <ul>
+                <li>Modelo do produto.</li>
+                <li>Número de série, quando disponível.</li>
+                <li>Data de compra ou instalação.</li>
+                <li>Código ou mensagem exibida na tela.</li>
+                <li>Sintoma percebido pelo cliente.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Etiqueta de identificação</h3>
+              <p>
+                Na lava-louças, a etiqueta de identificação fica localizada na lateral direita da porta. No modelo com ConnectLife, essa identificação também pode ser usada para adicionar o produto ao aplicativo por QR Code ou AUID.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Etiqueta de identificação na lateral direita da porta
+              </div>
+            </div>
+          </div>
+
+          <div class="speechBox">
+            <strong>Fala sugerida</strong>
+            <p>
+              “Para garantir a orientação correta, preciso confirmar o modelo exato da lava-louças. A etiqueta fica na lateral direita da porta. Se não conseguir acessar agora, podemos usar a nota fiscal ou uma foto do produto como apoio.”
+            </p>
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Cuidado</p>
+            <p class="calloutText">
+              Não presuma o modelo apenas pela aparência. Quando o assunto envolver ConnectLife, códigos específicos ou programação, a identificação deve ser confirmada antes de seguir.
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="limpeza" data-keywords="limpeza manutenção filtro sifão pano macio umido produto abrasivo CLN autolimpeza braços pulverização">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 5</span>
+              <h2>Limpeza e manutenção básica</h2>
+              <p class="sectionIntro">
+                Parte das dúvidas e sintomas em lava-louças pode estar relacionada à rotina de limpeza, filtros, sifão, drenagem ou resíduos acumulados. O objetivo é reconhecer quando essa linha de investigação faz sentido.
+              </p>
+            </div>
+
+            <span class="pill pillGreen">Uso e cuidado</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card searchable" data-keywords="pano macio pouco úmido limpeza externa abrasivo">
+              <h3>Limpeza do aparelho</h3>
+              <p>
+                A limpeza externa e das áreas acessíveis deve ser feita com pano macio e pouco úmido. Produtos abrasivos não devem ser utilizados.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="filtro filtros entupido resíduos drenagem água parada">
+              <h3>Filtros</h3>
+              <p>
+                Filtros sujos ou mal posicionados podem influenciar drenagem, mau desempenho, resíduos e alguns códigos ligados à saída de água.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="sifão drenagem mangueira saída água acumulada">
+              <h3>Sifão e drenagem</h3>
+              <p>
+                Obstruções no sifão ou na mangueira de drenagem podem gerar água acumulada, erro de saída de água ou dificuldade ao final do ciclo.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+            <details open class="searchable" data-keywords="CLN tela aparelho deve ser limpo braços pulverização filtros autolimpeza">
+              <summary>Mensagem CLN no painel</summary>
+
+              <div class="detailsContent">
+                <p>
+                  A mensagem CLN indica que o aparelho deve ser limpo. A orientação envolve limpeza dos braços de pulverização, filtros e execução do programa de autolimpeza.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que perguntar</h3>
+                    <ul>
+                      <li>A mensagem CLN aparece na tela?</li>
+                      <li>Quando foi feita a última limpeza dos filtros?</li>
+                      <li>Há resíduos visíveis no interior?</li>
+                      <li>O ciclo de autolimpeza já foi executado?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como explicar</h3>
+                    <p>
+                      Explique que a mensagem não indica necessariamente falha. Ela pode ser um lembrete de manutenção para preservar o desempenho do produto.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “A mensagem CLN indica necessidade de limpeza do aparelho. Vamos verificar filtros, braços de pulverização e a execução do programa de autolimpeza.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="quando orientar limpeza fluxo autorizado erro persiste">
+              <summary>Quando orientar limpeza e quando seguir fluxo</summary>
+
+              <div class="detailsContent">
+                <p>
+                  A limpeza pode ser orientada quando o cenário envolve manutenção básica, mensagem CLN, filtros, resíduos ou suspeita de obstrução simples.
+                </p>
+
+                <p>
+                  Se houver código recorrente, vazamento, falha persistente, erro após tentativa de limpeza ou comportamento anormal do produto, registre o cenário e siga o fluxo autorizado.
+                </p>
+
+                <div class="warningCallout">
+                  <p class="calloutTitle">Limite da orientação</p>
+                  <p class="calloutText">
+                    Não oriente desmontagem interna, acesso a componentes, retirada de partes não acessíveis ou qualquer intervenção técnica.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="imagePlaceholder">
+            INSERIR IMAGEM: Filtros, sifão ou pontos de limpeza da lava-louças
+          </div>
+        </section>
+
+        <section class="section searchable" id="programacao" data-keywords="programação painel comandos ajustes seleção programa GV66260BR GV693C60UVBR">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 6</span>
+              <h2>Programação e painel</h2>
+              <p class="sectionIntro">
+                A programação deve ser tratada como consulta orientada. O atendimento precisa entender se o cliente está com dúvida de uso, seleção de programa, mensagem no painel ou comportamento inesperado.
+              </p>
+            </div>
+
+            <span class="pill pillPurple">Consulta guiada</span>
+          </div>
+
+          <div class="grid grid2">
+            <div class="card">
+              <h3>GV66260BR</h3>
+              <p>
+                Utilize esta área para inserir imagens do painel, sequência de programação e detalhes visuais do modelo. O objetivo é permitir consulta rápida durante o atendimento.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Programação e painel do modelo GV66260BR
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>GV693C60UVBR</h3>
+              <p>
+                Utilize esta área para inserir imagens do painel, sequência de programação e diferenças do modelo com ConnectLife.
+              </p>
+
+              <div class="imagePlaceholder">
+                INSERIR IMAGEM: Programação e painel do modelo GV693C60UVBR
+              </div>
+            </div>
+          </div>
+
+          <div class="infoCallout">
+            <p class="calloutTitle">Como usar no atendimento</p>
+            <p class="calloutText">
+              Antes de orientar programação, confirme se a dúvida é sobre selecionar um programa, iniciar o ciclo, cancelar uma função, interpretar mensagem ou entender um comportamento do painel.
+            </p>
+          </div>
+
+          <div class="speechBox">
+            <strong>Fala sugerida</strong>
+            <p>
+              “Vou confirmar qual mensagem aparece no painel e qual etapa você está tentando realizar. Assim conseguimos diferenciar uma dúvida de uso de um possível erro.”
+            </p>
+          </div>
+        </section>
+
+        <section class="section searchable" id="codigos" data-keywords="códigos erro F10 F11 F12 F40 F41 F42 F43 F44 F45 F46 F52 F53 F54 F56 F61 F62 F65 F67 F68 F69 F74 F75 CLN VAR entrada saída drenagem vazamento aquecimento sensor comunicação">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 7</span>
+              <h2>Códigos de erro por área do problema</h2>
+              <p class="sectionIntro">
+                O código ajuda a localizar a área envolvida, mas não deve ser tratado como diagnóstico final. O ideal é registrar o código exibido, entender o contexto e seguir a orientação adequada.
+              </p>
+            </div>
+
+            <span class="pill pillWarn">Consulta por código</span>
+          </div>
+
+          <div class="quickSearchBar">
+            <input type="search" id="codeSearch" placeholder="Digite um código ou tema: F12, F54, CLN, drenagem, Wi-Fi..." />
+            <button type="button" onclick="clearCodeSearch()">Limpar</button>
+          </div>
+
+          <div class="accordion" id="codeList">
+
+            <details open class="codeItem searchable" data-keywords="entrada água F12 F67 torneira filtro externo mangueira entrada Aqua Stop">
+              <summary>Entrada de água | F12 e F67</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Os códigos F12 e F67 estão ligados à falha de entrada de água. A lava-louças pode não estar recebendo água suficiente para seguir o programa.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que verificar na sondagem</h3>
+                    <ul>
+                      <li>A torneira de água está aberta?</li>
+                      <li>Há água chegando ao ponto?</li>
+                      <li>A mangueira de entrada está conectada?</li>
+                      <li>O filtro externo da mangueira pode estar bloqueado?</li>
+                      <li>O código apareceu logo após instalação?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Como explicar</h3>
+                    <p>
+                      “Esse código indica uma falha relacionada à entrada de água. Vamos confirmar se a instalação hidráulica permite entrada adequada e registrar o cenário caso o erro persista.”
+                    </p>
+                  </div>
+                </div>
+
+                <div class="warningCallout">
+                  <p class="calloutTitle">Atenção</p>
+                  <p class="calloutText">
+                    Não oriente desmontagem interna ou intervenção na válvula de entrada. Se as validações simples não resolverem, siga o fluxo autorizado.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="saída água drenagem F10 F11 F52 F53 F56 F68 filtro sifão mangueira drenagem bomba água acumulada">
+              <summary>Saída de água, drenagem e filtros | F10, F11, F52, F53, F56 e F68</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Este grupo envolve dificuldade de drenagem, filtros, mangueira de saída, sifão, bomba ou obstruções. O cliente pode relatar água acumulada, erro ao fim do ciclo ou falha ao drenar.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Códigos do grupo</h3>
+                    <ul>
+                      <li>F10: excesso de água ou condição relacionada à drenagem.</li>
+                      <li>F11: falha na saída de água.</li>
+                      <li>F52: falha relacionada a filtros entupidos.</li>
+                      <li>F53: falha no nível de água.</li>
+                      <li>F56: falha na bomba de circulação.</li>
+                      <li>F68: falha na bomba de drenagem BLDC.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>O que buscar com o cliente</h3>
+                    <ul>
+                      <li>Há água parada no interior?</li>
+                      <li>Os filtros foram limpos recentemente?</li>
+                      <li>A mangueira de drenagem está dobrada?</li>
+                      <li>O sifão pode estar obstruído?</li>
+                      <li>O erro aparece sempre no mesmo momento do ciclo?</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Esse código está relacionado à saída de água ou drenagem. Vamos confirmar filtros, sifão e mangueira de drenagem, sem realizar desmontagens ou intervenções técnicas.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="vazamento F40 F54 válvula entrada interruptor flutuante água vazando fechar torneira">
+              <summary>Vazamento e segurança de água | F40 e F54</summary>
+
+              <div class="detailsContent">
+                <p>
+                  F40 e F54 indicam situações que exigem atenção por envolver vazamento, válvula de entrada ou interruptor flutuante. A prioridade é segurança e registro claro.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>F40</h3>
+                    <p>
+                      Relacionado a vazamento na válvula de entrada. A orientação segura envolve fechar a torneira de água e seguir o fluxo autorizado.
+                    </p>
+                  </div>
+
+                  <div class="card">
+                    <h3>F54</h3>
+                    <p>
+                      Relacionado ao interruptor flutuante ativado, podendo indicar vazamento ou condição de água na base do produto.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="dangerCallout">
+                  <p class="calloutTitle">Prioridade</p>
+                  <p class="calloutText">
+                    Se houver vazamento ou risco de água, oriente a interromper o uso, fechar a torneira quando aplicável e seguir o fluxo autorizado. Não conduza desmontagem ou teste interno.
+                  </p>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Como o código envolve possível vazamento ou segurança de água, a prioridade é interromper o uso e seguir com o registro para condução correta.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="aquecimento temperatura F41 F42 F46 aquecedor sensor temperatura bomba circulação">
+              <summary>Aquecimento e temperatura | F41, F42 e F46</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Este grupo envolve aquecimento, sensor de temperatura ou falha relacionada à temperatura. São situações que normalmente exigem serviço autorizado.
+                </p>
+
+                <div class="grid grid3">
+                  <div class="card">
+                    <h3>F41</h3>
+                    <p>
+                      Falha de aquecimento. Em alguns casos, o programa pode continuar, exceto em programas específicos.
+                    </p>
+                  </div>
+
+                  <div class="card">
+                    <h3>F42</h3>
+                    <p>
+                      Falha do sensor de temperatura ou temperatura detectada fora da faixa esperada.
+                    </p>
+                  </div>
+
+                  <div class="card">
+                    <h3>F46</h3>
+                    <p>
+                      Falha de aquecimento adicional, relacionada ao sistema de aquecimento.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="warningCallout">
+                  <p class="calloutTitle">Como conduzir</p>
+                  <p class="calloutText">
+                    Registre o código, o momento em que aparece e se o cliente percebe falha de aquecimento. Não oriente acesso a componentes internos.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="sensores válvulas F43 F44 F45 F61 F62 sensor nível turbidez válvula desviadora tanque água">
+              <summary>Sensores, válvulas e tanque de água | F43, F44, F45, F61 e F62</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Este grupo reúne códigos ligados a sensores, válvulas, tanque de água e componentes internos. Em geral, são ocorrências que precisam de análise autorizada.
+                </p>
+
+                <div class="tableWrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Código</th>
+                        <th>Área indicada</th>
+                        <th>Conduta no atendimento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>F43</td>
+                        <td>Sensor de nível</td>
+                        <td>Registrar código e seguir fluxo autorizado.</td>
+                      </tr>
+                      <tr>
+                        <td>F44</td>
+                        <td>Sensor de turbidez</td>
+                        <td>Registrar momento da falha e orientar continuidade pelo fluxo.</td>
+                      </tr>
+                      <tr>
+                        <td>F45</td>
+                        <td>Válvula desviadora</td>
+                        <td>Não orientar limpeza interna ou intervenção técnica.</td>
+                      </tr>
+                      <tr>
+                        <td>F61</td>
+                        <td>Tanque de água</td>
+                        <td>Registrar sintoma e código exibido.</td>
+                      </tr>
+                      <tr>
+                        <td>F62</td>
+                        <td>Válvula do tanque</td>
+                        <td>Encaminhar conforme fluxo autorizado.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="comunicação configuração interface Wi-Fi F65 F69 F74 F75 VAR traços unidade controle">
+              <summary>Comunicação, configuração e interface | F65, F69, F74, F75, VAR e “---”</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Este grupo envolve comunicação entre componentes, interface, variante, unidade de controle ou Wi-Fi. O foco é registrar o código exatamente como aparece.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Códigos incluídos</h3>
+                    <ul>
+                      <li>F65: falha de comunicação entre controle e interface.</li>
+                      <li>F69: falha de comunicação Wi-Fi.</li>
+                      <li>F74: erro de variante.</li>
+                      <li>F75: variante de unidade de controle errada.</li>
+                      <li>VAR: variante de unidade de controle errada.</li>
+                      <li>“---”: indicação na tela que exige atenção ao fluxo.</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>O que registrar</h3>
+                    <ul>
+                      <li>Código exato exibido.</li>
+                      <li>Modelo do produto.</li>
+                      <li>Quando a mensagem aparece.</li>
+                      <li>Se ocorreu após instalação, queda de energia ou tentativa de conexão.</li>
+                      <li>Se o produto possui ConnectLife.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Esse código indica uma ocorrência relacionada à comunicação ou configuração do produto. Vou registrar exatamente a mensagem exibida e seguir com o fluxo correto.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="codeItem searchable" data-keywords="CLN limpeza autolimpeza filtros braços pulverização manutenção">
+              <summary>Limpeza | CLN</summary>
+
+              <div class="detailsContent">
+                <p>
+                  CLN indica necessidade de limpeza do aparelho. A orientação envolve filtros, braços de pulverização e programa de autolimpeza.
+                </p>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “A mensagem CLN está relacionada à limpeza do aparelho. Vamos orientar a verificação dos filtros, braços de pulverização e uso do programa de autolimpeza.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <section class="section searchable" id="consulta" data-keywords="consulta rápida códigos sintomas busca F10 F11 F12 F40 F54 CLN connectlife água drenagem vazamento">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Consulta rápida</span>
+              <h2>Pesquisar por código, sintoma ou área</h2>
+              <p class="sectionIntro">
+                Use esta seção quando o cliente informar um código, uma mensagem no painel ou um sintoma genérico. A busca ajuda a localizar o grupo mais provável para consulta.
+              </p>
+            </div>
+
+            <span class="pill pillCyan">Busca prática</span>
+          </div>
+
+          <div class="quickSearchBar">
+            <input type="search" id="quickSearch" placeholder="Exemplo: F12, água parada, vazamento, CLN, Wi-Fi, entrada..." />
+            <button type="button" onclick="clearQuickSearch()">Limpar</button>
+          </div>
+
+          <div class="accordion" id="quickList">
+
+            <details open class="quickItem searchable" data-keywords="água não entra entrada de água F12 F67 torneira filtro externo">
+              <summary>Água não entra ou código de entrada</summary>
+              <div class="detailsContent">
+                <p>
+                  Verifique se o cliente relata F12 ou F67, se a torneira está aberta, se há água chegando ao ponto e se a mangueira de entrada está conectada corretamente.
+                </p>
+                <p>
+                  Se o erro persistir após validações simples, registre o código, o contexto e siga o fluxo autorizado.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="água acumulada não drena drenagem F10 F11 F52 F53 F56 F68 sifão filtro mangueira">
+              <summary>Água acumulada ou falha de drenagem</summary>
+              <div class="detailsContent">
+                <p>
+                  Relacione o caso a filtros, sifão, mangueira de drenagem e códigos como F10, F11, F52, F53, F56 ou F68.
+                </p>
+                <p>
+                  Busque entender se há água parada, quando o erro aparece e se houve limpeza recente dos filtros.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="vazamento água no chão F40 F54 flutuante fechar torneira">
+              <summary>Vazamento ou água fora do produto</summary>
+              <div class="detailsContent">
+                <p>
+                  Relacione o caso aos códigos F40 ou F54, ou a relatos de água fora do produto. Priorize segurança, interrupção de uso e registro.
+                </p>
+                <p>
+                  Não oriente desmontagem, inclinação do produto, abertura de base ou teste interno.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="não aquece aquecimento temperatura F41 F42 F46">
+              <summary>Falha de aquecimento ou temperatura</summary>
+              <div class="detailsContent">
+                <p>
+                  Códigos F41, F42 e F46 indicam área de aquecimento ou temperatura. Registre o código, o programa utilizado e o momento em que a falha aparece.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="painel mensagem interface comunicação F65 F69 F74 F75 VAR traços">
+              <summary>Mensagem de interface, variante ou comunicação</summary>
+              <div class="detailsContent">
+                <p>
+                  Inclui F65, F69, F74, F75, VAR e “---”. Registre exatamente a mensagem exibida e se o caso está ligado a ConnectLife, tentativa de conexão ou comportamento do painel.
+                </p>
+              </div>
+            </details>
+
+            <details class="quickItem searchable" data-keywords="CLN limpar limpeza manutenção filtros braços pulverização autolimpeza">
+              <summary>Mensagem CLN</summary>
+              <div class="detailsContent">
+                <p>
+                  CLN indica necessidade de limpeza. Oriente verificação dos filtros, braços de pulverização e execução do programa de autolimpeza.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </section>
+        <section class="section searchable" id="connectlife" data-keywords="ConnectLife GV693C60UVBR Wi-Fi 2.4 GHz aplicativo cadastro login QR Code AUID Bluetooth localização">
+          <div class="sectionHeader">
+            <div>
+              <span class="sectionEyebrow">Módulo 8</span>
+              <h2>ConnectLife no modelo GV693C60UVBR</h2>
+              <p class="sectionIntro">
+                O ConnectLife está relacionado ao modelo GV693C60UVBR. O foco desta seção é ajudar na consulta dos pré-requisitos, etapas principais e dúvidas comuns sem transformar o atendimento em suporte técnico avançado de aplicativo.
+              </p>
+            </div>
+
+            <span class="pill pillPurple">Conectividade</span>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card searchable" data-keywords="Wi-Fi 2.4 GHz rede compatível">
+              <h3>Rede Wi-Fi</h3>
+              <p>
+                A conexão exige rede Wi-Fi de 2.4 GHz. Redes de 5 GHz não devem ser consideradas compatíveis para esse processo.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="smartphone aplicativo ConnectLife instalado">
+              <h3>Aplicativo</h3>
+              <p>
+                O cliente precisa ter um smartphone com o aplicativo ConnectLife instalado para iniciar o processo de cadastro e conexão.
+              </p>
+            </div>
+
+            <div class="card searchable" data-keywords="permissões bluetooth localização conectar produto">
+              <h3>Permissões</h3>
+              <p>
+                Durante o processo, o app pode solicitar permissões como Bluetooth e localização. Elas ajudam o aplicativo a encontrar e conectar o produto.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion" style="margin-top: 18px;">
+
+            <details open class="searchable" data-keywords="pré requisitos ConnectLife Wi-Fi 2.4 GHz smartphone aplicativo">
+              <summary>Pré-requisitos antes de tentar conectar</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Antes de iniciar o passo a passo, confirme se o cliente possui rede Wi-Fi 2.4 GHz, smartphone compatível e aplicativo ConnectLife instalado.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>Perguntas úteis</h3>
+                    <ul>
+                      <li>O aplicativo ConnectLife já está instalado?</li>
+                      <li>A rede Wi-Fi disponível é 2.4 GHz?</li>
+                      <li>O cliente possui acesso ao e-mail para receber código?</li>
+                      <li>O Bluetooth e a localização estão liberados no celular?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Quando não avançar</h3>
+                    <p>
+                      Se o cliente não tiver rede compatível, não conseguir acessar o e-mail ou não permitir as permissões necessárias, o pareamento pode não ser concluído.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Antes de iniciar a conexão, vamos confirmar se a rede é 2.4 GHz, se o aplicativo está instalado e se o celular permite Bluetooth e localização.”
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="termos serviço política dados cadastro login senha criar conta ConnectLife">
+              <summary>Cadastro, login e aceite de termos</summary>
+
+              <div class="detailsContent">
+                <p>
+                  O processo pode envolver aceite dos termos de serviço, política de proteção de dados, login em conta existente ou criação de uma nova conta ConnectLife.
+                </p>
+
+                <p>
+                  Se o cliente já possui conta, deve usar login e senha. Se não lembrar a senha, deve seguir a recuperação pelo próprio aplicativo. Se não possui conta, deve criar uma nova.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Telas de aceite de termos, login e criação de conta ConnectLife
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="código verificação seis dígitos e-mail 10 minutos criar conta">
+              <summary>Código de verificação por e-mail</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Na criação de conta, um código de verificação de seis dígitos é enviado para o e-mail cadastrado. Esse código possui validade limitada.
+                </p>
+
+                <p>
+                  Se o cliente não receber o código ou perder o prazo de validade, o processo pode precisar ser reiniciado pelo aplicativo.
+                </p>
+
+                <div class="speechBox">
+                  <strong>Fala sugerida</strong>
+                  <p>
+                    “Verifique se o código chegou no e-mail cadastrado, inclusive na caixa de spam. Se o prazo expirar, será necessário reiniciar essa etapa no aplicativo.”
+                  </p>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Tela de código de verificação do ConnectLife
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="adicionar aparelhos categoria lava louças produto aplicativo">
+              <summary>Adicionar a lava-louças no aplicativo</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Após login e permissões, o cliente deve adicionar um aparelho e selecionar a categoria correspondente à lava-louças.
+                </p>
+
+                <p>
+                  Se o cliente selecionar categoria incorreta, não localizar o produto ou interromper o fluxo, a conexão pode não avançar corretamente.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Tela de adicionar aparelhos e seleção da categoria Lava-Louças
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="etiqueta lateral direita porta QR Code AUID identificação produto app">
+              <summary>Etiqueta, QR Code e AUID</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Para a lava-louças, a etiqueta de identificação fica na lateral direita da porta. No aplicativo, o cliente pode adicionar o produto pelo QR Code ou inserir o código manualmente pelo AUID.
+                </p>
+
+                <div class="grid grid2">
+                  <div class="card">
+                    <h3>O que confirmar</h3>
+                    <ul>
+                      <li>O cliente localizou a etiqueta?</li>
+                      <li>O QR Code está legível?</li>
+                      <li>O AUID foi digitado corretamente?</li>
+                      <li>O produto selecionado no app é lava-louças?</li>
+                    </ul>
+                  </div>
+
+                  <div class="card">
+                    <h3>Cuidado comum</h3>
+                    <p>
+                      Erros de leitura, digitação incorreta do AUID ou seleção de categoria errada podem impedir o avanço da conexão.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Etiqueta de identificação com QR Code e AUID na lateral direita da porta
+                </div>
+              </div>
+            </details>
+
+            <details class="searchable" data-keywords="configurações finais renomear equipamento divisão guardar pronto uso">
+              <summary>Configurações finais</summary>
+
+              <div class="detailsContent">
+                <p>
+                  Ao final do processo, o aplicativo pode solicitar nome do equipamento, classificação da divisão e confirmação para salvar as configurações.
+                </p>
+
+                <p>
+                  Quando as etapas são concluídas, o produto fica pronto para uso no aplicativo.
+                </p>
+
+                <div class="imagePlaceholder">
+                  INSERIR IMAGEM: Tela de configurações finais e produto pronto para uso no ConnectLife
+                </div>
+              </div>
+            </details>
+
+          </div>
+
+          <div class="warningCallout">
+            <p class="calloutTitle">Erro F69</p>
+            <p class="calloutText">
+              F69 está relacionado à falha de comunicação Wi-Fi. Registre o código, confirme se o modelo possui ConnectLife e identifique em qual etapa da conexão o cliente encontrou dificuldade.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="section practiceOnly" id="pratica" data-keywords="modo prática simulação lava louças códigos instalação manutenção connectlife">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Simulações sem consulta</h2>
+            <p class="sectionIntro">
+              Neste modo, o conteúdo consultivo fica oculto. Use os casos abaixo para praticar reconhecimento de produto, código, sintoma e área envolvida.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Treino ativo</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Caso 1 | Código F12</h3>
+            <p>
+              Cliente informa que a lava-louças exibe F12 logo após a instalação e o programa não avança.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Identifique a área provável, quais perguntas fazer e o que registrar.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 2 | Água acumulada</h3>
+            <p>
+              Cliente informa que ficou água no interior da lava-louças ao final do ciclo, mas não sabe informar se apareceu código.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Diferencie sintoma sem código de falha de drenagem e defina as perguntas iniciais.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 3 | Mensagem CLN</h3>
+            <p>
+              Cliente relata que apareceu CLN no painel e acredita que o produto está com defeito.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Explique que a mensagem está relacionada à limpeza e indique quais pontos devem ser verificados.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Caso 4 | ConnectLife não conecta</h3>
+            <p>
+              Cliente com modelo GV693C60UVBR informa que o app não encontra a lava-louças.
+            </p>
+
+            <div class="warningCallout">
+              <p class="calloutTitle">Sua tarefa</p>
+              <p class="calloutText">
+                Verifique pré-requisitos, permissões, rede Wi-Fi e etapa em que o cliente encontrou dificuldade.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="jogos" data-keywords="jogos quiz lava louças códigos erro instalação limpeza connectlife registro">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Jogos de fixação</span>
+            <h2>Pratique a identificação do cenário</h2>
+            <p class="sectionIntro">
+              Responda às perguntas em sequência. O objetivo é reconhecer a área do produto envolvida e escolher uma condução segura, sem depender de diagnóstico técnico.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Feedback imediato</span>
+        </div>
+
+        <div class="grid">
+
+          <div class="gameCard" id="game1">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 1 | Qual área investigar?</h3>
+                <p class="sectionIntro">
+                  Escolha a área mais provável a partir do código ou sintoma.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame1">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame1"></p>
+            <div class="options" id="optionsGame1"></div>
+            <div class="feedback" id="feedbackGame1"></div>
+
+            <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame1"></div>
+          </div>
+
+          <div class="gameCard" id="game2">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 2 | Qual pergunta fazer?</h3>
+                <p class="sectionIntro">
+                  Escolha a pergunta que melhor ajuda a entender o cenário do cliente.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame2">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame2"></p>
+            <div class="options" id="optionsGame2"></div>
+            <div class="feedback" id="feedbackGame2"></div>
+
+            <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame2"></div>
+          </div>
+
+          <div class="gameCard" id="game3">
+            <div class="gameHeader">
+              <div>
+                <h3>Jogo 3 | Qual orientação inicial?</h3>
+                <p class="sectionIntro">
+                  Escolha a orientação mais adequada para o cliente.
+                </p>
+              </div>
+              <span class="scoreBadge" id="scoreGame3">Pontuação: 0</span>
+            </div>
+
+            <p class="questionText" id="questionGame3"></p>
+            <div class="options" id="optionsGame3"></div>
+            <div class="feedback" id="feedbackGame3"></div>
+
+            <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
+              Próxima pergunta
+            </button>
+
+            <div class="finalSummary" id="summaryGame3"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section searchable" id="fechamento" data-keywords="resumo lava louças gorenje produto instalação manutenção código connectlife">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo para consulta</h2>
+            <p class="sectionIntro">
+              Em lava-louças Gorenje, o foco é entender o produto: instalação, entrada de água, drenagem, limpeza, mensagens no painel, códigos de erro e conectividade quando aplicável.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta pós-treinamento</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Produto</h3>
+            <p>
+              Confirme o modelo e entenda se a dúvida envolve instalação, uso, manutenção, código ou ConnectLife.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Código ou sintoma</h3>
+            <p>
+              O código indica uma área provável. O sintoma ajuda a contextualizar quando o cliente não informa código.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Escopo seguro</h3>
+            <p>
+              Oriente validações simples e manutenção básica. Não conduza intervenção técnica, elétrica, hidráulica ou interna.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        EAD Consultivo | Gorenje Lava-Louças | GV66260BR e GV693C60UVBR
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const practiceToggle = document.getElementById("practiceToggle");
+    const globalSearch = document.getElementById("globalSearch");
+    const codeSearch = document.getElementById("codeSearch");
+    const quickSearch = document.getElementById("quickSearch");
+
+    practiceToggle.addEventListener("click", function () {
+      body.classList.toggle("practiceMode");
+
+      if (body.classList.contains("practiceMode")) {
+        practiceToggle.textContent = "Desativar modo prática";
+        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
+      } else {
+        practiceToggle.textContent = "Ativar modo prática";
+        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+
+          if (item.tagName.toLowerCase() === "details") {
+            item.open = true;
+          }
+        } else {
+          if (!item.closest(".searchable:not(.section):not(.hero)")) {
+            item.classList.add("hiddenBySearch");
+          }
+        }
+      });
+    });
+
+    if (codeSearch) {
+      codeSearch.addEventListener("input", function () {
+        const term = normalizeText(codeSearch.value);
+        const items = document.querySelectorAll(".codeItem");
+
+        items.forEach(function (item) {
+          const text = normalizeText(item.innerText || "");
+          const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+          if (!term || text.includes(term) || keywords.includes(term)) {
+            item.classList.remove("hiddenBySearch");
+            if (term) item.open = true;
+          } else {
+            item.classList.add("hiddenBySearch");
+          }
+        });
+      });
+    }
+
+    if (quickSearch) {
+      quickSearch.addEventListener("input", function () {
+        const term = normalizeText(quickSearch.value);
+        const items = document.querySelectorAll(".quickItem");
+
+        items.forEach(function (item) {
+          const text = normalizeText(item.innerText || "");
+          const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+          if (!term || text.includes(term) || keywords.includes(term)) {
+            item.classList.remove("hiddenBySearch");
+            if (term) item.open = true;
+          } else {
+            item.classList.add("hiddenBySearch");
+          }
+        });
+      });
+    }
+
+    function clearCodeSearch() {
+      if (!codeSearch) return;
+
+      codeSearch.value = "";
+      document.querySelectorAll(".codeItem").forEach(function (item) {
+        item.classList.remove("hiddenBySearch");
+      });
+    }
+
+    function clearQuickSearch() {
+      if (!quickSearch) return;
+
+      quickSearch.value = "";
+      document.querySelectorAll(".quickItem").forEach(function (item) {
+        item.classList.remove("hiddenBySearch");
+      });
+    }
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    const games = {
+      game1: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame1",
+        questionElement: "questionGame1",
+        optionsElement: "optionsGame1",
+        feedbackElement: "feedbackGame1",
+        nextElement: "nextGame1",
+        summaryElement: "summaryGame1",
+        questions: [
+          {
+            question: "Cliente informa código F12 na tela. Qual área deve ser investigada primeiro?",
+            options: [
+              "Entrada de água",
+              "Aquecimento",
+              "Porta de marcenaria",
+              "Limpeza externa"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. F12 está relacionado à falha de entrada de água.",
+            feedbackWrong: "Não é a melhor resposta. F12 indica uma ocorrência ligada à entrada de água."
+          },
+          {
+            question: "Cliente informa água acumulada no fim do ciclo. Qual área faz mais sentido consultar?",
+            options: [
+              "Drenagem, filtros, sifão e mangueira de saída",
+              "Cadastro ConnectLife",
+              "Porta de marcenaria apenas",
+              "Sensor de Wi-Fi"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Água acumulada costuma direcionar a investigação para drenagem, filtros, sifão e mangueira.",
+            feedbackWrong: "A área mais provável é drenagem e saída de água, principalmente quando há água acumulada."
+          },
+          {
+            question: "Cliente informa código F54. Qual grupo esse código indica?",
+            options: [
+              "Vazamento ou interruptor flutuante",
+              "Rede Wi-Fi 2.4 GHz",
+              "Limpeza externa",
+              "Seleção de programa"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. F54 está relacionado ao interruptor flutuante e possível condição de vazamento.",
+            feedbackWrong: "F54 deve ser tratado como ocorrência de segurança de água, vazamento ou interruptor flutuante."
+          },
+          {
+            question: "Cliente informa F69 no modelo GV693C60UVBR. Qual área está envolvida?",
+            options: [
+              "Comunicação Wi-Fi",
+              "Entrada de detergente",
+              "Porta fixa",
+              "Filtro externo da mangueira"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. F69 está relacionado à comunicação Wi-Fi.",
+            feedbackWrong: "F69 indica falha de comunicação Wi-Fi, especialmente relevante no modelo com ConnectLife."
+          }
+        ]
+      },
+
+      game2: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame2",
+        questionElement: "questionGame2",
+        optionsElement: "optionsGame2",
+        feedbackElement: "feedbackGame2",
+        nextElement: "nextGame2",
+        summaryElement: "summaryGame2",
+        questions: [
+          {
+            question: "O cliente diz: “A máquina mostra CLN”. Qual pergunta ajuda mais?",
+            options: [
+              "Quando foi feita a última limpeza dos filtros e braços de pulverização?",
+              "Qual é a senha do roteador?",
+              "A porta de marcenaria é da cor correta?",
+              "Você abriu a unidade de controle?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. CLN indica necessidade de limpeza e manutenção básica.",
+            feedbackWrong: "CLN está relacionado à limpeza do aparelho. Foque em filtros, braços de pulverização e autolimpeza."
+          },
+          {
+            question: "O cliente relata F12 após instalação. Qual pergunta deve aparecer na sondagem?",
+            options: [
+              "A torneira de água está aberta e há água chegando ao ponto?",
+              "Qual programa de secagem foi usado?",
+              "O app recebeu o código de e-mail?",
+              "O cliente removeu o painel?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. F12 envolve entrada de água. Torneira, ponto de água e mangueira devem ser considerados.",
+            feedbackWrong: "Para F12, a pergunta inicial deve focar entrada de água."
+          },
+          {
+            question: "O cliente não consegue conectar o GV693C60UVBR no ConnectLife. Qual pergunta é essencial?",
+            options: [
+              "A rede utilizada é 2.4 GHz?",
+              "O filtro foi limpo hoje?",
+              "A mangueira de saída está dobrada?",
+              "A porta é fixa ou deslizante?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A rede Wi-Fi precisa ser 2.4 GHz para o processo de conexão.",
+            feedbackWrong: "Em conectividade, um dos primeiros pré-requisitos é confirmar rede Wi-Fi 2.4 GHz."
+          },
+          {
+            question: "O cliente relata dificuldade para fechar a porta após instalação da marcenaria. Qual pergunta faz sentido?",
+            options: [
+              "A porta de marcenaria já foi instalada e ela é fixa ou deslizante?",
+              "Qual código Wi-Fi aparece?",
+              "O aquecedor foi substituído?",
+              "Qual filtro externo está bloqueado?"
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. A instalação da porta de marcenaria pode impactar encaixe, abertura e fechamento.",
+            feedbackWrong: "Quando o relato envolve porta após instalação, investigue nicho e tipo de porta de marcenaria."
+          }
+        ]
+      },
+
+      game3: {
+        current: 0,
+        score: 0,
+        scoreElement: "scoreGame3",
+        questionElement: "questionGame3",
+        optionsElement: "optionsGame3",
+        feedbackElement: "feedbackGame3",
+        nextElement: "nextGame3",
+        summaryElement: "summaryGame3",
+        questions: [
+          {
+            question: "Cliente informa vazamento e código F40. Qual orientação inicial é mais segura?",
+            options: [
+              "Interromper o uso, fechar a torneira quando aplicável e seguir o fluxo autorizado.",
+              "Inclinar o produto para sair a água.",
+              "Abrir a base da lava-louças.",
+              "Ignorar o código e iniciar novo ciclo."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. Vazamento exige prioridade de segurança e fluxo autorizado.",
+            feedbackWrong: "Não oriente desmontagem, inclinação ou novo teste. Vazamento exige segurança."
+          },
+          {
+            question: "Cliente informa uso de extensão elétrica. Qual orientação está correta?",
+            options: [
+              "Regularizar o ponto elétrico e conectar diretamente em tomada adequada.",
+              "Usar benjamin de melhor qualidade.",
+              "Conectar em tomada múltipla apenas durante o ciclo.",
+              "Remover o pino terra para encaixar melhor."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. O produto deve ser conectado diretamente a uma tomada adequada, com aterramento.",
+            feedbackWrong: "Extensões, benjamins, adaptadores e remoção do pino terra não devem ser orientados."
+          },
+          {
+            question: "Cliente informa CLN e pergunta se é defeito. Qual orientação é mais adequada?",
+            options: [
+              "Explicar que a mensagem indica necessidade de limpeza e orientar filtros, braços de pulverização e autolimpeza.",
+              "Informar troca imediata do produto.",
+              "Orientar desmontagem interna.",
+              "Dizer que é sempre falha de unidade de controle."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. CLN está relacionado à limpeza, não deve ser tratado como defeito logo de início.",
+            feedbackWrong: "CLN deve ser conduzido como manutenção básica antes de qualquer conclusão de falha."
+          },
+          {
+            question: "Cliente informa mensagem VAR na tela. Qual condução é esperada?",
+            options: [
+              "Registrar exatamente a mensagem e seguir fluxo autorizado.",
+              "Orientar limpeza do pano externo.",
+              "Solicitar troca da rede Wi-Fi.",
+              "Pedir para desmontar o painel."
+            ],
+            correct: 0,
+            feedbackCorrect: "Correto. VAR está relacionado à variante/configuração e exige fluxo autorizado.",
+            feedbackWrong: "VAR não deve ser tratado com intervenção do cliente. Registre exatamente a mensagem."
+          }
+        ]
+      }
+    };
+
+    function loadGame(gameId) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      nextElement.classList.remove("show");
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "optionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuestion(gameId, index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      updateScore(gameId);
+    }
+
+    function answerQuestion(gameId, selectedIndex) {
+      const game = games[gameId];
+      const questionData = game.questions[game.current];
+
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+
+      const buttons = optionsElement.querySelectorAll(".optionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        game.score++;
+        feedbackElement.textContent = questionData.feedbackCorrect;
+        feedbackElement.className = "feedback show good";
+      } else {
+        feedbackElement.textContent = questionData.feedbackWrong;
+        feedbackElement.className = "feedback show bad";
+      }
+
+      updateScore(gameId);
+
+      if (game.current < game.questions.length - 1) {
+        nextElement.textContent = "Próxima pergunta";
+      } else {
+        nextElement.textContent = "Ver resumo";
+      }
+
+      nextElement.classList.add("show");
+    }
+
+    function nextQuestion(gameId) {
+      const game = games[gameId];
+
+      if (game.current < game.questions.length - 1) {
+        game.current++;
+        loadGame(gameId);
+      } else {
+        showSummary(gameId);
+      }
+    }
+
+    function updateScore(gameId) {
+      const game = games[gameId];
+      const scoreElement = document.getElementById(game.scoreElement);
+
+      scoreElement.textContent = "Pontuação: " + game.score + "/" + game.questions.length;
+    }
+
+    function showSummary(gameId) {
+      const game = games[gameId];
+
+      const questionElement = document.getElementById(game.questionElement);
+      const optionsElement = document.getElementById(game.optionsElement);
+      const feedbackElement = document.getElementById(game.feedbackElement);
+      const nextElement = document.getElementById(game.nextElement);
+      const summaryElement = document.getElementById(game.summaryElement);
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedback";
+      feedbackElement.textContent = "";
+      nextElement.classList.remove("show");
+
+      let message = "";
+
+      if (game.score === game.questions.length) {
+        message = "Excelente. Você conseguiu reconhecer os principais cenários do produto e escolher conduções seguras.";
+      } else if (game.score >= Math.ceil(game.questions.length * 0.7)) {
+        message = "Bom resultado. Revise apenas os grupos de códigos ou situações em que houve dúvida.";
+      } else {
+        message = "Vale revisar o EAD antes de aplicar no atendimento. Foque em instalação, drenagem, limpeza, códigos e ConnectLife.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resumo do jogo</h3>
+        <p><strong>Resultado:</strong> ${game.score} de ${game.questions.length} respostas corretas.</p>
+        <p>${message}</p>
+        <button class="btn btnPrimary" type="button" onclick="restartGame('${gameId}')">
+          Refazer jogo
+        </button>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartGame(gameId) {
+      games[gameId].current = 0;
+      games[gameId].score = 0;
+      loadGame(gameId);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadGame("game1");
+      loadGame("game2");
+      loadGame("game3");
+    });
+  </script>
+</body>
+</html>

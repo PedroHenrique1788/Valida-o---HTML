@@ -1,0 +1,2749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Entendendo Acordos no Primeiro Atendimento</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --purple: #7C3AED;
+      --orange: #F97316;
+      --yellow: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --text-light: #7B8794;
+      --border-soft: #DDE6ED;
+      --shadow: 0 18px 42px rgba(0, 63, 125, 0.16);
+      --shadow-soft: 0 8px 20px rgba(31, 41, 51, 0.06);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(0, 174, 239, 0.24), transparent 30%),
+        radial-gradient(circle at 92% 16%, rgba(0, 176, 80, 0.16), transparent 32%),
+        radial-gradient(circle at 84% 86%, rgba(124, 58, 237, 0.14), transparent 34%),
+        linear-gradient(135deg, #EDF7FF 0%, #FFFFFF 48%, #F8FFF3 100%);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #eadWrapper {
+      min-height: 100vh;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .topBar {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(221, 230, 237, 0.92);
+      box-shadow: 0 10px 28px rgba(0, 63, 125, 0.08);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+
+    .topBrand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brandIcon {
+      width: 46px;
+      height: 46px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-green));
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(0, 94, 184, 0.2);
+      flex: 0 0 auto;
+    }
+
+    .topBrandText {
+      min-width: 0;
+    }
+
+    .topBrandText strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topBrandText span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+    }
+
+    .topActions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .topBtn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .topBtn:hover {
+      transform: translateY(-2px);
+    }
+
+    .focusBtn {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+      color: #FFFFFF;
+    }
+
+    .historyBtn {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .progressWrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progressInfo {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+      font-weight: 700;
+    }
+
+    .progressTrack {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(0, 94, 184, 0.12);
+      border: 1px solid rgba(0, 94, 184, 0.08);
+    }
+
+    .progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--hisense-blue), var(--hisense-cyan), var(--hisense-green));
+      transition: width 0.3s ease;
+    }
+
+    .stage {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      flex: 1;
+      display: grid;
+      place-items: stretch;
+    }
+
+    .screen {
+      display: none;
+      min-height: calc(100vh - 175px);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeSlide 0.28s ease both;
+    }
+
+    .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screenHeader {
+      padding: 32px 36px 24px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(0, 176, 80, 0.14), transparent 32%),
+        linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screenHeader h1,
+    .screenHeader h2 {
+      margin: 0;
+      color: var(--text-dark);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .screenHeader h1 {
+      font-size: clamp(2rem, 4vw, 3.45rem);
+    }
+
+    .screenHeader h2 {
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+    }
+
+    .screenIntro {
+      max-width: 940px;
+      margin: 12px 0 0;
+      color: var(--text-medium);
+      font-size: 0.98rem;
+    }
+
+    .screenBody {
+      padding: 30px 36px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .screenFooter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 36px 26px;
+      border-top: 1px solid var(--border-soft);
+      background: #FFFFFF;
+    }
+
+    .footerHint {
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .navButtons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+    }
+
+    .btnGreen {
+      background: linear-gradient(135deg, var(--hisense-green), #059669);
+    }
+
+    .btnGhost {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btnWarn {
+      background: linear-gradient(135deg, var(--yellow), #D97706);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      width: max-content;
+      margin-bottom: 12px;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.13);
+      color: #B45309;
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .callout {
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+      background: #FFFFFF;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .callout.info {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .callout.success {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .callout.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+    }
+
+    .callout.danger {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .missionMap {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .missionNode {
+      position: relative;
+      padding: 18px;
+      min-height: 155px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .missionNode::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.06);
+    }
+
+    .missionNumber {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      color: #FFFFFF;
+      font-weight: 900;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+    }
+
+    .missionNode h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .missionNode p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .choiceGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choiceCard {
+      width: 100%;
+      min-height: 86px;
+      padding: 17px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 800;
+      line-height: 1.42;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .choiceCard:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .choiceCard.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .choiceCard.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .feedbackBox {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 17px;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .feedbackBox.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+      color: #92400E;
+    }
+
+    .historyDrawer {
+      position: fixed;
+      top: 0;
+      right: -430px;
+      width: min(430px, 92vw);
+      height: 100vh;
+      z-index: 100;
+      background: #FFFFFF;
+      box-shadow: -10px 0 34px rgba(31, 41, 51, 0.18);
+      border-left: 1px solid var(--border-soft);
+      transition: right 0.28s ease;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .historyDrawer.open {
+      right: 0;
+    }
+
+    .historyHeader {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .historyHeader h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .historyClose {
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      font-weight: 900;
+    }
+
+    .historyContent {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .historyItem {
+      padding: 14px;
+      border-radius: 16px;
+      background: #F7FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .historyItem strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .historyItem p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.84rem;
+    }
+
+    body.focusMode {
+      background: #F6FAFD;
+      overflow: hidden;
+    }
+
+    body.focusMode #eadWrapper {
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: #F6FAFD;
+    }
+
+    body.focusMode .progressWrap {
+      display: none !important;
+    }
+
+    body.focusMode .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    body.focusMode .topBrand,
+    body.focusMode .historyBtn {
+      display: none !important;
+    }
+
+    body.focusMode .focusBtn {
+      box-shadow: 0 10px 24px rgba(0, 63, 125, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    body.focusMode .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body.focusMode .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    body.focusMode .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    body.focusMode .screenHeader {
+      padding-top: 62px;
+    }
+
+    body.focusMode .screenBody {
+      align-content: center;
+    }
+
+    body.focusMode .historyDrawer {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen {
+      background: #F6FAFD;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    #eadWrapper:fullscreen .progressWrap {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    #eadWrapper:fullscreen .topBrand,
+    #eadWrapper:fullscreen .historyBtn {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    #eadWrapper:fullscreen .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    #eadWrapper:fullscreen .screenHeader {
+      padding-top: 62px;
+    }
+
+    @media (max-width: 980px) {
+      #eadWrapper {
+        padding: 14px;
+      }
+
+      .topBar {
+        position: relative;
+        top: 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .topActions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .screen {
+        min-height: auto;
+      }
+
+      .screenHeader,
+      .screenBody,
+      .screenFooter {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .screenFooter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navButtons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .grid2,
+      .grid3,
+      .missionMap,
+      .choiceGrid {
+        grid-template-columns: 1fr;
+      }
+
+      body.focusMode .topBar {
+        top: 12px;
+        right: 12px;
+        align-items: center;
+      }
+
+      body.focusMode .screenHeader {
+        padding-top: 72px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="eadWrapper">
+    <header class="topBar">
+      <div class="topBrand">
+        <div class="brandIcon">AC</div>
+        <div class="topBrandText">
+          <strong>Entendendo Acordos</strong>
+          <span>Primeiro Atendimento | N1</span>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="topBtn historyBtn" id="historyToggle" type="button">
+          Ver histórico
+        </button>
+
+        <button class="topBtn focusBtn" id="focusToggle" type="button">
+          Modo foco
+        </button>
+      </div>
+    </header>
+
+    <div class="progressWrap">
+      <div class="progressInfo">
+        <span id="stepLabel">Etapa 1 de 18</span>
+        <span id="scoreLabel">Pontuação: 0</span>
+      </div>
+
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <aside class="historyDrawer" id="historyDrawer">
+      <div class="historyHeader">
+        <h3>Histórico do EAD</h3>
+        <button class="historyClose" id="historyClose" type="button">X</button>
+      </div>
+
+      <div class="historyContent" id="historyContent">
+        <div class="historyItem">
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas etapas.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="stage">
+
+      <section class="screen active" data-step="1" id="screen-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">EAD N1</span>
+          <h1>Entendendo Acordos no Primeiro Atendimento</h1>
+          <p class="screenIntro">
+            Este EAD foi criado para o time N1 entender como funciona o processo de acordos sem assumir atividades que pertencem à célula responsável. O foco é reconhecer o cenário, consultar o histórico, posicionar com segurança e direcionar corretamente.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="missionMap">
+            <div class="missionNode">
+              <div class="missionNumber">1</div>
+              <h3>Aprender</h3>
+              <p>Entenda o que é acordo e qual é o papel do N1.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">2</div>
+              <h3>Troca</h3>
+              <p>Reconheça quando o cliente fala de envio, entrega ou coleta.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">3</div>
+              <h3>Ressarcimento</h3>
+              <p>Reconheça quando o cliente fala de valor, pagamento ou dados bancários.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">4</div>
+              <h3>Limite N1</h3>
+              <p>Entenda quando posicionar e quando direcionar.</p>
+            </div>
+
+            <div class="missionNode">
+              <div class="missionNumber">5</div>
+              <h3>Praticar</h3>
+              <p>Resolva situações de retorno do cliente.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Importante</strong>
+            <p>
+              O N1 não conduz o acordo. O N1 entende a etapa, consulta o histórico, posiciona com segurança e direciona para a célula responsável quando necessário.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Duração estimada: 20 a 30 minutos.</span>
+          <div class="navButtons">
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Começar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="2" id="screen-what-is-agreement">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>O que é um acordo?</h2>
+          <p class="screenIntro">
+            Um acordo é uma tratativa conduzida pela célula responsável para solucionar um caso por meio de troca de produto ou ressarcimento de valores.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillBlue">Troca de Produto</span>
+              <h3>Quando há substituição</h3>
+              <p>
+                O cliente recebe um novo produto conforme a tratativa aprovada. O fluxo pode envolver aceite, documentação, DCE quando aplicável, envio, entrega e coleta.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Ressarcimento</span>
+              <h3>Quando há pagamento</h3>
+              <p>
+                O cliente recebe um valor conforme a tratativa aprovada. O fluxo pode envolver termo, dados bancários, documentação, cadastro e etapa financeira.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Papel do N1</strong>
+            <p>
+              O N1 precisa entender o processo para responder dúvidas iniciais, mas não deve prometer envio, pagamento, prazo ou aprovação sem consultar o histórico.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela explica a troca.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="3" id="screen-exchange-flow">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>Como reconhecer uma troca de produto</h2>
+          <p class="screenIntro">
+            Na troca, o cliente recebe um novo produto. Para o N1, o mais importante é reconhecer sinais de que o cliente está falando desse fluxo e consultar a etapa antes de posicionar.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Sinais na fala</span>
+              <h3>Produto novo</h3>
+              <p>
+                O cliente pode falar em substituição, modelo ofertado, envio de novo produto, entrega ou troca aprovada.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Etapas possíveis</span>
+              <h3>Fluxo em andamento</h3>
+              <p>
+                A troca pode passar por aceite, documentação, DCE quando aplicável, remessa, faturamento, entrega e coleta.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Cuidado</span>
+              <h3>Não prometer envio</h3>
+              <p>
+                O N1 não deve confirmar envio, faturamento, prazo ou coleta sem verificar a etapa registrada no histórico.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Exemplo de fala segura</strong>
+            <p>
+              “Vou verificar a etapa atual do seu acordo de troca para te orientar com segurança.”
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela explica o ressarcimento.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="4" id="screen-refund-flow">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>Como reconhecer um ressarcimento de valores</h2>
+          <p class="screenIntro">
+            No ressarcimento, o cliente recebe um valor conforme a tratativa aprovada. Para o N1, o mais importante é reconhecer quando o cliente está falando desse fluxo e consultar a etapa antes de posicionar.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillGreen">Sinais na fala</span>
+              <h3>Valor ou pagamento</h3>
+              <p>
+                O cliente pode falar em ressarcimento, pagamento, dados bancários, termo assinado, conta, valor ou prazo de depósito.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillBlue">Etapas possíveis</span>
+              <h3>Fluxo financeiro</h3>
+              <p>
+                O ressarcimento pode passar por termo, documentação, DCE quando aplicável, cadastro, análise financeira e pagamento.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Cuidado</span>
+              <h3>Não prometer pagamento</h3>
+              <p>
+                O N1 não deve confirmar aprovação, data de pagamento ou liberação financeira sem verificar a etapa registrada.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Exemplo de fala segura</strong>
+            <p>
+              “Vou verificar a etapa atual do seu ressarcimento para te orientar com segurança.”
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela explica o que o N1 precisa entender sobre DCE.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="5" id="screen-dce-n1">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>DCE: o que o N1 precisa entender</h2>
+          <p class="screenIntro">
+            A DCE pode aparecer em acordos quando existe movimentação do produto original. Mas o N1 não deve solicitar, dispensar ou confirmar DCE no automático.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillBlue">Antes de responder</span>
+              <h3>Consulte a etapa</h3>
+              <p>
+                Quando o cliente pergunta se precisa emitir DCE, o N1 deve verificar o histórico para entender o que já foi orientado pela célula responsável.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Ponto crítico</span>
+              <h3>Produto e coleta</h3>
+              <p>
+                A necessidade de DCE pode depender de onde está o produto original, se haverá coleta e qual etapa está registrada no acordo.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Frase de atenção</strong>
+            <p>
+              Se o cliente perguntar “preciso emitir DCE no meu caso?”, o N1 deve consultar o histórico antes de responder.
+            </p>
+          </div>
+
+          <div class="callout success">
+            <strong>Resposta segura</strong>
+            <p>
+              “Vou verificar a orientação registrada no seu acordo para confirmar a etapa correta antes de te posicionar.”
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela mostra dúvidas comuns que chegam no primeiro atendimento.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="6" id="screen-common-questions">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>Dúvidas comuns que chegam no N1</h2>
+          <p class="screenIntro">
+            Quando o cliente retorna durante um acordo, ele pode trazer dúvidas que parecem simples, mas dependem da etapa registrada no histórico.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillBlue">Dúvidas sobre troca</span>
+              <h3>Produto, envio e coleta</h3>
+              <ul>
+                <li>“Quando vou receber o produto?”</li>
+                <li>“Qual modelo será enviado?”</li>
+                <li>“Quem vai coletar o produto antigo?”</li>
+                <li>“Já aceitei a troca, e agora?”</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Dúvidas sobre ressarcimento</span>
+              <h3>Valor, termo e pagamento</h3>
+              <ul>
+                <li>“Quando vou receber o pagamento?”</li>
+                <li>“Já mandei meus dados bancários.”</li>
+                <li>“Assinei o termo e não tive retorno.”</li>
+                <li>“O depósito já foi aprovado?”</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="pill pillWarn">Dúvidas gerais</span>
+            <h3>Também podem aparecer</h3>
+            <ul>
+              <li>“Meu acordo foi aprovado?”</li>
+              <li>“Preciso emitir DCE?”</li>
+              <li>“Recebi um formulário, o que faço?”</li>
+              <li>“Mandei os documentos e não tive retorno.”</li>
+            </ul>
+          </div>
+
+          <div class="callout info">
+            <strong>Regra para o N1</strong>
+            <p>
+              A maioria dessas dúvidas exige consulta ao histórico antes de qualquer posicionamento específico.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela reforça como posicionar sem prometer.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="7" id="screen-safe-positioning">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>Como posicionar sem prometer</h2>
+          <p class="screenIntro">
+            O N1 pode acolher, consultar e posicionar com base no histórico. O que o N1 não deve fazer é prometer uma ação que depende da célula responsável.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillWarn">Evite</span>
+              <h3>Promessas sem validação</h3>
+              <ul>
+                <li>“O produto será enviado hoje.”</li>
+                <li>“O pagamento já será feito.”</li>
+                <li>“A troca está garantida.”</li>
+                <li>“Não precisa de DCE.”</li>
+                <li>“O prazo é esse.”</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Prefira</span>
+              <h3>Posicionamento seguro</h3>
+              <ul>
+                <li>“Vou verificar a etapa atual do seu acordo.”</li>
+                <li>“Conforme o histórico, o caso está em acompanhamento.”</li>
+                <li>“Vou registrar seu contato.”</li>
+                <li>“Vou direcionar para continuidade da tratativa.”</li>
+                <li>“A equipe responsável seguirá com a análise.”</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Fala segura completa</strong>
+            <p>
+              “Vou verificar a etapa atual do seu acordo para te orientar com segurança. Caso dependa da célula responsável, vou registrar seu contato e direcionar para continuidade da tratativa.”
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela define o limite de atuação do N1.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="8" id="screen-n1-limit">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Aprender</span>
+          <h2>Limite de atuação do N1</h2>
+          <p class="screenIntro">
+            O N1 atua no primeiro atendimento. Isso significa entender a dúvida, consultar o histórico, orientar de forma segura e direcionar quando a tratativa depende da célula responsável.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">N1 pode</span>
+              <h3>Consultar e orientar</h3>
+              <p>
+                O N1 pode consultar o histórico, identificar o tipo de acordo e explicar a etapa registrada de forma segura.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">N1 deve</span>
+              <h3>Registrar e direcionar</h3>
+              <p>
+                Quando o cliente cobra retorno, pagamento, envio, coleta ou ajuste, o N1 deve registrar e direcionar para Acordos.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">N1 não deve</span>
+              <h3>Executar o acordo</h3>
+              <p>
+                O N1 não deve alterar etapa, prometer prazo, confirmar pagamento, enviar produto ou substituir a atuação da célula responsável.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Resumo do papel</strong>
+            <p>
+              N1 não conduz o acordo. N1 entende a etapa, posiciona com segurança e direciona corretamente.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Agora começa o modo prática.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnGreen" type="button" onclick="goNext()">Entendi o processo. Quero praticar.</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="9" id="screen-practice-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Modo Prática</span>
+          <h2>Agora é hora de praticar</h2>
+          <p class="screenIntro">
+            A partir de agora, você vai responder situações comuns de clientes que retornam durante uma tratativa de acordo. O objetivo é reconhecer o tipo de acordo, entender a dúvida e decidir quando consultar ou direcionar.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Identificar</span>
+              <h3>Troca ou ressarcimento?</h3>
+              <p>
+                Primeiro, entenda se o cliente está falando de produto novo, envio e coleta, ou de valor, termo e pagamento.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Interpretar</span>
+              <h3>Qual é a dúvida?</h3>
+              <p>
+                Depois, identifique se o cliente quer status de aceite, documentação, envio, pagamento, DCE ou retorno.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Direcionar</span>
+              <h3>Qual é o limite do N1?</h3>
+              <p>
+                Quando depender da célula responsável, o N1 deve registrar e direcionar, sem prometer solução.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Regra do jogo</strong>
+            <p>
+              Leia o cenário, escolha a melhor resposta e observe o feedback. O foco é aprender a conduzir com segurança.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Vamos começar identificando o tipo de acordo.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Iniciar prática</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="10" id="screen-type-practice-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 1 | 1 de 4</span>
+          <h2>Troca ou ressarcimento?</h2>
+          <p class="screenIntro">
+            Leia a fala do cliente e identifique o tipo de acordo mais provável.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Me disseram que vão enviar outro produto no lugar do meu.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice1', true, 'Correto. Quando o cliente fala em envio de outro produto, o cenário indica troca de produto.', 'Prática | Tipo de acordo', 'Identificou envio de novo produto como troca.')">
+              Troca de Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice1', false, 'Atenção. Ressarcimento envolve valor, pagamento, dados bancários ou termo. Aqui o cliente fala em receber outro produto.')">
+              Ressarcimento de Valores
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-typePractice1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Produto novo indica troca.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-typePractice1" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="11" id="screen-type-practice-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 1 | 2 de 4</span>
+          <h2>Troca ou ressarcimento?</h2>
+          <p class="screenIntro">
+            Agora o cliente fala sobre dados bancários.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Já mandei meus dados bancários e quero saber quando vou receber.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice2', false, 'Atenção. Troca envolve envio, entrega ou coleta de produto. Dados bancários indicam ressarcimento.')">
+              Troca de Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice2', true, 'Correto. Dados bancários e expectativa de recebimento indicam ressarcimento de valores.', 'Prática | Tipo de acordo', 'Identificou dados bancários como indicador de ressarcimento.')">
+              Ressarcimento de Valores
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-typePractice2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Dados bancários indicam ressarcimento.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-typePractice2" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="12" id="screen-type-practice-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 1 | 3 de 4</span>
+          <h2>Troca ou ressarcimento?</h2>
+          <p class="screenIntro">
+            O cliente pergunta sobre coleta do produto antigo.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Quero saber quando vão coletar o produto antigo.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice3', true, 'Correto. Coleta do produto antigo normalmente aparece no fluxo de troca de produto.', 'Prática | Tipo de acordo', 'Identificou coleta como parte do fluxo de troca.')">
+              Troca de Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice3', false, 'Atenção. Ressarcimento está ligado a pagamento. Coleta do produto antigo indica relação com troca ou movimentação do produto original.')">
+              Ressarcimento de Valores
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-typePractice3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Coleta geralmente aparece na jornada de troca.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-typePractice3" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="13" id="screen-type-practice-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 1 | 4 de 4</span>
+          <h2>Troca ou ressarcimento?</h2>
+          <p class="screenIntro">
+            O cliente menciona termo assinado e pagamento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Eu assinei o termo e estou aguardando o pagamento.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice4', false, 'Atenção. Termo e pagamento indicam ressarcimento, não envio de produto novo.')">
+              Troca de Produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'typePractice4', true, 'Correto. Termo assinado e pagamento indicam fluxo de ressarcimento de valores.', 'Prática | Tipo de acordo', 'Identificou termo e pagamento como ressarcimento.')">
+              Ressarcimento de Valores
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-typePractice4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da primeira prática. Agora vamos entender a dúvida do cliente.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-typePractice4" type="button" onclick="goNext()" disabled>Ir para próxima prática</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="14" id="screen-question-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 2</span>
+          <h2>O que o cliente está perguntando?</h2>
+          <p class="screenIntro">
+            Depois de reconhecer o tipo de acordo, o N1 precisa entender a intenção da dúvida. O cliente pode estar perguntando sobre aceite, documentação, envio, pagamento, DCE ou ausência de retorno.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Status</span>
+              <h3>Etapa atual</h3>
+              <p>
+                O cliente quer saber em que ponto o acordo está.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Documentação</span>
+              <h3>Envio ou retorno</h3>
+              <p>
+                O cliente quer saber se documentos, termo, aceite ou dados foram recebidos.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Pendência</span>
+              <h3>Sem retorno</h3>
+              <p>
+                O cliente relata que enviou algo ou aguardou contato e não recebeu atualização.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Mensagem-chave</strong>
+            <p>
+              Nem toda pergunta sobre acordo tem a mesma intenção. Primeiro entenda o que o cliente quer saber.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Vamos praticar a leitura da intenção.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Praticar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="15" id="screen-question-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 2 | 1 de 3</span>
+          <h2>Qual é a dúvida?</h2>
+          <p class="screenIntro">
+            Leia a fala do cliente e escolha a intenção principal.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Já aceitei a troca e queria saber o que acontece agora.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question1', true, 'Correto. O cliente quer entender o próximo passo após o aceite da troca.', 'Prática | Intenção da dúvida', 'Identificou dúvida sobre etapa após aceite da troca.')">
+              Status após aceite da troca
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question1', false, 'Atenção. O cliente não está perguntando sobre pagamento. O fluxo citado é troca.')">
+              Status de pagamento
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question1', false, 'Atenção. O cliente não mencionou problema jurídico ou processo.')">
+              Tratativa jurídica
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question1', false, 'Atenção. Não há indicação de compra de peça ou acessório.')">
+              Onde comprar acessório
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-question1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">O cliente quer saber a etapa após o aceite.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-question1" type="button" onclick="goNext()" disabled>Próxima dúvida</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="16" id="screen-question-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 2 | 2 de 3</span>
+          <h2>Qual é a dúvida?</h2>
+          <p class="screenIntro">
+            Agora o cliente fala sobre pagamento. Identifique a intenção principal antes de responder.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Já assinei o termo e quero saber quando o pagamento vai cair na minha conta.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question2', false, 'Atenção. O cliente não está falando de envio de novo produto. A dúvida está relacionada ao pagamento.')">
+              Status de envio do novo produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question2', true, 'Correto. O cliente está perguntando sobre etapa financeira ou status de pagamento do ressarcimento.', 'Prática | Intenção da dúvida', 'Identificou dúvida sobre pagamento em ressarcimento.')">
+              Status de pagamento
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question2', false, 'Atenção. DCE pode existir em alguns casos, mas a pergunta principal do cliente é sobre pagamento.')">
+              Dúvida sobre DCE
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question2', false, 'Atenção. O cliente não está perguntando onde comprar peça ou acessório.')">
+              Onde comprar acessório
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-question2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Pagamento depende de etapa registrada e validação da célula responsável.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-question2" type="button" onclick="goNext()" disabled>Próxima dúvida</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="17" id="screen-question-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 2 | 3 de 3</span>
+          <h2>Qual é a dúvida?</h2>
+          <p class="screenIntro">
+            Neste cenário, o cliente informa que enviou documentos e não teve retorno.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Eu já enviei os documentos do acordo, mas até agora ninguém me respondeu.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question3', false, 'Atenção. O cliente não está apenas perguntando o que é acordo. O cliente relata envio de documentos e ausência de retorno.')">
+              Dúvida conceitual sobre acordo
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question3', true, 'Correto. O cliente relata documentação enviada e ausência de retorno. O N1 deve consultar histórico e direcionar se depender da célula responsável.', 'Prática | Intenção da dúvida', 'Identificou ausência de retorno após envio de documentos.')">
+              Status de documentação / ausência de retorno
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question3', false, 'Atenção. O cliente não perguntou sobre compra de produto, peça ou acessório.')">
+              Onde comprar produto
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'question3', false, 'Atenção. Não há relato de risco, cheiro de queimado, dano ou incidente. Não é Sinistro.')">
+              Sinistro
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-question3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Prática 2. Agora vamos decidir quando consultar ou direcionar.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-question3" type="button" onclick="goNext()" disabled>Ir para próxima prática</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="18" id="screen-consult-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 3</span>
+          <h2>Pode responder ou precisa consultar?</h2>
+          <p class="screenIntro">
+            Algumas dúvidas são gerais e podem ser explicadas de forma simples. Outras dependem do histórico do acordo e da etapa registrada pela célula responsável.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillBlue">Pode orientar de forma geral</span>
+              <h3>Quando é conceito</h3>
+              <p>
+                O N1 pode explicar, em linguagem simples, o que é troca, ressarcimento, DCE ou acordo, desde que não confirme uma etapa específica sem consulta.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Precisa consultar histórico</span>
+              <h3>Quando é caso do cliente</h3>
+              <p>
+                Se o cliente pergunta sobre pagamento, envio, coleta, documentos enviados, prazo ou necessidade de DCE no caso dele, é preciso consultar o histórico.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Regra prática</strong>
+            <p>
+              Pergunta geral pode receber orientação geral. Pergunta sobre “meu caso” precisa de consulta ao histórico.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Vamos praticar o limite entre orientar e consultar.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Praticar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="19" id="screen-consult-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 3 | 1 de 4</span>
+          <h2>Orientar ou consultar?</h2>
+          <p class="screenIntro">
+            Leia a pergunta do cliente e escolha a melhor conduta para o N1.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “O que significa ressarcimento?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult1', true, 'Correto. Essa é uma dúvida geral. O N1 pode explicar que ressarcimento é uma tratativa em que o cliente recebe um valor conforme acordo aprovado, sem prometer prazo ou pagamento específico.', 'Prática | Consultar ou orientar', 'Identificou dúvida geral que pode ser orientada pelo N1.')">
+              Pode orientar de forma geral, sem prometer etapa específica.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult1', false, 'Atenção. Não é necessário direcionar automaticamente para Acordos quando a pergunta é apenas conceitual e geral.')">
+              Direcionar imediatamente para Acordos.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult1', false, 'Atenção. O N1 não deve confirmar pagamento se o cliente perguntou apenas o conceito de ressarcimento.')">
+              Informar que o pagamento será realizado em breve.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult1', false, 'Atenção. A pergunta não envolve DCE.')">
+              Solicitar DCE ao cliente.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-consult1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Dúvida geral pode ter orientação geral.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-consult1" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="20" id="screen-consult-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 3 | 2 de 4</span>
+          <h2>Orientar ou consultar?</h2>
+          <p class="screenIntro">
+            Agora o cliente pergunta sobre a necessidade de DCE no caso dele.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “Eu preciso emitir DCE no meu caso?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult2', false, 'Atenção. Não é seguro dizer que sim sem consultar onde está o produto, se haverá coleta e o que foi orientado no histórico.')">
+              Sim, sempre precisa emitir DCE.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult2', true, 'Correto. Quando o cliente pergunta sobre a necessidade de DCE no caso dele, o N1 deve consultar o histórico antes de responder.', 'Prática | Consultar ou orientar', 'Identificou que necessidade de DCE exige consulta ao histórico.')">
+              Consultar o histórico antes de responder.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult2', false, 'Atenção. Não é seguro dizer que não precisa sem consultar a etapa registrada e a orientação da célula responsável.')">
+              Não, DCE nunca é necessária.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult2', false, 'Atenção. O cliente não está perguntando sobre compra de peça ou produto.')">
+              Orientar onde comprar uma peça.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-consult2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">DCE no caso do cliente exige histórico.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-consult2" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="21" id="screen-consult-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 3 | 3 de 4</span>
+          <h2>Orientar ou consultar?</h2>
+          <p class="screenIntro">
+            O cliente pergunta sobre data de pagamento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “Quando meu pagamento será feito?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult3', false, 'Atenção. O N1 não deve prometer pagamento sem consultar histórico e sem validação da célula responsável.')">
+              Informar uma previsão sem consultar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult3', true, 'Correto. Data ou status de pagamento depende do histórico e, quando necessário, da célula responsável por Acordos.', 'Prática | Consultar ou orientar', 'Identificou que pagamento exige consulta e possível direcionamento.')">
+              Consultar histórico e direcionar se depender da célula responsável.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult3', false, 'Atenção. Finalizar sem posicionar ou registrar não resolve a dúvida do cliente.')">
+              Finalizar sem registro.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult3', false, 'Atenção. O cliente pergunta sobre pagamento, não sobre envio de produto.')">
+              Informar que o produto já foi enviado.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-consult3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Pagamento não deve ser prometido sem validação.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-consult3" type="button" onclick="goNext()" disabled>Próximo cenário</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="22" id="screen-consult-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 3 | 4 de 4</span>
+          <h2>Orientar ou consultar?</h2>
+          <p class="screenIntro">
+            O cliente informa que enviou documentos e não teve retorno.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Enviei os documentos do acordo e ninguém me respondeu.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult4', false, 'Atenção. Não é seguro dizer apenas para aguardar sem consultar histórico e registrar o novo contato.')">
+              Pedir para aguardar sem consultar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult4', true, 'Correto. O N1 deve consultar o histórico, registrar o contato e direcionar para Acordos se a continuidade depender da célula responsável.', 'Prática | Consultar ou orientar', 'Identificou ausência de retorno como caso que exige histórico e possível direcionamento.')">
+              Consultar histórico, registrar contato e direcionar para Acordos se necessário.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult4', false, 'Atenção. O N1 não deve garantir pagamento, envio ou aprovação apenas com base na fala do cliente.')">
+              Confirmar que o acordo já foi aprovado.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'consult4', false, 'Atenção. Reabrir tudo do zero pode duplicar tratativa. Primeiro consulte o histórico.')">
+              Abrir uma nova tratativa sem consultar o histórico.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-consult4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Prática 3. Agora vamos treinar resposta segura.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-consult4" type="button" onclick="goNext()" disabled>Ir para próxima prática</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="23" id="screen-safe-answer-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 4</span>
+          <h2>Escolha a resposta segura</h2>
+          <p class="screenIntro">
+            Agora vamos praticar a forma de responder ao cliente sem prometer prazo, pagamento, envio, coleta ou aprovação sem validar o histórico.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillWarn">Evite</span>
+              <h3>Responder no automático</h3>
+              <p>
+                Em acordos, respostas como “vai ser pago”, “já foi aprovado” ou “o produto será enviado” podem gerar expectativa incorreta se não houver validação no histórico.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Prefira</span>
+              <h3>Posicionar com segurança</h3>
+              <p>
+                O caminho mais seguro é verificar a etapa atual, registrar o contato e direcionar para a célula responsável quando a dúvida depender de atuação de Acordos.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Modelo mental</strong>
+            <p>
+              O N1 não precisa resolver o acordo. O N1 precisa entender a dúvida, consultar o histórico e direcionar corretamente quando houver dependência da célula responsável.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Vamos escolher a melhor resposta ao cliente.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Praticar resposta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="24" id="screen-safe-answer-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 4 | 1 de 3</span>
+          <h2>Cliente quer saber sobre envio do produto</h2>
+          <p class="screenIntro">
+            Escolha a resposta mais segura para um cliente que pergunta sobre o envio do produto no acordo de troca.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Já aceitei a troca. Quando vão enviar meu produto?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe1', false, 'Atenção. O N1 não deve prometer envio ou prazo sem consultar a etapa atual no histórico.')">
+              Seu produto será enviado ainda esta semana.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe1', false, 'Atenção. Dizer apenas para aguardar não posiciona o cliente e não demonstra consulta ao histórico.')">
+              É só aguardar, a equipe vai enviar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe1', true, 'Correto. A resposta acolhe, consulta a etapa atual e evita promessa de envio ou prazo sem validação.', 'Prática | Resposta segura', 'Escolheu resposta segura para dúvida sobre envio de produto em troca.')">
+              Vou verificar a etapa atual do seu acordo de troca para te orientar com segurança. Caso dependa da célula responsável, vou registrar seu contato e direcionar para continuidade.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe1', false, 'Atenção. O cliente não perguntou sobre ressarcimento ou pagamento. O cenário é troca de produto.')">
+              O pagamento será feito após a análise financeira.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-safe1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Dúvida sobre envio exige consulta da etapa atual.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-safe1" type="button" onclick="goNext()" disabled>Próxima resposta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="25" id="screen-safe-answer-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 4 | 2 de 3</span>
+          <h2>Cliente quer saber sobre pagamento</h2>
+          <p class="screenIntro">
+            Escolha a resposta mais segura para um cliente que pergunta sobre o pagamento do ressarcimento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Já mandei meus dados bancários. Quando vou receber o valor?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe2', false, 'Atenção. O N1 não deve prometer pagamento sem consultar o histórico e sem validação da célula responsável.')">
+              O valor será pago em breve, pode ficar tranquilo.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe2', true, 'Correto. A resposta reconhece a dúvida, consulta o histórico e evita prometer pagamento sem validação.', 'Prática | Resposta segura', 'Escolheu resposta segura para dúvida sobre pagamento de ressarcimento.')">
+              Vou verificar a etapa atual do seu ressarcimento para te orientar com segurança. Se a atualização depender da célula responsável, vou registrar seu contato e direcionar para continuidade.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe2', false, 'Atenção. A resposta transfere responsabilidade sem consultar ou explicar que será verificado o histórico.')">
+              Não consigo saber, precisa aguardar o setor responsável.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe2', false, 'Atenção. O cliente fala sobre dados bancários e pagamento, não sobre coleta do produto antigo.')">
+              A coleta do produto será agendada automaticamente.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-safe2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Pagamento exige validação da etapa de ressarcimento.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-safe2" type="button" onclick="goNext()" disabled>Próxima resposta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="26" id="screen-safe-answer-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 4 | 3 de 3</span>
+          <h2>Cliente pergunta sobre DCE</h2>
+          <p class="screenIntro">
+            Escolha a resposta mais segura para um cliente que pergunta se precisa emitir DCE no caso dele.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “Eu preciso emitir DCE para o meu acordo?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe3', false, 'Atenção. O N1 não deve confirmar que precisa de DCE sem consultar o histórico e a orientação registrada.')">
+              Sim, todo acordo precisa de DCE.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe3', false, 'Atenção. O N1 também não deve dispensar DCE sem validar a etapa e onde está o produto original.')">
+              Não, nunca precisa emitir DCE.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe3', true, 'Correto. A necessidade de DCE depende da etapa registrada, da orientação da célula responsável e da movimentação do produto original.', 'Prática | Resposta segura', 'Escolheu resposta segura para dúvida sobre DCE.')">
+              Vou consultar a orientação registrada no seu acordo para confirmar a etapa correta antes de te posicionar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'safe3', false, 'Atenção. A pergunta do cliente é sobre DCE, não sobre compra de acessório.')">
+              Você precisa procurar onde comprar o acessório correto.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-safe3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da Prática 4. Agora vamos decidir quando finalizar ou direcionar.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-safe3" type="button" onclick="goNext()" disabled>Ir para prática final</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="27" id="screen-final-action-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 5</span>
+          <h2>Direciona ou finaliza?</h2>
+          <p class="screenIntro">
+            Para fechar, vamos praticar a decisão final do N1: quando uma dúvida pode ser orientada e finalizada, e quando precisa ser registrada e direcionada para Acordos.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid2">
+            <div class="card">
+              <span class="pill pillGreen">Orientar e finalizar</span>
+              <h3>Dúvida geral</h3>
+              <p>
+                Quando o cliente pergunta algo conceitual e a resposta não depende do histórico do caso.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Registrar e direcionar</span>
+              <h3>Dúvida específica</h3>
+              <p>
+                Quando a resposta depende de etapa, documentação, pagamento, envio, coleta, prazo ou análise da célula responsável.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Resumo</strong>
+            <p>
+              Se a pergunta é geral, oriente. Se a pergunta é sobre “meu acordo”, consulte histórico e direcione quando houver dependência de Acordos.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Vamos para as últimas decisões.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Praticar decisão final</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="28" id="screen-final-action-1">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 5 | 1 de 4</span>
+          <h2>Direciona ou finaliza?</h2>
+          <p class="screenIntro">
+            Escolha a melhor ação para o cenário apresentado.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “O que é troca de produto?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action1', true, 'Correto. Essa é uma dúvida geral. O N1 pode explicar que troca é uma tratativa em que o cliente recebe um novo produto conforme acordo aprovado.', 'Prática | Decisão final', 'Identificou dúvida geral que pode ser orientada e finalizada.')">
+              Orientar e finalizar, se não houver outra dúvida.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action1', false, 'Atenção. Não é necessário direcionar automaticamente para Acordos quando o cliente pede apenas uma explicação geral.')">
+              Direcionar para Acordos imediatamente.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action1', false, 'Atenção. Não há pedido de pagamento nesse cenário.')">
+              Confirmar etapa financeira.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action1', false, 'Atenção. Não há necessidade de abrir nova tratativa para explicar um conceito geral.')">
+              Abrir nova tratativa de acordo.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-action1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Dúvida geral pode ser orientada.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-action1" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="29" id="screen-final-action-2">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 5 | 2 de 4</span>
+          <h2>Direciona ou finaliza?</h2>
+          <p class="screenIntro">
+            Agora o cliente pergunta sobre uma etapa específica do próprio acordo.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “Meu pagamento já foi aprovado?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action2', false, 'Atenção. O N1 não deve confirmar aprovação de pagamento sem histórico e sem validação da célula responsável.')">
+              Informar que sim.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action2', true, 'Correto. A aprovação de pagamento depende da etapa registrada e da célula responsável. O N1 deve consultar, registrar e direcionar quando necessário.', 'Prática | Decisão final', 'Identificou que aprovação de pagamento exige consulta e possível direcionamento.')">
+              Consultar histórico, registrar contato e direcionar se depender de Acordos.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action2', false, 'Atenção. Finalizar sem orientação ou consulta não atende a dúvida do cliente.')">
+              Finalizar sem consultar.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action2', false, 'Atenção. O cliente fala de pagamento, não de envio de produto.')">
+              Informar que a remessa já foi criada.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-action2"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Pergunta sobre pagamento exige consulta.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-action2" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="30" id="screen-final-action-3">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 5 | 3 de 4</span>
+          <h2>Direciona ou finaliza?</h2>
+          <p class="screenIntro">
+            O cliente informa que enviou documentos e não recebeu retorno. Escolha a melhor ação para o N1.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Eu já enviei os documentos do acordo e ninguém me respondeu.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action3', false, 'Atenção. Pedir apenas para aguardar não consulta histórico, não registra o retorno do cliente e não garante continuidade.')">
+              Pedir para aguardar mais alguns dias.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action3', true, 'Correto. Quando o cliente informa envio de documentos e ausência de retorno, o N1 deve consultar o histórico, registrar o contato e direcionar para Acordos se depender da célula responsável.', 'Prática | Decisão final', 'Identificou ausência de retorno após envio de documentos como cenário que exige consulta e possível direcionamento.')">
+              Consultar histórico, registrar o contato e direcionar para Acordos se depender da célula responsável.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action3', false, 'Atenção. O N1 não deve confirmar que está tudo aprovado sem validar a etapa registrada.')">
+              Confirmar que está tudo aprovado.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action3', false, 'Atenção. Abrir tudo do zero pode duplicar tratativa. Primeiro é necessário consultar o histórico existente.')">
+              Abrir uma nova solicitação de acordo.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-action3"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Ausência de retorno precisa de registro e validação do histórico.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-action3" type="button" onclick="goNext()" disabled>Próxima decisão</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="31" id="screen-final-action-4">
+        <div class="screenHeader">
+          <span class="eyebrow">Prática 5 | 4 de 4</span>
+          <h2>Direciona ou finaliza?</h2>
+          <p class="screenIntro">
+            O cliente quer saber se precisa emitir DCE. Escolha a melhor ação para o N1.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente pergunta:</strong>
+            <p>
+              “No meu acordo, eu preciso emitir DCE?”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action4', false, 'Atenção. O N1 não deve confirmar DCE sem verificar a orientação registrada no histórico.')">
+              Sim, emitir DCE sempre é obrigatório.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action4', false, 'Atenção. O N1 também não deve dispensar DCE sem validar a etapa e a orientação registrada.')">
+              Não, DCE nunca é necessária.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action4', true, 'Correto. Quando a pergunta é sobre o caso específico do cliente, o N1 deve consultar o histórico antes de responder e direcionar se necessário.', 'Prática | Decisão final', 'Identificou dúvida específica sobre DCE como cenário que exige consulta ao histórico.')">
+              Consultar o histórico antes de responder e direcionar se depender da célula responsável.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'action4', false, 'Atenção. A pergunta é sobre DCE no acordo, não sobre compra de produto ou acessório.')">
+              Orientar onde comprar o produto.
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-action4"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim da prática. Agora veja o resultado final.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-action4" type="button" onclick="goNext()" disabled>Ver resultado</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="32" id="screen-result">
+        <div class="screenHeader">
+          <span class="eyebrow">Resultado Final</span>
+          <h2>Você concluiu o EAD de Acordos para N1</h2>
+          <p class="screenIntro">
+            Agora revise seu desempenho e os principais pontos que devem ser levados para o primeiro atendimento.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout success">
+            <strong>Resultado</strong>
+            <p id="resultText">
+              Seu resultado será exibido aqui.
+            </p>
+          </div>
+
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Reconhecer</span>
+              <h3>Tipo de acordo</h3>
+              <p>
+                Troca envolve produto novo, envio, entrega ou coleta. Ressarcimento envolve valor, termo, dados bancários ou pagamento.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Consultar</span>
+              <h3>Histórico antes de posicionar</h3>
+              <p>
+                Quando o cliente pergunta sobre o próprio acordo, a resposta depende da etapa registrada.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Direcionar</span>
+              <h3>Limite do N1</h3>
+              <p>
+                O N1 não conduz o acordo. O N1 entende, consulta, posiciona com segurança e direciona quando necessário.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Resumo para a operação</h3>
+            <ul>
+              <li>Identifique se o cliente fala de troca ou ressarcimento.</li>
+              <li>Consulte o histórico antes de responder sobre etapa, prazo, envio, pagamento, coleta ou DCE.</li>
+              <li>Evite prometer envio, pagamento, aprovação ou prazo sem validação.</li>
+              <li>Registre o contato quando o cliente retorna com dúvida ou cobrança.</li>
+              <li>Direcione para Acordos quando a continuidade depender da célula responsável.</li>
+            </ul>
+          </div>
+
+          <div class="callout info">
+            <strong>Frase de fixação</strong>
+            <p>
+              N1 não executa o acordo. N1 entende a etapa, posiciona com segurança e direciona corretamente.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim do EAD.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnGreen" type="button" onclick="openHistory()">Ver histórico</button>
+            <button class="btn btnWarn" type="button" onclick="restartEad()">Refazer EAD</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressFill = document.getElementById("progressFill");
+    const stepLabel = document.getElementById("stepLabel");
+    const scoreLabel = document.getElementById("scoreLabel");
+    const focusToggle = document.getElementById("focusToggle");
+    const historyToggle = document.getElementById("historyToggle");
+    const historyDrawer = document.getElementById("historyDrawer");
+    const historyClose = document.getElementById("historyClose");
+    const historyContent = document.getElementById("historyContent");
+
+    let currentScreenIndex = 0;
+    let score = 0;
+    let answeredItems = {};
+    let historyItems = [];
+
+    const maxScore = 18;
+
+    function initializeEad() {
+      updateScreenView();
+      updateScore();
+      updateHistory();
+    }
+
+    function goNext() {
+      if (currentScreenIndex < screens.length - 1) {
+        currentScreenIndex++;
+        updateScreenView();
+      }
+
+      if (screens[currentScreenIndex] && screens[currentScreenIndex].id === "screen-result") {
+        renderResult();
+      }
+    }
+
+    function goPrev() {
+      if (currentScreenIndex > 0) {
+        currentScreenIndex--;
+        updateScreenView();
+      }
+    }
+
+    function updateScreenView() {
+      screens.forEach(function (screen, index) {
+        screen.classList.toggle("active", index === currentScreenIndex);
+      });
+
+      const currentStep = currentScreenIndex + 1;
+      const totalSteps = screens.length;
+      const percent = (currentStep / totalSteps) * 100;
+
+      progressFill.style.width = percent + "%";
+      stepLabel.textContent = "Etapa " + currentStep + " de " + totalSteps;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function updateScore() {
+      scoreLabel.textContent = "Pontuação: " + score;
+    }
+
+    function addScoreOnce(key, points) {
+      if (answeredItems[key]) return;
+      answeredItems[key] = true;
+      score += points;
+      updateScore();
+    }
+
+    function setFeedback(id, type, message) {
+      const feedback = document.getElementById(id);
+
+      if (!feedback) return;
+
+      feedback.className = "feedbackBox show " + type;
+      feedback.innerHTML = message;
+    }
+
+    function addHistory(title, text) {
+      historyItems.push({
+        title: title,
+        text: text
+      });
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      historyContent.innerHTML = "";
+
+      if (historyItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "historyItem";
+        empty.innerHTML = `
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas etapas.</p>
+        `;
+        historyContent.appendChild(empty);
+        return;
+      }
+
+      historyItems.forEach(function (item, index) {
+        const historyItem = document.createElement("div");
+        historyItem.className = "historyItem";
+        historyItem.innerHTML = `
+          <strong>${index + 1}. ${item.title}</strong>
+          <p>${item.text}</p>
+        `;
+        historyContent.appendChild(historyItem);
+      });
+    }
+
+    function openHistory() {
+      historyDrawer.classList.add("open");
+    }
+
+    function closeHistory() {
+      historyDrawer.classList.remove("open");
+    }
+
+    historyToggle.addEventListener("click", function () {
+      openHistory();
+    });
+
+    historyClose.addEventListener("click", function () {
+      closeHistory();
+    });
+
+    focusToggle.addEventListener("click", async function () {
+      const wrapper = document.getElementById("eadWrapper");
+
+      try {
+        if (!document.fullscreenElement) {
+          body.classList.add("focusMode");
+          focusToggle.textContent = "Sair do modo foco";
+          closeHistory();
+
+          if (wrapper.requestFullscreen) {
+            await wrapper.requestFullscreen();
+          } else if (wrapper.webkitRequestFullscreen) {
+            await wrapper.webkitRequestFullscreen();
+          } else if (wrapper.msRequestFullscreen) {
+            await wrapper.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            await document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            await document.msExitFullscreen();
+          }
+
+          body.classList.remove("focusMode");
+          focusToggle.textContent = "Modo foco";
+        }
+      } catch (error) {
+        body.classList.add("focusMode");
+        focusToggle.textContent = "Sair do modo foco";
+        closeHistory();
+
+        alert("O modo tela cheia foi bloqueado pelo navegador ou pela plataforma. Se isso acontecer, abra o conteúdo em uma nova aba ou use o modo tela cheia do player.");
+      }
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    document.addEventListener("webkitfullscreenchange", function () {
+      if (!document.webkitFullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    function answerChoice(button, questionId, isCorrect, message, historyTitle, historyText) {
+      if (answeredItems[questionId]) return;
+
+      const parent = button.closest(".choiceGrid");
+
+      if (parent) {
+        parent.querySelectorAll("button").forEach(function (btn) {
+          btn.disabled = true;
+        });
+      }
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        setFeedback("feedback-" + questionId, "good", message);
+        addScoreOnce(questionId, 1);
+
+        if (historyTitle && historyText) {
+          addHistory(historyTitle, historyText);
+        }
+      } else {
+        button.classList.add("incorrect");
+        setFeedback("feedback-" + questionId, "bad", message);
+        answeredItems[questionId] = true;
+
+        addHistory(
+          "Ajuste necessário",
+          "Uma alternativa incorreta foi selecionada. Revise o feedback da etapa para entender o melhor caminho."
+        );
+      }
+
+      const nextButton = document.getElementById("next-" + questionId);
+
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+    }
+
+    function renderResult() {
+      const resultText = document.getElementById("resultText");
+      const percent = Math.round((score / maxScore) * 100);
+
+      if (percent >= 90) {
+        resultText.innerHTML = `
+          <strong>Excelente!</strong> Você demonstrou segurança para reconhecer troca, ressarcimento, dúvidas sobre DCE, necessidade de consulta ao histórico e limite de atuação do N1.
+        `;
+      } else if (percent >= 70) {
+        resultText.innerHTML = `
+          <strong>Bom desempenho.</strong> Você entendeu a lógica principal. Revise no histórico os pontos em que houve ajuste, principalmente quando consultar histórico e quando direcionar para Acordos.
+        `;
+      } else {
+        resultText.innerHTML = `
+          <strong>Reforço recomendado.</strong> Vale refazer o EAD com atenção especial ao papel do N1: entender o acordo, consultar histórico, não prometer e direcionar corretamente.
+        `;
+      }
+    }
+
+    function restartEad() {
+      currentScreenIndex = 0;
+      score = 0;
+      answeredItems = {};
+      historyItems = [];
+
+      document.querySelectorAll(".choiceCard").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correct", "incorrect");
+      });
+
+      document.querySelectorAll(".feedbackBox").forEach(function (feedback) {
+        feedback.className = "feedbackBox";
+        feedback.innerHTML = "";
+      });
+
+      const nextButtons = [
+        "next-typePractice1",
+        "next-typePractice2",
+        "next-typePractice3",
+        "next-typePractice4",
+        "next-question1",
+        "next-question2",
+        "next-question3",
+        "next-consult1",
+        "next-consult2",
+        "next-consult3",
+        "next-consult4",
+        "next-safe1",
+        "next-safe2",
+        "next-safe3",
+        "next-action1",
+        "next-action2",
+        "next-action3",
+        "next-action4"
+      ];
+
+      nextButtons.forEach(function (id) {
+        const button = document.getElementById(id);
+
+        if (button) {
+          button.disabled = true;
+        }
+      });
+
+      closeHistory();
+      updateHistory();
+      updateScore();
+      updateScreenView();
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        const activeScreen = screens[currentScreenIndex];
+        const nextButton = activeScreen.querySelector(".screenFooter .btnPrimary:not(:disabled)");
+
+        if (nextButton) {
+          nextButton.click();
+        }
+      }
+
+      if (event.key === "ArrowLeft") {
+        goPrev();
+      }
+
+      if (event.key === "Escape") {
+        closeHistory();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initializeEad();
+    });
+  </script>
+</body>
+</html>

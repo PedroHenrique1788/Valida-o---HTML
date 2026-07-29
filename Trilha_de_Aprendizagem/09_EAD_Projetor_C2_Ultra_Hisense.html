@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAD Hisense | Projetor C2-Ultra</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    
+    :root {
+      --azul: #003B71; --azul2: #005B9F; --ciano: #00A9CE; --verde: #78BE20;
+      --bg: #F4F8FC; --card: #FFFFFF; --texto: #1E293B; --muted: #64748B; --line: #D9E2EC;
+      --warn: #FFF7E6; --warnline: #F2B84B; --ok: #EAF8F1; --okline: #30A46C; --bad: #FEF2F2; --badline: #EF4444;
+      --shadow: 0 18px 45px rgba(15,23,42,.10); --radius: 22px;
+    }
+    
+    * { box-sizing: border-box; } 
+    html { scroll-behavior: smooth; } 
+    body { margin: 0; font-family: Poppins, Arial, sans-serif; background: var(--bg); color: var(--texto); line-height: 1.58; }
+    
+    /* Layout Base */
+    body.focus .sidebar, body.focus .module-map { display: none; } 
+    body.focus #mainWrapper { grid-template-columns: 1fr; max-width: 1100px; }
+    #mainWrapper { width: min(1480px, 100%); margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 310px 1fr; gap: 26px; }
+    
+    /* Sidebar */
+    .sidebar { position: sticky; top: 24px; height: calc(100vh - 48px); overflow: auto; border-radius: 28px; background: linear-gradient(180deg, var(--azul), #00284D); color: #fff; padding: 22px; box-shadow: var(--shadow); }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .logo { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--ciano), var(--verde)); display: grid; place-items: center; font-weight: 800; }
+    .brand strong { display: block; } .brand span { font-size: .78rem; opacity: .82; }
+    .progress-wrap { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); border-radius: 18px; padding: 14px; margin: 16px 0; }
+    .progress-info { display: flex; justify-content: space-between; font-size: .8rem; margin-bottom: 8px; }
+    .bar { height: 9px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.2); }
+    .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--ciano), var(--verde)); transition: .25s; }
+    .nav-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; margin: 18px 0 8px; }
+    .nav { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .nav a { display: block; text-decoration: none; color: #fff; padding: 10px 12px; border-radius: 13px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); font-size: .86rem; transition: all 0.2s; }
+    .nav a:hover, .nav a.active { background: rgba(0,169,206,.28); transform: translateX(2px); }
+    .group-hint { font-size: .72rem; color: rgba(255,255,255,.55); margin: -2px 0 4px; line-height: 1.4; }
+    
+    /* Área Principal */
+    .main { min-width: 0; }
+    .topbar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: flex-end; gap: 10px; padding: 8px 0; background: linear-gradient(180deg, rgba(244,248,252,.96), rgba(244,248,252,.72)); backdrop-filter: blur(8px); } 
+    body.focus .topbar { position: fixed; right: 24px; top: 18px; background: transparent; padding: 0; } 
+    body.focus .topbar .btn.ghost { display: none; }
+    
+    /* Botões */
+    .btn { border: 0; border-radius: 999px; background: var(--azul); color: #fff; padding: 10px 16px; font-family: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 10px 20px rgba(0,59,113,.18); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn.secondary { background: #fff; color: var(--azul); border: 1px solid var(--line); box-shadow: none; }
+    .btn.ghost { background: transparent; color: var(--azul); border: 1px solid var(--line); box-shadow: none; }
+    .btn.green { background: var(--verde); }
+    
+    /* Componentes de Conteúdo */
+    .hero { border-radius: 32px; background: radial-gradient(circle at 88% 8%, rgba(120,190,32,.35), transparent 24%), linear-gradient(135deg, var(--azul), var(--azul2) 58%, var(--ciano)); color: #fff; padding: clamp(30px, 5vw, 58px); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .hero:after { content: ""; position: absolute; width: 440px; height: 440px; border-radius: 50%; right: -170px; bottom: -220px; background: rgba(255,255,255,.10); }
+    .eyebrow { display: inline-flex; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.24); border-radius: 999px; padding: 7px 12px; font-weight: 800; font-size: .8rem; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; margin: 0 0 12px; letter-spacing: -.04em; max-width: 900px; }
+    .hero p { max-width: 860px; font-size: 1.04rem; opacity: .92; margin: 0 0 22px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    
+    section { scroll-margin-top: 80px; }
+    .section, .module { background: var(--card); border: 1px solid rgba(217,226,236,.9); border-radius: 28px; padding: clamp(22px, 3vw, 36px); margin-top: 24px; box-shadow: var(--shadow); }
+    .module-head { display: grid; grid-template-columns: 78px 1fr; gap: 18px; align-items: center; margin-bottom: 18px; }
+    .num { width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--azul), var(--ciano)); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.35rem; }
+    h2 { margin: 0 0 8px; color: var(--azul); font-size: clamp(1.45rem, 2.4vw, 2.15rem); line-height: 1.2; }
+    h3 { color: #123B61; margin: 22px 0 10px; line-height: 1.25; }
+    h4 { color: var(--azul); margin: 0 0 7px; }
+    .lead { margin: 0; color: var(--muted); }
+    
+    .module-map, .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-top: 18px; }
+    .map-card, .card { background: #F8FBFF; border: 1px solid var(--line); border-radius: 18px; padding: 16px; text-decoration: none; color: var(--texto); transition: 0.2s; }
+    .map-card:hover { border-color: var(--ciano); transform: translateY(-2px); }
+    .map-card strong, .card strong { display: block; color: var(--azul); margin-bottom: 5px; }
+    .map-card span, .card p { color: var(--muted); font-size: .9rem; margin: 0; }
+    .two { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    
+    .tag { display: inline-flex; border-radius: 999px; background: rgba(0,169,206,.12); color: var(--azul); font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 5px 9px; margin-bottom: 9px; }
+    .callout { border-radius: 18px; border: 1px solid var(--line); padding: 16px 18px; margin: 18px 0; background: #F8FBFF; }
+    .callout strong { color: var(--azul); }
+    .callout.warn { background: var(--warn); border-color: var(--warnline); }
+    .callout.ok { background: var(--ok); border-color: var(--okline); }
+    .callout.bad { background: var(--bad); border-color: var(--badline); }
+    .placeholder { border: 2px dashed #A8B7C8; background: #F8FBFF; border-radius: 22px; padding: 22px; text-align: center; color: #475569; margin: 18px 0; }
+    .placeholder strong { color: var(--azul); display: block; margin-bottom: 6px; }
+    .placeholder small { display: block; color: var(--muted); }
+    
+    .accordion { display: grid; gap: 12px; margin-top: 16px; }
+    details { background: #FBFDFF; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    summary { padding: 16px 18px; cursor: pointer; font-weight: 800; color: var(--azul); list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary:after { content: "+"; color: var(--ciano); font-size: 1.3rem; }
+    details[open] summary:after { content: "-"; }
+    .details-body { padding: 0 18px 18px; color: #344054; }
+    
+    /* Quizzes integrados (conteúdo) */
+    .quiz { margin-top: 24px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(180deg, #F7FBFF, #fff); padding: 20px; }
+    .quiz-q { font-weight: 800; margin-bottom: 12px; }
+    .opts { display: grid; gap: 10px; }
+    .opt { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 12px 14px; cursor: pointer; font-family: inherit; text-align: left; transition: 0.2s; }
+    .opt:hover:not(:disabled) { border-color: var(--ciano); background: #F5FCFF; }
+    .opt.ok { background: var(--ok); border-color: var(--okline); }
+    .opt.no { background: var(--bad); border-color: var(--badline); }
+    .feedback { display: none; margin-top: 12px; font-weight: 800; }
+    .feedback.show { display: block; }
+    .feedback.ok { color: #12783D; }
+    .feedback.no { color: #A12D2D; }
+    
+    /* Buscas, visuais e rodapé */
+    .visual-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 22px 0; }
+    .visual-pill { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.24); border-radius: 18px; padding: 14px; color: #fff; }
+    .visual-pill strong { display: block; font-size: 1.15rem; }
+    .visual-pill span { font-size: .82rem; opacity: .88; }
+    .official-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .official-links a { border-radius: 999px; padding: 9px 14px; text-decoration: none; background: var(--azul); color: #fff; font-weight: 700; font-size: .86rem; }
+    .official-links a.secondary { background: #fff; color: var(--azul); border: 1px solid var(--line); }
+    .searchbox { display: flex; gap: 10px; margin: 14px 0; }
+    .searchbox input { width: 100%; border: 1px solid var(--line); border-radius: 999px; padding: 12px 16px; font-family: inherit; }
+    .hidden { display: none !important; }
+    .footer { text-align: center; color: var(--muted); padding: 30px 0 8px; font-size: .86rem; }
+    .source-note { font-size: .82rem; color: var(--muted); margin-top: 16px; }
+    .to-top { position: fixed; right: 22px; bottom: 22px; z-index: 30; width: 46px; height: 46px; border-radius: 50%; background: var(--azul); color: #fff; border: 0; box-shadow: 0 10px 24px rgba(0,59,113,.28); cursor: pointer; font-size: 1.1rem; align-items: center; justify-content: center; display: none; }
+    .to-top.show { display: flex; }
+    
+    /* ==============================================================
+       MODAL DE PRÁTICA (O "QUADRADO NO MEIO")
+       ============================================================== */
+    #practiceModal {
+      display: none; /* Escondido por padrão */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.65); /* Fundo escuro transparente */
+      backdrop-filter: blur(4px); /* Borrão no fundo */
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto; /* Permite rolar se a tela for pequena */
+    }
+    
+    #practiceModal.show {
+      display: flex; /* Mostra o modal usando flexbox para centralizar */
+    }
+
+    .practice-shell {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      animation: modalFadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .practice-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: clamp(24px, 4vw, 44px);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+      width: 100%;
+    }
+    /* ============================================================== */
+
+    .practice-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 18px; }
+    .practice-badge { display: inline-flex; border-radius: 999px; background: rgba(0,169,206,.12); color: var(--azul); font-weight: 800; padding: 8px 12px; font-size: .82rem; margin-bottom: 10px; }
+    .score { font-weight: 800; color: var(--azul); }
+    .scenario { font-size: 1.22rem; font-weight: 800; color: #123B61; margin: 18px 0; }
+    .game-options { display: grid; gap: 12px; }
+    .game-option { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 14px 16px; text-align: left; font-family: inherit; cursor: pointer; transition: 0.2s;}
+    .game-option:hover:not(:disabled) { border-color: var(--ciano); background: #F5FCFF; }
+    .game-option.selected { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0,59,113,.10); }
+    .game-option.correct { border-color: var(--okline); background: var(--ok); }
+    .game-option.wrong { border-color: var(--badline); background: var(--bad); }
+    .game-feedback { display: none; margin-top: 14px; border-radius: 16px; padding: 14px 16px; font-weight: 700; }
+    .game-feedback.show { display: block; }
+    .game-feedback.ok { background: var(--ok); border: 1px solid var(--okline); color: #12783D; }
+    .game-feedback.no { background: var(--bad); border: 1px solid var(--badline); color: #A12D2D; }
+    .game-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+    .practice-menu { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 24px; }
+    .practice-choice { border: 1px solid var(--line); background: linear-gradient(135deg, #F8FBFF, #fff); border-radius: 22px; padding: 22px; text-align: left; cursor: pointer; transition: 0.2s; }
+    .practice-choice:hover { border-color: var(--ciano); transform: translateY(-2px); }
+    .practice-choice strong { display: block; color: var(--azul); font-size: 1.2rem; margin-bottom: 6px; }
+    .practice-choice span { display: block; color: var(--muted); font-size: .92rem; }
+    .results-list { display: grid; gap: 10px; margin-top: 14px; max-height: 400px; overflow-y: auto; padding-right: 10px;}
+    .result-item { border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: #F8FBFF; }
+    .result-item strong { color: var(--azul); }
+    
+    @media(max-width:1050px) {
+      #mainWrapper { grid-template-columns: 1fr; padding: 16px; }
+      .sidebar { position: relative; height: auto; top: 0; }
+      .module-map, .grid, .visual-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media(max-width:720px) {
+      .module-head, .two, .module-map, .grid, .visual-strip, .practice-menu { grid-template-columns: 1fr; }
+      .hero-actions, .topbar, .practice-top { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; }
+      .num { width: 58px; height: 58px; border-radius: 18px; }
+      .practice-card { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="mainWrapper">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">H</div><div><strong>Hisense</strong><span>C2-Ultra • EAD</span></div></div>
+    <div class="progress-wrap"><div class="progress-info"><span>Quizzes concluídos</span><span id="progTxt">0%</span></div><div class="bar"><div class="fill" id="progFill"></div></div></div>
+
+    <div class="nav-title">Conteúdo</div>
+    <ul class="nav">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#produto">Produto e proposta</a></li>
+      <li><a href="#acessorios">Acessórios e estrutura</a></li>
+      <li><a href="#imagem">Imagem e ambiente</a></li>
+      <li><a href="#ajustes">Foco e Keystone</a></li>
+      <li><a href="#entretenimento">Smart e entretenimento</a></li>
+      <li><a href="#problemas">Resolução de problemas</a></li>
+      <li><a href="#consulta">Consulta rápida</a></li>
+    </ul>
+    <div class="nav-title">Prática</div>
+    <div class="group-hint">Ambiente sem consulta ao conteúdo.</div>
+    <ul class="nav">
+      <li><a href="#" id="navPractice">Modo prática (Desafio)</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="btn secondary" id="focusBtn" type="button">Modo foco</button>
+      <button class="btn ghost" id="resetBtn" type="button">Reiniciar quizzes</button>
+    </div>
+
+    <div id="contentView">
+      <section class="hero" id="inicio">
+        <div class="eyebrow">Projetor C2-Ultra • Apoio técnico e atendimento</div>
+        <h1>EAD de Produto e Consulta Rápida</h1>
+        <p>Conheça a proposta do Projetor C2-Ultra, seus acessórios, sensores, conexões, ajustes de imagem e principais orientações de resolução de problemas.</p>
+        <div class="visual-strip">
+          <div class="visual-pill"><strong>4K Laser</strong><span>Experiência de tela grande</span></div>
+          <div class="visual-pill"><strong>Autoajuste</strong><span>Foco e Keystone</span></div>
+          <div class="visual-pill"><strong>65” a 300”</strong><span>Faixa de projeção</span></div>
+          <div class="visual-pill"><strong>Consulta</strong><span>Troubleshooting rápido</span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn" href="#produto">Ver conteúdo</a>
+          <button class="btn secondary" id="startPracticeHero" type="button">Praticar sem consultar</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Como usar este EAD</h2>
+        <p>Este módulo foi criado para formação e consulta no dia a dia. O foco é ajudar o analista a entender o produto, orientar testes simples e saber quando direcionar o caso para avaliação técnica.</p>
+        <div class="callout warn"><strong>Atenção:</strong> algumas informações extras de mercado podem variar por região. Para promessa comercial, garantia ou especificação final, valide sempre o material oficial aplicável ao Brasil.</div>
+        <div class="official-links">
+          <a href="https://www.hisense-usa.com/product-page/projectors-ultra-triple-laser-smart-mini-projector-c2ultra" target="_blank" rel="noopener">Página internacional C2 Ultra</a>
+          <a class="secondary" href="https://www.projectorcentral.com/hisense-c2_ultra.htm" target="_blank" rel="noopener">Ficha técnica ProjectorCentral</a>
+        </div>
+        <div class="module-map">
+          <a class="map-card" href="#produto"><strong>Produto</strong><span>Proposta, uso e principais expectativas.</span></a>
+          <a class="map-card" href="#ajustes"><strong>Ajustes</strong><span>Foco automático, manual e Keystone.</span></a>
+          <a class="map-card" href="#problemas"><strong>Troubleshooting</strong><span>Não liga, controle, imagem, aquecimento.</span></a>
+        </div>
+      </section>
+
+      <section class="module" id="produto" data-module>
+        <div class="module-head"><div class="num">1</div><div><h2>Produto e proposta</h2><p class="lead">O C2-Ultra é uma solução de entretenimento premium em tela grande.</p></div></div>
+        <div class="placeholder"><strong>INSERIR IMAGEM DO PROJETOR C2-ULTRA</strong><small>Sugestão: imagem frontal do projetor em uso ou foto do produto.</small></div>
+        <div class="grid">
+          <div class="card"><span class="tag">Experiência</span><strong>Tela grande</strong><p>Projetado para experiência de cinema em casa, games e ambientes diversos.</p></div>
+          <div class="card"><span class="tag">Imagem</span><strong>Projeção 4K</strong><p>Comunicação internacional posiciona o modelo como projetor 4K smart mini.</p></div>
+          <div class="card"><span class="tag">Laser</span><strong>Fonte de luz laser</strong><p>A tecnologia laser ajuda a entregar brilho, cor e durabilidade.</p></div>
+        </div>
+      </section>
+
+      <section class="module" id="acessorios" data-module>
+        <div class="module-head"><div class="num">2</div><div><h2>Acessórios e estrutura</h2><p class="lead">Conheça o que acompanha o produto e as áreas de atenção.</p></div></div>
+        <div class="grid">
+          <div class="card"><span class="tag">Acessório</span><strong>Fonte externa</strong><p>Código T1321556.</p></div>
+          <div class="card"><span class="tag">Acessório</span><strong>Controle remoto</strong><p>Código T361247.</p></div>
+          <div class="card"><span class="tag">Acessório</span><strong>Cabo de força</strong><p>Código T1304889.</p></div>
+        </div>
+      </section>
+
+      <section class="module" id="imagem" data-module>
+        <div class="module-head"><div class="num">3</div><div><h2>Imagem e ambiente</h2><p class="lead">A qualidade percebida depende do projetor, distância, superfície e iluminação.</p></div></div>
+        <div class="grid">
+          <div class="card"><span class="tag">Faixa ideal</span><strong>65” a 300”</strong><p>Abaixo de 65” ou acima de 300” podem ocorrer distorções.</p></div>
+          <div class="card"><span class="tag">Atenção</span><strong>Acima de 150”</strong><p>Foco e Keystone automáticos podem ficar indisponíveis.</p></div>
+        </div>
+        <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">O que pode acontecer quando a projeção passa de 150”?</div><div class="opts"><button class="opt" data-correct="false">A) O controle remoto para sempre.</button><button class="opt" data-correct="true">B) Foco e Keystone automáticos podem ficar indisponíveis.</button><button class="opt" data-correct="false">C) A fonte deixa de funcionar.</button></div><div class="feedback"></div></div>
+      </section>
+      
+      <section class="module" id="ajustes" data-module>
+        <div class="module-head"><div class="num">4</div><div><h2>Foco e Keystone</h2><p class="lead">Recursos que ajudam a deixar a imagem nítida e retangular.</p></div></div>
+        <div class="two">
+          <div class="card"><span class="tag">Foco</span><strong>Automático</strong><p>Ajusta automaticamente para deixar a imagem mais nítida.</p></div>
+          <div class="card"><span class="tag">Keystone</span><strong>Correção automática</strong><p>Corrige a imagem trapezoidal para formato mais retangular.</p></div>
+        </div>
+      </section>
+
+      <section class="module" id="problemas" data-module>
+        <div class="module-head"><div class="num">6</div><div><h2>Resolução de problemas</h2><p class="lead">Sintomas frequentes e orientações iniciais de atendimento.</p></div></div>
+        <div class="accordion">
+          <details open><summary>Não liga, desliga ou reinicia</summary><div class="details-body">Confirme fonte conectada e tomada. Verifique LED azul na fonte. Teste sem adaptadores.</div></details>
+          <details><summary>Controle remoto não funciona</summary><div class="details-body">Verifique pilhas alcalinas, retire-as, segure um botão por 2s e reinstale. Refaça pareamento.</div></details>
+        </div>
+        <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">Se o produto não liga e o LED da fonte está apagado, o que verificar primeiro?</div><div class="opts"><button class="opt" data-correct="true">A) Conferir conexão da fonte e testar outra tomada sem adaptadores.</button><button class="opt" data-correct="false">B) Alterar Keystone.</button><button class="opt" data-correct="false">C) Reinstalar apps.</button></div><div class="feedback"></div></div>
+      </section>
+
+      <section class="module" id="consulta" data-module>
+        <div class="module-head"><div class="num">7</div><div><h2>Consulta rápida</h2><p class="lead">Busque durante o atendimento.</p></div></div>
+        <div class="searchbox"><input id="filterInput" type="search" placeholder="Buscar: não liga, fonte, controle..." /></div>
+        <div class="accordion" id="filterArea">
+          <details open data-filter="nao liga desliga reinicia fonte led azul"><summary>Não liga, desliga ou reinicia</summary><div class="details-body">Verifique fonte externa, cabo, tomada e LED azul.</div></details>
+          <details data-filter="controle remoto pilhas"><summary>Controle remoto falha</summary><div class="details-body">Pilhas alcalinas e refazer pareamento.</div></details>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">EAD Projetor C2-Ultra • Hisense/Gorenje</footer>
+  </main>
+</div>
+
+<button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<section id="practiceModal">
+  <div class="practice-shell">
+    <div class="practice-card">
+      
+      <div class="practice-top">
+        <div>
+          <span class="practice-badge">Modo prática</span>
+          <h2 id="practiceTitle">Escolha um desafio</h2>
+          <p class="lead" id="practiceLead">Aqui o conteúdo fica oculto para testar sua assimilação.</p>
+        </div>
+        <button class="btn secondary" id="closeModalBtn" type="button">✖ Fechar e Voltar</button>
+      </div>
+      
+      <div id="practiceHome">
+        <div class="practice-menu">
+          <button class="practice-choice" data-game="symptom">
+            <strong>Jogo 1 — Qual orientação?</strong>
+            <span>Escolha a melhor orientação para cada sintoma.</span>
+          </button>
+          <button class="practice-choice" data-game="concept">
+            <strong>Jogo 2 — O que influencia?</strong>
+            <span>Identifique o fator que impacta a experiência de projeção.</span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="gameArea" class="hidden">
+        <div class="practice-top" style="margin-bottom: 0;">
+          <span class="practice-badge" id="gameBadge">Jogo</span>
+          <span class="score" id="gameScore">Pontuação: 0/0</span>
+        </div>
+        <div class="scenario" id="scenarioText"></div>
+        <div class="game-options" id="gameOptions"></div>
+        <div class="game-feedback" id="gameFeedback"></div>
+        
+        <div class="game-actions">
+          <button class="btn" id="answerBtn" type="button">Responder</button>
+          <button class="btn secondary hidden" id="nextBtn" type="button">Próxima Situação</button>
+          <button class="btn ghost" id="backPractice" type="button">Trocar de Jogo</button>
+        </div>
+      </div>
+      
+      <div id="resultArea" class="hidden">
+        <h2>Resultado da prática</h2>
+        <p id="resultText"></p>
+        <div class="results-list" id="resultList"></div>
+        
+        <div class="game-actions">
+          <button class="btn" id="retryBtn" type="button">Tentar Novamente</button>
+          <button class="btn secondary" id="homePractice" type="button">Escolher outro jogo</button>
+          <button class="btn ghost" id="contentBtn" type="button">Finalizar e Voltar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+<script>
+  /* === Lógica dos Quizzes de Conteúdo (Inalterada) === */
+  const quizzes = document.querySelectorAll('[data-quiz]');
+  const fill = document.getElementById('progFill');
+  const txt = document.getElementById('progTxt');
+  
+  function upd() {
+    const a = document.querySelectorAll('[data-quiz].answered').length;
+    const p = quizzes.length ? Math.round((a / quizzes.length) * 100) : 0;
+    fill.style.width = p + '%';
+    txt.textContent = p + '%';
+  }
+  
+  quizzes.forEach(q => {
+    const opts = q.querySelectorAll('.opt'), fb = q.querySelector('.feedback');
+    opts.forEach(o => o.addEventListener('click', () => {
+      if(q.classList.contains('answered')) return;
+      q.classList.add('answered');
+      const ok = o.dataset.correct === 'true';
+      opts.forEach(b => {
+        b.disabled = true;
+        if(b.dataset.correct === 'true') b.classList.add('ok');
+      });
+      if(!ok) o.classList.add('no');
+      fb.classList.add('show', ok ? 'ok' : 'no');
+      fb.textContent = ok ? 'Correto!' : 'Quase! Veja a alternativa destacada em verde.';
+      upd();
+    }));
+  });
+
+  /* === Lógica de UI (Foco, Reset, Busca, Scroll) === */
+  document.getElementById('focusBtn').addEventListener('click', e => {
+    document.body.classList.toggle('focus');
+    e.target.textContent = document.body.classList.contains('focus') ? 'Sair do modo foco' : 'Modo foco';
+  });
+  
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    quizzes.forEach(q => {
+      q.classList.remove('answered');
+      const fb = q.querySelector('.feedback');
+      fb.className = 'feedback'; fb.textContent = '';
+      q.querySelectorAll('.opt').forEach(b => {
+        b.disabled = false;
+        b.classList.remove('ok','no');
+      });
+    });
+    upd();
+  });
+  
+  const input = document.getElementById('filterInput'); 
+  if(input) {
+    input.addEventListener('input', () => {
+      const term = input.value.toLowerCase().trim();
+      document.querySelectorAll('#filterArea details').forEach(d => {
+        const hay = (d.textContent + ' ' + (d.dataset.filter||'')).toLowerCase();
+        d.classList.toggle('hidden', term && !hay.includes(term));
+        if(term && hay.includes(term)) d.open = true;
+      });
+    });
+  }
+  
+  const links = document.querySelectorAll('.nav a:not(#navPractice)');
+  const secs = [...document.querySelectorAll('section.module, section.hero')];
+  const obs = new IntersectionObserver(es => {
+    es.forEach(en => {
+      if(en.isIntersecting) {
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+      }
+    });
+  }, {rootMargin: '-40% 0px -55% 0px'});
+  secs.forEach(s => obs.observe(s));
+  upd();
+  
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => { toTop.classList.toggle('show', window.scrollY > 500); });
+  toTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+  /* === Lógica do JOGO NO MODAL === */
+  const practiceData = {
+    symptom: {
+      title: 'Jogo 1 — Qual orientação?', lead: 'Escolha a melhor orientação para cada sintoma.', badge: 'Sintoma e orientação',
+      items: [
+        { q: 'Cliente informa que o projetor não liga e o LED da fonte está apagado.', options: ['Conferir conexão da fonte e testar outra tomada sem extensão/adaptador', 'Aumentar Keystone', 'Reduzir a projeção para 65”', 'Reinstalar aplicativos'], a: 0, why: 'Sem LED na fonte, a checagem inicial passa por conexão, tomada e uso sem extensões.' },
+        { q: 'Cliente diz que a imagem fica trapezoidal quando o projetor está inclinado.', options: ['Explicar Keystone e orientar ajuste', 'Trocar o controle remoto', 'Informar defeito óptico', 'Ignorar'], a: 0, why: 'Keystone corrige imagem trapezoidal causada por inclinação.' }
+      ]
+    },
+    concept: {
+      title: 'Jogo 2 — O que influencia?', lead: 'Identifique o fator que impacta a experiência de projeção.', badge: 'Fator de experiência',
+      items: [
+        { q: 'Cliente projeta em parede colorida e reclama de cor estranha.', options: ['Superfície de projeção', 'Controle remoto', 'Pilhas alcalinas', 'LED da fonte'], a: 0, why: 'A cor e textura da superfície interferem na percepção da imagem.' },
+        { q: 'Cliente projeta acima de 150” e reclama que foco falha.', options: ['Tamanho da projeção', 'Cabo de energia', 'Controle por voz', 'Bluetooth'], a: 0, why: 'Acima de 150”, foco e Keystone automáticos podem ficar indisponíveis.' }
+      ]
+    }
+  };
+  
+  let currentGame = null, idx = 0, score = 0, selected = null, answers = [];
+  
+  const practiceModal = document.getElementById('practiceModal');
+  const practiceHome = document.getElementById('practiceHome');
+  const gameArea = document.getElementById('gameArea');
+  const resultArea = document.getElementById('resultArea');
+  const scenarioText = document.getElementById('scenarioText');
+  const gameOptions = document.getElementById('gameOptions');
+  const gameFeedback = document.getElementById('gameFeedback');
+  const gameScore = document.getElementById('gameScore');
+  
+  // Função para ABRIR O MODAL
+  function openModal() {
+    practiceModal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Trava o scroll da página atrás do modal
+    showPracticeHome();
+  }
+  
+  // Função para FECHAR O MODAL
+  function closeModal() {
+    practiceModal.classList.remove('show');
+    document.body.style.overflow = ''; // Devolve o scroll normal
+  }
+
+  function showPracticeHome() {
+    practiceHome.classList.remove('hidden');
+    gameArea.classList.add('hidden');
+    resultArea.classList.add('hidden');
+    document.getElementById('practiceTitle').textContent = 'Escolha um desafio';
+    document.getElementById('practiceLead').textContent = 'Aqui o conteúdo fica oculto para testar sua assimilação.';
+  }
+  
+  function startGame(name) {
+    currentGame = name; idx = 0; score = 0; answers = [];
+    practiceHome.classList.add('hidden'); resultArea.classList.add('hidden'); gameArea.classList.remove('hidden');
+    document.getElementById('practiceTitle').textContent = practiceData[name].title;
+    document.getElementById('practiceLead').textContent = practiceData[name].lead;
+    document.getElementById('gameBadge').textContent = practiceData[name].badge;
+    renderQuestion();
+  }
+  
+  function renderQuestion() {
+    const data = practiceData[currentGame];
+    const item = data.items[idx];
+    selected = null;
+    gameFeedback.className = 'game-feedback'; gameFeedback.textContent = '';
+    document.getElementById('answerBtn').classList.remove('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
+    scenarioText.textContent = (idx + 1) + '. ' + item.q;
+    gameScore.textContent = 'Pontuação: ' + score + '/' + idx;
+    gameOptions.innerHTML = '';
+    
+    item.options.forEach((op, i) => {
+      const b = document.createElement('button');
+      b.className = 'game-option'; b.type = 'button'; b.textContent = String.fromCharCode(65 + i) + ') ' + op;
+      b.onclick = () => {
+        document.querySelectorAll('.game-option').forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected'); selected = i;
+      };
+      gameOptions.appendChild(b);
+    });
+  }
+  
+  function answerQuestion() {
+    if(selected === null) {
+      gameFeedback.className = 'game-feedback show no';
+      gameFeedback.textContent = 'Escolha uma alternativa antes de responder.';
+      return;
+    }
+    const data = practiceData[currentGame]; const item = data.items[idx]; const ok = selected === item.a;
+    if(ok) score++;
+    answers.push({q: item.q, ok, why: item.why, chosen: item.options[selected], correct: item.options[item.a]});
+    
+    document.querySelectorAll('.game-option').forEach((b, i) => {
+      b.disabled = true;
+      if(i === item.a) b.classList.add('correct');
+      if(i === selected && !ok) b.classList.add('wrong');
+    });
+    
+    gameFeedback.className = 'game-feedback show ' + (ok ? 'ok' : 'no');
+    gameFeedback.textContent = (ok ? 'Correto! ' : 'Quase! ') + item.why;
+    gameScore.textContent = 'Pontuação: ' + score + '/' + (idx + 1);
+    
+    document.getElementById('answerBtn').classList.add('hidden');
+    document.getElementById('nextBtn').classList.remove('hidden');
+  }
+  
+  function nextQuestion() {
+    idx++;
+    if(idx >= practiceData[currentGame].items.length) { showResults(); } else { renderQuestion(); }
+  }
+  
+  function showResults() {
+    gameArea.classList.add('hidden');
+    resultArea.classList.remove('hidden');
+    const total = practiceData[currentGame].items.length;
+    document.getElementById('resultText').textContent = 'Você acertou ' + score + ' de ' + total + ' situações.';
+    const list = document.getElementById('resultList'); list.innerHTML = '';
+    answers.forEach((r, i) => {
+      const div = document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = '<strong>' + (r.ok ? 'Acerto' : 'Revisar') + ' — Situação ' + (i+1) + '</strong><br>' + r.q + '<br><small>Sua resposta: ' + r.chosen + ' | Correta: ' + r.correct + '</small><br><small>' + r.why + '</small>';
+      list.appendChild(div);
+    });
+  }
+  
+  // Eventos para acionar o Modal
+  document.getElementById('startPracticeHero').addEventListener('click', openModal);
+  document.getElementById('navPractice').addEventListener('click', e => { e.preventDefault(); openModal(); });
+  
+  // Botões de fechar modal / Voltar ao Conteúdo (fecha o modal)
+  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  document.getElementById('contentBtn').addEventListener('click', closeModal);
+  
+  // Fechar clicando no fundo escuro (fora do quadrado branco)
+  practiceModal.addEventListener('click', (e) => {
+    if (e.target === practiceModal) closeModal();
+  });
+  
+  // Lógica dos botões internos do Quiz
+  document.querySelectorAll('.practice-choice').forEach(b => b.addEventListener('click', () => startGame(b.dataset.game)));
+  document.getElementById('answerBtn').addEventListener('click', answerQuestion);
+  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+  document.getElementById('backPractice').addEventListener('click', showPracticeHome);
+  document.getElementById('retryBtn').addEventListener('click', () => startGame(currentGame));
+  document.getElementById('homePractice').addEventListener('click', showPracticeHome);
+
+</script>
+</body>
+</html>

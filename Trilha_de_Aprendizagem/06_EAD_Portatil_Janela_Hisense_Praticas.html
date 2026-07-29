@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAD Hisense | Portátil e Janela</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    :root{
+      --azul:#003B71; --azul2:#005B9F; --ciano:#00A9CE; --verde:#78BE20;
+      --bg:#F4F8FC; --card:#FFFFFF; --texto:#1E293B; --muted:#64748B; --line:#D9E2EC;
+      --warn:#FFF7E6; --warnline:#F2B84B; --ok:#EAF8F1; --okline:#30A46C; --bad:#FEF2F2; --badline:#EF4444;
+      --shadow:0 18px 45px rgba(15,23,42,.10); --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--texto);line-height:1.58}
+    body.focus .sidebar, body.focus .module-map{display:none}
+    body.focus #mainWrapper{grid-template-columns:1fr;max-width:1100px}
+    body.practice .sidebar, body.practice .topbar, body.practice #contentView{display:none!important}
+    body.practice #mainWrapper{grid-template-columns:1fr;max-width:980px}
+    body.practice #practiceMode{display:block}
+    body.practice .to-top{display:none!important}
+
+    #mainWrapper{width:min(1480px,100%);margin:0 auto;padding:24px;display:grid;grid-template-columns:310px 1fr;gap:26px}
+    .sidebar{position:sticky;top:24px;height:calc(100vh - 48px);overflow:auto;border-radius:28px;background:linear-gradient(180deg,var(--azul),#00284D);color:#fff;padding:22px;box-shadow:var(--shadow)}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--ciano),var(--verde));display:grid;place-items:center;font-weight:800}
+    .brand strong{display:block}.brand span{font-size:.78rem;opacity:.82}
+    .progress-wrap{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:14px;margin:16px 0}
+    .progress-info{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:8px}.bar{height:9px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.2)}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--ciano),var(--verde));transition:.25s}
+    .nav-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;opacity:.7;margin:18px 0 8px}.nav{list-style:none;padding:0;margin:0;display:grid;gap:8px}.nav a{display:block;text-decoration:none;color:#fff;padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.86rem}.nav a:hover,.nav a.active{background:rgba(0,169,206,.28);transform:translateX(2px)}
+    .group-hint{font-size:.72rem;color:rgba(255,255,255,.55);margin:-2px 0 4px;line-height:1.4}
+    .main{min-width:0}.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;gap:10px;padding:8px 0;background:linear-gradient(180deg,rgba(244,248,252,.96),rgba(244,248,252,.72));backdrop-filter:blur(8px)} body.focus .topbar{position:fixed;right:24px;top:18px;background:transparent;padding:0} body.focus .topbar .btn.ghost{display:none}
+    .btn{border:0;border-radius:999px;background:var(--azul);color:#fff;padding:10px 16px;font-family:inherit;font-weight:700;cursor:pointer;box-shadow:0 10px 20px rgba(0,59,113,.18);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.secondary{background:#fff;color:var(--azul);border:1px solid var(--line);box-shadow:none}.btn.ghost{background:transparent;color:var(--azul);border:1px solid var(--line);box-shadow:none}.btn.green{background:var(--verde)}.btn.danger{background:#B42318}
+    .hero{border-radius:32px;background:radial-gradient(circle at 88% 8%,rgba(120,190,32,.35),transparent 24%),linear-gradient(135deg,var(--azul),var(--azul2) 58%,var(--ciano));color:#fff;padding:clamp(30px,5vw,58px);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:440px;height:440px;border-radius:50%;right:-170px;bottom:-220px;background:rgba(255,255,255,.10)}.eyebrow{display:inline-flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 12px;font-weight:800;font-size:.8rem;margin-bottom:16px}.hero h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin:0 0 12px;letter-spacing:-.04em;max-width:880px}.hero p{max-width:860px;font-size:1.04rem;opacity:.92;margin:0 0 22px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    section{scroll-margin-top:80px}.section,.module{background:var(--card);border:1px solid rgba(217,226,236,.9);border-radius:28px;padding:clamp(22px,3vw,36px);margin-top:24px;box-shadow:var(--shadow)}
+    .module-head{display:grid;grid-template-columns:78px 1fr;gap:18px;align-items:center;margin-bottom:18px}.num{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,var(--azul),var(--ciano));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.35rem}h2{margin:0 0 8px;color:var(--azul);font-size:clamp(1.45rem,2.4vw,2.15rem);line-height:1.2}h3{color:#123B61;margin:22px 0 10px;line-height:1.25}h4{color:var(--azul);margin:0 0 7px}.lead{margin:0;color:var(--muted)}
+    .module-map,.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}.map-card,.card{background:#F8FBFF;border:1px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:var(--texto)}.map-card:hover{border-color:var(--ciano);transform:translateY(-2px)}.map-card strong,.card strong{display:block;color:var(--azul);margin-bottom:5px}.map-card span,.card p{color:var(--muted);font-size:.9rem;margin:0}
+    .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.tag{display:inline-flex;border-radius:999px;background:rgba(0,169,206,.12);color:var(--azul);font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;margin-bottom:9px}.callout{border-radius:18px;border:1px solid var(--line);padding:16px 18px;margin:18px 0;background:#F8FBFF}.callout strong{color:var(--azul)}.callout.warn{background:var(--warn);border-color:var(--warnline)}.callout.ok{background:var(--ok);border-color:var(--okline)}.callout.bad{background:var(--bad);border-color:var(--badline)}
+    .placeholder{border:2px dashed #A8B7C8;background:#F8FBFF;border-radius:22px;padding:22px;text-align:center;color:#475569;margin:18px 0}.placeholder strong{color:var(--azul);display:block;margin-bottom:6px}.placeholder small{display:block;color:var(--muted)}
+    .accordion{display:grid;gap:12px;margin-top:16px}details{background:#FBFDFF;border:1px solid var(--line);border-radius:18px;overflow:hidden}summary{padding:16px 18px;cursor:pointer;font-weight:800;color:var(--azul);list-style:none;display:flex;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--ciano);font-size:1.3rem}details[open] summary:after{content:"-"}.details-body{padding:0 18px 18px;color:#344054}
+    .card details{margin-top:14px}.card details summary{padding:11px 14px;font-size:.86rem}.card details .details-body{padding:0 14px 14px;font-size:.9rem}
+    table{width:100%;border-collapse:collapse;margin:18px 0;border-radius:16px;overflow:hidden}th,td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}th{background:var(--azul);color:#fff}td{background:#fff}.codigo-filtro{display:inline-flex;min-width:38px;justify-content:center;border-radius:999px;background:rgba(0,59,113,.08);color:var(--azul);font-weight:800;padding:4px 9px;font-size:.82rem}
+    .quiz{margin-top:24px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,#F7FBFF,#fff);padding:20px}.quiz-q{font-weight:800;margin-bottom:12px}.opts{display:grid;gap:10px}.opt{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;cursor:pointer;font-family:inherit;text-align:left}.opt:hover{border-color:var(--ciano);background:#F5FCFF}.opt.ok{background:var(--ok);border-color:var(--okline)}.opt.no{background:var(--bad);border-color:var(--badline)}.feedback{display:none;margin-top:12px;font-weight:800}.feedback.show{display:block}.feedback.ok{color:#12783D}.feedback.no{color:#A12D2D}
+    .visual-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}.visual-pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);border-radius:18px;padding:14px;color:#fff}.visual-pill strong{display:block;font-size:1.15rem}.visual-pill span{font-size:.82rem;opacity:.88}.product-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.product-panel{border-radius:24px;padding:20px;background:linear-gradient(135deg,#F8FBFF,#EEF8FC);border:1px solid var(--line);position:relative;overflow:hidden}.product-panel:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-56px;top:-58px;background:rgba(0,169,206,.14)}.product-panel .big{font-size:1.6rem;font-weight:800;color:var(--azul);margin-bottom:8px}.icon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.icon-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}.icon-card .ico{font-size:1.55rem;display:block;margin-bottom:4px}.official-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.official-links a{border-radius:999px;padding:9px 14px;text-decoration:none;background:var(--azul);color:#fff;font-weight:700;font-size:.86rem}.official-links a.secondary{background:#fff;color:var(--azul);border:1px solid var(--line)}
+    .searchbox{display:flex;gap:10px;margin:14px 0}.searchbox input{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font-family:inherit}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);padding:30px 0 8px;font-size:.86rem}.source-note{font-size:.82rem;color:var(--muted);margin-top:16px}.to-top{position:fixed;right:22px;bottom:22px;z-index:30;width:46px;height:46px;border-radius:50%;background:var(--azul);color:#fff;border:0;box-shadow:0 10px 24px rgba(0,59,113,.28);cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center;display:none}.to-top.show{display:flex}body.focus .to-top{display:none}
+
+    #practiceMode{display:none}.practice-shell{min-height:calc(100vh - 48px);display:grid;place-items:center}.practice-card{background:#fff;border:1px solid var(--line);border-radius:32px;padding:clamp(22px,4vw,44px);box-shadow:var(--shadow);width:min(920px,100%)}.practice-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.practice-badge{display:inline-flex;border-radius:999px;background:rgba(0,169,206,.12);color:var(--azul);font-weight:800;padding:8px 12px;font-size:.82rem}.score{font-weight:800;color:var(--azul)}.scenario{font-size:1.22rem;font-weight:800;color:#123B61;margin:18px 0}.game-options{display:grid;gap:12px}.game-option{border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px 16px;text-align:left;font-family:inherit;cursor:pointer}.game-option:hover{border-color:var(--ciano);background:#F5FCFF}.game-option.selected{border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,59,113,.10)}.game-option.correct{border-color:var(--okline);background:var(--ok)}.game-option.wrong{border-color:var(--badline);background:var(--bad)}.game-feedback{display:none;margin-top:14px;border-radius:16px;padding:14px 16px;font-weight:700}.game-feedback.show{display:block}.game-feedback.ok{background:var(--ok);border:1px solid var(--okline);color:#12783D}.game-feedback.no{background:var(--bad);border:1px solid var(--badline);color:#A12D2D}.game-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.practice-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}.practice-choice{border:1px solid var(--line);background:linear-gradient(135deg,#F8FBFF,#fff);border-radius:22px;padding:22px;text-align:left;cursor:pointer}.practice-choice strong{display:block;color:var(--azul);font-size:1.2rem;margin-bottom:6px}.practice-choice span{display:block;color:var(--muted);font-size:.92rem}.results-list{display:grid;gap:10px;margin-top:14px}.result-item{border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:#F8FBFF}.result-item strong{color:var(--azul)}
+
+    @media(max-width:1050px){#mainWrapper{grid-template-columns:1fr;padding:16px}.sidebar{position:relative;height:auto;top:0}.module-map,.grid,.visual-strip,.icon-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-hero{grid-template-columns:1fr}}
+    @media(max-width:720px){.module-head,.two,.module-map,.grid,.visual-strip,.icon-grid,.product-hero,.practice-menu{grid-template-columns:1fr}.hero-actions,.topbar,.practice-top{flex-direction:column;align-items:stretch}.btn{width:100%}table{display:block;overflow-x:auto}.num{width:58px;height:58px;border-radius:18px}.practice-shell{display:block}.practice-card{border-radius:24px}}
+  </style>
+</head>
+<body>
+<div id="mainWrapper">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">H</div><div><strong>Hisense</strong><span>EAD + prática</span></div></div>
+    <div class="progress-wrap"><div class="progress-info"><span>Quizzes concluídos</span><span id="progTxt">0%</span></div><div class="bar"><div class="fill" id="progFill"></div></div></div>
+    <div class="nav-title">Treinamento</div>
+    <ul class="nav">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#portatil">Portátil</a></li>
+      <li><a href="#modos-portatil">Modos do Portátil</a></li>
+      <li><a href="#janela">Janela</a></li>
+      <li><a href="#modos-janela">Modos do Janela</a></li>
+      <li><a href="#comparativo">Comparativo</a></li>
+      <li><a href="#consulta">Consulta rápida</a></li>
+      <li><a href="#atendimento">Atendimento</a></li>
+    </ul>
+    <div class="nav-title">Prática</div>
+    <div class="group-hint">Abre um ambiente sem consulta ao conteúdo.</div>
+    <ul class="nav"><li><a href="#" id="navPractice">Modo prática</a></li></ul>
+  </aside>
+
+  <main class="main">
+    <div class="topbar"><button class="btn secondary" id="focusBtn" type="button">Modo foco</button><button class="btn ghost" id="resetBtn" type="button">Reiniciar quizzes</button></div>
+
+    <div id="contentView">
+      <section class="hero" id="inicio">
+        <div class="eyebrow">Modos, Funções e Comparativo</div>
+        <h1>Portátil e Janela</h1>
+        <p>Escolha se deseja estudar o conteúdo ou praticar sem consultar as respostas. O modo prática simula o raciocínio necessário durante o atendimento.</p>
+        <div class="visual-strip"><div class="visual-pill"><strong>Portátil</strong><span>Mobilidade + duto</span></div><div class="visual-pill"><strong>Janela</strong><span>Estrutura dedicada</span></div><div class="visual-pill"><strong>Modos</strong><span>Fan, Dry, Cool, Eco e Smart</span></div><div class="visual-pill"><strong>Prática</strong><span>Jogos com pontuação</span></div></div>
+        <div class="hero-actions"><a class="btn" href="#portatil">Ver conteúdo</a><button class="btn secondary" id="startPracticeHero" type="button">Praticar sem consultar</button></div>
+      </section>
+
+      <section class="section">
+        <h2>Como usar este EAD</h2>
+        <p>Use <strong>Ver conteúdo</strong> para estudar e consultar. Use <strong>Praticar</strong> quando quiser testar o conhecimento sem acesso ao conteúdo, como se estivesse atendendo um cliente.</p>
+        <div class="callout warn"><strong>Importante:</strong> este material explica produto, modos e aplicação. Ele não substitui manual técnico, avaliação de instalação ou diagnóstico.</div>
+        <div class="module-map"><a class="map-card" href="#portatil"><strong>Portátil</strong><span>Mobilidade, instalação simplificada, duto e funções.</span></a><a class="map-card" href="#janela"><strong>Janela</strong><span>Produto compacto, modos de uso, filtro e controle.</span></a><a class="map-card" href="#comparativo"><strong>Comparativo</strong><span>Quando relacionar cada solução à necessidade do cliente.</span></a></div>
+      </section>
+
+      <section class="module" id="portatil" data-module>
+        <div class="module-head"><div class="num">1</div><div><h2>Ar-condicionado Portátil</h2><p class="lead">Solução com mobilidade, instalação simplificada e duto de exaustão.</p></div></div>
+        <div class="placeholder"><strong>INSERIR IMAGEM DO AR-CONDICIONADO PORTÁTIL</strong><small>Sugestão: produto com duto de exaustão instalado em janela.</small></div>
+        <p>O Portátil é indicado para quem busca flexibilidade. Ele pode ser movimentado entre ambientes com rodinhas 360° e alças laterais, desde que o local permita a instalação correta do duto de exaustão.</p>
+        <div class="grid"><div class="card"><span class="tag">Mobilidade</span><strong>Rodinhas e alças</strong><p>Facilitam o deslocamento entre cômodos.</p></div><div class="card"><span class="tag">Instalação</span><strong>Duto de exaustão</strong><p>Conduz o ar quente para fora do ambiente. É essencial para o desempenho.</p></div><div class="card"><span class="tag">Capacidade</span><strong>12.000 BTU/h</strong><p>Modelo portátil indicado para ciclo frio e tensão 127V, conforme linha.</p></div><div class="card"><span class="tag">Conectividade</span><strong>ConnectLife</strong><p>Permite controle pelo aplicativo em modelo compatível.</p></div><div class="card"><span class="tag">Versatilidade</span><strong>Multifunções</strong><p>Resfria, ventila e desumidifica.</p></div><div class="card"><span class="tag">Atenção</span><strong>Tubulação aquece</strong><p>Se mal posicionada, pode prejudicar a percepção de resfriamento.</p></div></div>
+        <div class="callout warn"><strong>Mensagem-chave:</strong> Portátil oferece mobilidade, mas depende do duto bem instalado para retirar o ar quente do ambiente.</div>
+      </section>
+
+      <section class="module" id="modos-portatil" data-module>
+        <div class="module-head"><div class="num">2</div><div><h2>Modos do Portátil</h2><p class="lead">Entenda o que cada modo faz e quando ele se aplica.</p></div></div>
+        <div class="accordion">
+          <details open><summary>3 velocidades de ventilação</summary><div class="details-body">Baixo para resfriamento mais tranquilo, médio para resfriamento normal e alto para máximo resfriamento.</div></details>
+          <details><summary>Modo Smart</summary><div class="details-body">Ajusta automaticamente o funcionamento: abaixo de 23 °C atua como ventilador, entre 23 °C e 26 °C usa modo seco, acima de 26 °C entra em resfriamento.</div></details>
+          <details><summary>Timer 24h</summary><div class="details-body">Permite programar horário para ligar ou desligar o aparelho, apoiando conforto e economia.</div></details>
+          <details><summary>Modo Dormir</summary><div class="details-body">Busca conforto e silêncio durante a noite, ajustando o funcionamento para o período de descanso.</div></details>
+          <details><summary>Desumidificador</summary><div class="details-body">Ajuda a reduzir sensação de umidade em períodos chuvosos ou ambientes abafados.</div></details>
+          <details><summary>Oscilação automática</summary><div class="details-body">As aletas alternam de posição automaticamente, apoiando uma refrigeração mais uniforme.</div></details>
+          <details><summary>Sistema de evaporação automática</summary><div class="details-body">A água gerada é coletada e evaporada pelo sistema. Caso haja excesso, ele é recolhido e reevaporado, reduzindo a necessidade de esvaziamento frequente.</div></details>
+          <details><summary>Reinício automático</summary><div class="details-body">Após queda de energia, reinicia com as últimas configurações quando a energia retorna.</div></details>
+        </div>
+        <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">No Modo Smart, quando a temperatura está acima de 26 °C, qual modo é acionado?</div><div class="opts"><button class="opt" data-correct="false">A) Apenas ventilador</button><button class="opt" data-correct="false">B) Apenas Dimmer</button><button class="opt" data-correct="true">C) Resfriamento</button><button class="opt" data-correct="false">D) Luz do filtro</button></div><div class="feedback"></div></div>
+      </section>
+
+      <section class="module" id="janela" data-module>
+        <div class="module-head"><div class="num">3</div><div><h2>Ar-condicionado Janela</h2><p class="lead">Solução compacta para locais com estrutura adequada.</p></div></div>
+        <div class="placeholder"><strong>INSERIR IMAGEM DO AR-CONDICIONADO JANELA</strong><small>Sugestão: produto de janela instalado em abertura própria.</small></div>
+        <p>O Janela é indicado para ambientes que já possuem abertura ou estrutura compatível. Ele é uma solução compacta, com instalação consolidada e recursos de uso diário.</p>
+        <div class="grid"><div class="card"><span class="tag">Capacidades</span><strong>7.500 a 12.000 BTU/h</strong><p>Capacidades variam conforme modelo e tensão.</p></div><div class="card"><span class="tag">Tensão</span><strong>127V e 220V</strong><p>É essencial confirmar a tensão correta antes de orientar.</p></div><div class="card"><span class="tag">Funções</span><strong>Fan, Dry, Cool e Eco</strong><p>Modos para diferentes necessidades de uso.</p></div><div class="card"><span class="tag">Conforto</span><strong>Modo Dormir e Dimmer</strong><p>Ajuste de temperatura/velocidade e opção de apagar a luz.</p></div><div class="card"><span class="tag">Filtro</span><strong>Lavável e com aviso</strong><p>Luz do filtro indica necessidade de limpeza após período de uso.</p></div><div class="card"><span class="tag">Fluxo</span><strong>4 direções</strong><p>Oscilação horizontal e vertical melhora a distribuição do ar.</p></div></div>
+        <div class="callout warn"><strong>Mensagem-chave:</strong> Janela é uma boa opção quando o cliente já possui estrutura adequada, mas modelo, capacidade e tensão precisam ser conferidos.</div>
+      </section>
+
+      <section class="module" id="modos-janela" data-module>
+        <div class="module-head"><div class="num">4</div><div><h2>Modos do Janela</h2><p class="lead">Conheça os modos e recursos de uso do ar-condicionado Janela.</p></div></div>
+        <div class="accordion">
+          <details open><summary>Fan</summary><div class="details-body">Modo ventilador. Movimenta o ar, sem ter como objetivo principal resfriar.</div></details>
+          <details><summary>Dry</summary><div class="details-body">Modo seco. Ajuda a reduzir umidade. A ventoinha funciona em baixa velocidade.</div></details>
+          <details><summary>Cool</summary><div class="details-body">Modo resfriamento. Mantém o resfriamento na temperatura selecionada.</div></details>
+          <details><summary>Eco</summary><div class="details-body">Mantém o resfriamento na temperatura selecionada com foco em poupar energia.</div></details>
+          <details><summary>Modo Dormir</summary><div class="details-body">Ajusta automaticamente velocidade e temperatura. A temperatura sobe 2 °C em 2 horas e permanece até desligar.</div></details>
+          <details><summary>Dimmer</summary><div class="details-body">Desliga a luz que pode incomodar durante o sono.</div></details>
+          <details><summary>Luz do filtro</summary><div class="details-body">Após 360 horas de uso, a luz pisca para avisar o momento de limpar ou lavar o filtro.</div></details>
+          <details><summary>Filtro lavável</summary><div class="details-body">Filtro de nylon lavável e de fácil acesso, apoiando a manutenção de rotina.</div></details>
+        </div>
+        <div class="quiz" data-quiz><h4>Fixação rápida</h4><div class="quiz-q">Qual modo do Janela é usado para reduzir a umidade?</div><div class="opts"><button class="opt" data-correct="false">A) Fan</button><button class="opt" data-correct="true">B) Dry</button><button class="opt" data-correct="false">C) Dimmer</button><button class="opt" data-correct="false">D) Timer</button></div><div class="feedback"></div></div>
+      </section>
+
+      <section class="module" id="comparativo" data-module>
+        <div class="module-head"><div class="num">5</div><div><h2>Comparativo Portátil x Janela</h2><p class="lead">Use esta visão para orientar com mais clareza.</p></div></div>
+        <table><thead><tr><th>Situação</th><th>Portátil</th><th>Janela</th></tr></thead><tbody><tr><td><strong>Instalação</strong></td><td>Simplificada, com duto de exaustão.</td><td>Requer abertura/estrutura adequada.</td></tr><tr><td><strong>Mobilidade</strong></td><td>Possui rodinhas e alças.</td><td>Fixo no local instalado.</td></tr><tr><td><strong>Modos principais</strong></td><td>Resfriar, ventilar, desumidificar, Smart, Dormir.</td><td>Fan, Dry, Cool, Eco, Dormir, Timer.</td></tr><tr><td><strong>Atenção crítica</strong></td><td>Duto aquecido, obstrução e posição de exaustão.</td><td>Medida, tensão, estrutura e capacidade.</td></tr><tr><td><strong>Quando faz sentido</strong></td><td>Cliente busca flexibilidade ou não pode fazer instalação fixa.</td><td>Cliente já possui local adequado para instalação de janela.</td></tr></tbody></table>
+        <div class="callout ok"><strong>Regra simples:</strong> Portátil = mobilidade com duto. Janela = produto compacto para estrutura instalada.</div>
+      </section>
+
+      <section class="module" id="consulta" data-module>
+        <div class="module-head"><div class="num">6</div><div><h2>Consulta rápida</h2><p class="lead">Busque uma função ou situação durante o atendimento.</p></div></div>
+        <div class="searchbox"><input id="filterInput" type="search" placeholder="Buscar: Fan, Dry, Cool, Eco, Smart, duto, filtro, Timer, ConnectLife..." /></div>
+        <div class="accordion" id="filterArea">
+          <details open data-filter="portatil duto exaustao rodinhas alcas mobilidade"><summary>Portátil: cuidado com o duto</summary><div class="details-body">O duto precisa conduzir o ar quente para fora. Se estiver dobrado, obstruído ou mal encaixado, a percepção de resfriamento pode ser prejudicada.</div></details>
+          <details data-filter="smart modo temperatura 23 26 resfriamento seco ventilador"><summary>Portátil: Modo Smart</summary><div class="details-body">Abaixo de 23 °C: ventilador. De 23 °C a 26 °C: modo seco. Acima de 26 °C: resfriamento.</div></details>
+          <details data-filter="janela fan dry cool eco multifuncional"><summary>Janela: modos Fan, Dry, Cool e Eco</summary><div class="details-body">Fan ventila, Dry desumidifica, Cool resfria e Eco mantém resfriamento com foco em economia.</div></details>
+          <details data-filter="filtro luz 360 horas lavar limpeza janela"><summary>Janela: luz do filtro</summary><div class="details-body">Após 360 horas de uso, a luz pisca para avisar o momento de limpar ou lavar o filtro.</div></details>
+          <details data-filter="connectlife wifi app aplicativo remoto"><summary>Wi-Fi e ConnectLife</summary><div class="details-body">Permite ligar, desligar e ajustar funções remotamente em modelos compatíveis e configurados corretamente.</div></details>
+        </div>
+      </section>
+
+      <section class="module" id="atendimento" data-module>
+        <div class="module-head"><div class="num">7</div><div><h2>Aplicação no atendimento</h2><p class="lead">Como explicar sem confundir funcionamento, instalação e expectativa.</p></div></div>
+        <h3>Perguntas úteis</h3>
+        <div class="grid"><div class="card"><strong>Qual produto?</strong><p>Portátil ou Janela?</p></div><div class="card"><strong>Qual ambiente?</strong><p>O local permite duto ou possui estrutura de janela?</p></div><div class="card"><strong>Qual necessidade?</strong><p>Mobilidade, substituição, desumidificação, timer ou Wi-Fi?</p></div><div class="card"><strong>Qual sintoma?</strong><p>Não resfria, goteja, ruído, filtro, modo incorreto ou conexão?</p></div></div>
+        <h3>Respostas de apoio</h3>
+        <div class="accordion"><details><summary>“O portátil não precisa instalar nada?”</summary><div class="details-body">Ele tem instalação simplificada, mas precisa do duto de exaustão bem posicionado para retirar o ar quente.</div></details><details><summary>“Qual é melhor: Portátil ou Janela?”</summary><div class="details-body">Depende da necessidade. Portátil oferece mobilidade; Janela faz mais sentido quando há estrutura adequada para esse tipo de instalação.</div></details><details><summary>“O modo Dry gela?”</summary><div class="details-body">Dry é voltado à desumidificação. Ele pode alterar a sensação de conforto, mas não deve ser explicado como modo principal de resfriamento.</div></details><details><summary>“A luz do filtro piscou. É defeito?”</summary><div class="details-body">Não necessariamente. A luz pode indicar o momento de limpar ou lavar o filtro após período de uso.</div></details></div>
+        <div class="callout bad"><strong>Evite dizer:</strong> “portátil não precisa de instalação”, “janela serve para qualquer abertura”, “todos têm Wi-Fi” ou “modo Eco reduz a conta em valor fixo”.</div>
+      </section>
+    </div>
+
+    <section id="practiceMode">
+      <div class="practice-shell">
+        <div class="practice-card">
+          <div class="practice-top"><div><span class="practice-badge">Modo prática</span><h2 id="practiceTitle">Escolha um desafio</h2><p class="lead" id="practiceLead">Nesta área, o conteúdo fica oculto para testar sua assimilação.</p></div><button class="btn secondary" id="exitPractice" type="button">Voltar ao conteúdo</button></div>
+          <div id="practiceHome">
+            <div class="practice-menu"><button class="practice-choice" data-game="functions"><strong>Jogo 1 — Qual função eu uso?</strong><span>Identifique o modo correto para cada situação do cliente.</span></button><button class="practice-choice" data-game="product"><strong>Jogo 2 — Janela ou Portátil?</strong><span>Escolha o produto mais relacionado ao cenário apresentado.</span></button></div>
+          </div>
+          <div id="gameArea" class="hidden">
+            <div class="practice-top"><span class="practice-badge" id="gameBadge">Jogo</span><span class="score" id="gameScore">Pontuação: 0/0</span></div>
+            <div class="scenario" id="scenarioText"></div>
+            <div class="game-options" id="gameOptions"></div>
+            <div class="game-feedback" id="gameFeedback"></div>
+            <div class="game-actions"><button class="btn" id="answerBtn" type="button">Responder</button><button class="btn secondary hidden" id="nextBtn" type="button">Próxima</button><button class="btn ghost" id="backPractice" type="button">Escolher outro jogo</button></div>
+          </div>
+          <div id="resultArea" class="hidden"><h2>Resultado da prática</h2><p id="resultText"></p><div class="results-list" id="resultList"></div><div class="game-actions"><button class="btn" id="retryBtn" type="button">Refazer prática</button><button class="btn secondary" id="homePractice" type="button">Escolher outro jogo</button><button class="btn ghost" id="contentBtn" type="button">Voltar ao conteúdo</button></div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">EAD • Portátil e Janela • Hisense/Gorenje</footer>
+  </main>
+</div>
+<button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<script>
+  const quizzes=document.querySelectorAll('[data-quiz]');const fill=document.getElementById('progFill');const txt=document.getElementById('progTxt');
+  function upd(){const a=document.querySelectorAll('[data-quiz].answered').length;const p=quizzes.length?Math.round((a/quizzes.length)*100):0;fill.style.width=p+'%';txt.textContent=p+'%'}
+  quizzes.forEach(q=>{const opts=q.querySelectorAll('.opt'),fb=q.querySelector('.feedback');opts.forEach(o=>o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const ok=o.dataset.correct==='true';opts.forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('ok')});if(!ok)o.classList.add('no');fb.classList.add('show',ok?'ok':'no');fb.textContent=ok?'Correto!':'Quase! Veja a alternativa destacada em verde.';upd()}))});
+  document.getElementById('focusBtn').addEventListener('click',e=>{document.body.classList.toggle('focus');e.target.textContent=document.body.classList.contains('focus')?'Sair do modo foco':'Modo foco'});
+  document.getElementById('resetBtn').addEventListener('click',()=>{quizzes.forEach(q=>{q.classList.remove('answered');const fb=q.querySelector('.feedback');fb.className='feedback';fb.textContent='';q.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('ok','no')})});upd()});
+  const input=document.getElementById('filterInput'); if(input){input.addEventListener('input',()=>{const term=input.value.toLowerCase().trim();document.querySelectorAll('#filterArea details').forEach(d=>{const hay=(d.textContent+' '+(d.dataset.filter||'')).toLowerCase();d.classList.toggle('hidden',term && !hay.includes(term));if(term && hay.includes(term))d.open=true;})})}
+  const links=document.querySelectorAll('.nav a');const secs=[...document.querySelectorAll('section[id]')];const obs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>obs.observe(s));upd();
+  const toTop=document.getElementById('toTop');window.addEventListener('scroll',()=>{toTop.classList.toggle('show',window.scrollY>500)});toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  const practiceData={
+    functions:{title:'Jogo 1 — Qual função eu uso?',lead:'Escolha o modo ou função mais adequada para a situação.',badge:'Qual função eu uso?',items:[
+      {q:'O cliente quer apenas circular o ar, sem resfriar.',options:['Cool','Fan','Timer','Dimmer'],a:1,why:'Fan é o modo de ventilação. Ele movimenta o ar, sem foco principal em resfriamento.'},
+      {q:'O ambiente está úmido e o cliente quer reduzir a sensação de umidade.',options:['Dry / Desumidificador','Dimmer','Reinício automático','Controle remoto'],a:0,why:'Dry ou Desumidificador é o modo relacionado à redução de umidade.'},
+      {q:'O cliente quer que o aparelho escolha automaticamente o modo conforme a temperatura do ambiente.',options:['Modo Smart','Luz do filtro','R-32','Rodinhas 360°'],a:0,why:'O Modo Smart ajusta o funcionamento conforme a temperatura do ambiente.'},
+      {q:'O cliente quer programar o aparelho para desligar durante a madrugada.',options:['Timer 24h','Fan','Filtro lavável','Swing'],a:0,why:'Timer 24h programa horário para ligar ou desligar.'},
+      {q:'O cliente reclama que a luz incomoda durante o sono.',options:['Cool','Dimmer','Duto de exaustão','R-32'],a:1,why:'Dimmer desliga a luz do display quando disponível no modelo.'},
+      {q:'O cliente quer melhorar a distribuição do ar no modelo Janela.',options:['Fluxo de ar em 4 direções','Dreno seco','Luz do filtro','Tensão 127V'],a:0,why:'Fluxo em 4 direções ajuda na distribuição horizontal e vertical do ar.'}
+    ]},
+    product:{title:'Jogo 2 — Janela ou Portátil?',lead:'Escolha qual produto está mais relacionado ao cenário.',badge:'Janela ou Portátil?',items:[
+      {q:'Cliente mora de aluguel e não pode fazer obra.',options:['Janela','Portátil','Ambos sem diferença','Nenhum'],a:1,why:'O Portátil pode ser alternativa quando o cliente precisa de flexibilidade e não possui infraestrutura fixa, desde que consiga instalar o duto.'},
+      {q:'Cliente já possui abertura na parede para ar-condicionado.',options:['Portátil','Janela','Modo Smart','Dimmer'],a:1,why:'Janela faz sentido quando existe estrutura adequada para esse tipo de instalação.'},
+      {q:'Cliente quer mover o aparelho entre sala e quarto.',options:['Janela','Portátil','Filtro lavável','R-32'],a:1,why:'Portátil possui rodinhas e alças, mas é necessário posicionar o duto em cada ambiente.'},
+      {q:'Cliente quer substituir um aparelho antigo instalado na parede.',options:['Janela','Portátil','Timer','Modo Dry'],a:0,why:'Janela pode ser relacionada à substituição, desde que medidas, tensão e capacidade sejam compatíveis.'},
+      {q:'Cliente quer uma solução sem duto de exaustão.',options:['Portátil','Janela, se houver estrutura adequada','Ambos precisam de duto','ConnectLife'],a:1,why:'O Portátil precisa de duto. O Janela não usa duto, mas exige estrutura adequada.'},
+      {q:'Cliente perguntou sobre um produto com sistema de evaporação automática e rodinhas.',options:['Janela','Portátil','Split','Filtro do Janela'],a:1,why:'Rodinhas e sistema de evaporação automática estão associados ao Portátil.'}
+    ]}
+  };
+  let currentGame=null, idx=0, score=0, selected=null, answers=[];
+  const practiceHome=document.getElementById('practiceHome'),gameArea=document.getElementById('gameArea'),resultArea=document.getElementById('resultArea');
+  const scenarioText=document.getElementById('scenarioText'),gameOptions=document.getElementById('gameOptions'),gameFeedback=document.getElementById('gameFeedback'),gameScore=document.getElementById('gameScore');
+  function enterPractice(){document.body.classList.add('practice');document.body.classList.remove('focus');document.getElementById('practiceMode').scrollIntoView({behavior:'smooth'});showPracticeHome()}
+  function exitPractice(){document.body.classList.remove('practice');document.getElementById('inicio').scrollIntoView({behavior:'smooth'})}
+  function showPracticeHome(){practiceHome.classList.remove('hidden');gameArea.classList.add('hidden');resultArea.classList.add('hidden');document.getElementById('practiceTitle').textContent='Escolha um desafio';document.getElementById('practiceLead').textContent='Nesta área, o conteúdo fica oculto para testar sua assimilação.'}
+  function startGame(name){currentGame=name;idx=0;score=0;answers=[];practiceHome.classList.add('hidden');resultArea.classList.add('hidden');gameArea.classList.remove('hidden');document.getElementById('practiceTitle').textContent=practiceData[name].title;document.getElementById('practiceLead').textContent=practiceData[name].lead;document.getElementById('gameBadge').textContent=practiceData[name].badge;renderQuestion()}
+  function renderQuestion(){const data=practiceData[currentGame];const item=data.items[idx];selected=null;gameFeedback.className='game-feedback';gameFeedback.textContent='';document.getElementById('answerBtn').classList.remove('hidden');document.getElementById('nextBtn').classList.add('hidden');scenarioText.textContent=(idx+1)+'. '+item.q;gameScore.textContent='Pontuação: '+score+'/'+idx;gameOptions.innerHTML='';item.options.forEach((op,i)=>{const b=document.createElement('button');b.className='game-option';b.type='button';b.textContent=String.fromCharCode(65+i)+') '+op;b.onclick=()=>{document.querySelectorAll('.game-option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selected=i};gameOptions.appendChild(b)})}
+  function answerQuestion(){if(selected===null){gameFeedback.className='game-feedback show no';gameFeedback.textContent='Escolha uma alternativa antes de responder.';return}const data=practiceData[currentGame];const item=data.items[idx];const ok=selected===item.a;if(ok)score++;answers.push({q:item.q,ok,why:item.why,chosen:item.options[selected],correct:item.options[item.a]});document.querySelectorAll('.game-option').forEach((b,i)=>{b.disabled=true;if(i===item.a)b.classList.add('correct');if(i===selected && !ok)b.classList.add('wrong')});gameFeedback.className='game-feedback show '+(ok?'ok':'no');gameFeedback.textContent=(ok?'Correto! ':'Quase! ')+item.why;gameScore.textContent='Pontuação: '+score+'/'+(idx+1);document.getElementById('answerBtn').classList.add('hidden');document.getElementById('nextBtn').classList.remove('hidden')}
+  function nextQuestion(){idx++;if(idx>=practiceData[currentGame].items.length){showResults()}else{renderQuestion()}}
+  function showResults(){gameArea.classList.add('hidden');resultArea.classList.remove('hidden');const total=practiceData[currentGame].items.length;document.getElementById('resultText').textContent='Você acertou '+score+' de '+total+' situações.';const list=document.getElementById('resultList');list.innerHTML='';answers.forEach((r,i)=>{const div=document.createElement('div');div.className='result-item';div.innerHTML='<strong>'+(r.ok?'Acerto':'Revisar')+' — Situação '+(i+1)+'</strong><br>'+r.q+'<br><small>Sua resposta: '+r.chosen+' | Correta: '+r.correct+'</small><br><small>'+r.why+'</small>';list.appendChild(div)})}
+  document.getElementById('startPracticeHero').addEventListener('click',enterPractice);document.getElementById('navPractice').addEventListener('click',e=>{e.preventDefault();enterPractice()});document.getElementById('exitPractice').addEventListener('click',exitPractice);document.querySelectorAll('.practice-choice').forEach(b=>b.addEventListener('click',()=>startGame(b.dataset.game)));document.getElementById('answerBtn').addEventListener('click',answerQuestion);document.getElementById('nextBtn').addEventListener('click',nextQuestion);document.getElementById('backPractice').addEventListener('click',showPracticeHome);document.getElementById('retryBtn').addEventListener('click',()=>startGame(currentGame));document.getElementById('homePractice').addEventListener('click',showPracticeHome);document.getElementById('contentBtn').addEventListener('click',exitPractice);
+</script>
+</body>
+</html>

@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Primeiros Passos do Fluxo de Atendimento</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --purple: #7C3AED;
+      --orange: #F97316;
+      --yellow: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --text-light: #7B8794;
+      --border-soft: #DDE6ED;
+      --shadow: 0 18px 42px rgba(0, 63, 125, 0.16);
+      --shadow-soft: 0 8px 20px rgba(31, 41, 51, 0.06);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(0, 174, 239, 0.24), transparent 30%),
+        radial-gradient(circle at 92% 16%, rgba(0, 176, 80, 0.16), transparent 32%),
+        radial-gradient(circle at 84% 86%, rgba(124, 58, 237, 0.14), transparent 34%),
+        linear-gradient(135deg, #EDF7FF 0%, #FFFFFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #eadWrapper {
+      min-height: 100vh;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .topBar {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(221, 230, 237, 0.92);
+      box-shadow: 0 10px 28px rgba(0, 63, 125, 0.08);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+
+    .topBrand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brandIcon {
+      width: 46px;
+      height: 46px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(0, 94, 184, 0.2);
+      flex: 0 0 auto;
+    }
+
+    .topBrandText {
+      min-width: 0;
+    }
+
+    .topBrandText strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topBrandText span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+    }
+
+    .topActions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .topBtn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .topBtn:hover {
+      transform: translateY(-2px);
+    }
+
+    .focusBtn {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+      color: #FFFFFF;
+    }
+
+    .historyBtn {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .progressWrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progressInfo {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-medium);
+      font-weight: 700;
+    }
+
+    .progressTrack {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(0, 94, 184, 0.12);
+      border: 1px solid rgba(0, 94, 184, 0.08);
+    }
+
+    .progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--hisense-blue), var(--hisense-cyan), var(--hisense-green));
+      transition: width 0.3s ease;
+    }
+
+    .stage {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      flex: 1;
+      display: grid;
+      place-items: stretch;
+    }
+
+    .screen {
+      display: none;
+      min-height: calc(100vh - 175px);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeSlide 0.28s ease both;
+    }
+
+    .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screenHeader {
+      padding: 32px 36px 24px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(0, 176, 80, 0.14), transparent 32%),
+        linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screenHeader h1,
+    .screenHeader h2 {
+      margin: 0;
+      color: var(--text-dark);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .screenHeader h1 {
+      font-size: clamp(2rem, 4vw, 3.45rem);
+    }
+
+    .screenHeader h2 {
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+    }
+
+    .screenIntro {
+      max-width: 940px;
+      margin: 12px 0 0;
+      color: var(--text-medium);
+      font-size: 0.98rem;
+    }
+
+    .screenBody {
+      padding: 30px 36px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .screenFooter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 36px 26px;
+      border-top: 1px solid var(--border-soft);
+      background: #FFFFFF;
+    }
+
+    .footerHint {
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .navButtons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-blue-dark));
+    }
+
+    .btnGreen {
+      background: linear-gradient(135deg, var(--hisense-green), #059669);
+    }
+
+    .btnGhost {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btnWarn {
+      background: linear-gradient(135deg, var(--yellow), #D97706);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      width: max-content;
+      margin-bottom: 12px;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.13);
+      color: #B45309;
+    }
+
+    .pillPurple {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple);
+    }
+
+    .callout {
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+      background: #FFFFFF;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .callout.info {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .callout.success {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .callout.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+    }
+
+    .callout.danger {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .journeyMap {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .journeyNode {
+      position: relative;
+      padding: 18px;
+      min-height: 148px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .journeyNode::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(0, 94, 184, 0.06);
+    }
+
+    .journeyNumber {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      color: #FFFFFF;
+      font-weight: 900;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--hisense-blue), var(--hisense-cyan));
+    }
+
+    .journeyNode h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .journeyNode p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+    }
+
+    .choiceGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choiceCard {
+      width: 100%;
+      min-height: 86px;
+      padding: 17px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 800;
+      line-height: 1.42;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .choiceCard:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .choiceCard.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .choiceCard.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .feedbackBox {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 17px;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .feedbackBox.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+      color: #92400E;
+    }
+
+    .historyDrawer {
+      position: fixed;
+      top: 0;
+      right: -430px;
+      width: min(430px, 92vw);
+      height: 100vh;
+      z-index: 100;
+      background: #FFFFFF;
+      box-shadow: -10px 0 34px rgba(31, 41, 51, 0.18);
+      border-left: 1px solid var(--border-soft);
+      transition: right 0.28s ease;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .historyDrawer.open {
+      right: 0;
+    }
+
+    .historyHeader {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .historyHeader h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .historyClose {
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      font-weight: 900;
+    }
+
+    .historyContent {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .historyItem {
+      padding: 14px;
+      border-radius: 16px;
+      background: #F7FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .historyItem strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+      color: var(--hisense-blue-dark);
+    }
+
+    .historyItem p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.84rem;
+    }
+
+    /* MODO FOCO REAL COM FULLSCREEN */
+    body.focusMode {
+      background: #F6FAFD;
+      overflow: hidden;
+    }
+
+    body.focusMode #eadWrapper {
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: #F6FAFD;
+    }
+
+    body.focusMode .progressWrap {
+      display: none !important;
+    }
+
+    body.focusMode .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    body.focusMode .topBrand,
+    body.focusMode .historyBtn {
+      display: none !important;
+    }
+
+    body.focusMode .focusBtn {
+      box-shadow: 0 10px 24px rgba(0, 63, 125, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    body.focusMode .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body.focusMode .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    body.focusMode .screen.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    body.focusMode .screenHeader {
+      padding-top: 62px;
+    }
+
+    body.focusMode .screenBody {
+      align-content: center;
+    }
+
+    body.focusMode .historyDrawer {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen {
+      background: #F6FAFD;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    #eadWrapper:fullscreen .progressWrap {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen .topBar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      left: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      z-index: 9999;
+    }
+
+    #eadWrapper:fullscreen .topBrand,
+    #eadWrapper:fullscreen .historyBtn {
+      display: none !important;
+    }
+
+    #eadWrapper:fullscreen .stage {
+      width: 100vw;
+      max-width: none;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    #eadWrapper:fullscreen .screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      min-height: 100vh;
+    }
+
+    #eadWrapper:fullscreen .screenHeader {
+      padding-top: 62px;
+    }
+
+    @media (max-width: 980px) {
+      #eadWrapper {
+        padding: 14px;
+      }
+
+      .topBar {
+        position: relative;
+        top: 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .topActions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .screen {
+        min-height: auto;
+      }
+
+      .screenHeader,
+      .screenBody,
+      .screenFooter {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .screenFooter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navButtons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .grid2,
+      .grid3,
+      .journeyMap,
+      .choiceGrid {
+        grid-template-columns: 1fr;
+      }
+
+      body.focusMode .topBar {
+        top: 12px;
+        right: 12px;
+        align-items: center;
+      }
+
+      body.focusMode .screenHeader {
+        padding-top: 72px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="eadWrapper">
+    <header class="topBar">
+      <div class="topBrand">
+        <div class="brandIcon">FA</div>
+        <div class="topBrandText">
+          <strong>Primeiros Passos do Fluxo</strong>
+          <span>EAD leve | Primeiro dia de operação</span>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="topBtn historyBtn" id="historyToggle" type="button">
+          Ver histórico
+        </button>
+
+        <button class="topBtn focusBtn" id="focusToggle" type="button">
+          Modo foco
+        </button>
+      </div>
+    </header>
+
+    <div class="progressWrap">
+      <div class="progressInfo">
+        <span id="stepLabel">Etapa 1 de 14</span>
+        <span id="scoreLabel">Pontuação: 0</span>
+      </div>
+
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <aside class="historyDrawer" id="historyDrawer">
+      <div class="historyHeader">
+        <h3>Histórico do EAD</h3>
+        <button class="historyClose" id="historyClose" type="button">X</button>
+      </div>
+
+      <div class="historyContent" id="historyContent">
+        <div class="historyItem">
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas etapas.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="stage">
+
+      <section class="screen active" data-step="1" id="screen-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Boas-vindas</span>
+          <h1>Primeiros Passos do Fluxo de Atendimento</h1>
+          <p class="screenIntro">
+            Este EAD é uma prática leve para reforçar a lógica inicial do atendimento. Antes de entrar em procedimentos técnicos, vamos treinar como acolher, entender, registrar e decidir quando consultar histórico.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="journeyMap">
+            <div class="journeyNode">
+              <div class="journeyNumber">1</div>
+              <h3>Primeiro passo</h3>
+              <p>Como iniciar sem acelerar a conversa.</p>
+            </div>
+
+            <div class="journeyNode">
+              <div class="journeyNumber">2</div>
+              <h3>Novo ou histórico</h3>
+              <p>Quando o cliente começa do zero e quando já existe jornada.</p>
+            </div>
+
+            <div class="journeyNode">
+              <div class="journeyNumber">3</div>
+              <h3>Status de quê?</h3>
+              <p>Como transformar pedido genérico em consulta clara.</p>
+            </div>
+
+            <div class="journeyNode">
+              <div class="journeyNumber">4</div>
+              <h3>Consultar ou responder</h3>
+              <p>Quando orientar direto e quando verificar histórico.</p>
+            </div>
+
+            <div class="journeyNode">
+              <div class="journeyNumber">5</div>
+              <h3>Monte o fluxo</h3>
+              <p>Organize a sequência inicial do atendimento.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <strong>Como usar este EAD</strong>
+            <p>
+              Responda as situações como se estivesse no primeiro contato com o cliente. O objetivo é aprender a lógica da jornada, não decorar telas ou procedimentos.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Duração estimada: 15 a 20 minutos.</span>
+          <div class="navButtons">
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Começar jornada</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="2" id="screen-first-step-intro">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 1</span>
+          <h2>Qual é o primeiro passo?</h2>
+          <p class="screenIntro">
+            O início do atendimento precisa acolher e abrir espaço para o cliente explicar a necessidade. Perguntas muito técnicas logo no começo podem deixar a conversa pesada.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Acolher</span>
+              <h3>Comece com clareza</h3>
+              <p>
+                Cumprimente, identifique a central e mostre disponibilidade para ajudar.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Ouvir</span>
+              <h3>Entenda o relato</h3>
+              <p>
+                Deixe o cliente explicar antes de concluir que é defeito, status, reclamação ou serviço.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Sondar</span>
+              <h3>Pergunte com objetivo</h3>
+              <p>
+                Depois da abertura, faça perguntas que ajudem a entender o cenário.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Frase guia</strong>
+            <p>
+              Primeiro acolha. Depois aprofunde.
+            </p>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">A próxima tela traz a primeira situação prática.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" type="button" onclick="goNext()">Praticar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-step="3" id="screen-first-step-practice">
+        <div class="screenHeader">
+          <span class="eyebrow">Fase 1 | Prática</span>
+          <h2>Escolha a melhor primeira resposta</h2>
+          <p class="screenIntro">
+            O cliente iniciou o contato de forma genérica. Qual resposta conduz melhor o atendimento?
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="callout info">
+            <strong>Cliente diz:</strong>
+            <p>
+              “Olá, preciso de ajuda com meu produto.”
+            </p>
+          </div>
+
+          <div class="choiceGrid">
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'first1', false, 'Atenção. Perguntar direto o defeito pode acelerar a conversa antes de entender se é dúvida, status, serviço, reclamação ou suporte.')">
+              Qual o defeito?
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'first1', true, 'Correto. A resposta acolhe o cliente e abre espaço para entender o que aconteceu antes de direcionar.', 'Fase 1', 'Escolheu acolher antes de aprofundar a sondagem.')">
+              Olá, vou te ajudar. Pode me contar o que aconteceu?
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'first1', false, 'Atenção. Nota fiscal pode ser necessária em alguns cenários, mas não deve ser a primeira reação antes de entender o motivo do contato.')">
+              Me passe a nota fiscal.
+            </button>
+
+            <button class="choiceCard" type="button" onclick="answerChoice(this, 'first1', false, 'Atenção. OS pode ser importante, mas primeiro é melhor entender se o cliente já tem atendimento anterior ou se é uma nova solicitação.')">
+              Você já tem OS?
+            </button>
+          </div>
+
+          <div class="feedbackBox" id="feedback-first1"></div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">O primeiro passo é acolher e entender.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnPrimary" id="next-first1" type="button" onclick="goNext()" disabled>Próxima fase</button>
+          </div>
+        </div>
+      </section>
+            <section class="screen" data-step="14" id="screen-closing">
+        <div class="screenHeader">
+          <span class="eyebrow">Fechamento</span>
+          <h2>Você concluiu os primeiros passos do fluxo</h2>
+          <p class="screenIntro">
+            Este EAD reforçou a lógica inicial do atendimento: acolher, ouvir, registrar, identificar histórico, consultar quando necessário e só então decidir o próximo caminho.
+          </p>
+        </div>
+
+        <div class="screenBody">
+          <div class="grid grid3">
+            <div class="card">
+              <span class="pill pillBlue">Você praticou</span>
+              <h3>Acolhimento</h3>
+              <p>
+                O atendimento começa com abertura clara, escuta ativa e espaço para o cliente explicar a necessidade.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillGreen">Você praticou</span>
+              <h3>Histórico</h3>
+              <p>
+                Cliente que menciona OS, acordo, contato anterior ou retorno pendente precisa ter histórico consultado.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="pill pillWarn">Você praticou</span>
+              <h3>Status</h3>
+              <p>
+                Antes de responder sobre status, é preciso entender status de quê e consultar a etapa registrada.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout success">
+            <strong>Resultado</strong>
+            <p id="resultText">
+              Seu resultado será apresentado aqui.
+            </p>
+          </div>
+
+          <div class="callout info">
+            <strong>Frase de fixação</strong>
+            <p>
+              Atender bem é entender o cenário antes de decidir o caminho.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Resumo do fluxo inicial</h3>
+            <ul>
+              <li>Acolher o cliente.</li>
+              <li>Ouvir o relato com atenção.</li>
+              <li>Registrar o contato desde o começo.</li>
+              <li>Identificar se há histórico.</li>
+              <li>Consultar histórico quando necessário.</li>
+              <li>Entender o cenário.</li>
+              <li>Orientar, finalizar ou direcionar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="screenFooter">
+          <span class="footerHint">Fim do EAD.</span>
+          <div class="navButtons">
+            <button class="btn btnGhost" type="button" onclick="goPrev()">Voltar</button>
+            <button class="btn btnWarn" type="button" onclick="restartEad()">Refazer EAD</button>
+            <button class="btn btnGreen" type="button" onclick="openHistory()">Ver histórico</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressFill = document.getElementById("progressFill");
+    const stepLabel = document.getElementById("stepLabel");
+    const scoreLabel = document.getElementById("scoreLabel");
+    const focusToggle = document.getElementById("focusToggle");
+    const historyToggle = document.getElementById("historyToggle");
+    const historyDrawer = document.getElementById("historyDrawer");
+    const historyClose = document.getElementById("historyClose");
+    const historyContent = document.getElementById("historyContent");
+
+    let currentScreenIndex = 0;
+    let score = 0;
+    let maxScore = 8;
+    let answeredItems = {};
+    let historyItems = [];
+    let expectedOrder = 1;
+
+    function initializeEad() {
+      updateScreenView();
+      updateScore();
+      updateHistory();
+    }
+
+    function goNext() {
+      if (currentScreenIndex < screens.length - 1) {
+        currentScreenIndex++;
+        updateScreenView();
+      }
+
+      if (screens[currentScreenIndex] && screens[currentScreenIndex].id === "screen-closing") {
+        renderResult();
+      }
+    }
+
+    function goPrev() {
+      if (currentScreenIndex > 0) {
+        currentScreenIndex--;
+        updateScreenView();
+      }
+    }
+
+    function updateScreenView() {
+      screens.forEach(function (screen, index) {
+        screen.classList.toggle("active", index === currentScreenIndex);
+      });
+
+      const currentStep = currentScreenIndex + 1;
+      const totalSteps = screens.length;
+      const percent = (currentStep / totalSteps) * 100;
+
+      progressFill.style.width = percent + "%";
+      stepLabel.textContent = "Etapa " + currentStep + " de " + totalSteps;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function updateScore() {
+      scoreLabel.textContent = "Pontuação: " + score;
+    }
+
+    function addScoreOnce(key, points) {
+      if (answeredItems[key]) return;
+      answeredItems[key] = true;
+      score += points;
+      updateScore();
+    }
+
+    function setFeedback(id, type, message) {
+      const feedback = document.getElementById(id);
+
+      if (!feedback) return;
+
+      feedback.className = "feedbackBox show " + type;
+      feedback.innerHTML = message;
+    }
+
+    function addHistory(title, text) {
+      historyItems.push({
+        title: title,
+        text: text
+      });
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      historyContent.innerHTML = "";
+
+      if (historyItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "historyItem";
+        empty.innerHTML = `
+          <strong>Orientação</strong>
+          <p>Suas decisões aparecerão aqui conforme você avançar pelas etapas.</p>
+        `;
+        historyContent.appendChild(empty);
+        return;
+      }
+
+      historyItems.forEach(function (item, index) {
+        const historyItem = document.createElement("div");
+        historyItem.className = "historyItem";
+        historyItem.innerHTML = `
+          <strong>${index + 1}. ${item.title}</strong>
+          <p>${item.text}</p>
+        `;
+        historyContent.appendChild(historyItem);
+      });
+    }
+
+    function openHistory() {
+      historyDrawer.classList.add("open");
+    }
+
+    function closeHistory() {
+      historyDrawer.classList.remove("open");
+    }
+
+    historyToggle.addEventListener("click", function () {
+      openHistory();
+    });
+
+    historyClose.addEventListener("click", function () {
+      closeHistory();
+    });
+
+    focusToggle.addEventListener("click", async function () {
+      const wrapper = document.getElementById("eadWrapper");
+
+      try {
+        if (!document.fullscreenElement) {
+          body.classList.add("focusMode");
+          focusToggle.textContent = "Sair do modo foco";
+          closeHistory();
+
+          if (wrapper.requestFullscreen) {
+            await wrapper.requestFullscreen();
+          } else if (wrapper.webkitRequestFullscreen) {
+            await wrapper.webkitRequestFullscreen();
+          } else if (wrapper.msRequestFullscreen) {
+            await wrapper.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            await document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            await document.msExitFullscreen();
+          }
+
+          body.classList.remove("focusMode");
+          focusToggle.textContent = "Modo foco";
+        }
+      } catch (error) {
+        body.classList.add("focusMode");
+        focusToggle.textContent = "Sair do modo foco";
+        closeHistory();
+
+        alert("O modo tela cheia foi bloqueado pelo navegador ou pela plataforma. Se isso acontecer, abra o conteúdo em uma nova aba ou use o modo tela cheia do player.");
+      }
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    document.addEventListener("webkitfullscreenchange", function () {
+      if (!document.webkitFullscreenElement) {
+        body.classList.remove("focusMode");
+        focusToggle.textContent = "Modo foco";
+      }
+    });
+
+    function answerChoice(button, questionId, isCorrect, message, historyTitle, historyText) {
+      if (answeredItems[questionId]) return;
+
+      const parent = button.closest(".choiceGrid");
+
+      if (parent) {
+        parent.querySelectorAll("button").forEach(function (btn) {
+          btn.disabled = true;
+        });
+      }
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        setFeedback("feedback-" + questionId, "good", message);
+        addScoreOnce(questionId, 1);
+
+        if (historyTitle && historyText) {
+          addHistory(historyTitle, historyText);
+        }
+      } else {
+        button.classList.add("incorrect");
+        setFeedback("feedback-" + questionId, "bad", message);
+        answeredItems[questionId] = true;
+
+        addHistory(
+          "Ajuste necessário",
+          "Uma alternativa incorreta foi selecionada. Revise o feedback da etapa para entender o melhor caminho."
+        );
+      }
+
+      const nextButton = document.getElementById("next-" + questionId);
+
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+    }
+
+    function selectOrderStep(button) {
+      if (button.classList.contains("correctStep")) return;
+
+      const order = Number(button.getAttribute("data-order"));
+
+      if (order === expectedOrder) {
+        button.classList.add("correctStep");
+        button.disabled = true;
+
+        expectedOrder++;
+
+        document.getElementById("orderProgress").textContent =
+          "Etapa " + (expectedOrder - 1) + "/7";
+
+        if (expectedOrder > 7) {
+          setFeedback(
+            "feedback-order",
+            "good",
+            "Fluxo montado corretamente. A sequência começa com acolhimento e escuta, passa por registro e histórico, e termina com a decisão do próximo caminho."
+          );
+
+          addScoreOnce("orderFlow", 1);
+
+          addHistory(
+            "Fluxo inicial montado",
+            "Organizou corretamente a sequência: acolher, ouvir, registrar, identificar histórico, consultar, entender cenário e orientar/direcionar."
+          );
+
+          document.getElementById("next-order").disabled = false;
+        } else {
+          setFeedback(
+            "feedback-order",
+            "good",
+            "Etapa correta. Continue montando o fluxo."
+          );
+        }
+      } else {
+        button.classList.add("wrongStep");
+
+        setFeedback(
+          "feedback-order",
+          "bad",
+          "Essa não é a próxima etapa. Pense na lógica do atendimento: primeiro acolhe e ouve, depois registra, identifica histórico e decide o caminho."
+        );
+
+        setTimeout(function () {
+          button.classList.remove("wrongStep");
+        }, 850);
+      }
+    }
+
+    function resetOrderGame() {
+      expectedOrder = 1;
+
+      document.querySelectorAll(".orderBtn").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correctStep", "wrongStep");
+      });
+
+      document.getElementById("orderProgress").textContent = "Etapa 0/7";
+      document.getElementById("next-order").disabled = true;
+
+      setFeedback(
+        "feedback-order",
+        "warn",
+        "Ordem reiniciada. Comece novamente pelo acolhimento do cliente."
+      );
+    }
+
+    function renderResult() {
+      const resultText = document.getElementById("resultText");
+      const percent = Math.round((score / maxScore) * 100);
+
+      if (percent >= 90) {
+        resultText.innerHTML = `
+          <strong>Excelente!</strong> Você demonstrou segurança nos primeiros passos do fluxo de atendimento. 
+          Continue aplicando a lógica: acolher, entender, registrar, consultar quando necessário e decidir o próximo caminho.
+        `;
+      } else if (percent >= 70) {
+        resultText.innerHTML = `
+          <strong>Bom desempenho.</strong> Você entendeu a lógica principal do fluxo. 
+          Revise no histórico os pontos em que houve ajuste para reforçar quando consultar histórico antes de posicionar.
+        `;
+      } else {
+        resultText.innerHTML = `
+          <strong>Reforço recomendado.</strong> Vale refazer o EAD com atenção especial aos sinais de histórico, pedidos de status e ordem correta do fluxo inicial.
+        `;
+      }
+    }
+
+    function restartEad() {
+      currentScreenIndex = 0;
+      score = 0;
+      answeredItems = {};
+      historyItems = [];
+      expectedOrder = 1;
+
+      document.querySelectorAll(".choiceCard").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correct", "incorrect");
+      });
+
+      document.querySelectorAll(".feedbackBox").forEach(function (feedback) {
+        feedback.className = "feedbackBox";
+        feedback.innerHTML = "";
+      });
+
+      document.querySelectorAll(".orderBtn").forEach(function (button) {
+        button.disabled = false;
+        button.classList.remove("correctStep", "wrongStep");
+      });
+
+      const orderProgress = document.getElementById("orderProgress");
+
+      if (orderProgress) {
+        orderProgress.textContent = "Etapa 0/7";
+      }
+
+      const nextButtons = [
+        "next-first1",
+        "next-history1",
+        "next-history2",
+        "next-history3",
+        "next-history4",
+        "next-status1",
+        "next-consult1",
+        "next-order"
+      ];
+
+      nextButtons.forEach(function (id) {
+        const button = document.getElementById(id);
+
+        if (button) {
+          button.disabled = true;
+        }
+      });
+
+      closeHistory();
+      updateHistory();
+      updateScore();
+      updateScreenView();
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        const activeScreen = screens[currentScreenIndex];
+        const nextButton = activeScreen.querySelector(".screenFooter .btnPrimary:not(:disabled)");
+
+        if (nextButton) {
+          nextButton.click();
+        }
+      }
+
+      if (event.key === "ArrowLeft") {
+        goPrev();
+      }
+
+      if (event.key === "Escape") {
+        closeHistory();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initializeEad();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EAD | Sinistro | Hisense Gorenje</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --hisense-blue: #005EB8;
+      --hisense-blue-dark: #003F7D;
+      --hisense-cyan: #00AEEF;
+      --hisense-green: #00B050;
+      --bg-soft: #F4F8FB;
+      --bg-card: #FFFFFF;
+      --text-dark: #1F2933;
+      --text-medium: #52616B;
+      --border-soft: #DDE6ED;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+      --success: #16A34A;
+      --purple: #7C3AED;
+      --shadow: 0 12px 30px rgba(0, 63, 125, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(0, 174, 239, 0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(0, 176, 80, 0.14), transparent 34%),
+        linear-gradient(135deg, #EEF7FF 0%, #F9FCFF 48%, #F2FFF7 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    #mainWrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 310px;
+      position: fixed;
+      inset: 0 auto 0 0;
+      overflow-y: auto;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, var(--hisense-blue-dark), var(--hisense-blue));
+      color: #FFFFFF;
+      z-index: 20;
+      box-shadow: 8px 0 28px rgba(0, 63, 125, 0.2);
+    }
+
+    .brandTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brandDot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.22);
+    }
+
+    .brandBlock h1 {
+      margin: 18px 0 8px;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .brandBlock p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .sideSearch {
+      margin: 24px 0;
+    }
+
+    .sideSearch label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .sideSearch input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .sideSearch input::placeholder {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .navGroup {
+      margin-top: 24px;
+    }
+
+    .navTitle {
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .navItem {
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      transition: 0.2s ease;
+    }
+
+    .navItem:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(3px);
+    }
+
+    .focusBox {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(220, 38, 38, 0.16);
+      border: 1px solid rgba(220, 38, 38, 0.34);
+    }
+
+    .focusBox h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+    }
+
+    .focusBox p {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .focusToggle {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: linear-gradient(135deg, #DC2626, #F59E0B);
+      color: #FFFFFF;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(220, 38, 38, 0.2);
+    }
+
+    .content {
+      margin-left: 310px;
+      width: calc(100% - 310px);
+      padding: 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 46px;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.32), transparent 34%),
+        radial-gradient(circle at 12% 85%, rgba(0, 174, 239, 0.22), transparent 36%),
+        linear-gradient(135deg, #003F7D, #005EB8 54%, #1F2933);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .heroContent {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .heroTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 880px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.04rem;
+    }
+
+    .heroActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnPrimary {
+      background: #FFFFFF;
+      color: var(--hisense-blue-dark);
+    }
+
+    .btnSecondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(221, 230, 237, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sectionEyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--hisense-blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 1.64rem;
+      line-height: 1.2;
+    }
+
+    .sectionIntro {
+      max-width: 920px;
+      margin: 10px 0 0;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pillBlue {
+      background: rgba(0, 94, 184, 0.1);
+      color: var(--hisense-blue);
+    }
+
+    .pillGreen {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .pillWarn {
+      background: rgba(245, 158, 11, 0.12);
+      color: #B45309;
+    }
+
+    .pillDanger {
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--danger);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--text-dark);
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    .infoCallout,
+    .warningCallout,
+    .successCallout,
+    .dangerCallout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid;
+    }
+
+    .infoCallout {
+      background: rgba(0, 94, 184, 0.08);
+      border-color: var(--hisense-blue);
+    }
+
+    .warningCallout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+    }
+
+    .successCallout {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+    }
+
+    .dangerCallout {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+    }
+
+    .calloutTitle {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .calloutText {
+      margin: 0;
+      color: var(--text-medium);
+      font-size: 0.92rem;
+    }
+
+    .tagList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .compareBox {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .compareCard {
+      padding: 22px;
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+    }
+
+    .compareCard.danger {
+      border-color: rgba(220, 38, 38, 0.25);
+      background: rgba(220, 38, 38, 0.05);
+    }
+
+    .compareCard.safe {
+      border-color: rgba(22, 163, 74, 0.25);
+      background: rgba(22, 163, 74, 0.05);
+    }
+
+    .compareCard h3 {
+      margin: 0 0 10px;
+    }
+
+    .scenarioBox {
+      padding: 22px;
+      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(31, 41, 51, 0.05);
+    }
+
+    .scenarioText {
+      margin: 0 0 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    .scenarioActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .optionBtn {
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      background: #FFFFFF;
+      color: var(--text-dark);
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .optionBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .feedbackBox {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      border-left: 5px solid;
+    }
+
+    .feedbackBox.show {
+      display: block;
+    }
+
+    .feedbackBox.good {
+      background: rgba(22, 163, 74, 0.1);
+      border-color: var(--success);
+      color: #166534;
+    }
+
+    .feedbackBox.bad {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: var(--danger);
+      color: #991B1B;
+    }
+
+    .feedbackBox.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning);
+      color: #92400E;
+    }
+
+    .focusMode .supportContent {
+      display: none !important;
+    }
+
+    .hiddenBySearch {
+      display: none !important;
+    }
+
+    @media (max-width: 1080px) {
+      #mainWrapper {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        width: 100%;
+        margin-left: 0;
+        padding: 22px;
+      }
+
+      .grid2,
+      .grid3,
+      .compareBox {
+        grid-template-columns: 1fr;
+      }
+
+      .sectionHeader {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainWrapper">
+
+    <aside class="sidebar">
+      <div class="brandBlock">
+        <div class="brandTag">
+          <span class="brandDot"></span>
+          EAD
+        </div>
+
+        <h1>Sinistro</h1>
+
+        <p>
+          Identifique sinais de risco, conduza a sondagem e direcione o caso com segurança.
+        </p>
+      </div>
+
+      <div class="sideSearch">
+        <label for="globalSearch">Busca rápida</label>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Busque por risco, fumaça, dados..."
+        />
+      </div>
+
+      <nav class="navGroup" aria-label="Menu principal do EAD">
+        <p class="navTitle">Conteúdo</p>
+
+        <div class="navList">
+        <a href="#inicio" class="navItem">Início</a>
+        <a href="#conceito" class="navItem">O que é Sinistro</a>
+        <a href="#alertas" class="navItem">Sinais de alerta</a>
+        <a href="#defeito-sinistro" class="navItem">Defeito comum x Sinistro</a>
+        <a href="#sondagem" class="navItem">Sondagem</a>
+        <a href="#comunicacao" class="navItem">O que não dizer</a>
+        <a href="#dados" class="navItem">Dados obrigatórios</a>
+        <a href="#registro" class="navItem">Registro</a>
+        <a href="#direcionamento" class="navItem">Direcionamento</a>
+        <a href="#recall" class="navItem">Sinistro x Recall</a>
+        <a href="#pratica" class="navItem">Modo prática</a>
+        <a href="#quiz" class="navItem">Quiz final</a>
+        </div>
+      </nav>
+
+      <div class="focusBox">
+        <h3>Modo foco</h3>
+        <p>
+          Oculte conteúdos de apoio e mantenha apenas os blocos principais.
+        </p>
+        <button class="focusToggle" id="focusToggle">
+          Ativar modo foco
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="hero searchable" id="inicio" data-keywords="início ead sinistro atendimento segurança risco">
+        <div class="heroContent">
+          <div class="heroTag">Pós-Vendas | Cenário Crítico</div>
+
+          <h2>Sinistro: como identificar, sondar e direcionar</h2>
+
+          <p>
+            Aprenda a reconhecer relatos com possível risco, dano ou prejuízo, conduzir a sondagem com segurança, registrar informações essenciais e direcionar o caso para análise adequada.
+          </p>
+
+          <div class="heroActions">
+           <a href="#conceito" class="heroTag">Começar EAD</a>
+           <a href="#pratica" class="heroTag">Ir para prática</a>
+           <a href="#quiz" class="heroTag">Quiz final</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="objetivos" data-keywords="objetivos ead sinistro identificar sondar registrar direcionar">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Objetivos</span>
+            <h2>O que este EAD vai desenvolver</h2>
+            <p class="sectionIntro">
+              O foco é reconhecer quando um atendimento envolve possível Sinistro e conduzir o caso sem tratar como defeito comum.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Atenção crítica</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Identificar</h3>
+            <p>
+              Reconhecer palavras e relatos que indicam risco, dano, incidente ou potencial prejuízo.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Sondar</h3>
+            <p>
+              Fazer perguntas objetivas para entender o que aconteceu, se há risco atual e quais evidências existem.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Direcionar</h3>
+            <p>
+              Registrar com clareza, manter o chamado aberto e encaminhar para análise especializada.
+            </p>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Mensagem central</p>
+          <p class="calloutText">
+            Sinistro não é apenas produto com defeito. Sinistro envolve risco, dano, incidente ou potencial prejuízo ao cliente, ao ambiente ou à instalação.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="conceito" data-keywords="conceito sinistro risco dano incidente prejuízo segurança produto cliente ambiente">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 1</span>
+            <h2>O que é Sinistro</h2>
+            <p class="sectionIntro">
+              Sinistro é um cenário crítico em que o cliente relata uma ocorrência com possível risco à segurança, dano material, lesão, falha grave ou impacto ao ambiente onde o produto está instalado.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Não é defeito comum</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Relatos que acendem alerta</h3>
+            <ul>
+              <li>“O produto pegou fogo.”</li>
+              <li>“Saiu fumaça.”</li>
+              <li>“Senti cheiro de queimado.”</li>
+              <li>“Deu curto-circuito.”</li>
+              <li>“Ouvi um estouro.”</li>
+              <li>“Danificou meu móvel.”</li>
+              <li>“Machucou alguém.”</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Como interpretar</h3>
+            <p>
+              A palavra usada pelo cliente pode variar. O importante é identificar se existe relato de risco, dano, incidente, prejuízo ou possível impacto à segurança.
+            </p>
+
+            <div class="tagList">
+              <span class="tag">Fumaça</span>
+              <span class="tag">Curto</span>
+              <span class="tag">Explosão</span>
+              <span class="tag">Lesão</span>
+              <span class="tag">Dano material</span>
+              <span class="tag">Cheiro de queimado</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="warningCallout">
+          <p class="calloutTitle">Regra de atenção</p>
+          <p class="calloutText">
+            Sempre que houver risco, dano, cheiro de queimado, curto-circuito, explosão, lesão ou impacto no ambiente, trate como possível Sinistro até validação.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="alertas" data-keywords="sinais alerta risco elétrico fogo fumaça explosão dano material pessoa">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 2</span>
+            <h2>Sinais de alerta no relato do cliente</h2>
+            <p class="sectionIntro">
+              Durante a sondagem, observe palavras, descrições e consequências que indicam gravidade.
+            </p>
+          </div>
+
+          <span class="pill pillWarn">Escuta ativa</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Risco elétrico</h3>
+            <ul>
+              <li>curto-circuito;</li>
+              <li>faísca;</li>
+              <li>choque;</li>
+              <li>tomada queimada;</li>
+              <li>disjuntor desarmando;</li>
+              <li>cabo derretido.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Fogo, fumaça ou calor</h3>
+            <ul>
+              <li>produto pegou fogo;</li>
+              <li>saiu fumaça;</li>
+              <li>cheiro forte de queimado;</li>
+              <li>aquecimento excessivo;</li>
+              <li>derretimento.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Explosão ou liberação súbita</h3>
+            <ul>
+              <li>estouro;</li>
+              <li>explosão;</li>
+              <li>peça que rompeu;</li>
+              <li>vazamento com pressão;</li>
+              <li>liberação súbita de energia.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Dano material</h3>
+            <ul>
+              <li>móvel danificado;</li>
+              <li>parede queimada;</li>
+              <li>piso afetado;</li>
+              <li>ambiente atingido;</li>
+              <li>outro bem danificado.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Risco à pessoa</h3>
+            <ul>
+              <li>lesão;</li>
+              <li>queimadura;</li>
+              <li>mal-estar;</li>
+              <li>risco de asfixia;</li>
+              <li>contato com fluido, gás ou substância.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Potencial prejuízo</h3>
+            <p>
+              Mesmo sem dano confirmado, o relato pode indicar risco potencial. Nesses casos, a sondagem deve ser aprofundada antes da classificação final.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="defeito-sinistro" data-keywords="defeito comum sinistro diferença risco consequência falha comum">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 3</span>
+            <h2>Defeito comum x Sinistro</h2>
+            <p class="sectionIntro">
+              Nem todo defeito é Sinistro. A diferença está no risco, na consequência e no potencial de dano.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Compare antes de classificar</span>
+        </div>
+
+        <div class="compareBox">
+          <div class="compareCard safe">
+            <h3>Defeito comum</h3>
+            <p>
+              O produto apresenta falha ou precisa de análise técnica, mas não há relato de risco, dano ou incidente grave.
+            </p>
+
+            <ul>
+              <li>produto não liga;</li>
+              <li>não refrigera;</li>
+              <li>não lava;</li>
+              <li>erro no painel;</li>
+              <li>ruído sem risco aparente;</li>
+              <li>falha de aplicativo sem dano relatado.</li>
+            </ul>
+          </div>
+
+          <div class="compareCard danger">
+            <h3>Possível Sinistro</h3>
+            <p>
+              O relato envolve risco, dano, cheiro de queimado, curto, fumaça, explosão, vazamento perigoso ou impacto ao cliente ou ambiente.
+            </p>
+
+            <ul>
+              <li>produto soltou fumaça;</li>
+              <li>tomada queimou;</li>
+              <li>houve estouro;</li>
+              <li>móvel foi danificado;</li>
+              <li>alguém se machucou;</li>
+              <li>saiu cheiro de queimado.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Ponto de decisão</p>
+          <p class="calloutText">
+            Se houver risco ou dano, não trate como defeito comum. Faça a sondagem crítica e direcione corretamente.
+          </p>
+        </div>
+      </section>
+            <section class="section searchable" id="sondagem" data-keywords="sondagem sinistro perguntas risco dano fumaça curto explosão evidências">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 4</span>
+            <h2>Sondagem de Sinistro</h2>
+            <p class="sectionIntro">
+              A sondagem de Sinistro deve entender o que aconteceu, se existe risco atual, se houve dano e quais evidências podem apoiar a análise.
+            </p>
+          </div>
+
+          <span class="pill pillWarn">Perguntar antes de classificar</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>1. Entenda o que aconteceu</h3>
+            <ul>
+              <li>O que aconteceu exatamente?</li>
+              <li>O produto estava em uso?</li>
+              <li>O que foi percebido primeiro?</li>
+              <li>Quando a ocorrência aconteceu?</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>2. Verifique sinais de risco</h3>
+            <ul>
+              <li>Houve cheiro de queimado?</li>
+              <li>Houve fumaça?</li>
+              <li>Houve faísca?</li>
+              <li>Houve estouro ou explosão?</li>
+              <li>O disjuntor desarmou?</li>
+              <li>A tomada ou cabo foi danificado?</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>3. Investigue danos</h3>
+            <ul>
+              <li>Algum móvel foi afetado?</li>
+              <li>Houve dano na parede, piso ou instalação?</li>
+              <li>Outros objetos foram danificados?</li>
+              <li>O produto apresenta dano visível?</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>4. Verifique impacto em pessoas</h3>
+            <ul>
+              <li>Alguém teve contato com o produto no momento?</li>
+              <li>Houve lesão, queimadura ou mal-estar?</li>
+              <li>Houve risco de asfixia?</li>
+              <li>Alguém precisou de atendimento externo?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Atenção na condução</p>
+          <p class="calloutText">
+            A sondagem não busca culpado. A sondagem busca entender o ocorrido para garantir registro completo, análise correta e direcionamento seguro.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="seguranca" data-keywords="produto seguro desligado tomada local seguro uso segurança">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 5</span>
+            <h2>Segurança atual do produto e do local</h2>
+            <p class="sectionIntro">
+              Antes de seguir com qualquer registro, é importante entender se ainda existe risco no momento do contato.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Risco atual</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Produto em uso</h3>
+            <p>
+              Confirme se o produto ainda está ligado, em funcionamento ou conectado à tomada.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Produto desligado</h3>
+            <p>
+              Verifique se o produto foi desligado e se o cliente informa que o local está seguro.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Ambiente afetado</h3>
+            <p>
+              Entenda se houve dano ao ambiente, tomada, móvel, parede, piso ou instalação.
+            </p>
+          </div>
+        </div>
+
+        <div class="warningCallout">
+          <p class="calloutTitle">Cuidado com orientação indevida</p>
+          <p class="calloutText">
+            Em um possível Sinistro, não oriente continuidade de uso sem análise. O papel do atendimento é registrar, sondar e direcionar.
+          </p>
+        </div>
+
+        <div class="supportContent">
+          <div class="infoCallout">
+            <p class="calloutTitle">Exemplo de fala segura</p>
+            <p class="calloutText">
+              “Como existe relato de possível risco, vou registrar as informações com cuidado para que o caso seja analisado corretamente.”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="evidencias" data-keywords="evidências fotos vídeos etiqueta número de série nota fiscal dano">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 6</span>
+            <h2>Evidências que ajudam na análise</h2>
+            <p class="sectionIntro">
+              Evidências ajudam a área responsável a entender o ocorrido sem depender apenas de um novo relato do cliente.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Registro visual</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Produto</h3>
+            <ul>
+              <li>foto do produto;</li>
+              <li>foto da etiqueta;</li>
+              <li>número de série;</li>
+              <li>modelo legível;</li>
+              <li>condição geral do produto.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Dano ou ocorrência</h3>
+            <ul>
+              <li>foto do dano visível;</li>
+              <li>foto da tomada ou cabo;</li>
+              <li>foto do local afetado;</li>
+              <li>foto de marcas de queimado;</li>
+              <li>vídeo curto, se for seguro.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Documentos</h3>
+            <ul>
+              <li>nota fiscal;</li>
+              <li>comprovantes relacionados;</li>
+              <li>histórico anterior, se houver;</li>
+              <li>informações de visita técnica anterior.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="successCallout">
+          <p class="calloutTitle">Boa prática</p>
+          <p class="calloutText">
+            Solicite evidências de forma objetiva e apenas quando fizer sentido para o caso. Se houver risco, a segurança vem antes da foto ou vídeo.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="comunicacao" data-keywords="comunicação atendimento sinistro o que dizer evitar prometer minimizar">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 7</span>
+            <h2>O que não dizer em Sinistro</h2>
+            <p class="sectionIntro">
+              Em cenários críticos, a comunicação deve ser cuidadosa. Não minimize o relato e não prometa diagnóstico antes da análise.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Comunicação segura</span>
+        </div>
+
+        <div class="compareBox">
+          <div class="compareCard danger">
+            <h3>Evite dizer</h3>
+            <ul>
+              <li>“Isso é normal.”</li>
+              <li>“Não deve ser nada.”</li>
+              <li>“Pode continuar usando.”</li>
+              <li>“Vamos resolver hoje.”</li>
+              <li>“Já sei o que aconteceu.”</li>
+              <li>“Isso não é grave.”</li>
+              <li>“A garantia cobre com certeza.”</li>
+              <li>“A garantia não cobre com certeza.”</li>
+            </ul>
+          </div>
+
+          <div class="compareCard safe">
+            <h3>Prefira dizer</h3>
+            <ul>
+              <li>“Entendo a gravidade do relato.”</li>
+              <li>“Vou registrar as informações com cuidado.”</li>
+              <li>“Preciso entender exatamente o que aconteceu.”</li>
+              <li>“O caso precisa seguir para análise especializada.”</li>
+              <li>“Vou confirmar alguns dados para direcionar corretamente.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="infoCallout">
+          <p class="calloutTitle">Tom correto</p>
+          <p class="calloutText">
+            Em Sinistro, o atendimento acolhe, coleta, registra e direciona. O atendimento não faz diagnóstico final em linha.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="dados" data-keywords="dados obrigatórios nome telefone email endereço cep produto modelo nota fiscal">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 8</span>
+            <h2>Dados obrigatórios em Sinistro</h2>
+            <p class="sectionIntro">
+              Sinistro exige cadastro completo, porque a continuidade depende de contato, localização, produto, documentação e evidências.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Cadastro completo</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Dados do cliente</h3>
+            <ul>
+              <li>nome completo;</li>
+              <li>telefone válido;</li>
+              <li>e-mail válido;</li>
+              <li>CPF ou CNPJ quando aplicável;</li>
+              <li>melhor horário de contato, se necessário.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Endereço</h3>
+            <ul>
+              <li>CEP;</li>
+              <li>endereço completo;</li>
+              <li>número;</li>
+              <li>complemento;</li>
+              <li>bairro, cidade e estado.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Produto</h3>
+            <ul>
+              <li>categoria do produto;</li>
+              <li>modelo;</li>
+              <li>número de série, se disponível;</li>
+              <li>data da compra;</li>
+              <li>nota fiscal.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Por que isso importa</p>
+          <p class="calloutText">
+            Dados incompletos podem atrasar a análise. O registro precisa permitir que a continuidade aconteça sem obrigar o cliente a repetir o relato várias vezes.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="relato" data-keywords="relato descrição ocorrido sinistro produto risco evidência dano">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 9</span>
+            <h2>Como descrever o ocorrido</h2>
+            <p class="sectionIntro">
+              O registro precisa contar a história do atendimento de forma objetiva, com informações que sustentem a análise.
+            </p>
+          </div>
+
+          <span class="pill pillWarn">Registro claro</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Registro fraco</h3>
+            <p>
+              “Cliente informa problema grave no produto.”
+            </p>
+
+            <div class="dangerCallout">
+              <p class="calloutTitle">Por que é fraco?</p>
+              <p class="calloutText">
+                Não explica o que aconteceu, qual produto está envolvido, se houve risco, se há dano ou se existem evidências.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Registro adequado</h3>
+            <p>
+              “Cliente relata que o produto apresentou cheiro de queimado durante o uso e desligou em seguida. Informa que a tomada apresenta marca escurecida. Produto não está em uso no momento. Foram solicitadas fotos do produto, etiqueta, tomada e nota fiscal. Caso registrado como possível Sinistro para análise especializada.”
+            </p>
+
+            <div class="successCallout">
+              <p class="calloutTitle">Por que é melhor?</p>
+              <p class="calloutText">
+                Traz relato, sintoma, evidência de dano, condição atual do produto e ação tomada.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+            <section class="section searchable" id="registro" data-keywords="registro sinistro telecontrol descrição ocorrência evidência análise especializada">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 10</span>
+            <h2>Estrutura recomendada de registro</h2>
+            <p class="sectionIntro">
+              Um bom registro permite que a continuidade do caso aconteça sem perda de contexto.
+            </p>
+          </div>
+
+          <span class="pill pillBlue">Registro útil</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>1. Relato do cliente</h3>
+            <p>
+              Registre o que o cliente informou, usando descrição objetiva e sem resumir demais.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>2. Produto envolvido</h3>
+            <p>
+              Inclua categoria, modelo, número de série, data de compra e nota fiscal quando disponíveis.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>3. Ocorrência relatada</h3>
+            <p>
+              Informe se houve fumaça, cheiro de queimado, curto, estouro, vazamento, dano ou lesão.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>4. Risco atual</h3>
+            <p>
+              Registre se o produto ainda está em uso, se foi desligado e se o local está seguro.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>5. Evidências</h3>
+            <p>
+              Informe se foram solicitadas ou recebidas fotos, vídeos, etiqueta, nota fiscal ou documentos.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>6. Ação tomada</h3>
+            <p>
+              Registre que o caso foi identificado como possível Sinistro e direcionado para análise especializada.
+            </p>
+          </div>
+        </div>
+
+        <div class="successCallout">
+          <p class="calloutTitle">Modelo mental</p>
+          <p class="calloutText">
+            Um registro de Sinistro precisa responder: o que aconteceu, com qual produto, quais riscos existem, quais danos foram relatados, quais evidências existem e qual foi o direcionamento.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="direcionamento" data-keywords="direcionamento chamado aberto análise especializada engenharia fabricante sinistro">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 11</span>
+            <h2>Direcionamento do chamado</h2>
+            <p class="sectionIntro">
+              Quando a sondagem indicar possível Sinistro, o chamado não deve ser finalizado como caso comum.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Fluxo de continuidade</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Conduta esperada</h3>
+            <ul>
+              <li>registrar o relato completo;</li>
+              <li>capturar dados cadastrais;</li>
+              <li>capturar dados do produto;</li>
+              <li>solicitar evidências quando aplicável;</li>
+              <li>manter o chamado aberto;</li>
+              <li>direcionar para análise especializada;</li>
+              <li>não prometer diagnóstico em linha.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Etapas possíveis na continuidade</h3>
+            <ul>
+              <li>análise do Sinistro;</li>
+              <li>tratativa de atendimento;</li>
+              <li>contato ativo para questionário;</li>
+              <li>comunicação com suporte técnico;</li>
+              <li>análise do produto;</li>
+              <li>análise externa, quando aplicável;</li>
+              <li>report oficial;</li>
+              <li>finalização da tratativa.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Ponto crítico</p>
+          <p class="calloutText">
+            Sinistro é fluxo de continuidade. O primeiro atendimento precisa abrir o caminho certo para análise, não encerrar rapidamente.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="recall" data-keywords="sinistro recall diferença lava e seca lote modelo voltagem campanha risco dano">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 12</span>
+            <h2>Sinistro x Recall</h2>
+            <p class="sectionIntro">
+              Recall e Sinistro são cenários críticos, mas não representam a mesma coisa.
+            </p>
+          </div>
+
+          <span class="pill pillWarn">Diferenciação</span>
+        </div>
+
+        <div class="compareBox">
+          <div class="compareCard safe">
+            <h3>Recall</h3>
+            <p>
+              Está ligado a uma campanha, lote, modelo ou condição previamente identificada. A sondagem busca confirmar se o produto pertence aos critérios definidos.
+            </p>
+
+            <ul>
+              <li>modelo específico;</li>
+              <li>voltagem específica;</li>
+              <li>lote específico;</li>
+              <li>etiqueta do produto;</li>
+              <li>direcionamento para célula responsável pelo recall.</li>
+            </ul>
+          </div>
+
+          <div class="compareCard danger">
+            <h3>Sinistro</h3>
+            <p>
+              Está ligado ao relato de incidente, risco, dano ou potencial prejuízo envolvendo o produto, o cliente, o ambiente ou a instalação.
+            </p>
+
+            <ul>
+              <li>fumaça;</li>
+              <li>cheiro de queimado;</li>
+              <li>curto-circuito;</li>
+              <li>estouro ou explosão;</li>
+              <li>dano material;</li>
+              <li>lesão ou risco à pessoa.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="infoCallout">
+          <p class="calloutTitle">Exemplo de diferenciação</p>
+          <p class="calloutText">
+            Se o cliente informa modelo, voltagem e lote de uma campanha, o cenário pode ser Recall. Se o cliente relata fumaça, queimado, dano ou risco, o cenário pode envolver Sinistro, mesmo que também seja necessário verificar se existe relação com recall.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="classificacao" data-keywords="classificação correta sinistro quando usar quando não usar defeito comum">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 13</span>
+            <h2>Quando usar a classificação Sinistro</h2>
+            <p class="sectionIntro">
+              A classificação deve refletir o cenário identificado na sondagem, não apenas a primeira frase dita pelo cliente.
+            </p>
+          </div>
+
+          <span class="pill pillDanger">Classificação crítica</span>
+        </div>
+
+        <div class="grid grid2">
+          <div class="card">
+            <h3>Use Sinistro quando houver relato de:</h3>
+            <ul>
+              <li>incêndio;</li>
+              <li>curto-circuito;</li>
+              <li>cheiro de queimado;</li>
+              <li>fumaça;</li>
+              <li>faísca;</li>
+              <li>estouro ou explosão;</li>
+              <li>vazamento com risco;</li>
+              <li>liberação de fluido ou refrigerante com risco;</li>
+              <li>lesão;</li>
+              <li>dano material;</li>
+              <li>dano à instalação;</li>
+              <li>risco à segurança.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Não use Sinistro quando:</h3>
+            <ul>
+              <li>o cliente apenas quer manual;</li>
+              <li>o cliente quer saber onde comprar;</li>
+              <li>há defeito sem risco ou dano relatado;</li>
+              <li>o cliente quer status de OS;</li>
+              <li>o cliente quer abrir atendimento em garantia sem relato crítico;</li>
+              <li>o contato foi desconexão;</li>
+              <li>a solicitação é apenas uma dúvida de uso.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="warningCallout">
+          <p class="calloutTitle">Na dúvida, sonde melhor</p>
+          <p class="calloutText">
+            Não classifique como Sinistro apenas pela palavra “problema”. Classifique pelo cenário identificado: risco, dano, incidente ou potencial prejuízo.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="erros" data-keywords="erros comuns sinistro minimizar finalizar registro genérico suporte comum">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Módulo 14</span>
+            <h2>Erros comuns em Sinistro</h2>
+            <p class="sectionIntro">
+              Evitar esses erros protege o cliente, a operação e a qualidade da análise.
+            </p>
+          </div>
+
+          <span class="pill pillWarn">Atenção operacional</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>Tratar como defeito comum</h3>
+            <p>
+              Quando existe relato de risco ou dano, o caso não deve ser tratado apenas como falha de produto.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Minimizar o relato</h3>
+            <p>
+              Evite frases que diminuam a gravidade. O correto é registrar e direcionar para análise.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Finalizar em linha</h3>
+            <p>
+              Sinistro exige continuidade. Não finalize como resolvido sem o direcionamento correto.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Registrar de forma genérica</h3>
+            <p>
+              “Produto com problema” não explica risco, dano, causa aparente, evidência ou ação tomada.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Não pedir evidências</h3>
+            <p>
+              Fotos, vídeos e etiqueta podem ser essenciais para análise, desde que seja seguro solicitar.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Prometer diagnóstico</h3>
+            <p>
+              O atendimento não deve concluir causa, cobertura ou solução antes da análise.
+            </p>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Frase de alerta</p>
+          <p class="calloutText">
+            Em Sinistro, registro genérico não sustenta análise. O caso precisa sair do primeiro contato com contexto suficiente.
+          </p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="pratica" data-keywords="prática modo prática sinistro classificação cenários risco defeito">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Modo prática</span>
+            <h2>Classificação rápida: é Sinistro?</h2>
+            <p class="sectionIntro">
+              Leia o cenário e escolha se o relato indica possível Sinistro, defeito comum ou se precisa de mais sondagem.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Feedback imediato</span>
+        </div>
+
+        <div class="grid">
+          <div class="scenarioBox">
+            <p class="scenarioText">
+              Situação 1: “Meu produto não liga.”
+            </p>
+
+            <div class="scenarioActions">
+              <button class="optionBtn" onclick="answerScenario('scenario1', 'bad')">É Sinistro imediatamente</button>
+              <button class="optionBtn" onclick="answerScenario('scenario1', 'good')">Precisa de mais sondagem</button>
+              <button class="optionBtn" onclick="answerScenario('scenario1', 'bad')">Deve ser finalizado sem registro</button>
+            </div>
+
+            <div class="feedbackBox" id="scenario1"></div>
+          </div>
+
+          <div class="scenarioBox">
+            <p class="scenarioText">
+              Situação 2: “O produto deu cheiro de queimado e saiu fumaça.”
+            </p>
+
+            <div class="scenarioActions">
+              <button class="optionBtn" onclick="answerScenario('scenario2', 'good')">Possível Sinistro</button>
+              <button class="optionBtn" onclick="answerScenario('scenario2', 'bad')">Apenas Informação sobre Produto</button>
+              <button class="optionBtn" onclick="answerScenario('scenario2', 'bad')">Sugestão/Elogios</button>
+            </div>
+
+            <div class="feedbackBox" id="scenario2"></div>
+          </div>
+
+          <div class="scenarioBox">
+            <p class="scenarioText">
+              Situação 3: “Minha lava e seca está fazendo barulho.”
+            </p>
+
+            <div class="scenarioActions">
+              <button class="optionBtn" onclick="answerScenario('scenario3', 'bad')">Sempre é Sinistro</button>
+              <button class="optionBtn" onclick="answerScenario('scenario3', 'good')">Precisa de sondagem para entender risco ou defeito comum</button>
+              <button class="optionBtn" onclick="answerScenario('scenario3', 'bad')">Sempre é Recall</button>
+            </div>
+
+            <div class="feedbackBox" id="scenario3"></div>
+          </div>
+
+          <div class="scenarioBox">
+            <p class="scenarioText">
+              Situação 4: “O produto estourou uma peça e danificou meu móvel.”
+            </p>
+
+            <div class="scenarioActions">
+              <button class="optionBtn" onclick="answerScenario('scenario4', 'good')">Possível Sinistro</button>
+              <button class="optionBtn" onclick="answerScenario('scenario4', 'bad')">Apenas Onde Comprar</button>
+              <button class="optionBtn" onclick="answerScenario('scenario4', 'bad')">Desconexão</button>
+            </div>
+
+            <div class="feedbackBox" id="scenario4"></div>
+          </div>
+
+          <div class="scenarioBox">
+            <p class="scenarioText">
+              Situação 5: “Quero saber onde compro o controle remoto.”
+            </p>
+
+            <div class="scenarioActions">
+              <button class="optionBtn" onclick="answerScenario('scenario5', 'bad')">Sinistro</button>
+              <button class="optionBtn" onclick="answerScenario('scenario5', 'good')">Não é Sinistro, é solicitação de compra de acessório</button>
+              <button class="optionBtn" onclick="answerScenario('scenario5', 'bad')">Risco elétrico</button>
+            </div>
+
+            <div class="feedbackBox" id="scenario5"></div>
+          </div>
+        </div>
+      </section>
+            <section class="section searchable" id="quiz" data-keywords="quiz final sinistro perguntas fumaça risco dados registro direção">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Quiz final</span>
+            <h2>Teste seus conhecimentos sobre Sinistro</h2>
+            <p class="sectionIntro">
+              Responda às perguntas para reforçar os principais pontos: identificação, sondagem, dados obrigatórios, comunicação e direcionamento.
+            </p>
+          </div>
+
+          <span class="pill pillBlue" id="quizScore">Pontuação: 0/0</span>
+        </div>
+
+        <div class="quizCard">
+          <p class="quizQuestion" id="quizQuestion"></p>
+          <div class="quizOptions" id="quizOptions"></div>
+          <div class="feedbackBox" id="quizFeedback"></div>
+
+          <div class="quizActions">
+            <button class="btn btnPrimary" id="nextQuizBtn" onclick="nextQuizQuestion()">
+              Próxima pergunta
+            </button>
+            <button class="btn btnSecondaryDark" onclick="restartQuiz()">
+              Reiniciar quiz
+            </button>
+          </div>
+
+          <div class="quizSummary" id="quizSummary"></div>
+        </div>
+      </section>
+
+      <section class="section searchable" id="resumo" data-keywords="resumo encerramento sinistro revisar identificar sondar registrar direcionar">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Fechamento</span>
+            <h2>Resumo do EAD</h2>
+            <p class="sectionIntro">
+              Sinistro é um cenário crítico. O papel do atendimento é identificar sinais de risco, sondar com objetividade, registrar com precisão e direcionar para análise especializada.
+            </p>
+          </div>
+
+          <span class="pill pillGreen">Consulta rápida</span>
+        </div>
+
+        <div class="grid grid3">
+          <div class="card">
+            <h3>1. Identifique sinais de risco</h3>
+            <p>
+              Fumaça, cheiro de queimado, curto, faísca, estouro, explosão, dano material, lesão ou risco à instalação são sinais de atenção.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>2. Sondar antes de classificar</h3>
+            <p>
+              Entenda o que aconteceu, se existe risco atual, se houve dano e quais evidências podem apoiar a análise.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>3. Capture dados completos</h3>
+            <p>
+              Nome, telefone, e-mail, endereço, produto, modelo, número de série, nota fiscal e evidências quando aplicável.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>4. Não minimize o relato</h3>
+            <p>
+              Evite dizer que é normal, que não é grave ou que o cliente pode continuar usando sem análise.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>5. Registre com clareza</h3>
+            <p>
+              O registro precisa explicar o ocorrido, o produto envolvido, o risco, o dano, as evidências e a ação tomada.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>6. Direcione corretamente</h3>
+            <p>
+              Sinistro não deve ser finalizado como caso comum. O chamado precisa seguir aberto para análise especializada.
+            </p>
+          </div>
+        </div>
+
+        <div class="dangerCallout">
+          <p class="calloutTitle">Frase de fixação</p>
+          <p class="calloutText">
+            Em Sinistro, não conclua rápido. Entenda, registre e direcione corretamente.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        EAD Sinistro | Pós-Vendas Hisense Gorenje
+      </footer>
+
+    </main>
+  </div>
+
+  <style>
+    .btnSecondaryDark {
+      background: #EEF3F8;
+      color: var(--hisense-blue-dark);
+      border: 1px solid var(--border-soft);
+    }
+
+    .quizCard {
+      padding: 26px;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+    }
+
+    .quizQuestion {
+      margin: 0 0 18px;
+      color: var(--text-dark);
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .quizOptions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quizOptionBtn {
+      width: 100%;
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      background: #FFFFFF;
+      padding: 14px 16px;
+      color: var(--text-dark);
+      text-align: left;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .quizOptionBtn:hover {
+      border-color: var(--hisense-cyan);
+      background: rgba(0, 174, 239, 0.06);
+    }
+
+    .quizOptionBtn.correct {
+      border-color: var(--success);
+      background: rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+
+    .quizOptionBtn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #991B1B;
+    }
+
+    .quizActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .quizSummary {
+      display: none;
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0, 94, 184, 0.1), rgba(0, 176, 80, 0.1));
+      border: 1px solid rgba(0, 94, 184, 0.18);
+    }
+
+    .quizSummary.show {
+      display: block;
+    }
+
+    .footer {
+      margin: 36px 0 10px;
+      padding: 22px;
+      color: var(--text-medium);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+  </style>
+
+  <script>
+    const body = document.body;
+    const focusToggle = document.getElementById("focusToggle");
+    const globalSearch = document.getElementById("globalSearch");
+
+    focusToggle.addEventListener("click", function () {
+      body.classList.toggle("focusMode");
+
+      if (body.classList.contains("focusMode")) {
+        focusToggle.textContent = "Desativar modo foco";
+      } else {
+        focusToggle.textContent = "Ativar modo foco";
+      }
+    });
+
+    globalSearch.addEventListener("input", function () {
+      const term = normalizeText(globalSearch.value);
+      const searchableItems = document.querySelectorAll(".searchable");
+
+      if (!term) {
+        searchableItems.forEach(function (item) {
+          item.classList.remove("hiddenBySearch");
+        });
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+        const text = normalizeText(item.innerText || "");
+        const keywords = normalizeText(item.getAttribute("data-keywords") || "");
+
+        if (text.includes(term) || keywords.includes(term)) {
+          item.classList.remove("hiddenBySearch");
+        } else {
+          item.classList.add("hiddenBySearch");
+        }
+      });
+    });
+
+    function normalizeText(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    function setFeedback(id, type, message) {
+      const box = document.getElementById(id);
+      box.className = "feedbackBox show " + type;
+      box.innerHTML = message;
+    }
+
+    function answerScenario(id, result) {
+      const messages = {
+        scenario1: {
+          good: "Correto. “Produto não liga” não é automaticamente Sinistro. É necessário sondar se houve cheiro de queimado, curto, fumaça, dano, risco ou outro sinal crítico.",
+          bad: "Atenção. Esse relato ainda não confirma Sinistro. Primeiro é preciso sondar o cenário."
+        },
+        scenario2: {
+          good: "Correto. Cheiro de queimado e fumaça são sinais fortes de possível Sinistro. Capture dados completos, evidências e direcione para análise.",
+          bad: "Atenção. Fumaça e cheiro de queimado não devem ser tratados como simples informação ou solicitação comum."
+        },
+        scenario3: {
+          good: "Correto. Barulho pode ser defeito comum, suporte técnico ou outro cenário. Só será Sinistro se a sondagem identificar risco, dano ou incidente crítico.",
+          bad: "Atenção. Barulho sozinho não confirma Sinistro nem Recall. É necessário sondar."
+        },
+        scenario4: {
+          good: "Correto. Estouro e dano material indicam possível Sinistro. O caso exige registro completo e análise especializada.",
+          bad: "Atenção. Esse relato envolve dano material e possível incidente. Não deve ser tratado como solicitação simples."
+        },
+        scenario5: {
+          good: "Correto. Comprar controle remoto é solicitação relacionada a acessório ou onde comprar, não Sinistro.",
+          bad: "Atenção. Não há relato de risco, dano ou incidente no caso apresentado."
+        }
+      };
+
+      if (result === "good") {
+        setFeedback(id, "good", messages[id].good);
+      } else {
+        setFeedback(id, "bad", messages[id].bad);
+      }
+    }
+
+    const quizQuestions = [
+      {
+        question: "1. Qual relato indica possível Sinistro?",
+        options: [
+          "Quero saber onde comprar acessório.",
+          "Meu produto soltou fumaça e queimou a tomada.",
+          "Quero o manual do produto.",
+          "Gostaria de elogiar o atendimento."
+        ],
+        correct: 1,
+        feedbackCorrect: "Correto. Fumaça e dano à tomada indicam possível risco ou dano material.",
+        feedbackWrong: "Atenção. O relato que indica possível Sinistro é aquele com fumaça e dano à tomada."
+      },
+      {
+        question: "2. Em caso de possível Sinistro, qual é a melhor conduta?",
+        options: [
+          "Finalizar como informação de produto.",
+          "Minimizar o relato para tranquilizar o cliente.",
+          "Registrar dados completos, coletar informações do ocorrido e direcionar para análise.",
+          "Informar que o produto pode continuar sendo usado normalmente."
+        ],
+        correct: 2,
+        feedbackCorrect: "Correto. Sinistro exige dados completos, sondagem cuidadosa, registro claro e direcionamento.",
+        feedbackWrong: "Atenção. Sinistro não deve ser minimizado nem finalizado como caso comum."
+      },
+      {
+        question: "3. Qual informação é essencial em um possível Sinistro?",
+        options: [
+          "Apenas nome do cliente.",
+          "Apenas cidade.",
+          "Dados completos do cliente, produto, nota fiscal e evidências quando aplicável.",
+          "Nenhuma informação, pois o caso deve ser finalizado em linha."
+        ],
+        correct: 2,
+        feedbackCorrect: "Correto. A análise depende de cadastro completo, produto, documentação e evidências.",
+        feedbackWrong: "Atenção. Sinistro exige informações completas para permitir análise especializada."
+      },
+      {
+        question: "4. Qual frase deve ser evitada em um possível Sinistro?",
+        options: [
+          "Vou registrar as informações com cuidado.",
+          "Preciso entender exatamente o que aconteceu.",
+          "Isso é normal, pode continuar usando.",
+          "O caso precisa seguir para análise."
+        ],
+        correct: 2,
+        feedbackCorrect: "Correto. Não se deve normalizar o risco nem orientar continuidade de uso sem análise.",
+        feedbackWrong: "Atenção. A frase a evitar é aquela que minimiza o relato e orienta continuidade de uso sem análise."
+      },
+      {
+        question: "5. Qual é a diferença principal entre defeito comum e possível Sinistro?",
+        options: [
+          "Defeito comum sempre envolve dano material.",
+          "Sinistro envolve risco, dano, incidente ou potencial prejuízo.",
+          "Defeito comum sempre deve ser escalado para análise externa.",
+          "Sinistro é usado para qualquer dúvida sobre produto."
+        ],
+        correct: 1,
+        feedbackCorrect: "Correto. Sinistro envolve risco, dano, incidente ou potencial prejuízo.",
+        feedbackWrong: "Atenção. O que diferencia Sinistro é o risco, dano, incidente ou potencial prejuízo."
+      },
+      {
+        question: "6. O que um bom registro de Sinistro deve conter?",
+        options: [
+          "Apenas “cliente reclama de produto”.",
+          "Somente o nome do cliente.",
+          "Relato, produto, risco, dano, evidências e ação tomada.",
+          "Apenas a frase “produto com defeito”."
+        ],
+        correct: 2,
+        feedbackCorrect: "Correto. O registro deve permitir continuidade sem perda de contexto.",
+        feedbackWrong: "Atenção. Registro genérico não sustenta análise de Sinistro."
+      }
+    ];
+
+    let quizCurrent = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function loadQuizQuestion() {
+      quizAnswered = false;
+
+      const questionData = quizQuestions[quizCurrent];
+      const questionElement = document.getElementById("quizQuestion");
+      const optionsElement = document.getElementById("quizOptions");
+      const feedbackElement = document.getElementById("quizFeedback");
+      const summaryElement = document.getElementById("quizSummary");
+      const nextButton = document.getElementById("nextQuizBtn");
+
+      questionElement.textContent = questionData.question;
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedbackBox";
+      feedbackElement.innerHTML = "";
+      summaryElement.classList.remove("show");
+      summaryElement.innerHTML = "";
+
+      questionData.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.className = "quizOptionBtn";
+        button.type = "button";
+        button.textContent = option;
+        button.onclick = function () {
+          answerQuizQuestion(index);
+        };
+
+        optionsElement.appendChild(button);
+      });
+
+      if (quizCurrent === quizQuestions.length - 1) {
+        nextButton.textContent = "Ver resultado";
+      } else {
+        nextButton.textContent = "Próxima pergunta";
+      }
+
+      updateQuizScore();
+    }
+
+    function answerQuizQuestion(selectedIndex) {
+      if (quizAnswered) return;
+
+      quizAnswered = true;
+
+      const questionData = quizQuestions[quizCurrent];
+      const feedbackElement = document.getElementById("quizFeedback");
+      const buttons = document.querySelectorAll(".quizOptionBtn");
+
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
+
+        if (index === questionData.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && index !== questionData.correct) {
+          button.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === questionData.correct) {
+        quizScore++;
+        feedbackElement.className = "feedbackBox show good";
+        feedbackElement.innerHTML = questionData.feedbackCorrect;
+      } else {
+        feedbackElement.className = "feedbackBox show bad";
+        feedbackElement.innerHTML = questionData.feedbackWrong;
+      }
+
+      updateQuizScore();
+    }
+
+    function nextQuizQuestion() {
+      if (!quizAnswered) {
+        setFeedback("quizFeedback", "warn", "Escolha uma alternativa antes de avançar.");
+        return;
+      }
+
+      if (quizCurrent < quizQuestions.length - 1) {
+        quizCurrent++;
+        loadQuizQuestion();
+      } else {
+        showQuizSummary();
+      }
+    }
+
+    function updateQuizScore() {
+      document.getElementById("quizScore").textContent =
+        "Pontuação: " + quizScore + "/" + quizQuestions.length;
+    }
+
+    function showQuizSummary() {
+      const questionElement = document.getElementById("quizQuestion");
+      const optionsElement = document.getElementById("quizOptions");
+      const feedbackElement = document.getElementById("quizFeedback");
+      const summaryElement = document.getElementById("quizSummary");
+      const nextButton = document.getElementById("nextQuizBtn");
+
+      questionElement.textContent = "";
+      optionsElement.innerHTML = "";
+      feedbackElement.className = "feedbackBox";
+      feedbackElement.innerHTML = "";
+      nextButton.style.display = "none";
+
+      let message = "";
+
+      if (quizScore === quizQuestions.length) {
+        message = "Excelente. Você demonstrou segurança para identificar e direcionar possíveis casos de Sinistro.";
+      } else if (quizScore >= Math.ceil(quizQuestions.length * 0.7)) {
+        message = "Bom resultado. Revise os pontos de comunicação, dados obrigatórios e diferença entre defeito comum e Sinistro.";
+      } else {
+        message = "Reforce os módulos do EAD antes de aplicar no atendimento. Foque em sinais de alerta, sondagem e registro completo.";
+      }
+
+      summaryElement.innerHTML = `
+        <h3>Resultado do quiz</h3>
+        <p><strong>Você acertou ${quizScore} de ${quizQuestions.length} perguntas.</strong></p>
+        <p>${message}</p>
+      `;
+
+      summaryElement.classList.add("show");
+    }
+
+    function restartQuiz() {
+      quizCurrent = 0;
+      quizScore = 0;
+      quizAnswered = false;
+
+      document.getElementById("nextQuizBtn").style.display = "inline-flex";
+      loadQuizQuestion();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadQuizQuestion();
+    });
+  </script>
+</body>
+</html>
