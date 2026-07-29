@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Treinamentos Interativos</title>
+
+  <title>Portal de Validação | Trilha Hisense e Gorenje</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary: #003B71;
@@ -68,7 +71,7 @@
     }
 
     .header-content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 2;
@@ -83,7 +86,7 @@
 
     .header-content p {
       font-size: 1.1rem;
-      opacity: 0.9;
+      opacity: 0.92;
       font-weight: 300;
     }
 
@@ -93,7 +96,6 @@
       padding: 0 20px;
     }
 
-    /* BARRA DE PESQUISA E FILTROS */
     .controls {
       display: flex;
       flex-direction: column;
@@ -113,8 +115,7 @@
 
     .search-box input {
       width: 100%;
-      padding: 14px 20px;
-      padding-left: 50px;
+      padding: 14px 20px 14px 50px;
       border: 1px solid var(--border);
       border-radius: 12px;
       font-family: inherit;
@@ -161,15 +162,14 @@
 
     .filter-btn:hover {
       background-color: #E2ECF5;
+      transform: translateY(-1px);
     }
 
     .filter-btn.active {
       background-color: var(--primary);
       color: white;
     }
-
-    /* GRID DE PROJETOS */
-    .projects-grid {
+        .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 30px;
@@ -204,19 +204,40 @@
     .card-banner::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" stroke-width="2" fill="none"/></svg>') repeat;
-      opacity: 0.3;
+      top: 0;
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="2" fill="none"/></svg>') repeat;
+      opacity: 0.35;
     }
 
-    .project-card[data-category="hisense"] .card-banner {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+    .project-card[data-category="jornada"] .card-banner {
+      background: linear-gradient(135deg, #003B71, #00A9CE);
     }
-    .project-card[data-category="institucional"] .card-banner {
-      background: linear-gradient(135deg, #4A154B, #611F69);
-    }
-    .project-card[data-category="utilitarios"] .card-banner {
+
+    .project-card[data-category="atendimento"] .card-banner {
       background: linear-gradient(135deg, #111827, #374151);
+    }
+
+    .project-card[data-category="climatizacao"] .card-banner {
+      background: linear-gradient(135deg, #00528F, #00A9CE);
+    }
+
+    .project-card[data-category="tv-projetor"] .card-banner {
+      background: linear-gradient(135deg, #312E81, #6366F1);
+    }
+
+    .project-card[data-category="linha-branca"] .card-banner {
+      background: linear-gradient(135deg, #003B71, #79C000);
+    }
+
+    .project-card[data-category="gorenje"] .card-banner {
+      background: linear-gradient(135deg, #1F2937, #7C3AED);
+    }
+
+    .project-card[data-category="praticas"] .card-banner {
+      background: linear-gradient(135deg, #0F766E, #14B8A6);
     }
 
     .card-category {
@@ -232,6 +253,7 @@
       position: absolute;
       top: 20px;
       right: 20px;
+      z-index: 2;
     }
 
     .card-icon {
@@ -242,10 +264,11 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       position: absolute;
       bottom: -25px;
       left: 24px;
+      z-index: 2;
     }
 
     .card-content {
@@ -329,7 +352,6 @@
       color: var(--primary-light);
     }
 
-    /* INSTRUÇÕES DO GITHUB */
     .info-section {
       background: #EBF3FC;
       border: 1px solid #B4D3F5;
@@ -341,9 +363,6 @@
     .info-section h3 {
       color: var(--primary);
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .info-section ol {
@@ -371,127 +390,528 @@
       font-size: 0.88rem;
     }
 
-    /* Responsividade */
     @media (max-width: 768px) {
-      .header-content h1 { font-size: 2rem; }
-      .controls { padding: 16px; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .header-content h1 {
+        font-size: 2rem;
+      }
+
+      .header-content p {
+        font-size: 1rem;
+      }
+
+      .controls {
+        padding: 16px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-actions {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header>
     <div class="header-content">
-      <h1>Portal de Treinamentos & EADs</h1>
-      <p>Hub central de navegação para os módulos interativos e ferramentas de capacitação da equipe.</p>
+      <h1>Portal de Validação | Trilha Hisense e Gorenje</h1>
+      <p>Acesse os EADs na ordem correta para revisar, testar e validar cada etapa da jornada.</p>
     </div>
   </header>
 
   <div class="container">
 
-    <!-- CONTROLES (PESQUISA E FILTROS) -->
     <div class="controls">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Pesquisar treinamentos, tecnologias ou tags...">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Pesquisar por curso, produto, tema, etapa ou tag..."
+        >
       </div>
+
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="hisense">Hisense</button>
-        <button class="filter-btn" data-filter="institucional">Institucional</button>
-        <button class="filter-btn" data-filter="utilitarios">Utilitários</button>
+        <button class="filter-btn" data-filter="jornada">Jornada</button>
+        <button class="filter-btn" data-filter="atendimento">Atendimento</button>
+        <button class="filter-btn" data-filter="climatizacao">Climatização</button>
+        <button class="filter-btn" data-filter="tv-projetor">TV e Projetor</button>
+        <button class="filter-btn" data-filter="linha-branca">Linha Branca</button>
+        <button class="filter-btn" data-filter="gorenje">Gorenje</button>
+        <button class="filter-btn" data-filter="praticas">Práticas</button>
       </div>
     </div>
 
-    <!-- GRID DE PROJETOS -->
     <div class="projects-grid" id="projectsGrid">
-
-      <!-- CARD 1: Treinamento Hisense que acabamos de ajustar -->
-      <div class="project-card" data-category="hisense">
+            <div class="project-card" data-category="jornada">
         <div class="card-banner">
-          <span class="card-category">Hisense</span>
+          <span class="card-category">01 | Jornada</span>
+          <div class="card-icon">🚀</div>
+        </div>
+        <div class="card-content">
+          <h3>01. Jornadas Hisense e Gorenje</h3>
+          <p>Início da trilha com visão geral da jornada, marcas, contexto de atendimento e direcionamento dos próximos módulos.</p>
+          <div class="card-tags">
+            <span class="tag">Jornada</span>
+            <span class="tag">Hisense</span>
+            <span class="tag">Gorenje</span>
+          </div>
+          <div class="card-actions">
+           <a href="trilha_de_aprendizagem/01_EAD_Jornadas_Hisense_Gorenje.html" class="btn btn-outline">Acessar EAD 🚀</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="atendimento">
+        <div class="card-banner">
+          <span class="card-category">02 | Atendimento</span>
+          <div class="card-icon">🧭</div>
+        </div>
+        <div class="card-content">
+          <h3>02. Fluxo de Atendimento</h3>
+          <p>Etapa para compreender o fluxo de atendimento, direcionamentos, registro e condução adequada das solicitações.</p>
+          <div class="card-tags">
+            <span class="tag">Fluxo</span>
+            <span class="tag">Atendimento</span>
+            <span class="tag">Registro</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/02_Fluxo_de_Atendimento.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="climatizacao">
+        <div class="card-banner">
+          <span class="card-category">03 | Climatização</span>
           <div class="card-icon">❄️</div>
         </div>
         <div class="card-content">
-          <h3>Recursos Ar-Condicionados Hisense</h3>
-          <p>Módulo interativo cobrindo conforto, conectividade, qualidade do ar, eficiência e regras de garantia oficiais.</p>
+          <h3>03. Split e LCAC</h3>
+          <p>Módulo sobre diferenças, aplicações e pontos de atenção em produtos Split e LCAC para apoiar a condução do atendimento.</p>
           <div class="card-tags">
-            <span class="tag">Interativo</span>
-            <span class="tag">EAD</span>
-            <span class="tag">Quizzes</span>
-            <span class="tag">Modo Prática</span>
+            <span class="tag">Split</span>
+            <span class="tag">LCAC</span>
+            <span class="tag">Produto</span>
           </div>
           <div class="card-actions">
-            <!-- COLOQUE O LINK DO SEU SITE DO GITHUB PAGES ABAIXO -->
-            <a href="treinamento-hisense.html" class="btn btn-primary" target="_blank">Acessar EAD 🚀</a>
-            <!-- LINK DO SEU REPOSITÓRIO GITHUB -->
-            <a href="https://github.com/" class="btn btn-outline" target="_blank">Code 💻</a>
+            <a href="trilha_de_aprendizagem/03_EAD_Split_e_LCAC.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
           </div>
         </div>
       </div>
 
-      <!-- CARD 2: Placeholder para o Formação Inicial Offboarding -->
-      <div class="project-card" data-category="institucional">
+      <div class="project-card" data-category="climatizacao">
         <div class="card-banner">
-          <span class="card-category">Institucional</span>
-          <div class="card-icon">👋</div>
+          <span class="card-category">04 | Climatização</span>
+          <div class="card-icon">🌬️</div>
         </div>
         <div class="card-content">
-          <h3>Formação Inicial Offboarding</h3>
-          <p>Treinamento integrado com áudios de escuta (call shadowing) e quiz de fixação para a equipe de atendimento.</p>
+          <h3>04. RAC, Portátil, Janela e Split Hisense</h3>
+          <p>Conteúdo voltado aos modelos RAC, portátil, janela e split, com foco em identificação, funcionamento e orientação segura.</p>
           <div class="card-tags">
+            <span class="tag">RAC</span>
+            <span class="tag">Portátil</span>
+            <span class="tag">Janela</span>
+            <span class="tag">Split</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/04_EAD_RAC_Portatil_Janela_Split_Hisense.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="climatizacao">
+        <div class="card-banner">
+          <span class="card-category">05 | Climatização</span>
+          <div class="card-icon">🏢</div>
+        </div>
+        <div class="card-content">
+          <h3>05. LCAC, Cassete e Piso Teto Hisense</h3>
+          <p>Módulo sobre equipamentos LCAC, cassete e piso teto, reforçando características, aplicações e perguntas de sondagem.</p>
+          <div class="card-tags">
+            <span class="tag">LCAC</span>
+            <span class="tag">Cassete</span>
+            <span class="tag">Piso Teto</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/05_EAD_LCAC_Cassete_Piso_Teto_Hisense.html" class="btn btn-outline">Acessar EAD 🚀</a>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="praticas">
+        <div class="card-banner">
+          <span class="card-category">06 | Práticas</span>
+          <div class="card-icon">🧩</div>
+        </div>
+        <div class="card-content">
+          <h3>06. Portátil e Janela Hisense | Práticas</h3>
+          <p>Atividade prática para reforçar análise de cenários, diferenciação entre modelos e condução correta no atendimento.</p>
+          <div class="card-tags">
+            <span class="tag">Prática</span>
+            <span class="tag">Portátil</span>
+            <span class="tag">Janela</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/06_EAD_Portatil_Janela_Hisense_Praticas.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="atendimento">
+        <div class="card-banner">
+          <span class="card-category">07 | Atendimento</span>
+          <div class="card-icon">📄</div>
+        </div>
+        <div class="card-content">
+          <h3>07. Guia de Termo de Serviço</h3>
+          <p>Conteúdo de apoio sobre termo de serviço, com foco em registro, direcionamento e segurança na orientação.</p>
+          <div class="card-tags">
+            <span class="tag">Termo de Serviço</span>
+            <span class="tag">Registro</span>
+            <span class="tag">Orientação</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/07_Guia_de_termo_de-Servi-o.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tv-projetor">
+        <div class="card-banner">
+          <span class="card-category">08 | TV</span>
+          <div class="card-icon">📺</div>
+        </div>
+        <div class="card-content">
+          <h3>08. TV, Tecnologias e Conectividade Hisense</h3>
+          <p>Módulo sobre televisores Hisense, tecnologias, conectividade, recursos e dúvidas comuns no atendimento.</p>
+          <div class="card-tags">
+            <span class="tag">TV</span>
+            <span class="tag">Conectividade</span>
+            <span class="tag">Tecnologias</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/08_EAD_TV_Tecnologias_Conectividade_Hisense.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tv-projetor">
+        <div class="card-banner">
+          <span class="card-category">09 | Projetor</span>
+          <div class="card-icon">🎥</div>
+        </div>
+        <div class="card-content">
+          <h3>09. Projetor C2 Ultra Hisense</h3>
+          <p>Conteúdo sobre o Projetor C2 Ultra Hisense, com foco em recursos, uso, conectividade e orientação ao cliente.</p>
+          <div class="card-tags">
+            <span class="tag">Projetor</span>
+            <span class="tag">C2 Ultra</span>
+            <span class="tag">Hisense</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/09_EAD_Projetor_C2_Ultra_Hisense.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="linha-branca">
+        <div class="card-banner">
+          <span class="card-category">10 | Linha Branca</span>
+          <div class="card-icon">🧊</div>
+        </div>
+        <div class="card-content">
+          <h3>10. Refrigeradores Hisense Consulta</h3>
+          <p>Consulta sobre refrigeradores Hisense, funcionalidades, conservação, temperatura e principais orientações no atendimento.</p>
+          <div class="card-tags">
+            <span class="tag">Refrigeradores</span>
+            <span class="tag">Consulta</span>
+            <span class="tag">Hisense</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/10_EAD_Refrigeradores_Hisense_Consulta.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="linha-branca">
+        <div class="card-banner">
+          <span class="card-category">11 | Linha Branca</span>
+          <div class="card-icon">🧺</div>
+        </div>
+        <div class="card-content">
+          <h3>11. Missão Lava e Seca Hisense Academy</h3>
+          <p>Atividade de aprendizagem sobre Lava e Seca Hisense, funcionamento, ciclos, cuidados de uso e pontos de atendimento.</p>
+          <div class="card-tags">
+            <span class="tag">Lava e Seca</span>
+            <span class="tag">Academy</span>
+            <span class="tag">Missão</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/11_Missao_Lava_e_Seca_Hisense_Academy.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="linha-branca">
+        <div class="card-banner">
+          <span class="card-category">12 | Linha Branca</span>
+          <div class="card-icon">🍽️</div>
+        </div>
+        <div class="card-content">
+          <h3>12. Lava-Louças Hisense Consulta</h3>
+          <p>Conteúdo consultivo sobre Lava-Louças Hisense, programas, uso correto, abastecimento, sintomas e orientação ao cliente.</p>
+          <div class="card-tags">
+            <span class="tag">Lava-Louças</span>
+            <span class="tag">Consulta</span>
+            <span class="tag">Sintomas</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/12_EAD_Lava_Loucas_Hisense_Consulta.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+            <div class="project-card" data-category="praticas">
+        <div class="card-banner">
+          <span class="card-category">13 | Práticas</span>
+          <div class="card-icon">🧠</div>
+        </div>
+        <div class="card-content">
+          <h3>13. Palavra Cruzada Lava-Louças Instalação</h3>
+          <p>Atividade de fixação sobre instalação de Lava-Louças, reforçando conceitos, atenção aos detalhes e aplicação prática.</p>
+          <div class="card-tags">
+            <span class="tag">Palavra Cruzada</span>
+            <span class="tag">Lava-Louças</span>
+            <span class="tag">Instalação</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/13_EAD_Palavra_Cruzada_Lava_Loucas_Instalacao.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="gorenje">
+        <div class="card-banner">
+          <span class="card-category">14 | Gorenje</span>
+          <div class="card-icon">🧊</div>
+        </div>
+        <div class="card-content">
+          <h3>14. Gorenje | Refrigeradores e Freezers</h3>
+          <p>Módulo sobre refrigeradores e freezers Gorenje, características, funcionalidades, conservação e pontos de atenção.</p>
+          <div class="card-tags">
+            <span class="tag">Gorenje</span>
+            <span class="tag">Refrigeradores</span>
+            <span class="tag">Freezers</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/14_EAD_Gorenje%20_%20Refrigeradores%20e%20Freezers.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="linha-branca">
+        <div class="card-banner">
+          <span class="card-category">15 | Linha Branca</span>
+          <div class="card-icon">🍽️</div>
+        </div>
+        <div class="card-content">
+          <h3>15. Lava-Louça Consulta</h3>
+          <p>Consulta rápida para apoio nas dúvidas sobre Lava-Louça, incluindo uso, operação, sintomas relatados e direcionamento adequado.</p>
+          <div class="card-tags">
+            <span class="tag">Lava-Louça</span>
+            <span class="tag">Consulta</span>
             <span class="tag">Atendimento</span>
-            <span class="tag">Offboarding</span>
-            <span class="tag">Call Shadowing</span>
           </div>
           <div class="card-actions">
-            <a href="#" class="btn btn-primary" style="opacity: 0.6; pointer-events: none;">Em breve ⏳</a>
-            <a href="https://github.com/" class="btn btn-outline" target="_blank">Repo 💻</a>
+            <a href="trilha_de_aprendizagem/15_Lava_louça_consulta.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
           </div>
         </div>
       </div>
 
-      <!-- CARD 3: Placeholder para o Checklist Diário -->
-      <div class="project-card" data-category="utilitarios">
+      <div class="project-card" data-category="linha-branca">
         <div class="card-banner">
-          <span class="card-category">Utilitários</span>
-          <div class="card-icon">✅</div>
+          <span class="card-category">16 | Linha Branca</span>
+          <div class="card-icon">🔥</div>
         </div>
         <div class="card-content">
-          <h3>Checklist de Autoavaliação</h3>
-          <p>Aplicação interativa em HTML/CSS/JS para auxiliar analistas no alinhamento de respostas de qualidade e personalização.</p>
+          <h3>16. Cooktop</h3>
+          <p>Conteúdo sobre cooktop, características do produto, cuidados de uso, dúvidas frequentes e condução segura no atendimento.</p>
           <div class="card-tags">
-            <span class="tag">HTML/JS</span>
-            <span class="tag">Produtividade</span>
-            <span class="tag">Qualidade</span>
+            <span class="tag">Cooktop</span>
+            <span class="tag">Produto</span>
+            <span class="tag">Uso Seguro</span>
           </div>
           <div class="card-actions">
-            <a href="#" class="btn btn-primary" style="opacity: 0.6; pointer-events: none;">Em breve ⏳</a>
-            <a href="https://github.com/" class="btn btn-outline" target="_blank">Repo 💻</a>
+            <a href="trilha_de_aprendizagem/16_EAD_Coocktop.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
           </div>
         </div>
       </div>
 
-      <!-- ADICIONE NOVOS CARDS COPIANDO A ESTRUTURA ACIMA -->
+      <div class="project-card" data-category="gorenje">
+        <div class="card-banner">
+          <span class="card-category">17 | Gorenje</span>
+          <div class="card-icon">♨️</div>
+        </div>
+        <div class="card-content">
+          <h3>17. Gorenje | Fornos, Micro-ondas e Forno Combinado</h3>
+          <p>Módulo sobre fornos, micro-ondas e forno combinado Gorenje, funcionalidades, diferenças entre produtos e orientação ao cliente.</p>
+          <div class="card-tags">
+            <span class="tag">Gorenje</span>
+            <span class="tag">Fornos</span>
+            <span class="tag">Micro-ondas</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/17_EAD_Gorenje_Fornos_Micro_ondas_Forno_Combinado.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
 
-    </div>
+      <div class="project-card" data-category="atendimento">
+        <div class="card-banner">
+          <span class="card-category">18 | Atendimento</span>
+          <div class="card-icon">💬</div>
+        </div>
+        <div class="card-content">
+          <h3>18. Simulador WhatsApp</h3>
+          <p>Simulador para prática de atendimento em formato de conversa, apoiando escrita, sondagem e condução da tratativa.</p>
+          <div class="card-tags">
+            <span class="tag">Simulador</span>
+            <span class="tag">WhatsApp</span>
+            <span class="tag">Prática</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/18_Simulador_whatsapp.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
 
-    <!-- SEÇÃO INFORMATIVA SOBRE COMO HOSPEDAR NO GITHUB PAGES -->
-    <div class="info-section">
-      <h3>💡 Como organizar e subir no GitHub Pages?</h3>
-      <ol>
-        <li>Crie um repositório no GitHub para guardar seus projetos (ex: <code>meus-treinamentos</code>).</li>
-        <li>Suba este arquivo com o nome de <code>index.html</code> na pasta raiz do repositório.</li>
-        <li>Suba os arquivos de cada treinamento na mesma pasta (ex: salve o treinamento Hisense como <code>treinamento-hisense.html</code> no mesmo local).</li>
-        <li>No GitHub, vá em <b>Settings</b> &rarr; <b>Pages</b>, selecione a branch <code>main</code> (ou <code>master</code>) e a pasta <code>/ (root)</code>, e clique em <b>Save</b>.</li>
-        <li>O GitHub gerará um link público (ex: <code>https://seu-usuario.github.io/meus-treinamentos/</code>). Esse link abrirá este Portal, e a partir dele todos os outros links funcionarão perfeitamente!</li>
-      </ol>
+      <div class="project-card" data-category="praticas">
+        <div class="card-banner">
+          <span class="card-category">19 | Práticas</span>
+          <div class="card-icon">🎮</div>
+        </div>
+        <div class="card-content">
+          <h3>19. RPG Classificação 01</h3>
+          <p>Atividade em formato RPG para praticar análise de cenário, identificação de demanda e classificação correta.</p>
+          <div class="card-tags">
+            <span class="tag">RPG</span>
+            <span class="tag">Classificação</span>
+            <span class="tag">Atendimento</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/19_RPG_Classificação_01.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="praticas">
+        <div class="card-banner">
+          <span class="card-category">20 | Práticas</span>
+          <div class="card-icon">🕹️</div>
+        </div>
+        <div class="card-content">
+          <h3>20. RPG Classificação 02</h3>
+          <p>Continuação da prática em RPG, reforçando tomada de decisão, interpretação da solicitação e escolha correta da classificação.</p>
+          <div class="card-tags">
+            <span class="tag">RPG</span>
+            <span class="tag">Classificação</span>
+            <span class="tag">Cenários</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/20_RPG_Classificação_02.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="praticas">
+        <div class="card-banner">
+          <span class="card-category">21 | Práticas</span>
+          <div class="card-icon">🎯</div>
+        </div>
+        <div class="card-content">
+          <h3>21. Missão Classificação</h3>
+          <p>Missão prática para consolidar critérios de classificação, leitura de contexto, registro e direcionamento correto.</p>
+          <div class="card-tags">
+            <span class="tag">Missão</span>
+            <span class="tag">Classificação</span>
+            <span class="tag">Registro</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/21_Missão_Classificação.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="atendimento">
+        <div class="card-banner">
+          <span class="card-category">22 | Atendimento</span>
+          <div class="card-icon">🤝</div>
+        </div>
+        <div class="card-content">
+          <h3>22. Acordos</h3>
+          <p>Conteúdo sobre acordos, alinhamentos e condução de tratativas, com foco em segurança, clareza de registro e orientação responsável.</p>
+          <div class="card-tags">
+            <span class="tag">Acordos</span>
+            <span class="tag">Tratativa</span>
+            <span class="tag">Registro</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/22_EAD_Acordos.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="atendimento">
+        <div class="card-banner">
+          <span class="card-category">23 | Atendimento</span>
+          <div class="card-icon">⚠️</div>
+        </div>
+        <div class="card-content">
+          <h3>23. Sinistro e Recall</h3>
+          <p>Módulo sobre situações de sinistro e recall, reforçando cuidado na condução, atenção aos dados, registro adequado e direcionamento correto.</p>
+          <div class="card-tags">
+            <span class="tag">Sinistro</span>
+            <span class="tag">Recall</span>
+            <span class="tag">Segurança</span>
+          </div>
+          <div class="card-actions">
+            <a href="trilha_de_aprendizagem/23_EAD_Sinistro_Recall.html" class="btn btn-outline">Acessar EAD 🚀</a>
+            
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
   <footer>
-    <p>Portal de Treinamentos Interativos • Desenvolvido com ❤️ e tecnologia para capacitação de equipes.</p>
+    <p>Portal de Validação da Trilha Hisense e Gorenje • Acesso rápido aos EADs em ordem de revisão.</p>
   </footer>
 
   <script>
@@ -500,7 +920,6 @@
       const filterBtns = document.querySelectorAll('.filter-btn');
       const cards = document.querySelectorAll('.project-card');
 
-      // Função unificada para busca e filtros
       function filterProjects() {
         const searchText = searchInput.value.toLowerCase().trim();
         const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
@@ -509,34 +928,32 @@
           const title = card.querySelector('h3').textContent.toLowerCase();
           const desc = card.querySelector('p').textContent.toLowerCase();
           const category = card.dataset.category;
-          const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase());
-          
-          const matchesSearch = title.includes(searchText) || 
-                                desc.includes(searchText) || 
-                                tags.some(tag => tag.includes(searchText));
-                                
-          const matchesFilter = activeFilter === 'all' || category === activeFilter;
+          const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
 
-          if (matchesSearch && matchesFilter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
+          const matchesSearch =
+            title.includes(searchText) ||
+            desc.includes(searchText) ||
+            tags.some(tag => tag.includes(searchText));
+
+          const matchesFilter =
+            activeFilter === 'all' ||
+            category === activeFilter;
+
+          card.style.display = matchesSearch && matchesFilter ? 'flex' : 'none';
         });
       }
 
-      // Evento de Digitação na Pesquisa
       searchInput.addEventListener('input', filterProjects);
 
-      // Evento de Clique nos Botões de Filtro
       filterBtns.forEach(btn => {
         btn.addEventListener('click', function () {
-          filterBtns.forEach(b => b.classList.remove('active'));
+          filterBtns.forEach(button => button.classList.remove('active'));
           this.classList.add('active');
           filterProjects();
         });
       });
     });
   </script>
+
 </body>
 </html>
