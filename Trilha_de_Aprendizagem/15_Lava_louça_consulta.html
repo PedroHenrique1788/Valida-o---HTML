@@ -780,6 +780,11 @@
       text-align: center;
     }
 
+    :focus-visible { outline: 3px solid #FBBF24; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
     @media (max-width: 1080px) {
       #mainWrapper {
         display: block;
@@ -851,7 +856,7 @@
         <label for="globalSearch">Busca rápida</label>
         <input
           type="search"
-          id="globalSearch"
+          id="globalSearch" aria-label="Buscar no conteúdo"
           placeholder="Busque por código, sintoma, modelo ou tema..."
         />
       </div>
@@ -860,29 +865,20 @@
         <p class="navTitle">Conteúdo</p>
 
         <div class="navList">
-          #inicioInício</a>
-          #modelosModelos</a>
-          #funcionamentoComo funciona</a>
-          #instalacaoInstalação</a>
-          #identificacaoIdentificação</a>
-          #limpezaLimpeza e manutenção</a>
-          #codigosCódigos de erro</a>
-          #connectlifeConnectLife</a>
-          #consultaConsulta rápida</a>
-          #praticaModo prática</a>
-          #jogosJogos</a>
+          <a class="navItem" href="#inicio">Início</a>
+          <a class="navItem" href="#modelos">Modelos</a>
+          <a class="navItem" href="#funcionamento">Como funciona</a>
+          <a class="navItem" href="#instalacao">Instalação</a>
+          <a class="navItem" href="#identificacao">Identificação</a>
+          <a class="navItem" href="#limpeza">Limpeza e manutenção</a>
+          <a class="navItem" href="#codigos">Códigos de erro</a>
+          <a class="navItem" href="#connectlife">ConnectLife</a>
+          <a class="navItem" href="#consulta">Consulta rápida</a>
+          <a class="navItem" href="#pratica">Casos para praticar</a>
+          <a class="navItem" href="#jogos">Jogos</a>
         </div>
       </nav>
 
-      <div class="practiceBox">
-        <h3>Modo prática</h3>
-        <p>
-          Oculte a consulta e teste se você consegue reconhecer o cenário do cliente.
-        </p>
-        <button class="practiceToggle" id="practiceToggle">
-          Ativar modo prática
-        </button>
-      </div>
     </aside>
 
     <main class="content">
@@ -898,9 +894,9 @@
           </p>
 
           <div class="heroActions">
-            #consultaConsultar código ou sintoma</a>
-            #codigosVer códigos de erro</a>
-            #connectlifeConnectLife</a>
+            <a class="btn btnPrimary" href="#consulta">Consultar código ou sintoma</a>
+            <a class="btn btnSecondary" href="#codigos">Ver códigos de erro</a>
+            <a class="btn btnSecondary" href="#connectlife">ConnectLife</a>
           </div>
         </div>
       </section>
@@ -1429,7 +1425,7 @@
           </div>
 
           <div class="quickSearchBar">
-            <input type="search" id="codeSearch" placeholder="Digite um código ou tema: F12, F54, CLN, drenagem, Wi-Fi..." />
+            <input type="search" id="codeSearch" aria-label="Buscar código ou tema" placeholder="Digite um código ou tema: F12, F54, CLN, drenagem, Wi-Fi..." />
             <button type="button" onclick="clearCodeSearch()">Limpar</button>
           </div>
 
@@ -1719,7 +1715,7 @@
           </div>
 
           <div class="quickSearchBar">
-            <input type="search" id="quickSearch" placeholder="Exemplo: F12, água parada, vazamento, CLN, Wi-Fi, entrada..." />
+            <input type="search" id="quickSearch" aria-label="Buscar código, sintoma ou área" placeholder="Exemplo: F12, água parada, vazamento, CLN, Wi-Fi, entrada..." />
             <button type="button" onclick="clearQuickSearch()">Limpar</button>
           </div>
 
@@ -2088,7 +2084,7 @@
 
             <p class="questionText" id="questionGame1"></p>
             <div class="options" id="optionsGame1"></div>
-            <div class="feedback" id="feedbackGame1"></div>
+            <div class="feedback" id="feedbackGame1" aria-live="polite"></div>
 
             <button class="nextBtn" id="nextGame1" onclick="nextQuestion('game1')">
               Próxima pergunta
@@ -2110,7 +2106,7 @@
 
             <p class="questionText" id="questionGame2"></p>
             <div class="options" id="optionsGame2"></div>
-            <div class="feedback" id="feedbackGame2"></div>
+            <div class="feedback" id="feedbackGame2" aria-live="polite"></div>
 
             <button class="nextBtn" id="nextGame2" onclick="nextQuestion('game2')">
               Próxima pergunta
@@ -2132,7 +2128,7 @@
 
             <p class="questionText" id="questionGame3"></p>
             <div class="options" id="optionsGame3"></div>
-            <div class="feedback" id="feedbackGame3"></div>
+            <div class="feedback" id="feedbackGame3" aria-live="polite"></div>
 
             <button class="nextBtn" id="nextGame3" onclick="nextQuestion('game3')">
               Próxima pergunta
@@ -2181,6 +2177,23 @@
         </div>
       </section>
 
+
+      <section class="section" id="conclusao" aria-labelledby="tituloConclusao">
+        <div class="sectionHeader">
+          <div>
+            <span class="sectionEyebrow">Conclusão do módulo</span>
+            <h2 id="tituloConclusao">Finalize esta etapa da trilha</h2>
+            <p class="sectionIntro">Depois de consultar o conteúdo e realizar os jogos, registre a conclusão para liberar o próximo módulo.</p>
+          </div>
+          <span class="pill pillGreen">Módulo 15</span>
+        </div>
+        <div class="successCallout">
+          <p class="calloutTitle">Antes de concluir</p>
+          <p class="calloutText">Revise modelo, instalação, drenagem, limpeza, códigos e ConnectLife quando aplicável.</p>
+        </div>
+        <button class="btn btnPrimary" id="btnConcluirModulo" type="button" style="background:var(--hisense-blue);color:#fff;">Concluir módulo e voltar para a trilha</button>
+        <div class="feedback" id="feedbackConclusao" aria-live="polite"></div>
+      </section>
       <footer class="footer">
         EAD Consultivo | Gorenje Lava-Louças | GV66260BR e GV693C60UVBR
       </footer>
@@ -2188,25 +2201,13 @@
     </main>
   </div>
 
+  <script src="../scorm.js"></script>
+  <script src="../progresso.js"></script>
   <script>
-    const body = document.body;
-    const practiceToggle = document.getElementById("practiceToggle");
+    const ID_MODULO_ATUAL = 15;
     const globalSearch = document.getElementById("globalSearch");
     const codeSearch = document.getElementById("codeSearch");
     const quickSearch = document.getElementById("quickSearch");
-
-    practiceToggle.addEventListener("click", function () {
-      body.classList.toggle("practiceMode");
-
-      if (body.classList.contains("practiceMode")) {
-        practiceToggle.textContent = "Desativar modo prática";
-        document.getElementById("pratica").scrollIntoView({ behavior: "smooth" });
-      } else {
-        practiceToggle.textContent = "Ativar modo prática";
-        document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
-      }
-    });
-
     globalSearch.addEventListener("input", function () {
       const term = normalizeText(globalSearch.value);
       const searchableItems = document.querySelectorAll(".searchable");
@@ -2486,6 +2487,15 @@
       }
     };
 
+    Object.keys(games).forEach(function (gameId, gameIndex) {
+      games[gameId].questions.forEach(function (question, questionIndex) {
+        const offset = (gameIndex + questionIndex) % question.options.length;
+        if (!offset) return;
+        const correctText = question.options[question.correct];
+        question.options = question.options.slice(offset).concat(question.options.slice(0, offset));
+        question.correct = question.options.indexOf(correctText);
+      });
+    });
     function loadGame(gameId) {
       const game = games[gameId];
       const questionData = game.questions[game.current];
@@ -2500,6 +2510,7 @@
       optionsElement.innerHTML = "";
       feedbackElement.textContent = "";
       feedbackElement.className = "feedback";
+      feedbackElement.setAttribute("tabindex", "-1");
       nextElement.classList.remove("show");
       summaryElement.classList.remove("show");
       summaryElement.innerHTML = "";
@@ -2508,6 +2519,7 @@
         const button = document.createElement("button");
         button.className = "optionBtn";
         button.type = "button";
+        button.setAttribute("aria-pressed", "false");
         button.textContent = option;
         button.onclick = function () {
           answerQuestion(gameId, index);
@@ -2559,6 +2571,7 @@
       }
 
       nextElement.classList.add("show");
+      feedbackElement.focus();
     }
 
     function nextQuestion(gameId) {
@@ -2622,6 +2635,24 @@
       loadGame(gameId);
     }
 
+    const btnConcluirModulo = document.getElementById("btnConcluirModulo");
+    if (btnConcluirModulo) {
+      btnConcluirModulo.addEventListener("click", function () {
+        const feedback = document.getElementById("feedbackConclusao");
+        btnConcluirModulo.disabled = true;
+        try {
+          if (window.TrilhaProgresso && typeof window.TrilhaProgresso.concluirModuloEVoltar === "function") {
+            window.TrilhaProgresso.concluirModuloEVoltar(ID_MODULO_ATUAL, "../index.html");
+            return;
+          }
+          throw new Error("TrilhaProgresso indisponível");
+        } catch (erro) {
+          feedback.textContent = "Não foi possível registrar a conclusão. Verifique se scorm.js e progresso.js estão na raiz da trilha.";
+          feedback.className = "feedback show bad";
+          btnConcluirModulo.disabled = false;
+        }
+      });
+    }
     document.addEventListener("DOMContentLoaded", function () {
       loadGame("game1");
       loadGame("game2");
