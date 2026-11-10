@@ -1,0 +1,115 @@
+Sugestão de Falas em Call e Scripts WhatsApp
+Marca: Hisense
+
+Todos
+Call
+Tabulação
+WhatsApp
+Utilize os scripts abaixo como apoio durante o atendimento telefônico, adaptando a fala conforme o contexto do cliente e o andamento da ligação.
+
+CALL
+Olá, bom dia/tarde! Meu nome é [Nome]. Seja bem-vindo ao atendimento Hisense. Falo com o(a) Sr.(a) [Nome do Cliente]? Para agilizar seu atendimento, poderia me informar brevemente como posso ajudar?
+
+CALL
+Vou registrar a sua solicitação no sistema para que o setor responsável tome as devidas providências. Eles têm até 72 horas para retornar com uma resposta. Assim que o contato for feito, o senhor(a) será informado(a), ou podemos deixar uma atualização registrada aqui para que você seja atendido(a) em sua próxima ligação.
+
+CALL
+Compreendo perfeitamente a sua frustração, [Nome do Cliente], e peço desculpas por você ter que passar por isso novamente. Quero te garantir que o seu caso não vai ser apenas mais um registro: eu mesma estou colocando uma sinalização de urgência diretamente para o setor responsável agora. Como o processo depende da análise técnica deles, peço a sua confiança para aguardarmos o prazo limite de até 72 horas. Posso contar com a sua compreensão?
+
+CALL
+Entendo sua solicitação. Neste caso, a análise e definição dependem do setor responsável. Vou registrar todas as informações em sistema para que a área realize as devidas validações.
+
+CALL
+Entendi, Sr.(a) [Nome]. Para que eu possa ajudar da melhor forma, vou confirmar apenas algumas informações relacionadas à solicitação.
+
+CALL
+Entendi o contexto informado e todas as informações já estão registradas em sistema. Vou seguir com o direcionamento adequado para evitar que o senhor(a) precise repetir novamente essas informações.
+
+CALL
+Sua solicitação foi registrada com sucesso e agora seguirá para análise do setor responsável. Existe mais alguma dúvida relacionada a este atendimento em que eu possa auxiliar?
+
+CALL
+Não havendo mais dúvidas, agradeço seu contato com a Hisense. Ao final da ligação, o senhor(a) poderá receber uma pesquisa para avaliar o atendimento prestado hoje. Tenha um ótimo dia!
+
+Utilize os modelos abaixo como referência para registrar o atendimento no sistema, mantendo clareza no relato, tratativa e próximos passos.
+
+TABULAÇÃO
+Relato do Cliente:
+
+Cliente informa que possui acordo em andamento e solicita atualização quanto ao prazo para devolução do valor pago.
+
+Tratativa Realizada:
+
+Orientado que o setor responsável possui prazo de até 72 horas para realizar contato e fornecer posicionamento sobre o acordo.
+
+Próximos Passos:
+
+Cliente permanece no aguardo de retorno com posição sobre pagamento.
+
+TABULAÇÃO
+Relato do Cliente:
+
+Cliente entra em contato solicitando atualização sobre o acordo de troca, questionando prazo de entrega do novo produto.
+
+Tratativa Realizada:
+
+Informado que o time responsável retornará em até 72 horas com posicionamento sobre o andamento do acordo.
+
+Próximos Passos:
+
+Aguardando retorno do fabricante com atualização do processo.
+
+TABULAÇÃO
+Relato do Cliente:
+
+Cliente relata que o produto apresentou defeito e solicita suporte.
+
+Tratativa Realizada:
+
+Realizada orientação para abertura de OS. Informado que a visita técnica será agendada em até 5 dias úteis. Encaminhado e-mail para envio da documentação necessária.
+
+Próximos Passos:
+
+Cliente aguardando agendamento da visita técnica e contato da assistência.
+
+TABULAÇÃO
+Relato do Cliente:
+
+Cliente solicita informações sobre o andamento da abertura de ordem de serviço.
+
+Tratativa Realizada:
+
+Verificado que ainda não há OS aberta. Solicitado envio da documentação necessária para continuidade do processo.
+
+Próximos Passos:
+
+Aguardando envio da documentação e retorno da assistência técnica.
+
+Utilize os scripts abaixo para padronizar o atendimento via WhatsApp, mantendo cordialidade, clareza e objetividade.
+
+WHATSAPP
+Opção 1 - Padrão
+Olá! Seja bem-vindo(a) ao atendimento Hisense. Meu nome é [Nome do Atendente] e será um prazer auxiliá-lo(a) hoje. Em que posso ajudar?
+
+WHATSAPP
+Opção 1
+Por gentileza, aguarde um momento enquanto verifico as informações para atendê-lo(a) da melhor forma possível.
+
+Opção 2
+Estou analisando as informações do seu atendimento. Peço, por favor, alguns instantes enquanto realizo as verificações necessárias.
+
+WHATSAPP
+Continuo verificando as informações do seu atendimento. Agradeço sua paciência e retorno assim que concluir a consulta.
+
+WHATSAPP
+Ainda está conosco? Caso não receba seu retorno nos próximos minutos, o atendimento será encerrado automaticamente. Permanecemos à disposição sempre que precisar.
+
+WHATSAPP
+Opção 1 - Padrão
+Como não recebemos novas mensagens, este atendimento será encerrado neste momento. Caso ainda precise de auxílio, basta entrar em contato novamente pelos nossos canais de atendimento. A Hisense agradece seu contato e permanece à disposição. Tenha um excelente dia!
+
+Opção 2 - Mais cordial
+Não identificamos novas interações em nosso atendimento. Para otimizar nosso suporte, este atendimento será encerrado. Se precisar de ajuda futuramente, estaremos à disposição para atendê-lo(a). Obrigado por escolher a Hisense!
+
+WHATSAPP
+Como não houve retorno, este atendimento está sendo encerrado. Agradecemos seu contato com a Hisense e esperamos poder ajudá-lo(a) novamente quando necessário. Tenha um ótimo dia!
