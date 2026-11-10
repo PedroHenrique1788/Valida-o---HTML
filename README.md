@@ -290,25 +290,25 @@ Nao limitar automaticamente a solucao a slides, treinamento presencial ou EAD.
 ======================================================================
 
 Tema:
-Gestão de Pausas e Condução do Atendimento
+Encerramento Seguro e Padronizado no WhatsApp
 
 Necessidade ou problema que precisa ser resolvido:
 [Necessidade Ou Problema]
 
 Objetivo:
-Reforçar a gestão dos períodos de pausa, mantendo o cliente informado durante as análises e garantindo maior fluidez e segurança na comunicação.
+Reforçar a padronização do encerramento, garantindo segurança das informações fornecidas, orientação sobre pesquisa de satisfação e questionamento se o cliente gostaria de anotar o numero de protocolo.
 
 Publico-alvo:
-N1 - hisense
+N1 - HISENSE
 
 Conhecimento previo do publico:
 [Conhecimento Previo]
 
 Formato desejado:
-Ead - pode ser um decision Marking learning, um simulador pratico, ou até uma gamificação, ou so um ead simples
+Scorm
 
 Carga horaria:
-30 min
+30min
 
 Contexto de aplicacao:
 [Contexto De Aplicacao]
@@ -323,13 +323,13 @@ Recursos e ferramentas disponiveis:
 [Recursos Disponiveis]
 
 Insumos:
-Em anexo vou mandar o insumos que tenho
+Em anexo
 
 Limitacoes operacionais:
 [Limitacoes Operacionais]
 
 Orientacoes adicionais:
-Reforço identificado a partir das análises de Qualidade sobre as solicitações de moderação.
+[Orientacoes Adicionais]
 
 Quando alguma informacao nao for fornecida, nao inventar. Registrar a lacuna e indicar seu impacto na recomendacao.
 
