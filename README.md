@@ -290,25 +290,25 @@ Nao limitar automaticamente a solucao a slides, treinamento presencial ou EAD.
 ======================================================================
 
 Tema:
-Encerramento Seguro e Padronizado no WhatsApp
+Registros e Rastreabilidade da Tratativa
 
 Necessidade ou problema que precisa ser resolvido:
 [Necessidade Ou Problema]
 
 Objetivo:
-Reforçar a padronização do encerramento, garantindo segurança das informações fornecidas, orientação sobre pesquisa de satisfação e questionamento se o cliente gostaria de anotar o numero de protocolo.
+Reforçar a qualidade dos registros e a continuidade das informações entre HugMe e Telecontrol, garantindo histórico completo e rastreável da tratativa.
 
 Publico-alvo:
-N1 - HISENSE
+MÍDIAS - hisense
 
 Conhecimento previo do publico:
 [Conhecimento Previo]
 
 Formato desejado:
-Scorm
+EAD - Desision Marking learinig
 
 Carga horaria:
-30min
+30 min
 
 Contexto de aplicacao:
 [Contexto De Aplicacao]
@@ -329,7 +329,7 @@ Limitacoes operacionais:
 [Limitacoes Operacionais]
 
 Orientacoes adicionais:
-[Orientacoes Adicionais]
+O registro deve conter histórico completo da análise, evidências da atuação realizada e direcionamento adotado. Registros incompletos, genéricos ou sem rastreabilidade são considerados incorretos. O fluxo e as orientações detalhadas devem ser consultados no procedimento/POP vigente da operação.
 
 Quando alguma informacao nao for fornecida, nao inventar. Registrar a lacuna e indicar seu impacto na recomendacao.
 
