@@ -290,22 +290,22 @@ Nao limitar automaticamente a solucao a slides, treinamento presencial ou EAD.
 ======================================================================
 
 Tema:
-Registros e Rastreabilidade da Tratativa
+Registros Completos e Continuidade da Tratativa
 
 Necessidade ou problema que precisa ser resolvido:
 [Necessidade Ou Problema]
 
 Objetivo:
-Reforçar a qualidade dos registros e a continuidade das informações entre HugMe e Telecontrol, garantindo histórico completo e rastreável da tratativa.
+Aprimorar a identificação e o registro das interações, garantindo informações suficientes para continuidade da tratativa e maior rastreabilidade do atendimento.
 
 Publico-alvo:
-MÍDIAS - hisense
+REVENDA - N2 - Hisense
 
 Conhecimento previo do publico:
 [Conhecimento Previo]
 
 Formato desejado:
-EAD - Desision Marking learinig
+EAD
 
 Carga horaria:
 30 min
@@ -323,13 +323,13 @@ Recursos e ferramentas disponiveis:
 [Recursos Disponiveis]
 
 Insumos:
-Em anexo
+Insumos
 
 Limitacoes operacionais:
 [Limitacoes Operacionais]
 
 Orientacoes adicionais:
-O registro deve conter histórico completo da análise, evidências da atuação realizada e direcionamento adotado. Registros incompletos, genéricos ou sem rastreabilidade são considerados incorretos. O fluxo e as orientações detalhadas devem ser consultados no procedimento/POP vigente da operação.
+[Orientacoes Adicionais]
 
 Quando alguma informacao nao for fornecida, nao inventar. Registrar a lacuna e indicar seu impacto na recomendacao.
 
