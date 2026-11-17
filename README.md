@@ -290,25 +290,25 @@ Nao limitar automaticamente a solucao a slides, treinamento presencial ou EAD.
 ======================================================================
 
 Tema:
-Registros Completos e Continuidade da Tratativa
+Callback N1
 
 Necessidade ou problema que precisa ser resolvido:
-[Necessidade Ou Problema]
+Descrito no video
 
 Objetivo:
-Aprimorar a identificação e o registro das interações, garantindo informações suficientes para continuidade da tratativa e maior rastreabilidade do atendimento.
+Descrito no video
 
 Publico-alvo:
-REVENDA - N2 - Hisense
+N1 - Hisense
 
 Conhecimento previo do publico:
 [Conhecimento Previo]
 
 Formato desejado:
-EAD
+Presencial/Powerpoint com dinamica em sala
 
 Carga horaria:
-30 min
+1:00
 
 Contexto de aplicacao:
 [Contexto De Aplicacao]
@@ -323,7 +323,7 @@ Recursos e ferramentas disponiveis:
 [Recursos Disponiveis]
 
 Insumos:
-Insumos
+Descrito no video
 
 Limitacoes operacionais:
 [Limitacoes Operacionais]
